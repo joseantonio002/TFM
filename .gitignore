@@ -1,0 +1,11 @@
+.vscode/
+
+.env
+.env.*
+!.env.example
+
+*.class
+*.o
+*.pyc
+*.pyo
+__pycache__/

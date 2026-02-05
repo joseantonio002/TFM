@@ -1,0 +1,34 @@
+{
+  "0": {
+    "name": "24 horas",
+    "type": "TV",
+    "url": "https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8"
+  },
+  "1": {
+    "name": "actualidad 360",
+    "type": "TV",
+    "url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8"
+  },
+  "2": {
+    "name": "9 La loma TV",
+    "type": "TV",
+    "url": "https://9laloma.tv/live.m3u8"
+  },
+
+  
+  "3": {
+    "name": "RNE radio 5 todo noticias (Murcia)",
+    "type": "Radio",
+    "url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high"
+  },
+  "4": {
+    "name": "RNE radio 3",
+    "type": "Radio",
+    "url": "https://rtvelivestream.rtve.es/rne_r3_main.m3u8"
+  },
+  "5": {
+    "name": "Onda Cero (España)",
+    "type": "Radio",
+    "url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8"
+  }
+}
