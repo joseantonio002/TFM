@@ -1,0 +1,62 @@
+ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13 (Ubuntu 13.2.0-23ubuntu3)
+  configuration: --prefix=/usr --extra-version=3ubuntu5 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --disable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+mime type is not rfc8216 compliant
+[hls @ 0x5a2354b60080] Opening 'https://directo.9laloma.tv/live/576.m3u8' for reading
+[https @ 0x5a2354f20cc0] Opening 'https://directo.9laloma.tv/live/1080.m3u8' for reading
+[hls @ 0x5a2354b60080] Opening 'https://directo.9laloma.tv/live/2_55498.ts' for reading
+[hls @ 0x5a2354b60080] Opening 'https://directo.9laloma.tv/live/2_55499.ts' for reading
+[hls @ 0x5a2354b60080] Opening 'https://directo.9laloma.tv/live/1_55498.ts' for reading
+[hls @ 0x5a2354b60080] Opening 'https://directo.9laloma.tv/live/1_55499.ts' for reading
+Input #0, hls, from 'https://9laloma.tv/live.m3u8':
+  Duration: N/A, start: 85933.875344, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 1200000
+  Stream #0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuvj420p(pc, bt709), 1024x576 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn
+    Metadata:
+      variant_bitrate : 1200000
+  Stream #0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 1200000
+  Program 1 
+    Metadata:
+      variant_bitrate : 2200000
+  Stream #0:2: Video: h264 (High) ([27][0][0][0] / 0x001B), yuvj420p(pc, bt709), 1920x1080 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn
+    Metadata:
+      variant_bitrate : 2200000
+  Stream #0:3: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 2200000
+[segment @ 0x5a2356233b80] Opening '2_out_00000.mka' for writing
+Output #0, segment, to '2_out_%05d.mka':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 1200000
+Stream mapping:
+  Stream #0:1 -> #0:0 (copy)
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    size=N/A time=00:00:01.87 bitrate=N/A speed=3.74x    size=N/A time=00:00:03.98 bitrate=N/A speed= 3.8x    size=N/A time=00:00:06.12 bitrate=N/A speed=3.91x    size=N/A time=00:00:08.55 bitrate=N/A speed= 4.1x    size=N/A time=00:00:11.75 bitrate=N/A speed=4.54x    size=N/A time=00:00:15.46 bitrate=N/A speed=4.99x    [https @ 0x5a2354f338c0] Opening 'https://directo.9laloma.tv/live/2_55500.ts' for reading
+[hls @ 0x5a2354b60080] No longer receiving playlist 1 ('https://directo.9laloma.tv/live/1080.m3u8')
+size=N/A time=00:00:16.59 bitrate=N/A speed=4.49x    size=N/A time=00:00:18.11 bitrate=N/A speed=4.28x    size=N/A time=00:00:20.90 bitrate=N/A speed=4.42x    size=N/A time=00:00:25.00 bitrate=N/A speed=4.78x    size=N/A time=00:00:30.44 bitrate=N/A speed=5.31x    size=N/A time=00:00:36.58 bitrate=N/A speed=5.85x    size=N/A time=00:00:39.51 bitrate=N/A speed=5.84x    size=N/A time=00:00:43.43 bitrate=N/A speed=5.97x    [https @ 0x5a2354f20cc0] Opening 'https://directo.9laloma.tv/live/576.m3u8' for reading
+[https @ 0x5a2354f338c0] Opening 'https://directo.9laloma.tv/live/2_55501.ts' for reading
+size=N/A time=00:00:48.02 bitrate=N/A speed=3.54x    size=N/A time=00:00:53.99 bitrate=N/A speed=3.83x    [segment @ 0x5a2356233b80] Opening '2_out_00001.mka' for writing
+size=N/A time=00:01:01.97 bitrate=N/A speed=4.25x    [https @ 0x5a2354f20cc0] Opening 'https://directo.9laloma.tv/live/576.m3u8' for reading
+[https @ 0x5a2354f338c0] Opening 'https://directo.9laloma.tv/live/2_55502.ts' for reading
+size=N/A time=00:01:04.02 bitrate=N/A speed=2.15x    size=N/A time=00:01:05.96 bitrate=N/A speed=2.18x    size=N/A time=00:01:09.86 bitrate=N/A speed=2.27x    size=N/A time=00:01:13.98 bitrate=N/A speed=2.36x    size=N/A time=00:01:19.51 bitrate=N/A speed= 2.5x    [https @ 0x5a2354f20cc0] Opening 'https://directo.9laloma.tv/live/576.m3u8' for reading
+[https @ 0x5a2354f338c0] Opening 'https://directo.9laloma.tv/live/2_55503.ts' for reading
+size=N/A time=00:01:20.02 bitrate=N/A speed=1.75x    size=N/A time=00:01:21.60 bitrate=N/A speed=1.76x    size=N/A time=00:01:24.95 bitrate=N/A speed=1.81x    size=N/A time=00:01:28.83 bitrate=N/A speed=1.87x    size=N/A time=00:01:34.42 bitrate=N/A speed=1.97x    [https @ 0x5a2354f20cc0] Opening 'https://directo.9laloma.tv/live/576.m3u8' for reading
+[https @ 0x5a2354f338c0] Opening 'https://directo.9laloma.tv/live/2_55504.ts' for reading
+size=N/A time=00:01:36.02 bitrate=N/A speed=1.55x    size=N/A time=00:01:37.34 bitrate=N/A speed=1.56x    size=N/A time=00:01:40.54 bitrate=N/A speed=1.59x    size=N/A time=00:01:44.64 bitrate=N/A speed=1.65x    size=N/A time=00:01:49.50 bitrate=N/A speed=1.71x    [https @ 0x5a2354f20cc0] Opening 'https://directo.9laloma.tv/live/576.m3u8' for reading
+[https @ 0x5a2354f338c0] Opening 'https://directo.9laloma.tv/live/2_55505.ts' for reading
+size=N/A time=00:01:52.02 bitrate=N/A speed=1.43x    size=N/A time=00:01:58.18 bitrate=N/A speed= 1.5x    [out#0/segment @ 0x5a2355e77cc0] video:0kB audio:1913kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+size=N/A time=00:01:59.98 bitrate=N/A speed=1.52x    

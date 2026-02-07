@@ -9,6 +9,7 @@ from typing import Any
 
 
 TIME_PATTERN: re.Pattern[str] = re.compile(r"^(\d+):(\d{1,2}):(\d{1,2}(?:\.\d+)?)$")
+EXCEDING_TIME_BUFFER_SECONDS: int = 10
 
 
 @dataclass(frozen=True)
@@ -145,6 +146,7 @@ async def run_ffmpeg_for_source(
   segment_wrap: int | None,
   base_output_dir: Path,
 ) -> tuple[Source, int]:
+  """Run one ffmpeg process for a single source."""
   source_output_dir: Path = base_output_dir / source.name
   source_output_dir.mkdir(parents=True, exist_ok=True)
   log_path: Path = source_output_dir / "logs.txt"
@@ -176,23 +178,33 @@ async def run_ffmpeg_for_source(
   if segment_wrap is not None:
     command.extend(["-segment_wrap", str(segment_wrap)])
 
-  command.extend(["-reset_timestamps", "1", "out_%05d.mka"]) # mka = Matroska audio only
+  command.extend(["-reset_timestamps", "1", f"{source.source_id}_out_%05d.mka"]) # mka = Matroska audio only
 
-  print(command)
-
+  process: asyncio.subprocess.Process | None = None
   with log_path.open("w", encoding="utf-8") as log_file:
-    process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
-      *command,
-      cwd=str(source_output_dir),
-      stdout=asyncio.subprocess.DEVNULL,
-      stderr=log_file,
-    )
-    return_code: int = await process.wait()
+    try:
+      process = await asyncio.create_subprocess_exec(
+        *command,
+        cwd=str(source_output_dir),
+        stdout=asyncio.subprocess.DEVNULL,
+        stderr=log_file,
+      )
+      return_code: int = await process.wait()
+    except asyncio.CancelledError:
+      if process is not None and process.returncode is None:
+        process.terminate()
+        try:
+          await asyncio.wait_for(process.wait(), timeout=10)
+        except asyncio.TimeoutError:
+          process.kill()
+          await process.wait()
+      raise
 
   return source, return_code
 
 
 async def async_main() -> int:
+  """Parse arguments and execute ffmpeg jobs in parallel."""
   args: argparse.Namespace = parse_args()
   script_dir: Path = Path(__file__).resolve().parent
   sources_path: Path = script_dir / "sources.json"
@@ -211,7 +223,7 @@ async def async_main() -> int:
 
   output_root: Path = script_dir
   tasks: list[asyncio.Task[tuple[Source, int]]] = [
-    asyncio.create_task(
+      asyncio.create_task(
       run_ffmpeg_for_source(
         source=source,
         total_duration_seconds=total_duration_seconds,
@@ -223,8 +235,28 @@ async def async_main() -> int:
     for source in selected_sources
   ]
 
-  results: list[tuple[Source, int]] = await asyncio.gather(*tasks)
+  timeout_seconds: int = total_duration_seconds + EXCEDING_TIME_BUFFER_SECONDS
+  try:
+    results: list[tuple[Source, int]] = await asyncio.wait_for(
+      asyncio.gather(*tasks),
+      timeout=timeout_seconds,
+    )
+  except asyncio.TimeoutError:
+    print(
+      f"[ERROR] Timeout reached ({timeout_seconds}s). Stopping unfinished ffmpeg processes.",
+      file=sys.stderr,
+    )
+    for task in tasks:
+      if not task.done():
+        task.cancel()
+    await asyncio.gather(*tasks, return_exceptions=True)
+    return 1
+
   failures: list[tuple[Source, int]] = [result for result in results if result[1] != 0]
+
+  for source, return_code in results:
+    if return_code == 0:
+      print(f"[OK] Source '{source.source_id}' ({source.name}) finished successfully")
 
   if failures:
     for source, return_code in failures:
@@ -234,8 +266,6 @@ async def async_main() -> int:
       )
     return 1
 
-  for source, _ in results:
-    print(f"[OK] Source '{source.source_id}' ({source.name}) finished successfully")
   return 0
 
 if __name__ == "__main__":
