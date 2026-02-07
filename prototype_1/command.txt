@@ -1,0 +1,1 @@
+ffmpeg -nostdin -reconnect 1 -reconnect_streamed 1 -reconnect_on_http_error 4xx5xx -i input -vn -c:a copy -t 00:00:30 -f segment -segment_time 10 -reset_timestamps 1 out_%05d.m4a
