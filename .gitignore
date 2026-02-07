@@ -9,3 +9,6 @@
 *.pyc
 *.pyo
 __pycache__/
+
+*.m4a
+*.mp3

@@ -156,7 +156,7 @@ async def run_ffmpeg_for_source(
     "-reconnect_streamed",
     "1",
     "-reconnect_on_http_error",
-    "4xx,5xx",
+    "\"4xx,5xx\"",
     "-reconnect_delay_max",
     "5",
     "-nostdin",
@@ -176,9 +176,9 @@ async def run_ffmpeg_for_source(
   if segment_wrap is not None:
     command.extend(["-segment_wrap", str(segment_wrap)])
 
-  command.extend(["-reset_timestamps", "1", "out_%05d.m4a"])
+  command.extend(["-reset_timestamps", "1", "out_%05d.mka"]) # mka = Matroska audio only
 
-  #print(command)
+  print(command)
 
   with log_path.open("w", encoding="utf-8") as log_file:
     process: asyncio.subprocess.Process = await asyncio.create_subprocess_exec(
@@ -237,9 +237,6 @@ async def async_main() -> int:
   for source, _ in results:
     print(f"[OK] Source '{source.source_id}' ({source.name}) finished successfully")
   return 0
-
-
-
 
 if __name__ == "__main__":
   try:
