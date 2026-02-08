@@ -1,0 +1,991 @@
+ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13 (Ubuntu 13.2.0-23ubuntu3)
+  configuration: --prefix=/usr --extra-version=3ubuntu5 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --disable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[hls @ 0x6257e06310c0] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148205.aac' for reading
+[hls @ 0x6257e06310c0] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148206.aac' for reading
+Input #0, hls, from 'https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8':
+  Duration: N/A, start: 40991.485889, bitrate: 164 kb/s
+  Program 0 
+    Metadata:
+      variant_bitrate : 166703
+  Stream #0:0: Audio: aac (LC), 48000 Hz, stereo, fltp, 164 kb/s
+    Metadata:
+      variant_bitrate : 166703
+      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x00\xdb\xe5=B
+Stream mapping:
+  Stream #0:0 -> #0:0 (aac (native) -> pcm_s16le (native))
+[segment @ 0x6257e11acd40] Opening '19_out_00000.wav' for writing
+Output #0, segment, to '19_out_%05d.wav':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s
+    Metadata:
+      variant_bitrate : 166703
+      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x00\xdb\xe5=B
+      encoder         : Lavc60.31.102 pcm_s16le
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    [https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148207.aac' for reading
+[https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148208.aac' for reading
+size=N/A time=00:00:30.03 bitrate=N/A speed=3.11x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148209.aac' for reading
+size=N/A time=00:00:40.02 bitrate=N/A speed=2.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148210.aac' for reading
+size=N/A time=00:00:50.06 bitrate=N/A speed=1.68x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148211.aac' for reading
+size=N/A time=00:01:00.05 bitrate=N/A speed=1.51x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148212.aac' for reading
+size=N/A time=00:01:10.03 bitrate=N/A speed= 1.4x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148213.aac' for reading
+size=N/A time=00:01:20.02 bitrate=N/A speed=1.34x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148214.aac' for reading
+size=N/A time=00:01:30.06 bitrate=N/A speed=1.29x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148215.aac' for reading
+size=N/A time=00:01:40.05 bitrate=N/A speed=1.25x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148216.aac' for reading
+size=N/A time=00:01:50.03 bitrate=N/A speed=1.22x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148217.aac' for reading
+size=N/A time=00:02:00.01 bitrate=N/A speed= 1.2x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148218.aac' for reading
+size=N/A time=00:02:10.05 bitrate=N/A speed=1.18x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148219.aac' for reading
+size=N/A time=00:02:20.04 bitrate=N/A speed=1.16x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148220.aac' for reading
+size=N/A time=00:02:30.02 bitrate=N/A speed=1.15x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148221.aac' for reading
+size=N/A time=00:02:40.01 bitrate=N/A speed=1.14x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148222.aac' for reading
+size=N/A time=00:02:50.05 bitrate=N/A speed=1.13x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148223.aac' for reading
+size=N/A time=00:03:00.04 bitrate=N/A speed=1.12x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148224.aac' for reading
+size=N/A time=00:03:10.02 bitrate=N/A speed=1.11x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148225.aac' for reading
+size=N/A time=00:03:20.01 bitrate=N/A speed=1.11x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148226.aac' for reading
+size=N/A time=00:03:30.05 bitrate=N/A speed= 1.1x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148227.aac' for reading
+size=N/A time=00:03:40.04 bitrate=N/A speed= 1.1x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148228.aac' for reading
+size=N/A time=00:03:50.02 bitrate=N/A speed=1.09x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148229.aac' for reading
+size=N/A time=00:04:00.01 bitrate=N/A speed=1.09x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148230.aac' for reading
+size=N/A time=00:04:10.05 bitrate=N/A speed=1.08x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148231.aac' for reading
+size=N/A time=00:04:20.04 bitrate=N/A speed=1.08x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148232.aac' for reading
+size=N/A time=00:04:30.02 bitrate=N/A speed=1.07x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148233.aac' for reading
+size=N/A time=00:04:40.01 bitrate=N/A speed=1.07x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148234.aac' for reading
+size=N/A time=00:04:50.06 bitrate=N/A speed=1.07x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148235.aac' for reading
+size=N/A time=00:05:00.04 bitrate=N/A speed=1.07x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148236.aac' for reading
+size=N/A time=00:05:10.02 bitrate=N/A speed=1.06x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148237.aac' for reading
+size=N/A time=00:05:20.01 bitrate=N/A speed=1.06x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148238.aac' for reading
+size=N/A time=00:05:30.05 bitrate=N/A speed=1.06x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148239.aac' for reading
+size=N/A time=00:05:40.04 bitrate=N/A speed=1.06x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148240.aac' for reading
+size=N/A time=00:05:50.02 bitrate=N/A speed=1.05x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148241.aac' for reading
+size=N/A time=00:06:00.01 bitrate=N/A speed=1.05x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148242.aac' for reading
+size=N/A time=00:06:10.05 bitrate=N/A speed=1.05x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148243.aac' for reading
+size=N/A time=00:06:20.04 bitrate=N/A speed=1.05x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148244.aac' for reading
+size=N/A time=00:06:30.02 bitrate=N/A speed=1.05x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148245.aac' for reading
+size=N/A time=00:06:40.01 bitrate=N/A speed=1.05x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148246.aac' for reading
+size=N/A time=00:06:50.05 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148247.aac' for reading
+size=N/A time=00:07:00.03 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148248.aac' for reading
+size=N/A time=00:07:10.01 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148249.aac' for reading
+size=N/A time=00:07:20.06 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148250.aac' for reading
+size=N/A time=00:07:30.04 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148251.aac' for reading
+size=N/A time=00:07:40.03 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148252.aac' for reading
+size=N/A time=00:07:50.01 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148253.aac' for reading
+size=N/A time=00:08:00.06 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148254.aac' for reading
+size=N/A time=00:08:10.04 bitrate=N/A speed=1.04x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148255.aac' for reading
+size=N/A time=00:08:20.03 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148256.aac' for reading
+size=N/A time=00:08:30.01 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148257.aac' for reading
+size=N/A time=00:08:40.06 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148258.aac' for reading
+size=N/A time=00:08:50.04 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148259.aac' for reading
+size=N/A time=00:09:00.03 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148260.aac' for reading
+size=N/A time=00:09:10.01 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148261.aac' for reading
+size=N/A time=00:09:20.06 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148262.aac' for reading
+size=N/A time=00:09:30.04 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148263.aac' for reading
+size=N/A time=00:09:40.03 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148264.aac' for reading
+size=N/A time=00:09:50.01 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148265.aac' for reading
+size=N/A time=00:10:00.06 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148266.aac' for reading
+size=N/A time=00:10:10.05 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148267.aac' for reading
+size=N/A time=00:10:20.03 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148268.aac' for reading
+size=N/A time=00:10:30.01 bitrate=N/A speed=1.03x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148269.aac' for reading
+size=N/A time=00:10:40.06 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148270.aac' for reading
+size=N/A time=00:10:50.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148271.aac' for reading
+size=N/A time=00:11:00.03 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148272.aac' for reading
+size=N/A time=00:11:10.01 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148273.aac' for reading
+size=N/A time=00:11:20.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148274.aac' for reading
+size=N/A time=00:11:30.04 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148275.aac' for reading
+size=N/A time=00:11:40.02 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148276.aac' for reading
+size=N/A time=00:11:50.07 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148277.aac' for reading
+size=N/A time=00:12:00.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148278.aac' for reading
+size=N/A time=00:12:10.03 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148279.aac' for reading
+size=N/A time=00:12:20.02 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148280.aac' for reading
+size=N/A time=00:12:30.07 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148281.aac' for reading
+size=N/A time=00:12:40.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148282.aac' for reading
+size=N/A time=00:12:50.03 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148283.aac' for reading
+size=N/A time=00:13:00.02 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148284.aac' for reading
+size=N/A time=00:13:10.07 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148285.aac' for reading
+size=N/A time=00:13:20.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148286.aac' for reading
+size=N/A time=00:13:30.04 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148287.aac' for reading
+size=N/A time=00:13:40.02 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148288.aac' for reading
+size=N/A time=00:13:50.07 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148289.aac' for reading
+size=N/A time=00:14:00.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148290.aac' for reading
+size=N/A time=00:14:10.03 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148291.aac' for reading
+size=N/A time=00:14:20.02 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148292.aac' for reading
+size=N/A time=00:14:30.07 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148293.aac' for reading
+size=N/A time=00:14:40.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148294.aac' for reading
+size=N/A time=00:14:50.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148295.aac' for reading
+size=N/A time=00:15:00.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148296.aac' for reading
+size=N/A time=00:15:10.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148297.aac' for reading
+size=N/A time=00:15:20.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148298.aac' for reading
+size=N/A time=00:15:30.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148299.aac' for reading
+size=N/A time=00:15:40.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148300.aac' for reading
+size=N/A time=00:15:50.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148301.aac' for reading
+size=N/A time=00:16:00.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148302.aac' for reading
+size=N/A time=00:16:10.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148303.aac' for reading
+size=N/A time=00:16:20.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148304.aac' for reading
+size=N/A time=00:16:30.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148305.aac' for reading
+size=N/A time=00:16:40.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148306.aac' for reading
+size=N/A time=00:16:50.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148307.aac' for reading
+size=N/A time=00:17:00.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148308.aac' for reading
+size=N/A time=00:17:10.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148309.aac' for reading
+size=N/A time=00:17:20.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148310.aac' for reading
+size=N/A time=00:17:30.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148311.aac' for reading
+size=N/A time=00:17:40.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148312.aac' for reading
+size=N/A time=00:17:50.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148313.aac' for reading
+size=N/A time=00:18:00.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148314.aac' for reading
+size=N/A time=00:18:10.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148315.aac' for reading
+size=N/A time=00:18:20.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148316.aac' for reading
+size=N/A time=00:18:30.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148317.aac' for reading
+size=N/A time=00:18:40.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148318.aac' for reading
+size=N/A time=00:18:50.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148319.aac' for reading
+size=N/A time=00:19:00.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148320.aac' for reading
+size=N/A time=00:19:10.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148321.aac' for reading
+size=N/A time=00:19:20.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x6257e0a11740] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148322.aac' for reading
+[https @ 0x6257e0de6500] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148323.aac' for reading
+[hls @ 0x6257e06310c0] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148323.aac' for reading
+size=N/A time=00:19:30.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148324.aac' for reading
+size=N/A time=00:19:50.06 bitrate=N/A speed=1.02x    [segment @ 0x6257e11acd40] Opening '19_out_00001.wav' for writing
+[https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148325.aac' for reading
+size=N/A time=00:20:00.04 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148326.aac' for reading
+size=N/A time=00:20:10.02 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148327.aac' for reading
+size=N/A time=00:20:20.01 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148328.aac' for reading
+size=N/A time=00:20:30.06 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148329.aac' for reading
+size=N/A time=00:20:40.04 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148330.aac' for reading
+size=N/A time=00:20:50.01 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148331.aac' for reading
+size=N/A time=00:21:00.06 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148332.aac' for reading
+size=N/A time=00:21:10.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148333.aac' for reading
+size=N/A time=00:21:20.03 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148334.aac' for reading
+size=N/A time=00:21:30.01 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148335.aac' for reading
+size=N/A time=00:21:40.06 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148336.aac' for reading
+size=N/A time=00:21:50.05 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148337.aac' for reading
+size=N/A time=00:22:00.03 bitrate=N/A speed=1.02x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148338.aac' for reading
+size=N/A time=00:22:10.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148339.aac' for reading
+size=N/A time=00:22:20.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148340.aac' for reading
+size=N/A time=00:22:30.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148341.aac' for reading
+size=N/A time=00:22:40.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148342.aac' for reading
+size=N/A time=00:22:50.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148343.aac' for reading
+size=N/A time=00:23:00.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148344.aac' for reading
+size=N/A time=00:23:10.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148345.aac' for reading
+size=N/A time=00:23:20.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148346.aac' for reading
+size=N/A time=00:23:30.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148347.aac' for reading
+size=N/A time=00:23:40.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148348.aac' for reading
+size=N/A time=00:23:50.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148349.aac' for reading
+size=N/A time=00:24:00.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148350.aac' for reading
+size=N/A time=00:24:10.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148351.aac' for reading
+size=N/A time=00:24:20.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148352.aac' for reading
+size=N/A time=00:24:30.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148353.aac' for reading
+size=N/A time=00:24:40.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148354.aac' for reading
+size=N/A time=00:24:50.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148355.aac' for reading
+size=N/A time=00:25:00.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148356.aac' for reading
+size=N/A time=00:25:10.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148357.aac' for reading
+size=N/A time=00:25:20.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148358.aac' for reading
+size=N/A time=00:25:30.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148359.aac' for reading
+size=N/A time=00:25:40.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148360.aac' for reading
+size=N/A time=00:25:50.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148361.aac' for reading
+size=N/A time=00:26:00.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148362.aac' for reading
+size=N/A time=00:26:10.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148363.aac' for reading
+size=N/A time=00:26:20.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148364.aac' for reading
+size=N/A time=00:26:30.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148365.aac' for reading
+size=N/A time=00:26:40.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148366.aac' for reading
+size=N/A time=00:26:50.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148367.aac' for reading
+size=N/A time=00:27:00.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148368.aac' for reading
+size=N/A time=00:27:10.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148369.aac' for reading
+size=N/A time=00:27:20.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148370.aac' for reading
+size=N/A time=00:27:30.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148371.aac' for reading
+size=N/A time=00:27:40.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148372.aac' for reading
+size=N/A time=00:27:50.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148373.aac' for reading
+size=N/A time=00:28:00.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148374.aac' for reading
+size=N/A time=00:28:10.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148375.aac' for reading
+size=N/A time=00:28:20.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148376.aac' for reading
+size=N/A time=00:28:30.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148377.aac' for reading
+size=N/A time=00:28:40.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148378.aac' for reading
+size=N/A time=00:28:50.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148379.aac' for reading
+size=N/A time=00:29:00.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148380.aac' for reading
+size=N/A time=00:29:10.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148381.aac' for reading
+size=N/A time=00:29:20.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148382.aac' for reading
+size=N/A time=00:29:30.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148383.aac' for reading
+size=N/A time=00:29:40.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148384.aac' for reading
+size=N/A time=00:29:50.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148385.aac' for reading
+size=N/A time=00:30:00.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148386.aac' for reading
+size=N/A time=00:30:10.07 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148387.aac' for reading
+size=N/A time=00:30:20.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148388.aac' for reading
+size=N/A time=00:30:30.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148389.aac' for reading
+size=N/A time=00:30:40.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148390.aac' for reading
+size=N/A time=00:30:50.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148391.aac' for reading
+size=N/A time=00:31:00.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148392.aac' for reading
+size=N/A time=00:31:10.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148393.aac' for reading
+size=N/A time=00:31:20.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148394.aac' for reading
+size=N/A time=00:31:30.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148395.aac' for reading
+size=N/A time=00:31:40.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148396.aac' for reading
+size=N/A time=00:31:50.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148397.aac' for reading
+size=N/A time=00:32:00.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148398.aac' for reading
+size=N/A time=00:32:10.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148399.aac' for reading
+size=N/A time=00:32:20.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148400.aac' for reading
+size=N/A time=00:32:30.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148401.aac' for reading
+size=N/A time=00:32:40.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148402.aac' for reading
+size=N/A time=00:32:50.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148403.aac' for reading
+size=N/A time=00:33:00.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148404.aac' for reading
+size=N/A time=00:33:10.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148405.aac' for reading
+size=N/A time=00:33:20.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148406.aac' for reading
+size=N/A time=00:33:30.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148407.aac' for reading
+size=N/A time=00:33:40.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148408.aac' for reading
+size=N/A time=00:33:50.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148409.aac' for reading
+size=N/A time=00:34:00.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148410.aac' for reading
+size=N/A time=00:34:10.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148411.aac' for reading
+size=N/A time=00:34:20.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148412.aac' for reading
+size=N/A time=00:34:30.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148413.aac' for reading
+size=N/A time=00:34:40.01 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148414.aac' for reading
+size=N/A time=00:34:50.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148415.aac' for reading
+size=N/A time=00:35:00.04 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148416.aac' for reading
+size=N/A time=00:35:10.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148417.aac' for reading
+size=N/A time=00:35:20.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148418.aac' for reading
+size=N/A time=00:35:30.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148419.aac' for reading
+size=N/A time=00:35:40.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148420.aac' for reading
+size=N/A time=00:35:50.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148421.aac' for reading
+size=N/A time=00:36:00.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148422.aac' for reading
+size=N/A time=00:36:10.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148423.aac' for reading
+size=N/A time=00:36:20.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148424.aac' for reading
+size=N/A time=00:36:30.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148425.aac' for reading
+size=N/A time=00:36:40.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148426.aac' for reading
+size=N/A time=00:36:50.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148427.aac' for reading
+size=N/A time=00:37:00.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148428.aac' for reading
+size=N/A time=00:37:10.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148429.aac' for reading
+size=N/A time=00:37:20.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148430.aac' for reading
+size=N/A time=00:37:30.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148431.aac' for reading
+size=N/A time=00:37:40.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148432.aac' for reading
+size=N/A time=00:37:50.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148433.aac' for reading
+size=N/A time=00:38:00.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148434.aac' for reading
+size=N/A time=00:38:10.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148435.aac' for reading
+size=N/A time=00:38:20.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148436.aac' for reading
+size=N/A time=00:38:30.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148437.aac' for reading
+size=N/A time=00:38:40.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148438.aac' for reading
+size=N/A time=00:38:50.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148439.aac' for reading
+size=N/A time=00:39:00.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148440.aac' for reading
+size=N/A time=00:39:10.02 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148441.aac' for reading
+size=N/A time=00:39:20.06 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148442.aac' for reading
+size=N/A time=00:39:30.05 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148443.aac' for reading
+size=N/A time=00:39:40.03 bitrate=N/A speed=1.01x    [https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148444.aac' for reading
+size=N/A time=00:39:50.01 bitrate=N/A speed=1.01x    [out#0/segment @ 0x6257e119f640] video:0kB audio:450017kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+size=N/A time=00:39:59.99 bitrate=N/A speed=1.01x    
+[https @ 0x6257e09eb080] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/chunklist_w1864575231.m3u8' for reading
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6257e06310c0] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:4')
+[https @ 0x79fb2c03aa00] Opening 'https://crmlive.redctnet.es/liveedge/orm/orm/media_w1864575231_148445.aac' for reading

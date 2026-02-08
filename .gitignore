@@ -13,4 +13,5 @@ __pycache__/
 *.m4a
 *.mp3
 *.mka
+*.wav
 whisper.cpp/

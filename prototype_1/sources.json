@@ -5,24 +5,23 @@
     "url": "https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8"
   },
   "1": {
-    "name": "actualidad 360",
+    "name": "Actualidad 360",
     "type": "TV",
     "url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8"
   },
   "2": {
-    "name": "9 La loma TV",
+    "name": "9 La Loma TV",
     "type": "TV",
     "url": "https://9laloma.tv/live.m3u8"
   },
 
-  
   "3": {
-    "name": "RNE radio 5 todo noticias (Murcia)",
+    "name": "RNE Radio 5 Todo Noticias (Murcia)",
     "type": "Radio",
     "url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high"
   },
   "4": {
-    "name": "RNE radio 3",
+    "name": "RNE Radio 3",
     "type": "Radio",
     "url": "https://rtvelivestream.rtve.es/rne_r3_main.m3u8"
   },
@@ -30,5 +29,75 @@
     "name": "Onda Cero (España)",
     "type": "Radio",
     "url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8"
+  },
+  "6": {
+    "name": "RNE Radio Nacional (General)",
+    "type": "Radio",
+    "url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8"
+  },
+  "7": {
+    "name": "RNE Radio Nacional (Valencia)",
+    "type": "Radio",
+    "url": "https://dispatcher.rndfnk.com/crtve/rne1/val/aac/low"
+  },
+  "8": {
+    "name": "RNE Radio Nacional (La Rioja)",
+    "type": "Radio",
+    "url": "https://dispatcher.rndfnk.com/crtve/rne1/rio/aac/low"
+  },
+  "9": {
+    "name": "RNE Radio Nacional (Baleares)",
+    "type": "Radio",
+    "url": "https://dispatcher.rndfnk.com/crtve/rne1/bal/mp3/high"
+  },
+  "10": {
+    "name": "Radio María España",
+    "type": "Radio",
+    "url": "https://dreamsiteradiocp2.com/proxy/rmspain2?mp=/stream"
+  },
+  "11": {
+    "name": "Los 40",
+    "type": "Radio",
+    "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/LOS40_ASO_ELCHEAAC.aac"
+  },
+  "12": {
+    "name": "Cadena Dial",
+    "type": "Radio",
+    "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/DIAL_ASO_MORONAAC.aac"
+  },
+  "13": {
+    "name": "esRadio",
+    "type": "Radio",
+    "url": "https://server9.emitironline.com:8822/"
+  },
+  "14": {
+    "name": "esRadio (alternate)",
+    "type": "Radio",
+    "url": "https://sonic.mediatelekom.net/8274/stream"
+  },
+  "15": {
+    "name": "Rock FM",
+    "type": "Radio",
+    "url": "https://rockfm-cope.flumotion.com/chunks.m3u8"
+  },
+  "16": {
+    "name": "iCat (Catalunya Ràdio)",
+    "type": "Radio",
+    "url": "https://shoutcast.ccma.cat/ccma/icatHD.mp3"
+  },
+  "17": {
+    "name": "Radio TeleTaxi",
+    "type": "Radio",
+    "url": "https://radiott-web.streaming-pro.com:6103/radiott.mp3"
+  },
+  "18": {
+    "name": "RAC 105",
+    "type": "Radio",
+    "url": "https://playerservices.streamtheworld.com/api/livestream-redirect/RAC105.mp3"
+  },
+  "19": {
+    "name": "Onda Regional de Murcia",
+    "type": "Radio",
+    "url": "https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8"
   }
 }
