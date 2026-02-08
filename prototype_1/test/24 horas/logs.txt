@@ -1,0 +1,188 @@
+ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13 (Ubuntu 13.2.0-23ubuntu3)
+  configuration: --prefix=/usr --extra-version=3ubuntu5 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --disable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:36:59.400Z')
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/1.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:36:59.400Z')
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/2.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:36:59.400Z')
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/3.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:36:59.400Z')
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518828.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518829.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_2_518828.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_2_518829.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_3_518828.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_3_518829.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_4_518828.ts' for reading
+[hls @ 0x60a8677b5080] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_4_518829.ts' for reading
+Input #0, hls, from 'https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8':
+  Duration: N/A, start: 13251.710133, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 7361200
+  Stream #0:0: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p, 1920x1080 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn
+    Metadata:
+      variant_bitrate : 7361200
+  Stream #0:1(und): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 7361200
+  Stream #0:2: Data: scte_35
+    Metadata:
+      variant_bitrate : 7361200
+  Stream #0:3: Data: timed_id3 (ID3  / 0x20334449)
+    Metadata:
+      variant_bitrate : 7361200
+  Program 1 
+    Metadata:
+      variant_bitrate : 4061200
+  Stream #0:4: Video: h264 (High) ([27][0][0][0] / 0x001B), yuv420p, 1280x720 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn
+    Metadata:
+      variant_bitrate : 4061200
+  Stream #0:5(und): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 4061200
+  Stream #0:6: Data: scte_35
+    Metadata:
+      variant_bitrate : 4061200
+  Stream #0:7: Data: timed_id3 (ID3  / 0x20334449)
+    Metadata:
+      variant_bitrate : 4061200
+  Program 2 
+    Metadata:
+      variant_bitrate : 2411200
+  Stream #0:8: Video: h264 (Main) ([27][0][0][0] / 0x001B), yuv420p, 960x540 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn
+    Metadata:
+      variant_bitrate : 2411200
+  Stream #0:9(und): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 2411200
+  Stream #0:10: Data: scte_35
+    Metadata:
+      variant_bitrate : 2411200
+  Stream #0:11: Data: timed_id3 (ID3  / 0x20334449)
+    Metadata:
+      variant_bitrate : 2411200
+  Program 3 
+    Metadata:
+      variant_bitrate : 1311200
+  Stream #0:12: Video: h264 (Main) ([27][0][0][0] / 0x001B), yuv420p, 640x360 [SAR 1:1 DAR 16:9], 25 fps, 25 tbr, 90k tbn
+    Metadata:
+      variant_bitrate : 1311200
+  Stream #0:13(und): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 1311200
+  Stream #0:14: Data: scte_35
+    Metadata:
+      variant_bitrate : 1311200
+  Stream #0:15: Data: timed_id3 (ID3  / 0x20334449)
+    Metadata:
+      variant_bitrate : 1311200
+[segment @ 0x60a86a5d9e80] Opening '0_out_00000.mka' for writing
+Output #0, segment, to '0_out_%05d.mka':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0(und): Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 7361200
+Stream mapping:
+  Stream #0:1 -> #0:0 (copy)
+size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    [https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518830.ts' for reading
+[hls @ 0x60a8677b5080] No longer receiving playlist 1 ('https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/1.m3u8')
+[hls @ 0x60a8677b5080] No longer receiving playlist 2 ('https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/2.m3u8')
+[hls @ 0x60a8677b5080] No longer receiving playlist 3 ('https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/3.m3u8')
+size=N/A time=00:00:07.21 bitrate=N/A speed=12.4x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:06.600Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518831.ts' for reading
+size=N/A time=00:00:21.61 bitrate=N/A speed=3.72x    [segment @ 0x60a86a5d9e80] Opening '0_out_00001.mka' for writing
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:13.800Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518832.ts' for reading
+size=N/A time=00:00:28.82 bitrate=N/A speed= 2.2x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:21.000Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518833.ts' for reading
+size=N/A time=00:00:36.01 bitrate=N/A speed=1.77x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:28.200Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518834.ts' for reading
+size=N/A time=00:00:43.22 bitrate=N/A speed=1.56x    [segment @ 0x60a86a5d9e80] Opening '0_out_00002.mka' for writing
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:35.400Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518835.ts' for reading
+size=N/A time=00:00:50.41 bitrate=N/A speed=1.44x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:42.600Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518836.ts' for reading
+size=N/A time=00:00:57.62 bitrate=N/A speed=1.36x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:49.800Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518837.ts' for reading
+size=N/A time=00:01:04.81 bitrate=N/A speed= 1.3x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:37:57.000Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518838.ts' for reading
+size=N/A time=00:01:12.02 bitrate=N/A speed=1.26x    [segment @ 0x60a86a5d9e80] Opening '0_out_00003.mka' for writing
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:38:04.200Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518839.ts' for reading
+size=N/A time=00:01:19.21 bitrate=N/A speed=1.23x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:38:11.400Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518840.ts' for reading
+size=N/A time=00:01:26.42 bitrate=N/A speed=1.21x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:38:18.600Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518841.ts' for reading
+size=N/A time=00:01:33.61 bitrate=N/A speed=1.19x    [segment @ 0x60a86a5d9e80] Opening '0_out_00004.mka' for writing
+[https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:38:25.800Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518842.ts' for reading
+size=N/A time=00:01:40.82 bitrate=N/A speed=1.17x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:38:33.000Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518843.ts' for reading
+size=N/A time=00:01:48.01 bitrate=N/A speed=1.16x    [https @ 0x60a867b7c880] Opening 'https://d32rw80ytx9uxs.cloudfront.net/v1/manifest/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/bede4662-5ca0-4a6c-90e2-f359ddd92d4c/0.m3u8' for reading
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-VERSION:6')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-DISCONTINUITY-SEQUENCE:0')
+[hls @ 0x60a8677b5080] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-07T20:38:40.200Z')
+[https @ 0x60a867b8e440] Opening 'https://d32rw80ytx9uxs.cloudfront.net/24HES_1_518844.ts' for reading
+size=N/A time=00:01:55.22 bitrate=N/A speed=1.14x    [out#0/segment @ 0x60a86a910940] video:0kB audio:2813kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+size=N/A time=00:01:59.97 bitrate=N/A speed=1.19x    
