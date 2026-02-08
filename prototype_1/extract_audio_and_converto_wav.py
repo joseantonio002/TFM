@@ -147,7 +147,7 @@ async def run_ffmpeg_for_source(
   base_output_dir: Path,
 ) -> tuple[Source, int]:
   """Run one ffmpeg process for a single source."""
-  source_output_dir: Path = base_output_dir / source.name
+  source_output_dir: Path = base_output_dir / f"pipeline_{source.name}"
   source_output_dir.mkdir(parents=True, exist_ok=True)
   log_path: Path = source_output_dir / "logs.txt"
 

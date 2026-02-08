@@ -1,1681 +1,0 @@
-ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
-  built with gcc 13 (Ubuntu 13.2.0-23ubuntu3)
-  configuration: --prefix=/usr --extra-version=3ubuntu5 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --disable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
-  libavutil      58. 29.100 / 58. 29.100
-  libavcodec     60. 31.102 / 60. 31.102
-  libavformat    60. 16.100 / 60. 16.100
-  libavdevice    60.  3.100 / 60.  3.100
-  libavfilter     9. 12.100 /  9. 12.100
-  libswscale      7.  5.100 /  7.  5.100
-  libswresample   4. 12.100 /  4. 12.100
-  libpostproc    57.  3.100 / 57.  3.100
-[hls @ 0x5abbe21150c0] Skip ('# created by Ferncast Aixtream Audio Engine albedo (v3.11.2)')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main-b/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/64/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main-b/64/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/128/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main-b/128/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376391.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376392.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main-b/48/s37376391.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main-b/48/s37376392.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/64/s37376391.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/64/s37376392.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main-b/64/s37376391.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main-b/64/s37376392.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/128/s37376391.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main/128/s37376392.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main-b/128/s37376391.aac' for reading
-[hls @ 0x5abbe21150c0] Opening 'https://rnelivestream.rtve.es/rne1/main-b/128/s37376392.aac' for reading
-Input #0, hls, from 'https://rtvelivestream.rtve.es/rne_r1_main.m3u8':
-  Duration: N/A, start: 78181.312767, bitrate: 479 kb/s
-  Program 0 
-    Metadata:
-      variant_bitrate : 51854
-  Stream #0:0: Audio: aac (HE-AACv2), 48000 Hz, stereo, fltp, 48 kb/s
-    Metadata:
-      variant_bitrate : 51854
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xb9E
-  Program 1 
-    Metadata:
-      variant_bitrate : 51854
-  Stream #0:1: Audio: aac (HE-AACv2), 48000 Hz, stereo, fltp, 47 kb/s
-    Metadata:
-      variant_bitrate : 51854
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xb2\x9a
-  Program 2 
-    Metadata:
-      variant_bitrate : 68621
-  Stream #0:2: Audio: aac (HE-AAC), 48000 Hz, stereo, fltp, 64 kb/s
-    Metadata:
-      variant_bitrate : 68621
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xb1\xc5
-  Program 3 
-    Metadata:
-      variant_bitrate : 68621
-  Stream #0:3: Audio: aac (HE-AAC), 48000 Hz, stereo, fltp, 64 kb/s
-    Metadata:
-      variant_bitrate : 68621
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xb2\x9a
-  Program 4 
-    Metadata:
-      variant_bitrate : 135518
-  Stream #0:4: Audio: aac (LC), 48000 Hz, stereo, fltp, 127 kb/s
-    Metadata:
-      variant_bitrate : 135518
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xc0\xc5
-  Program 5 
-    Metadata:
-      variant_bitrate : 135518
-  Stream #0:5: Audio: aac (LC), 48000 Hz, stereo, fltp, 127 kb/s
-    Metadata:
-      variant_bitrate : 135518
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xc1\x9a
-Stream mapping:
-  Stream #0:0 -> #0:0 (aac (native) -> pcm_s16le (native))
-[segment @ 0x5abbe58d3e40] Opening '6_out_00000.wav' for writing
-Output #0, segment, to '6_out_%05d.wav':
-  Metadata:
-    encoder         : Lavf60.16.100
-  Stream #0:0: Audio: pcm_s16le, 48000 Hz, stereo, s16, 1536 kb/s
-    Metadata:
-      variant_bitrate : 51854
-      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x01\xa3e\xb9E
-      encoder         : Lavc60.31.102 pcm_s16le
-size=       0kB time=00:00:00.00 bitrate=N/A speed=N/A    [hls @ 0x5abbe21150c0] No longer receiving playlist 2 ('https://rnelivestream.rtve.es/rne1/main/64/seglist.m3u8')
-[hls @ 0x5abbe21150c0] No longer receiving playlist 1 ('https://rnelivestream.rtve.es/rne1/main-b/48/seglist.m3u8')
-[hls @ 0x5abbe21150c0] No longer receiving playlist 3 ('https://rnelivestream.rtve.es/rne1/main-b/64/seglist.m3u8')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376393.aac' for reading
-[hls @ 0x5abbe21150c0] No longer receiving playlist 5 ('https://rnelivestream.rtve.es/rne1/main-b/128/seglist.m3u8')
-[hls @ 0x5abbe21150c0] No longer receiving playlist 4 ('https://rnelivestream.rtve.es/rne1/main/128/seglist.m3u8')
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376394.aac' for reading
-size=N/A time=00:00:18.04 bitrate=N/A speed= 5.1x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376395.aac' for reading
-size=N/A time=00:00:24.02 bitrate=N/A speed=2.49x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376396.aac' for reading
-size=N/A time=00:00:30.03 bitrate=N/A speed=1.91x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376397.aac' for reading
-size=N/A time=00:00:36.05 bitrate=N/A speed=1.65x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376398.aac' for reading
-size=N/A time=00:00:42.02 bitrate=N/A speed=1.51x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376399.aac' for reading
-size=N/A time=00:00:48.04 bitrate=N/A speed=1.41x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376400.aac' for reading
-size=N/A time=00:00:54.05 bitrate=N/A speed=1.35x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376401.aac' for reading
-size=N/A time=00:01:00.03 bitrate=N/A speed= 1.3x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376402.aac' for reading
-size=N/A time=00:01:06.04 bitrate=N/A speed=1.26x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376403.aac' for reading
-size=N/A time=00:01:12.02 bitrate=N/A speed=1.23x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376404.aac' for reading
-size=N/A time=00:01:18.03 bitrate=N/A speed=1.21x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376405.aac' for reading
-size=N/A time=00:01:24.05 bitrate=N/A speed=1.19x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376406.aac' for reading
-size=N/A time=00:01:30.02 bitrate=N/A speed=1.18x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376407.aac' for reading
-size=N/A time=00:01:36.04 bitrate=N/A speed=1.16x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376408.aac' for reading
-size=N/A time=00:01:42.05 bitrate=N/A speed=1.15x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376409.aac' for reading
-size=N/A time=00:01:48.03 bitrate=N/A speed=1.14x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376410.aac' for reading
-size=N/A time=00:01:54.04 bitrate=N/A speed=1.13x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376411.aac' for reading
-size=N/A time=00:02:00.02 bitrate=N/A speed=1.12x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376412.aac' for reading
-size=N/A time=00:02:06.03 bitrate=N/A speed=1.11x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376413.aac' for reading
-size=N/A time=00:02:12.05 bitrate=N/A speed=1.11x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376414.aac' for reading
-size=N/A time=00:02:18.02 bitrate=N/A speed= 1.1x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376415.aac' for reading
-size=N/A time=00:02:24.04 bitrate=N/A speed= 1.1x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376416.aac' for reading
-size=N/A time=00:02:30.05 bitrate=N/A speed=1.09x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376417.aac' for reading
-size=N/A time=00:02:36.03 bitrate=N/A speed=1.09x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376418.aac' for reading
-size=N/A time=00:02:42.04 bitrate=N/A speed=1.08x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376419.aac' for reading
-size=N/A time=00:02:48.02 bitrate=N/A speed=1.08x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376420.aac' for reading
-size=N/A time=00:02:54.03 bitrate=N/A speed=1.08x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376421.aac' for reading
-size=N/A time=00:03:00.05 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376422.aac' for reading
-size=N/A time=00:03:06.02 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376423.aac' for reading
-size=N/A time=00:03:12.04 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376424.aac' for reading
-size=N/A time=00:03:18.05 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376425.aac' for reading
-size=N/A time=00:03:24.03 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376426.aac' for reading
-size=N/A time=00:03:30.04 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376427.aac' for reading
-size=N/A time=00:03:36.02 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376428.aac' for reading
-size=N/A time=00:03:42.03 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376429.aac' for reading
-size=N/A time=00:03:48.05 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376430.aac' for reading
-size=N/A time=00:03:54.02 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376431.aac' for reading
-size=N/A time=00:04:00.04 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376432.aac' for reading
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376433.aac' for reading
-size=N/A time=00:04:06.05 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376434.aac' for reading
-size=N/A time=00:04:18.04 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376435.aac' for reading
-size=N/A time=00:04:24.02 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376436.aac' for reading
-size=N/A time=00:04:30.03 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376437.aac' for reading
-size=N/A time=00:04:36.05 bitrate=N/A speed=1.07x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376438.aac' for reading
-size=N/A time=00:04:42.02 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376439.aac' for reading
-size=N/A time=00:04:48.04 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376440.aac' for reading
-size=N/A time=00:04:54.05 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376441.aac' for reading
-size=N/A time=00:05:00.02 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376442.aac' for reading
-size=N/A time=00:05:06.04 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376443.aac' for reading
-size=N/A time=00:05:12.01 bitrate=N/A speed=1.06x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376444.aac' for reading
-size=N/A time=00:05:18.03 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376445.aac' for reading
-size=N/A time=00:05:24.05 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376446.aac' for reading
-size=N/A time=00:05:30.02 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376447.aac' for reading
-size=N/A time=00:05:36.04 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376448.aac' for reading
-size=N/A time=00:05:42.05 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376449.aac' for reading
-size=N/A time=00:05:48.02 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376450.aac' for reading
-size=N/A time=00:05:54.04 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376451.aac' for reading
-size=N/A time=00:06:00.01 bitrate=N/A speed=1.05x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376452.aac' for reading
-size=N/A time=00:06:06.03 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376453.aac' for reading
-size=N/A time=00:06:12.05 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376454.aac' for reading
-size=N/A time=00:06:18.02 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376455.aac' for reading
-size=N/A time=00:06:24.04 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376456.aac' for reading
-size=N/A time=00:06:30.05 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376457.aac' for reading
-size=N/A time=00:06:36.02 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376458.aac' for reading
-size=N/A time=00:06:42.04 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376459.aac' for reading
-size=N/A time=00:06:48.01 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376460.aac' for reading
-size=N/A time=00:06:54.03 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376461.aac' for reading
-size=N/A time=00:07:00.05 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376462.aac' for reading
-size=N/A time=00:07:06.02 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376463.aac' for reading
-size=N/A time=00:07:12.04 bitrate=N/A speed=1.04x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376464.aac' for reading
-size=N/A time=00:07:18.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376465.aac' for reading
-size=N/A time=00:07:24.02 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376466.aac' for reading
-size=N/A time=00:07:30.04 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376467.aac' for reading
-size=N/A time=00:07:36.01 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376468.aac' for reading
-size=N/A time=00:07:42.03 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376469.aac' for reading
-size=N/A time=00:07:48.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376470.aac' for reading
-size=N/A time=00:07:54.02 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376471.aac' for reading
-size=N/A time=00:08:00.04 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376472.aac' for reading
-size=N/A time=00:08:06.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376473.aac' for reading
-size=N/A time=00:08:12.02 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376474.aac' for reading
-size=N/A time=00:08:18.04 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376475.aac' for reading
-size=N/A time=00:08:24.01 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376476.aac' for reading
-size=N/A time=00:08:30.03 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376477.aac' for reading
-size=N/A time=00:08:36.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376478.aac' for reading
-size=N/A time=00:08:42.02 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376479.aac' for reading
-size=N/A time=00:08:48.04 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376480.aac' for reading
-size=N/A time=00:08:54.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376481.aac' for reading
-size=N/A time=00:09:00.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376482.aac' for reading
-size=N/A time=00:09:06.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376483.aac' for reading
-size=N/A time=00:09:12.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376484.aac' for reading
-size=N/A time=00:09:18.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376485.aac' for reading
-size=N/A time=00:09:24.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376486.aac' for reading
-size=N/A time=00:09:30.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376487.aac' for reading
-size=N/A time=00:09:36.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376488.aac' for reading
-size=N/A time=00:09:42.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376489.aac' for reading
-size=N/A time=00:09:48.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376490.aac' for reading
-size=N/A time=00:09:54.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376491.aac' for reading
-size=N/A time=00:10:00.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376492.aac' for reading
-size=N/A time=00:10:06.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376493.aac' for reading
-size=N/A time=00:10:12.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376494.aac' for reading
-size=N/A time=00:10:18.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376495.aac' for reading
-size=N/A time=00:10:24.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376496.aac' for reading
-size=N/A time=00:10:30.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376497.aac' for reading
-size=N/A time=00:10:36.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376498.aac' for reading
-size=N/A time=00:10:42.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376499.aac' for reading
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376500.aac' for reading
-size=N/A time=00:10:48.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376501.aac' for reading
-size=N/A time=00:11:00.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376502.aac' for reading
-size=N/A time=00:11:06.02 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376503.aac' for reading
-size=N/A time=00:11:12.04 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376504.aac' for reading
-size=N/A time=00:11:18.05 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376505.aac' for reading
-size=N/A time=00:11:24.02 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376506.aac' for reading
-size=N/A time=00:11:30.04 bitrate=N/A speed=1.03x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376507.aac' for reading
-size=N/A time=00:11:36.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376508.aac' for reading
-size=N/A time=00:11:42.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376509.aac' for reading
-size=N/A time=00:11:48.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376510.aac' for reading
-size=N/A time=00:11:54.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376511.aac' for reading
-size=N/A time=00:12:00.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376512.aac' for reading
-size=N/A time=00:12:06.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376513.aac' for reading
-size=N/A time=00:12:12.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376514.aac' for reading
-size=N/A time=00:12:18.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376515.aac' for reading
-size=N/A time=00:12:24.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376516.aac' for reading
-size=N/A time=00:12:30.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376517.aac' for reading
-size=N/A time=00:12:36.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376518.aac' for reading
-size=N/A time=00:12:42.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376519.aac' for reading
-size=N/A time=00:12:48.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376520.aac' for reading
-size=N/A time=00:12:54.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376521.aac' for reading
-size=N/A time=00:13:00.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376522.aac' for reading
-size=N/A time=00:13:06.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376523.aac' for reading
-size=N/A time=00:13:12.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376524.aac' for reading
-size=N/A time=00:13:18.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376525.aac' for reading
-size=N/A time=00:13:24.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376526.aac' for reading
-size=N/A time=00:13:30.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376527.aac' for reading
-size=N/A time=00:13:36.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376528.aac' for reading
-size=N/A time=00:13:42.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376529.aac' for reading
-size=N/A time=00:13:48.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376530.aac' for reading
-size=N/A time=00:13:54.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376531.aac' for reading
-size=N/A time=00:14:00.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376532.aac' for reading
-size=N/A time=00:14:06.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376533.aac' for reading
-size=N/A time=00:14:12.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376534.aac' for reading
-size=N/A time=00:14:18.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376535.aac' for reading
-size=N/A time=00:14:24.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376536.aac' for reading
-size=N/A time=00:14:30.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376537.aac' for reading
-size=N/A time=00:14:36.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376538.aac' for reading
-size=N/A time=00:14:42.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376539.aac' for reading
-size=N/A time=00:14:48.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376540.aac' for reading
-size=N/A time=00:14:54.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376541.aac' for reading
-size=N/A time=00:15:00.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376542.aac' for reading
-size=N/A time=00:15:06.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376543.aac' for reading
-size=N/A time=00:15:12.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376544.aac' for reading
-size=N/A time=00:15:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376545.aac' for reading
-size=N/A time=00:15:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376546.aac' for reading
-size=N/A time=00:15:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376547.aac' for reading
-size=N/A time=00:15:36.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376548.aac' for reading
-size=N/A time=00:15:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376549.aac' for reading
-size=N/A time=00:15:48.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376550.aac' for reading
-size=N/A time=00:15:54.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376551.aac' for reading
-size=N/A time=00:16:00.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376552.aac' for reading
-size=N/A time=00:16:06.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376553.aac' for reading
-size=N/A time=00:16:12.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376554.aac' for reading
-size=N/A time=00:16:18.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376555.aac' for reading
-size=N/A time=00:16:24.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376556.aac' for reading
-size=N/A time=00:16:30.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376557.aac' for reading
-size=N/A time=00:16:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376558.aac' for reading
-size=N/A time=00:16:42.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376559.aac' for reading
-size=N/A time=00:16:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376560.aac' for reading
-size=N/A time=00:16:54.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376561.aac' for reading
-size=N/A time=00:17:00.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376562.aac' for reading
-size=N/A time=00:17:06.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376563.aac' for reading
-size=N/A time=00:17:12.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376564.aac' for reading
-size=N/A time=00:17:18.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376565.aac' for reading
-size=N/A time=00:17:24.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376566.aac' for reading
-size=N/A time=00:17:30.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376567.aac' for reading
-size=N/A time=00:17:36.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376568.aac' for reading
-size=N/A time=00:17:42.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376569.aac' for reading
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376570.aac' for reading
-size=N/A time=00:17:48.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376571.aac' for reading
-size=N/A time=00:18:00.01 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376572.aac' for reading
-size=N/A time=00:18:06.03 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376573.aac' for reading
-size=N/A time=00:18:12.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376574.aac' for reading
-size=N/A time=00:18:18.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376575.aac' for reading
-size=N/A time=00:18:24.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376576.aac' for reading
-size=N/A time=00:18:30.05 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376577.aac' for reading
-size=N/A time=00:18:36.02 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376578.aac' for reading
-size=N/A time=00:18:42.04 bitrate=N/A speed=1.02x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376579.aac' for reading
-size=N/A time=00:18:48.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376580.aac' for reading
-size=N/A time=00:18:54.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376581.aac' for reading
-size=N/A time=00:19:00.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376582.aac' for reading
-size=N/A time=00:19:06.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376583.aac' for reading
-size=N/A time=00:19:12.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376584.aac' for reading
-size=N/A time=00:19:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376585.aac' for reading
-size=N/A time=00:19:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376586.aac' for reading
-size=N/A time=00:19:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376587.aac' for reading
-size=N/A time=00:19:36.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376588.aac' for reading
-size=N/A time=00:19:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376589.aac' for reading
-size=N/A time=00:19:48.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376590.aac' for reading
-size=N/A time=00:19:54.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376591.aac' for reading
-size=N/A time=00:20:00.04 bitrate=N/A speed=1.01x    [segment @ 0x5abbe58d3e40] Opening '6_out_00001.wav' for writing
-[https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376592.aac' for reading
-size=N/A time=00:20:06.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376593.aac' for reading
-size=N/A time=00:20:12.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376594.aac' for reading
-size=N/A time=00:20:18.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376595.aac' for reading
-size=N/A time=00:20:24.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376596.aac' for reading
-size=N/A time=00:20:30.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376597.aac' for reading
-size=N/A time=00:20:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376598.aac' for reading
-size=N/A time=00:20:42.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376599.aac' for reading
-size=N/A time=00:20:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376600.aac' for reading
-size=N/A time=00:20:54.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376601.aac' for reading
-size=N/A time=00:21:00.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376602.aac' for reading
-size=N/A time=00:21:06.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376603.aac' for reading
-size=N/A time=00:21:12.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376604.aac' for reading
-size=N/A time=00:21:18.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376605.aac' for reading
-size=N/A time=00:21:24.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376606.aac' for reading
-size=N/A time=00:21:30.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376607.aac' for reading
-size=N/A time=00:21:36.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376608.aac' for reading
-size=N/A time=00:21:42.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376609.aac' for reading
-size=N/A time=00:21:48.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376610.aac' for reading
-size=N/A time=00:21:54.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376611.aac' for reading
-size=N/A time=00:22:00.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376612.aac' for reading
-size=N/A time=00:22:06.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376613.aac' for reading
-size=N/A time=00:22:12.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376614.aac' for reading
-size=N/A time=00:22:18.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376615.aac' for reading
-size=N/A time=00:22:24.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376616.aac' for reading
-size=N/A time=00:22:30.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376617.aac' for reading
-size=N/A time=00:22:36.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376618.aac' for reading
-size=N/A time=00:22:42.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376619.aac' for reading
-size=N/A time=00:22:48.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376620.aac' for reading
-size=N/A time=00:22:54.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376621.aac' for reading
-size=N/A time=00:23:00.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376622.aac' for reading
-size=N/A time=00:23:06.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376623.aac' for reading
-size=N/A time=00:23:12.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376624.aac' for reading
-size=N/A time=00:23:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376625.aac' for reading
-size=N/A time=00:23:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376626.aac' for reading
-size=N/A time=00:23:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376627.aac' for reading
-size=N/A time=00:23:36.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376628.aac' for reading
-size=N/A time=00:23:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376629.aac' for reading
-size=N/A time=00:23:48.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376630.aac' for reading
-size=N/A time=00:23:54.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376631.aac' for reading
-size=N/A time=00:24:00.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376632.aac' for reading
-size=N/A time=00:24:06.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376633.aac' for reading
-size=N/A time=00:24:12.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376634.aac' for reading
-size=N/A time=00:24:18.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376635.aac' for reading
-size=N/A time=00:24:24.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376636.aac' for reading
-size=N/A time=00:24:30.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376637.aac' for reading
-size=N/A time=00:24:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376638.aac' for reading
-size=N/A time=00:24:42.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376639.aac' for reading
-size=N/A time=00:24:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376640.aac' for reading
-size=N/A time=00:24:54.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376641.aac' for reading
-size=N/A time=00:25:00.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376642.aac' for reading
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376643.aac' for reading
-size=N/A time=00:25:06.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376644.aac' for reading
-size=N/A time=00:25:18.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376645.aac' for reading
-size=N/A time=00:25:24.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376646.aac' for reading
-size=N/A time=00:25:30.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376647.aac' for reading
-size=N/A time=00:25:36.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376648.aac' for reading
-size=N/A time=00:25:42.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376649.aac' for reading
-size=N/A time=00:25:48.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376650.aac' for reading
-size=N/A time=00:25:54.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376651.aac' for reading
-size=N/A time=00:26:00.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376652.aac' for reading
-size=N/A time=00:26:06.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376653.aac' for reading
-size=N/A time=00:26:12.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376654.aac' for reading
-size=N/A time=00:26:18.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376655.aac' for reading
-size=N/A time=00:26:24.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376656.aac' for reading
-size=N/A time=00:26:30.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376657.aac' for reading
-size=N/A time=00:26:36.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376658.aac' for reading
-size=N/A time=00:26:42.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376659.aac' for reading
-size=N/A time=00:26:48.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376660.aac' for reading
-size=N/A time=00:26:54.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376661.aac' for reading
-size=N/A time=00:27:00.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376662.aac' for reading
-size=N/A time=00:27:06.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376663.aac' for reading
-size=N/A time=00:27:12.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376664.aac' for reading
-size=N/A time=00:27:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376665.aac' for reading
-size=N/A time=00:27:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376666.aac' for reading
-size=N/A time=00:27:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376667.aac' for reading
-size=N/A time=00:27:36.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376668.aac' for reading
-size=N/A time=00:27:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376669.aac' for reading
-size=N/A time=00:27:48.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376670.aac' for reading
-size=N/A time=00:27:54.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376671.aac' for reading
-size=N/A time=00:28:00.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376672.aac' for reading
-size=N/A time=00:28:06.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376673.aac' for reading
-size=N/A time=00:28:12.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376674.aac' for reading
-size=N/A time=00:28:18.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376675.aac' for reading
-size=N/A time=00:28:24.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376676.aac' for reading
-size=N/A time=00:28:30.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376677.aac' for reading
-size=N/A time=00:28:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376678.aac' for reading
-size=N/A time=00:28:42.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376679.aac' for reading
-size=N/A time=00:28:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376680.aac' for reading
-size=N/A time=00:28:54.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376681.aac' for reading
-size=N/A time=00:29:00.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376682.aac' for reading
-size=N/A time=00:29:06.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376683.aac' for reading
-size=N/A time=00:29:12.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376684.aac' for reading
-size=N/A time=00:29:18.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376685.aac' for reading
-size=N/A time=00:29:24.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376686.aac' for reading
-size=N/A time=00:29:30.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376687.aac' for reading
-size=N/A time=00:29:36.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376688.aac' for reading
-size=N/A time=00:29:42.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376689.aac' for reading
-size=N/A time=00:29:48.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376690.aac' for reading
-size=N/A time=00:29:54.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376691.aac' for reading
-size=N/A time=00:30:00.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376692.aac' for reading
-size=N/A time=00:30:06.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376693.aac' for reading
-size=N/A time=00:30:12.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376694.aac' for reading
-size=N/A time=00:30:18.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376695.aac' for reading
-size=N/A time=00:30:24.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376696.aac' for reading
-size=N/A time=00:30:30.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376697.aac' for reading
-size=N/A time=00:30:36.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376698.aac' for reading
-size=N/A time=00:30:42.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376699.aac' for reading
-size=N/A time=00:30:48.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376700.aac' for reading
-size=N/A time=00:30:54.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376701.aac' for reading
-size=N/A time=00:31:00.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376702.aac' for reading
-size=N/A time=00:31:06.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376703.aac' for reading
-size=N/A time=00:31:12.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376704.aac' for reading
-size=N/A time=00:31:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376705.aac' for reading
-size=N/A time=00:31:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376706.aac' for reading
-size=N/A time=00:31:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376707.aac' for reading
-size=N/A time=00:31:36.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376708.aac' for reading
-size=N/A time=00:31:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376709.aac' for reading
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376710.aac' for reading
-size=N/A time=00:31:48.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376711.aac' for reading
-size=N/A time=00:32:00.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376712.aac' for reading
-size=N/A time=00:32:06.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376713.aac' for reading
-size=N/A time=00:32:12.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376714.aac' for reading
-size=N/A time=00:32:18.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376715.aac' for reading
-size=N/A time=00:32:24.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376716.aac' for reading
-size=N/A time=00:32:30.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376717.aac' for reading
-size=N/A time=00:32:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376718.aac' for reading
-size=N/A time=00:32:42.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376719.aac' for reading
-size=N/A time=00:32:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376720.aac' for reading
-size=N/A time=00:32:54.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376721.aac' for reading
-size=N/A time=00:33:00.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376722.aac' for reading
-size=N/A time=00:33:06.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376723.aac' for reading
-size=N/A time=00:33:12.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376724.aac' for reading
-size=N/A time=00:33:18.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376725.aac' for reading
-size=N/A time=00:33:24.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376726.aac' for reading
-size=N/A time=00:33:30.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376727.aac' for reading
-size=N/A time=00:33:36.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376728.aac' for reading
-size=N/A time=00:33:42.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376729.aac' for reading
-size=N/A time=00:33:48.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376730.aac' for reading
-size=N/A time=00:33:54.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376731.aac' for reading
-size=N/A time=00:34:00.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376732.aac' for reading
-size=N/A time=00:34:06.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376733.aac' for reading
-size=N/A time=00:34:12.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376734.aac' for reading
-size=N/A time=00:34:18.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376735.aac' for reading
-size=N/A time=00:34:24.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376736.aac' for reading
-size=N/A time=00:34:30.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376737.aac' for reading
-size=N/A time=00:34:36.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376738.aac' for reading
-size=N/A time=00:34:42.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376739.aac' for reading
-size=N/A time=00:34:48.01 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376740.aac' for reading
-size=N/A time=00:34:54.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376741.aac' for reading
-size=N/A time=00:35:00.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376742.aac' for reading
-size=N/A time=00:35:06.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376743.aac' for reading
-size=N/A time=00:35:12.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376744.aac' for reading
-size=N/A time=00:35:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376745.aac' for reading
-size=N/A time=00:35:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376746.aac' for reading
-size=N/A time=00:35:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376747.aac' for reading
-size=N/A time=00:35:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376748.aac' for reading
-size=N/A time=00:35:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376749.aac' for reading
-size=N/A time=00:35:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376750.aac' for reading
-size=N/A time=00:35:54.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376751.aac' for reading
-size=N/A time=00:36:00.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376752.aac' for reading
-size=N/A time=00:36:06.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376753.aac' for reading
-size=N/A time=00:36:12.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376754.aac' for reading
-size=N/A time=00:36:18.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376755.aac' for reading
-size=N/A time=00:36:24.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376756.aac' for reading
-size=N/A time=00:36:30.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376757.aac' for reading
-size=N/A time=00:36:36.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376758.aac' for reading
-size=N/A time=00:36:42.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376759.aac' for reading
-size=N/A time=00:36:48.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376760.aac' for reading
-size=N/A time=00:36:54.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376761.aac' for reading
-size=N/A time=00:37:00.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376762.aac' for reading
-size=N/A time=00:37:06.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376763.aac' for reading
-size=N/A time=00:37:12.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376764.aac' for reading
-size=N/A time=00:37:18.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376765.aac' for reading
-size=N/A time=00:37:24.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376766.aac' for reading
-size=N/A time=00:37:30.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376767.aac' for reading
-size=N/A time=00:37:36.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376768.aac' for reading
-size=N/A time=00:37:42.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376769.aac' for reading
-size=N/A time=00:37:48.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376770.aac' for reading
-size=N/A time=00:37:54.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376771.aac' for reading
-size=N/A time=00:38:00.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376772.aac' for reading
-size=N/A time=00:38:06.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe28d3f00] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376773.aac' for reading
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376774.aac' for reading
-size=N/A time=00:38:12.04 bitrate=N/A speed=   1x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376775.aac' for reading
-size=N/A time=00:38:24.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376776.aac' for reading
-size=N/A time=00:38:30.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376777.aac' for reading
-size=N/A time=00:38:36.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376778.aac' for reading
-size=N/A time=00:38:42.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376779.aac' for reading
-size=N/A time=00:38:48.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376780.aac' for reading
-size=N/A time=00:38:54.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376781.aac' for reading
-size=N/A time=00:39:00.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376782.aac' for reading
-size=N/A time=00:39:06.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376783.aac' for reading
-size=N/A time=00:39:12.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376784.aac' for reading
-size=N/A time=00:39:18.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376785.aac' for reading
-size=N/A time=00:39:24.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376786.aac' for reading
-size=N/A time=00:39:30.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376787.aac' for reading
-size=N/A time=00:39:36.05 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376788.aac' for reading
-size=N/A time=00:39:42.03 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376789.aac' for reading
-size=N/A time=00:39:48.04 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376790.aac' for reading
-size=N/A time=00:39:54.02 bitrate=N/A speed=1.01x    [https @ 0x5abbe24ebf80] Opening 'https://rnelivestream.rtve.es/rne1/main/48/seglist.m3u8' for reading
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-VERSION:3')
-[hls @ 0x5abbe21150c0] Skip ('#EXT-X-INDEPENDENT-SEGMENTS')
-[https @ 0x5abbe24f4f40] Opening 'https://rnelivestream.rtve.es/rne1/main/48/s37376791.aac' for reading
-size=N/A time=00:39:59.99 bitrate=N/A speed=1.01x    [out#0/segment @ 0x5abbe2c9e000] video:0kB audio:449985kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
-size=N/A time=00:39:59.99 bitrate=N/A speed=1.01x    
