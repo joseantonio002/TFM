@@ -1,3 +1,0 @@
-file './5_out_00000.mka'
-file './5_out_00001.mka'
-file './5_out_00002.mka'

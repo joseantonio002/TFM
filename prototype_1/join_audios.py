@@ -29,7 +29,6 @@ def join_directory_audios(directory: Path) -> None:
       "0",
       "-i",
       "files.txt",
-      "output.wav",
       f"{directory_name}_final.wav",
     ],
     cwd=directory,

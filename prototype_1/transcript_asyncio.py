@@ -2,7 +2,6 @@ import asyncio
 import time
 from pathlib import Path
 
-
 def get_input_files(base_dir: Path) -> list[Path]:
   """Return final WAV files from pipeline directories."""
   return sorted(base_dir.glob("pipeline_*/*_final.wav"), key=lambda path: path.name)
