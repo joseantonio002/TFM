@@ -29,7 +29,7 @@ for _ in range(2):
   execute()
 
 # measured runs
-for _ in range(3):
+for _ in range(6):
   start = time.perf_counter()
   execute()
   end = time.perf_counter()

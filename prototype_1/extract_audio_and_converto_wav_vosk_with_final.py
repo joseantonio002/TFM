@@ -153,34 +153,41 @@ async def run_ffmpeg_for_source(
 
   command: list[str] = [
     "ffmpeg",
-    "-reconnect",
-    "1",
-    "-reconnect_streamed",
-    "1",
-    "-reconnect_on_http_error",
-    "\"4xx,5xx\"",
-    "-reconnect_delay_max",
-    "5",
     "-nostdin",
-    "-i",
-    source.url,
+    "-reconnect", "1",
+    "-reconnect_streamed", "1",
+    "-reconnect_on_http_error", "4xx,5xx",
+    "-reconnect_delay_max", "5",
+    "-t", str(total_duration_seconds),
+    "-i", source.url,
     "-vn",
-    "-t",
-    str(total_duration_seconds),
-    "-c:a",
-    "pcm_s16le",
-    "-f",
-    "segment",
-    "-segment_format",
-    "wav",
-    "-segment_time",
-    str(segment_time_seconds),
+
+    # Segmented output (Vosk-friendly PCM WAV)
+    "-map", "0:a:0",
+    "-ar", "16000",
+    "-ac", "1",
+    "-c:a", "pcm_s16le",
+    "-f", "segment",
+    "-segment_time", str(segment_time_seconds),
+    "-segment_format", "wav",
+    "-reset_timestamps", "1",
+    "-segment_start_number", "0",
   ]
 
   if segment_wrap is not None:
     command.extend(["-segment_wrap", str(segment_wrap)])
 
-  command.extend(["-reset_timestamps", "1", f"{source.source_id}_out_%05d.wav"]) # wav = 16-bit PCM (pcm_s16le)
+  command.extend(
+    [
+      f"{source.source_id}_out_%05d.wav",
+      # Full output (same bounded duration)
+      "-map", "0:a:0",
+      "-ar", "16000",
+      "-ac", "1",
+      "-c:a", "pcm_s16le",
+      f"{source.source_id}_full.wav",
+    ]
+  )
 
   process: asyncio.subprocess.Process | None = None
   with log_path.open("w", encoding="utf-8") as log_file:

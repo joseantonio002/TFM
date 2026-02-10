@@ -39,7 +39,7 @@ for _ in range(2):
   execute(model)
 
 # measured runs
-for _ in range(30):
+for _ in range(6):
   start = time.perf_counter()
   execute(model)
   end = time.perf_counter()
