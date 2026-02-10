@@ -6,7 +6,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
-
+from datetime import datetime
 
 TIME_PATTERN: re.Pattern[str] = re.compile(r"^(\d+):(\d{1,2}):(\d{1,2}(?:\.\d+)?)$")
 EXCEDING_TIME_BUFFER_SECONDS: int = 10
@@ -279,6 +279,10 @@ async def async_main() -> int:
 
 if __name__ == "__main__":
   try:
+    s_datetime: datetime = datetime.now()
+    script_dir: Path = Path(__file__).resolve().parent
+    start_datetime_path: Path = script_dir / "execution_starting_date.txt"
+    start_datetime_path.write_text(s_datetime.strftime("%d/%m/%Y:%H:%M:%S"), encoding="utf-8")
     exit_code: int = asyncio.run(async_main())
   except ValueError as error:
     print(f"Argument error: {error}", file=sys.stderr)
