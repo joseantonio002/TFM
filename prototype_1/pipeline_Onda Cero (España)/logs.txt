@@ -1,0 +1,87 @@
+ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
+  built with gcc 13 (Ubuntu 13.2.0-23ubuntu3)
+  configuration: --prefix=/usr --extra-version=3ubuntu5 --toolchain=hardened --libdir=/usr/lib/x86_64-linux-gnu --incdir=/usr/include/x86_64-linux-gnu --arch=amd64 --enable-gpl --disable-stripping --disable-omx --enable-gnutls --enable-libaom --enable-libass --enable-libbs2b --enable-libcaca --enable-libcdio --enable-libcodec2 --enable-libdav1d --enable-libflite --enable-libfontconfig --enable-libfreetype --enable-libfribidi --enable-libglslang --enable-libgme --enable-libgsm --enable-libharfbuzz --enable-libmp3lame --enable-libmysofa --enable-libopenjpeg --enable-libopenmpt --enable-libopus --enable-librubberband --enable-libshine --enable-libsnappy --enable-libsoxr --enable-libspeex --enable-libtheora --enable-libtwolame --enable-libvidstab --enable-libvorbis --enable-libvpx --enable-libwebp --enable-libx265 --enable-libxml2 --enable-libxvid --enable-libzimg --enable-openal --enable-opencl --enable-opengl --disable-sndio --enable-libvpl --disable-libmfx --enable-libdc1394 --enable-libdrm --enable-libiec61883 --enable-chromaprint --enable-frei0r --enable-ladspa --enable-libbluray --enable-libjack --enable-libpulse --enable-librabbitmq --enable-librist --enable-libsrt --enable-libssh --enable-libsvtav1 --enable-libx264 --enable-libzmq --enable-libzvbi --enable-lv2 --enable-sdl2 --enable-libplacebo --enable-librav1e --enable-pocketsphinx --enable-librsvg --enable-libjxl --enable-shared
+  libavutil      58. 29.100 / 58. 29.100
+  libavcodec     60. 31.102 / 60. 31.102
+  libavformat    60. 16.100 / 60. 16.100
+  libavdevice    60.  3.100 / 60.  3.100
+  libavfilter     9. 12.100 /  9. 12.100
+  libswscale      7.  5.100 /  7.  5.100
+  libswresample   4. 12.100 /  4. 12.100
+  libpostproc    57.  3.100 / 57.  3.100
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:38:42.000Z')
+[hls @ 0x6050e323e200] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090710.ts' for reading
+[hls @ 0x6050e323e200] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090711.ts' for reading
+Input #0, hls, from 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8':
+  Duration: N/A, start: 78394.126756, bitrate: N/A
+  Program 0 
+    Metadata:
+      variant_bitrate : 0
+  Stream #0:0: Data: timed_id3 (ID3  / 0x20334449)
+    Metadata:
+      variant_bitrate : 0
+  Stream #0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
+    Metadata:
+      variant_bitrate : 0
+Stream mapping:
+  Stream #0:1 -> #0:0 (aac (native) -> pcm_s16le (native))
+  Stream #0:1 -> #1:0 (aac (native) -> pcm_s16le (native))
+[segment @ 0x6050e39fde80] Opening '5_out_00000.wav' for writing
+Output #0, segment, to '5_out_%05d.wav':
+  Metadata:
+    encoder         : Lavf60.16.100
+  Stream #0:0: Audio: pcm_s16le, 16000 Hz, mono, s16, 256 kb/s
+    Metadata:
+      variant_bitrate : 0
+      encoder         : Lavc60.31.102 pcm_s16le
+Output #1, wav, to '5_full.wav':
+  Metadata:
+    ISFT            : Lavf60.16.100
+  Stream #1:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 16000 Hz, mono, s16, 256 kb/s
+    Metadata:
+      variant_bitrate : 0
+      encoder         : Lavc60.31.102 pcm_s16le
+size=N/A time=00:00:00.00 bitrate=N/A speed=N/A    [segment @ 0x6050e39fde80] Non-monotonic DTS in output stream 0:0; previous: 0, current: -16; changing to 1. This may result in incorrect timestamps in the output file.
+[wav @ 0x6050e3e3c2c0] Non-monotonic DTS in output stream 1:0; previous: 0, current: -16; changing to 0. This may result in incorrect timestamps in the output file.
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090712.ts' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:38:52.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090713.ts' for reading
+size=N/A time=00:00:29.95 bitrate=N/A speed=3.01x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:39:02.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090714.ts' for reading
+size=N/A time=00:00:40.02 bitrate=N/A speed=1.99x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:39:12.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090715.ts' for reading
+size=N/A time=00:00:49.98 bitrate=N/A speed=1.66x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:39:22.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090716.ts' for reading
+size=N/A time=00:01:00.00 bitrate=N/A speed=1.49x    [segment @ 0x6050e39fde80] Opening '5_out_00001.wav' for writing
+[https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:39:32.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090717.ts' for reading
+size=N/A time=00:01:09.95 bitrate=N/A speed=1.39x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:39:42.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090718.ts' for reading
+size=N/A time=00:01:19.95 bitrate=N/A speed=1.32x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:40:02.000Z')
+[https @ 0x6050e35fad40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090719.ts' for reading
+[https @ 0x6050e3623f00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090720.ts' for reading
+size=N/A time=00:01:29.96 bitrate=N/A speed=1.27x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:40:12.000Z')
+[https @ 0x6050e3623f00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090721.ts' for reading
+size=N/A time=00:01:50.05 bitrate=N/A speed=1.36x    [https @ 0x7fa8a8014f40] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
+[hls @ 0x6050e323e200] Skip ('#EXT-X-VERSION:4')
+[hls @ 0x6050e323e200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T14:40:22.000Z')
+[https @ 0x6050e3623f00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177090722.ts' for reading
+size=N/A time=00:01:59.91 bitrate=N/A speed=1.32x    [out#0/segment @ 0x6050e39fe940] video:0kB audio:3750kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[out#1/wav @ 0x6050e3a16ac0] video:0kB audio:3750kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.002031%
+size=N/A time=00:01:59.99 bitrate=N/A speed=1.32x    
