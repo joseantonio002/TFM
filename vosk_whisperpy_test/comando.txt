@@ -1,0 +1,1 @@
+vosk-transcriber --model-name vosk-model-small-es-0.42 --input input.wav --output output.txt --output-type txt

@@ -4,6 +4,8 @@
 .env.*
 !.env.example
 
+.venv
+
 *.class
 *.o
 *.pyc
