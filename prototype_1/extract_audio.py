@@ -163,8 +163,6 @@ async def run_ffmpeg_for_source(
     "-vn",
     
     "-map", "0:a:0",
-    "-ar", "16000",
-    "-ac", "1",
     "-c:a", "pcm_s16le",
     "-f", "segment",
     "-segment_time", str(segment_time_seconds),
@@ -181,8 +179,6 @@ async def run_ffmpeg_for_source(
       f"{source.source_id}_out_%05d.wav",
       # Full output (same bounded duration)
       "-map", "0:a:0",
-      "-ar", "16000",
-      "-ac", "1",
       "-c:a", "pcm_s16le",
       f"{source.source_id}_full.wav",
     ]
