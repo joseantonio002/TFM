@@ -9,79 +9,131 @@ ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers
   libswscale      7.  5.100 /  7.  5.100
   libswresample   4. 12.100 /  4. 12.100
   libpostproc    57.  3.100 / 57.  3.100
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:42:32.000Z')
-[hls @ 0x5cd3c0d96200] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091453.ts' for reading
-[hls @ 0x5cd3c0d96200] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091454.ts' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-15T16:17:20.000Z')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/1.aac' for reading
 Input #0, hls, from 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8':
-  Duration: N/A, start: 85824.185422, bitrate: N/A
+  Duration: N/A, start: 0.000000, bitrate: 126 kb/s
   Program 0 
     Metadata:
-      variant_bitrate : 0
-  Stream #0:0: Data: timed_id3 (ID3  / 0x20334449)
+      variant_bitrate : 128000
+  Stream #0:0: Audio: aac (LC), 48000 Hz, stereo, fltp, 126 kb/s
     Metadata:
-      variant_bitrate : 0
-  Stream #0:1: Audio: aac (LC) ([15][0][0][0] / 0x000F), 48000 Hz, stereo, fltp
-    Metadata:
-      variant_bitrate : 0
+      variant_bitrate : 128000
+      encoded_by      : Triton Digital
+      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x00\x00\x00\x00\x00
 Stream mapping:
-  Stream #0:1 -> #0:0 (aac (native) -> pcm_s16le (native))
-  Stream #0:1 -> #1:0 (aac (native) -> pcm_s16le (native))
-[segment @ 0x5cd3c1555e80] Opening '5_out_00000.wav' for writing
+  Stream #0:0 -> #0:0 (aac (native) -> pcm_s16le (native))
+  Stream #0:0 -> #1:0 (aac (native) -> pcm_s16le (native))
+[segment @ 0x6019908ab480] Opening '5_out_00000.wav' for writing
 Output #0, segment, to '5_out_%05d.wav':
   Metadata:
     encoder         : Lavf60.16.100
   Stream #0:0: Audio: pcm_s16le, 16000 Hz, mono, s16, 256 kb/s
     Metadata:
-      variant_bitrate : 0
+      variant_bitrate : 128000
+      encoded_by      : Triton Digital
+      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x00\x00\x00\x00\x00
       encoder         : Lavc60.31.102 pcm_s16le
 Output #1, wav, to '5_full.wav':
   Metadata:
     ISFT            : Lavf60.16.100
   Stream #1:0: Audio: pcm_s16le ([1][0][0][0] / 0x0001), 16000 Hz, mono, s16, 256 kb/s
     Metadata:
-      variant_bitrate : 0
+      variant_bitrate : 128000
+      encoded_by      : Triton Digital
+      id3v2_priv.com.apple.streaming.transportStreamTimestamp: \x00\x00\x00\x00\x00\x00\x00\x00
       encoder         : Lavc60.31.102 pcm_s16le
-size=N/A time=00:00:00.00 bitrate=N/A speed=N/A    [segment @ 0x5cd3c1555e80] Non-monotonic DTS in output stream 0:0; previous: 0, current: -16; changing to 1. This may result in incorrect timestamps in the output file.
-[wav @ 0x5cd3c19942c0] Non-monotonic DTS in output stream 1:0; previous: 0, current: -16; changing to 0. This may result in incorrect timestamps in the output file.
-[https @ 0x5cd3c1152d40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091455.ts' for reading
-size=N/A time=00:00:22.22 bitrate=N/A speed=44.4x    [hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:42:42.000Z')
-[https @ 0x5cd3c1152d40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091456.ts' for reading
-size=N/A time=00:00:29.90 bitrate=N/A speed=   3x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:42:52.000Z')
-[https @ 0x5cd3c1152d40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091457.ts' for reading
-size=N/A time=00:00:39.95 bitrate=N/A speed=1.99x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:43:02.000Z')
-[https @ 0x5cd3c1152d40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091458.ts' for reading
-size=N/A time=00:00:49.96 bitrate=N/A speed=1.65x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:43:22.000Z')
-[https @ 0x5cd3c1152d40] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091459.ts' for reading
-[https @ 0x5cd3c117bf00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091460.ts' for reading
-size=N/A time=00:00:59.94 bitrate=N/A speed=1.49x    [segment @ 0x5cd3c1555e80] Opening '5_out_00001.wav' for writing
-[https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:43:32.000Z')
-[https @ 0x5cd3c117bf00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091461.ts' for reading
-size=N/A time=00:01:19.87 bitrate=N/A speed=1.58x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:43:42.000Z')
-[https @ 0x5cd3c117bf00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091462.ts' for reading
-size=N/A time=00:01:29.96 bitrate=N/A speed=1.49x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:43:52.000Z')
-[https @ 0x5cd3c117bf00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091463.ts' for reading
-size=N/A time=00:01:39.90 bitrate=N/A speed=1.42x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:44:02.000Z')
-[https @ 0x5cd3c117bf00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091464.ts' for reading
-size=N/A time=00:01:49.86 bitrate=N/A speed=1.36x    [https @ 0x78e89400f580] Opening 'https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8' for reading
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-VERSION:4')
-[hls @ 0x5cd3c0d96200] Skip ('#EXT-X-PROGRAM-DATE-TIME:2026-02-10T16:44:12.000Z')
-[https @ 0x5cd3c117bf00] Opening 'https://atres-live.ondacero.es/live/ondacero/0/br1/000000000000/98375/br1_177091465.ts' for reading
-size=N/A time=00:01:59.95 bitrate=N/A speed=1.32x    [out#0/segment @ 0x5cd3c1556940] video:0kB audio:3750kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
-[out#1/wav @ 0x5cd3c156ec00] video:0kB audio:3750kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.002031%
-size=N/A time=00:01:59.99 bitrate=N/A speed=1.32x    
+size=N/A time=00:00:00.00 bitrate=N/A speed=N/A    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/2.aac' for reading
+size=N/A time=00:00:10.04 bitrate=N/A speed=20.1x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/3.aac' for reading
+size=N/A time=00:00:19.98 bitrate=N/A speed=  20x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/4.aac' for reading
+size=N/A time=00:00:29.97 bitrate=N/A speed=2.92x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/5.aac' for reading
+size=N/A time=00:00:39.95 bitrate=N/A speed=1.92x    size=N/A time=00:00:46.01 bitrate=N/A speed=2.11x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/6.aac' for reading
+size=N/A time=00:00:49.94 bitrate=N/A speed=1.61x    size=N/A time=00:00:55.99 bitrate=N/A speed=1.75x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/7.aac' for reading
+size=N/A time=00:00:59.92 bitrate=N/A speed=1.45x    [segment @ 0x6019908ab480] Opening '5_out_00001.wav' for writing
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/8.aac' for reading
+size=N/A time=00:01:09.90 bitrate=N/A speed=1.35x    size=N/A time=00:01:15.98 bitrate=N/A speed=1.44x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/9.aac' for reading
+size=N/A time=00:01:19.89 bitrate=N/A speed=1.28x    size=N/A time=00:01:25.95 bitrate=N/A speed=1.36x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/10.aac' for reading
+size=N/A time=00:01:29.87 bitrate=N/A speed=1.24x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/11.aac' for reading
+size=N/A time=00:01:39.86 bitrate=N/A speed= 1.2x    size=N/A time=00:01:45.91 bitrate=N/A speed=1.26x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/12.aac' for reading
+size=N/A time=00:01:49.84 bitrate=N/A speed=1.17x    size=N/A time=00:01:55.90 bitrate=N/A speed=1.23x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/13.aac' for reading
+size=N/A time=00:01:59.82 bitrate=N/A speed=1.15x    [segment @ 0x6019908ab480] Opening '5_out_00002.wav' for writing
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/14.aac' for reading
+size=N/A time=00:02:09.81 bitrate=N/A speed=1.13x    size=N/A time=00:02:15.87 bitrate=N/A speed=1.18x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/15.aac' for reading
+size=N/A time=00:02:19.79 bitrate=N/A speed=1.12x    size=N/A time=00:02:25.87 bitrate=N/A speed=1.16x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/16.aac' for reading
+size=N/A time=00:02:29.78 bitrate=N/A speed=1.11x    size=N/A time=00:02:35.86 bitrate=N/A speed=1.15x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/17.aac' for reading
+size=N/A time=00:02:39.76 bitrate=N/A speed= 1.1x    size=N/A time=00:02:49.40 bitrate=N/A speed=1.16x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/18.aac' for reading
+size=N/A time=00:02:49.74 bitrate=N/A speed=1.09x    size=N/A time=00:02:55.80 bitrate=N/A speed=1.12x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/19.aac' for reading
+size=N/A time=00:02:59.73 bitrate=N/A speed=1.08x    [segment @ 0x6019908ab480] Opening '5_out_00003.wav' for writing
+size=N/A time=00:03:05.79 bitrate=N/A speed=1.11x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/20.aac' for reading
+size=N/A time=00:03:09.71 bitrate=N/A speed=1.07x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/21.aac' for reading
+size=N/A time=00:03:19.70 bitrate=N/A speed=1.06x    size=N/A time=00:03:25.75 bitrate=N/A speed=1.09x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/22.aac' for reading
+size=N/A time=00:03:29.68 bitrate=N/A speed=1.06x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/23.aac' for reading
+size=N/A time=00:03:39.66 bitrate=N/A speed=1.05x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/24.aac' for reading
+size=N/A time=00:03:49.65 bitrate=N/A speed=1.05x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/25.aac' for reading
+size=N/A time=00:03:59.63 bitrate=N/A speed=1.05x    [segment @ 0x6019908ab480] Opening '5_out_00004.wav' for writing
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/26.aac' for reading
+size=N/A time=00:04:09.62 bitrate=N/A speed=1.04x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/27.aac' for reading
+size=N/A time=00:04:19.60 bitrate=N/A speed=1.08x    size=N/A time=00:04:25.66 bitrate=N/A speed= 1.1x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/28.aac' for reading
+size=N/A time=00:04:29.58 bitrate=N/A speed=1.08x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/29.aac' for reading
+size=N/A time=00:04:39.57 bitrate=N/A speed=1.07x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/30.aac' for reading
+size=N/A time=00:04:49.55 bitrate=N/A speed=1.07x    size=N/A time=00:04:58.87 bitrate=N/A speed= 1.1x    [hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/playlist.m3u8' for reading
+[hls @ 0x6019900cf200] Skip ('#EXT-X-VERSION:3')
+[hls @ 0x6019900cf200] Opening 'https://27743.live.streamtheworld.com:443/OCAAC/HLS/d519873e-16ed-4071-bbc1-6ff7547d2084/0/31.aac' for reading
+size=N/A time=00:04:59.54 bitrate=N/A speed=1.07x    [out#0/segment @ 0x6019904d13c0] video:0kB audio:9375kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+[out#1/wav @ 0x6019908aacc0] video:0kB audio:9375kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: 0.000812%
+size=N/A time=00:04:59.99 bitrate=N/A speed=1.07x    
