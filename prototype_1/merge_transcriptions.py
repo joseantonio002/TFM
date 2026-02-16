@@ -5,6 +5,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+import language_tool_python
+
 
 BASE_DIR: Path = Path(__file__).resolve().parent
 MIN_WORDS_PER_BLOCK: int = 30
@@ -81,7 +83,7 @@ def count_words(text: str) -> int:
   return len(text.split())
 
 
-def load_segments(transcription_map: dict[str, Any]) -> list[TranscriptSegment]:
+def load_segments(transcription_map: dict[str, Any], tool: language_tool_python.LanguageTool) -> list[TranscriptSegment]:
   """Load ordered transcript segments from the transcription mapping."""
   segments: list[TranscriptSegment] = []
   for timestamp, raw_text in transcription_map.items():
@@ -92,6 +94,7 @@ def load_segments(transcription_map: dict[str, Any]) -> list[TranscriptSegment]:
 
     start_time, end_time = parse_timestamp(timestamp)
     text: str = raw_text.strip()
+    text = tool.correct(text)
     segments.append(
       TranscriptSegment(
         timestamp=timestamp,
@@ -203,7 +206,7 @@ def output_path_for(input_path: Path) -> Path:
   return input_path.with_name(f"{input_path.stem}_merged.json")
 
 
-def process_transcription_file(file_path: Path) -> Path:
+def process_transcription_file(file_path: Path, tool: language_tool_python.LanguageTool) -> Path:
   """Process one transcription file and write the merged output JSON."""
   data: Any = json.loads(file_path.read_text(encoding="utf-8"))
   if not isinstance(data, dict):
@@ -213,7 +216,7 @@ def process_transcription_file(file_path: Path) -> Path:
   if not isinstance(raw_transcription, dict):
     raise ValueError(f"Missing or invalid 'transcription' in {file_path}")
 
-  segments: list[TranscriptSegment] = load_segments(raw_transcription)
+  segments: list[TranscriptSegment] = load_segments(raw_transcription, tool)
   cleaned_segments: list[TranscriptSegment] = clean_and_dedupe_segments(segments)
   merged_transcription: dict[str, str] = merge_speech_segments(cleaned_segments)
 
@@ -235,9 +238,11 @@ def main() -> None:
     print("No transcription files found in pipeline folders.")
     return
 
+  tool: language_tool_python.LanguageTool = language_tool_python.LanguageTool('es-ES')
   for transcription_file in transcription_files:
-    merged_file: Path = process_transcription_file(transcription_file)
+    merged_file: Path = process_transcription_file(transcription_file, tool)
     print(f"Saved merged transcription: {merged_file}")
+  tool.close()
 
 
 if __name__ == "__main__":
