@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import json
+import multiprocessing as mp
 import re
 from dataclasses import dataclass
 from pathlib import Path
@@ -11,9 +12,11 @@ import language_tool_python
 BASE_DIR: Path = Path(__file__).resolve().parent
 MIN_WORDS_PER_BLOCK: int = 30
 MAX_WORDS_PER_BLOCK: int = 90
+MAX_PROCESSES: int = 3
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(
   r"^\[(\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2}\.\d{3})\]$"
 )
+TOOL: language_tool_python.LanguageTool | None = None
 
 
 @dataclass
@@ -206,8 +209,17 @@ def output_path_for(input_path: Path) -> Path:
   return input_path.with_name(f"{input_path.stem}_merged.json")
 
 
-def process_transcription_file(file_path: Path, tool: language_tool_python.LanguageTool) -> Path:
+def init_worker() -> None:
+  """Load shared worker resources once per worker process."""
+  global TOOL
+  TOOL = language_tool_python.LanguageTool("es-ES")
+
+
+def process_transcription_file(file_path: Path) -> Path:
   """Process one transcription file and write the merged output JSON."""
+  if TOOL is None:
+    raise RuntimeError("Worker language tool is not initialized.")
+
   data: Any = json.loads(file_path.read_text(encoding="utf-8"))
   if not isinstance(data, dict):
     raise ValueError(f"Invalid JSON structure in {file_path}")
@@ -216,7 +228,7 @@ def process_transcription_file(file_path: Path, tool: language_tool_python.Langu
   if not isinstance(raw_transcription, dict):
     raise ValueError(f"Missing or invalid 'transcription' in {file_path}")
 
-  segments: list[TranscriptSegment] = load_segments(raw_transcription, tool)
+  segments: list[TranscriptSegment] = load_segments(raw_transcription, TOOL)
   cleaned_segments: list[TranscriptSegment] = clean_and_dedupe_segments(segments)
   merged_transcription: dict[str, str] = merge_speech_segments(cleaned_segments)
 
@@ -238,11 +250,11 @@ def main() -> None:
     print("No transcription files found in pipeline folders.")
     return
 
-  tool: language_tool_python.LanguageTool = language_tool_python.LanguageTool('es-ES')
-  for transcription_file in transcription_files:
-    merged_file: Path = process_transcription_file(transcription_file, tool)
+  with mp.Pool(processes=MAX_PROCESSES, initializer=init_worker) as pool:
+    merged_files: list[Path] = pool.map(process_transcription_file, transcription_files)
+
+  for merged_file in merged_files:
     print(f"Saved merged transcription: {merged_file}")
-  tool.close()
 
 
 if __name__ == "__main__":
