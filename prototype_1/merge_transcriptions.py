@@ -8,16 +8,19 @@ from typing import Any
 
 import language_tool_python
 
-
 BASE_DIR: Path = Path(__file__).resolve().parent
-MIN_WORDS_PER_BLOCK: int = 10 # Previous: 30
-MAX_WORDS_PER_BLOCK: int = 15 # Previous: 90
+MIN_WORDS_PER_BLOCK: int = 9 # Previous: 30
+MAX_WORDS_PER_BLOCK: int = 12 # Previous: 90
 MAX_PROCESSES: int = 3
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(
   r"^\[(\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2}\.\d{3})\]$"
 )
 TOOL: language_tool_python.LanguageTool | None = None
 
+def init_worker() -> None:
+  """Load shared worker resources once per worker process."""
+  global TOOL
+  TOOL = language_tool_python.LanguageTool("es-ES")
 
 @dataclass
 class TranscriptSegment:
@@ -76,6 +79,8 @@ def clean_speech_text(text: str) -> str:
 
   filtered_text: str = "".join(filtered_chars)
   filtered_text = re.sub(r"\s+", " ", filtered_text).strip()
+  # delete commas and points
+  filtered_text = re.sub(r"[.,]", "", filtered_text)
   return clean_ellipsis_edges(filtered_text)
 
 
@@ -86,7 +91,133 @@ def count_words(text: str) -> int:
   return len(text.split())
 
 
-def load_segments(transcription_map: dict[str, Any], tool: language_tool_python.LanguageTool) -> list[TranscriptSegment]:
+def timestamp_to_milliseconds(timestamp: str) -> int:
+  """Convert HH:MM:SS.mmm timestamps into milliseconds."""
+  hours_text, minutes_text, seconds_text = timestamp.split(":")
+  seconds_part, milliseconds_part = seconds_text.split(".")
+  total_milliseconds: int = (
+    int(hours_text) * 3_600_000
+    + int(minutes_text) * 60_000
+    + int(seconds_part) * 1_000
+    + int(milliseconds_part)
+  )
+  return total_milliseconds
+
+
+def milliseconds_to_timestamp(total_milliseconds: int) -> str:
+  """Convert milliseconds into HH:MM:SS.mmm timestamps."""
+  safe_milliseconds: int = max(0, total_milliseconds)
+  hours: int = safe_milliseconds // 3_600_000
+  remainder_after_hours: int = safe_milliseconds % 3_600_000
+  minutes: int = remainder_after_hours // 60_000
+  remainder_after_minutes: int = remainder_after_hours % 60_000
+  seconds: int = remainder_after_minutes // 1_000
+  milliseconds: int = remainder_after_minutes % 1_000
+  return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{milliseconds:03d}"
+
+
+def split_segment_by_word_limit(segment: TranscriptSegment) -> list[TranscriptSegment]:
+  """Split oversized speech segments to ensure each piece is <= max words."""
+  if segment.is_music:
+    return [segment]
+
+  words: list[str] = segment.text.split()
+  total_words: int = len(words)
+  if total_words == 0 or total_words <= MAX_WORDS_PER_BLOCK:
+    return [segment]
+
+  chunk_sizes: list[int] = []
+  remaining_words: int = total_words
+  while remaining_words > 0:
+    next_size: int = min(MAX_WORDS_PER_BLOCK, remaining_words)
+    tail_words: int = remaining_words - next_size
+    if 0 < tail_words < MIN_WORDS_PER_BLOCK:
+      words_to_borrow: int = MIN_WORDS_PER_BLOCK - tail_words
+      next_size = max(MIN_WORDS_PER_BLOCK, next_size - words_to_borrow)
+    chunk_sizes.append(next_size)
+    remaining_words -= next_size
+
+  start_milliseconds: int = timestamp_to_milliseconds(segment.start_time)
+  end_milliseconds: int = timestamp_to_milliseconds(segment.end_time)
+  duration_milliseconds: int = max(0, end_milliseconds - start_milliseconds)
+
+  split_segments: list[TranscriptSegment] = []
+  consumed_words: int = 0
+  for chunk_size in chunk_sizes:
+    chunk_start_index: int = consumed_words
+    chunk_end_index: int = consumed_words + chunk_size
+    chunk_text: str = " ".join(words[chunk_start_index:chunk_end_index]).strip()
+
+    relative_start: int = round(duration_milliseconds * (chunk_start_index / total_words))
+    relative_end: int = round(duration_milliseconds * (chunk_end_index / total_words))
+    chunk_start_milliseconds: int = start_milliseconds + relative_start
+    chunk_end_milliseconds: int = start_milliseconds + relative_end
+    if chunk_end_milliseconds < chunk_start_milliseconds:
+      chunk_end_milliseconds = chunk_start_milliseconds
+
+    chunk_start: str = milliseconds_to_timestamp(chunk_start_milliseconds)
+    chunk_end: str = milliseconds_to_timestamp(chunk_end_milliseconds)
+    chunk_timestamp: str = f"[{chunk_start} --> {chunk_end}]"
+    split_segments.append(
+      TranscriptSegment(
+        timestamp=chunk_timestamp,
+        start_time=chunk_start,
+        end_time=chunk_end,
+        text=chunk_text,
+        is_music=False,
+      )
+    )
+    consumed_words = chunk_end_index
+
+  return split_segments
+
+
+def split_segment_at_word_index(
+  segment: TranscriptSegment,
+  split_index: int,
+) -> tuple[TranscriptSegment, TranscriptSegment]:
+  """Split a speech segment into prefix and suffix by word index."""
+  words: list[str] = segment.text.split()
+  total_words: int = len(words)
+  if split_index <= 0 or split_index >= total_words:
+    raise ValueError("split_index must be within the segment word range")
+
+  start_milliseconds: int = timestamp_to_milliseconds(segment.start_time)
+  end_milliseconds: int = timestamp_to_milliseconds(segment.end_time)
+  duration_milliseconds: int = max(0, end_milliseconds - start_milliseconds)
+  middle_offset: int = round(duration_milliseconds * (split_index / total_words))
+  middle_milliseconds: int = start_milliseconds + middle_offset
+  if middle_milliseconds < start_milliseconds:
+    middle_milliseconds = start_milliseconds
+  if middle_milliseconds > end_milliseconds:
+    middle_milliseconds = end_milliseconds
+
+  prefix_start: str = milliseconds_to_timestamp(start_milliseconds)
+  prefix_end: str = milliseconds_to_timestamp(middle_milliseconds)
+  suffix_start: str = milliseconds_to_timestamp(middle_milliseconds)
+  suffix_end: str = milliseconds_to_timestamp(end_milliseconds)
+
+  prefix_text: str = " ".join(words[:split_index]).strip()
+  suffix_text: str = " ".join(words[split_index:]).strip()
+
+  prefix_segment: TranscriptSegment = TranscriptSegment(
+    timestamp=f"[{prefix_start} --> {prefix_end}]",
+    start_time=prefix_start,
+    end_time=prefix_end,
+    text=prefix_text,
+    is_music=False,
+  )
+  suffix_segment: TranscriptSegment = TranscriptSegment(
+    timestamp=f"[{suffix_start} --> {suffix_end}]",
+    start_time=suffix_start,
+    end_time=suffix_end,
+    text=suffix_text,
+    is_music=False,
+  )
+  return prefix_segment, suffix_segment
+
+
+def load_segments(transcription_map: dict[str, Any], tool: language_tool_python.LanguageTool | None = None) -> list[TranscriptSegment]:
   """Load ordered transcript segments from the transcription mapping."""
   segments: list[TranscriptSegment] = []
   for timestamp, raw_text in transcription_map.items():
@@ -97,6 +228,7 @@ def load_segments(transcription_map: dict[str, Any], tool: language_tool_python.
 
     start_time, end_time = parse_timestamp(timestamp)
     text: str = raw_text.strip()
+    # Apply grammar correction to the raw text
     text = tool.correct(text)
     segments.append(
       TranscriptSegment(
@@ -174,31 +306,42 @@ def merge_speech_segments(segments: list[TranscriptSegment]) -> dict[str, str]:
       merged_transcription[segment.timestamp] = segment.text
       continue
 
-    segment_words: int = count_words(segment.text)
-    if segment_words == 0:
-      continue
+    expanded_segments: list[TranscriptSegment] = split_segment_by_word_limit(segment)
+    for expanded_segment in expanded_segments:
+      current_segment: TranscriptSegment | None = expanded_segment
+      while current_segment is not None:
+        current_words: int = count_words(current_segment.text)
+        if current_words == 0:
+          break
 
-    if block_start is None:
-      block_start = segment.start_time
-      block_end = segment.end_time
-      block_texts = [segment.text]
-      block_words = segment_words
-      continue
+        if block_start is None:
+          block_start = current_segment.start_time
+          block_end = current_segment.end_time
+          block_texts = [current_segment.text]
+          block_words = current_words
+          break
 
-    if block_words + segment_words > MAX_WORDS_PER_BLOCK:
-      flush_block()
-      block_start = segment.start_time
-      block_end = segment.end_time
-      block_texts = [segment.text]
-      block_words = segment_words
-      continue
+        if block_words + current_words <= MAX_WORDS_PER_BLOCK:
+          block_texts.append(current_segment.text)
+          block_end = current_segment.end_time
+          block_words += current_words
+          break
 
-    block_texts.append(segment.text)
-    block_end = segment.end_time
-    block_words += segment_words
+        if block_words < MIN_WORDS_PER_BLOCK:
+          required_words: int = MIN_WORDS_PER_BLOCK - block_words
+          if 0 < required_words < current_words:
+            prefix_segment, suffix_segment = split_segment_at_word_index(
+              current_segment,
+              required_words,
+            )
+            block_texts.append(prefix_segment.text)
+            block_end = prefix_segment.end_time
+            block_words += count_words(prefix_segment.text)
+            flush_block()
+            current_segment = suffix_segment
+            continue
 
-    if block_words >= MIN_WORDS_PER_BLOCK:
-      flush_block()
+        flush_block()
 
   flush_block()
   return merged_transcription
@@ -209,17 +352,8 @@ def output_path_for(input_path: Path) -> Path:
   return input_path.with_name(f"{input_path.stem}_merged.json")
 
 
-def init_worker() -> None:
-  """Load shared worker resources once per worker process."""
-  global TOOL
-  TOOL = language_tool_python.LanguageTool("es-ES")
-
-
 def process_transcription_file(file_path: Path) -> Path:
   """Process one transcription file and write the merged output JSON."""
-  if TOOL is None:
-    raise RuntimeError("Worker language tool is not initialized.")
-
   data: Any = json.loads(file_path.read_text(encoding="utf-8"))
   if not isinstance(data, dict):
     raise ValueError(f"Invalid JSON structure in {file_path}")
