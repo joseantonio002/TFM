@@ -10,8 +10,8 @@ import language_tool_python
 
 
 BASE_DIR: Path = Path(__file__).resolve().parent
-MIN_WORDS_PER_BLOCK: int = 30
-MAX_WORDS_PER_BLOCK: int = 90
+MIN_WORDS_PER_BLOCK: int = 10 # Previous: 30
+MAX_WORDS_PER_BLOCK: int = 15 # Previous: 90
 MAX_PROCESSES: int = 3
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(
   r"^\[(\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2}\.\d{3})\]$"
