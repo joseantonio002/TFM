@@ -1,0 +1,66 @@
+{
+  "0": {
+    "name": "24 horas",
+    "type": "TV",
+    "url": "https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Canal de televisión en abierto español de noticias. Programación de noticias y debates"
+  },
+  "1": {
+    "name": "Actualidad 360",
+    "type": "TV",
+    "url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Canal gratuito de noticias 24 horas con actualidad nacional e internacional"
+  },
+  "2": {
+    "name": "9 La Loma TV",
+    "type": "TV",
+    "url": "https://9laloma.tv/live.m3u8",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Televisión comarcal con noticias y programas de La Loma y su entorno"
+  },
+  "3": {
+    "name": "RNE Radio 5 Todo Noticias (Murcia)",
+    "type": "Radio",
+    "url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Radio pública de información continua con noticias y servicio público"
+  },
+  "4": {
+    "name": "Onda Cero (España)",
+    "type": "Radio",
+    "url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Cadena de radio generalista con información, opinión y entretenimiento"
+  },
+  "5": {
+    "name": "RNE Radio Nacional (General)",
+    "type": "Radio",
+    "url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Emisora pública generalista con informativos, cultura y magazines"
+  },
+  "6": {
+    "name": "esRadio",
+    "type": "Radio",
+    "url": "https://server9.emitironline.com:8822/",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Cadena de radio generalista de ámbito nacional con noticias y opinión"
+  },
+  "7": {
+    "name": "Onda Regional de Murcia",
+    "type": "Radio",
+    "url": "https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8",
+    "lang": "ES",
+    "conector": "TV/RadioES",
+    "description": "Radio pública regional con actualidad, deportes y programas de Murcia"
+  }
+}

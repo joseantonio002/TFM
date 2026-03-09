@@ -10,9 +10,10 @@ from typing import Any, TypedDict
 import numpy as np
 from numpy.typing import NDArray
 
+
 # Default: k = 6, min_gap_units = 8, peak_threshold = 0.25
-K: int = 8
-MIN_GAP_UNITS: int = 10
+K: int = 6
+MIN_GAP_UNITS: int = 8
 PEAK_THRESHOLD: float = 0.25
 
 
