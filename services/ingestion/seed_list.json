@@ -1,11 +1,14 @@
 {
   "0": {
+    "id": "24horas",
     "name": "24 horas",
     "type": "TV",
     "url": "https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8",
-    "lang": "ES",
+    "lang": "es",
+    "country": "ES",
     "conector": "TV/RadioES",
-    "description": "Canal de televisión en abierto español de noticias. Programación de noticias y debates"
+    "description": "Canal de televisión en abierto español de noticias. Programación de noticias y debates",
+    "is_active": true
   },
   "1": {
     "name": "Actualidad 360",
