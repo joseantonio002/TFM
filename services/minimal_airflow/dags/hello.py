@@ -1,5 +1,4 @@
 from datetime import datetime
-from pandas import DataFrame
 
 from airflow.sdk import dag, task
 
