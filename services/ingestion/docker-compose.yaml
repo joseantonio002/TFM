@@ -125,5 +125,6 @@ services:
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "0:0"
 
+
 volumes:
   postgres-db-volume:
