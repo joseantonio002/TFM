@@ -1,5 +1,6 @@
 {
   "TV/RadioES": {
+    "docker_image": "some_image",
     "conector_name": "TV/RadioES",
     "description": "Connector for Spanish TV and radio streams",
     "default_sources": ["24Horas", "Actualidad360", "RNERadio5TodoNoticiasMurcia"],
@@ -12,6 +13,7 @@
   },
 
   "TestConector": {
+    "docker_image": "test_connector:latest",
     "conector_name": "Test conector",
     "description": "Test conector for development purposes",
     "default_sources": ["testsource"],
