@@ -19,4 +19,4 @@ __pycache__/
 whisper.cpp/
 
 
-services/ingestion_prototype/logs/*
+services/ingestion_prototype/logs
