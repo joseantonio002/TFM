@@ -1,4 +1,0 @@
-{"timestamp":"2026-04-14T17:33:40.687643Z","level":"info","event":"DAG bundles loaded: dags-folder","logger":"airflow.dag_processing.bundles.manager.DagBundlesManager","filename":"manager.py","lineno":179}
-{"timestamp":"2026-04-14T17:33:40.688485Z","level":"info","event":"Filling up the DagBag from /opt/airflow/dags/test_connector.py","logger":"airflow.models.dagbag.BundleDagBag","filename":"dagbag.py","lineno":593}
-{"timestamp":"2026-04-14T17:33:40.968724Z","level":"info","event":"Stats instance was created in PID 7 but accessed in PID 80. Re-initializing.","logger":"airflow.stats","filename":"stats.py","lineno":57}
-{"timestamp":"2026-04-14T17:33:41.060527Z","level":"info","event":"Starting docker container from image test_connector:latest","logger":"airflow.task.operators.airflow.providers.docker.operators.docker.DockerOperator","filename":"docker.py","lineno":367}
