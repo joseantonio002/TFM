@@ -1,0 +1,24 @@
+{
+  "TV/RadioES": {
+    "conector_name": "TV/RadioES",
+    "description": "Connector for Spanish TV and radio streams",
+    "default_sources": ["24Horas", "Actualidad360", "RNERadio5TodoNoticiasMurcia"],
+    "accepted_params": {
+      "t": "total time to ingest in seconds",
+      "sw": "segment wrap, Optional ffmpeg segment_wrap value (int > 0)",
+      "st": "segment time, Optional segment_time: integer minutes or HH:MM:SS(.msec)"
+    },
+    "is_active": true
+  },
+
+  "TestConector": {
+    "conector_name": "Test conector",
+    "description": "Test conector for development purposes",
+    "default_sources": ["testsource"],
+    "accepted_params": {},
+    "is_active": true
+  }
+
+
+
+}

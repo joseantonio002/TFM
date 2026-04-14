@@ -1,0 +1,8 @@
+{
+  "testdag": {
+    "task_id": "test_task",
+    "connector_id": "TestConector",
+    "schedule": "0 0 * * *"
+  }
+
+}
