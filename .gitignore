@@ -17,3 +17,6 @@ __pycache__/
 *.mka
 *.wav
 whisper.cpp/
+
+
+services/ingestion_prototype/logs/*
