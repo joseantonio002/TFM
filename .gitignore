@@ -20,3 +20,5 @@ whisper.cpp/
 
 
 services/ingestion_prototype/logs
+
+**/pipeline_*/
