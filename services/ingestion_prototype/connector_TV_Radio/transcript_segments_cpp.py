@@ -155,9 +155,9 @@ def main() -> None:
   """Run multiprocessing transcription for all final audios."""
 
   validate_whisper_paths()
-  audio_files: list[Path] = find_full_audios(BASE_DIR)
-  start_datetime_path: Path = BASE_DIR / "execution_starting_date.txt"
-  sources_path: Path = BASE_DIR / "sources.json"
+  audio_files: list[Path] = find_full_audios(BASE_DIR / "ingestion_prototype" / "connector_TV_Radio")
+  start_datetime_path: Path = BASE_DIR / "ingestion_prototype" / "connector_TV_Radio" / "execution_starting_date.txt"
+  sources_path: Path = BASE_DIR / "ingestion_prototype" / "connector_TV_Radio" / "sources.json"
   start_datetime_text: str = start_datetime_path.read_text(encoding="utf-8").strip()
   sources_data: Any = json.loads(sources_path.read_text(encoding="utf-8"))
 
