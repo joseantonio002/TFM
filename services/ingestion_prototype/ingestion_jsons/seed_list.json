@@ -1,12 +1,12 @@
 {
-  "24horas": {
+  "24Horas": {
     "source_name": "24 horas",
     "source_type": "TV",
     "source_url": "https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8",
     "source_tags": ["news", "television"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "Spanish free-to-air news television channel. News and debate programming",
     "is_active": true
   },
@@ -17,7 +17,7 @@
     "source_tags": ["news", "television"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "Free 24-hour news channel covering national and international current affairs",
     "is_active": true
   },
@@ -28,7 +28,7 @@
     "source_tags": ["local_news", "television"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "Local television channel with news and programs focused on La Loma and surrounding areas",
     "is_active": true
   },
@@ -39,7 +39,7 @@
     "source_tags": ["news", "radio", "murcia"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "Public all-news radio station focused on continuous information and public service",
     "is_active": true
   },
@@ -50,7 +50,7 @@
     "source_tags": ["news", "radio"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "National general-interest radio network with news, commentary, and entertainment programs",
     "is_active": true
   },
@@ -61,7 +61,7 @@
     "source_tags": ["public_radio", "news"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "Public general-interest radio station with news, culture, and magazine-style programming",
     "is_active": true
   },
@@ -72,7 +72,7 @@
     "source_tags": ["news", "radio"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "National general-interest radio network featuring news, commentary, and opinion programs",
     "is_active": true
   },
@@ -83,7 +83,7 @@
     "source_tags": ["regional_news", "radio", "murcia"],
     "lang": "es",
     "country": "ES",
-    "conector": "TV/RadioES",
+    "default_connector_id": "TV/RadioES",
     "description": "Regional public radio station with news, sports, and programs focused on Murcia",
     "is_active": true
   }
