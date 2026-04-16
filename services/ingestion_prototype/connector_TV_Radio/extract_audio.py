@@ -1,5 +1,6 @@
 import asyncio
 import argparse
+import os
 import re
 import sys
 from dataclasses import dataclass
@@ -15,6 +16,19 @@ class Source:
   source_id: str
   name: str
   url: str
+
+
+@dataclass(frozen=True)
+class SourceMetadata:
+  airflow_dag_id: str
+  extracted_at: str
+  connector_id: str
+  connector_name: str
+  source_name: str
+  source_type: str
+  language: str
+  country: str
+  source_tags: str
 
 
 def parse_time_value(raw_value: str, argument_name: str) -> float:
@@ -94,6 +108,85 @@ def build_sources_from_urls(input_urls: list[str]) -> list[Source]:
   return sources
 
 
+def split_source_metadata(raw_value: str, input_count: int, variable_name: str) -> list[str]:
+  """Split a source-scoped environment variable into one value per input source."""
+  if input_count == 0:
+    return []
+
+  values: list[str] = raw_value.split("::") if raw_value else [""] * input_count
+  if len(values) != input_count:
+    raise ValueError(
+      f"{variable_name} must contain exactly {input_count} values separated by '::'"
+    )
+  return values
+
+
+def load_metadata_from_environment(input_count: int) -> list[SourceMetadata]:
+  """Load global and source-scoped metadata from environment variables."""
+  airflow_dag_id: str = os.environ.get("AIRFLOW_DAG_ID", "")
+  extracted_at: str = os.environ.get("EXTRACTED_AT", "")
+  connector_id: str = os.environ.get("CONNECTOR_ID", "")
+  connector_name: str = os.environ.get("CONNECTOR_NAME", "")
+
+  source_names: list[str] = split_source_metadata(
+    os.environ.get("SOURCE_NAME", ""),
+    input_count,
+    "SOURCE_NAME",
+  )
+  source_types: list[str] = split_source_metadata(
+    os.environ.get("SOURCE_TYPE", ""),
+    input_count,
+    "SOURCE_TYPE",
+  )
+  languages: list[str] = split_source_metadata(
+    os.environ.get("LANGUAGE", ""),
+    input_count,
+    "LANGUAGE",
+  )
+  countries: list[str] = split_source_metadata(
+    os.environ.get("COUNTRY", ""),
+    input_count,
+    "COUNTRY",
+  )
+  source_tags: list[str] = split_source_metadata(
+    os.environ.get("SOURCE_TAGS", ""),
+    input_count,
+    "SOURCE_TAGS",
+  )
+
+  return [
+    SourceMetadata(
+      airflow_dag_id=airflow_dag_id,
+      extracted_at=extracted_at,
+      connector_id=connector_id,
+      connector_name=connector_name,
+      source_name=source_names[index],
+      source_type=source_types[index],
+      language=languages[index],
+      country=countries[index],
+      source_tags=source_tags[index],
+    )
+    for index in range(input_count)
+  ]
+
+
+def write_metadata_file(output_dir: Path, metadata: SourceMetadata) -> None:
+  """Write pipeline metadata as key=value lines inside the output directory."""
+  metadata_path: Path = output_dir / "metadata.txt"
+  metadata_lines: list[str] = [
+    f"airflow_dag_id={metadata.airflow_dag_id}",
+    f"extracted_at={metadata.extracted_at}",
+    f"connector_id={metadata.connector_id}",
+    f"connector_name={metadata.connector_name}",
+    f"source_name={metadata.source_name}",
+    f"source_type={metadata.source_type}",
+    f"language={metadata.language}",
+    f"country={metadata.country}",
+    f"source_tags={metadata.source_tags}",
+  ]
+  metadata_path.write_text("\n".join(metadata_lines) + "\n", encoding="utf-8")
+
+
 def compute_segment_time_seconds(total_duration_seconds: int, raw_segment_time: str | None) -> int:
   """Resolve the segment duration in seconds."""
   if raw_segment_time is None:
@@ -121,6 +214,7 @@ def validate_arguments(total_duration_seconds: int, segment_time_seconds: int, s
 
 async def run_ffmpeg_for_source(
   source: Source,
+  metadata: SourceMetadata,
   total_duration_seconds: int,
   segment_time_seconds: int,
   segment_wrap: int | None,
@@ -129,6 +223,7 @@ async def run_ffmpeg_for_source(
   """Run one ffmpeg process for a single source."""
   source_output_dir: Path = base_output_dir / f"pipeline_{source.name}"
   source_output_dir.mkdir(parents=True, exist_ok=True)
+  write_metadata_file(source_output_dir, metadata)
   log_path: Path = source_output_dir / "logs.txt"
 
   command: list[str] = [
@@ -199,6 +294,7 @@ async def async_main() -> int:
   validate_arguments(total_duration_seconds, segment_time_seconds, args.segment_wrap)
 
   selected_sources: list[Source] = build_sources_from_urls(args.input_urls)
+  selected_metadata: list[SourceMetadata] = load_metadata_from_environment(len(selected_sources))
 
   if not selected_sources:
     raise ValueError("No sources selected")
@@ -208,13 +304,14 @@ async def async_main() -> int:
     asyncio.create_task(
       run_ffmpeg_for_source(
         source=source,
+        metadata=selected_metadata[index],
         total_duration_seconds=total_duration_seconds,
         segment_time_seconds=segment_time_seconds,
         segment_wrap=args.segment_wrap,
         base_output_dir=output_root,
       )
     )
-    for source in selected_sources
+    for index, source in enumerate(selected_sources)
   ]
 
   timeout_seconds: int = total_duration_seconds + EXCEDING_TIME_BUFFER_SECONDS
