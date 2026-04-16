@@ -302,15 +302,30 @@ async def run_ffmpeg_for_source(
 async def async_main() -> int:
   """Parse arguments and execute ffmpeg jobs in parallel."""
   args: argparse.Namespace = parse_args()
+  return await run_extraction(
+    input_urls=list(args.input_urls),
+    total_duration=args.total_duration,
+    segment_wrap=args.segment_wrap,
+    segment_time=args.segment_time,
+  )
+
+
+async def run_extraction(
+  input_urls: list[str],
+  total_duration: str,
+  segment_wrap: int | None = None,
+  segment_time: str | None = None,
+) -> int:
+  """Execute ffmpeg extraction jobs from explicit arguments."""
   script_dir: Path = Path(__file__).resolve().parent
 
-  total_duration_float: float = parse_time_value(args.total_duration, "-t")
+  total_duration_float: float = parse_time_value(total_duration, "-t")
   total_duration_seconds: int = max(1, int(round(total_duration_float)))
-  segment_time_seconds: int = compute_segment_time_seconds(total_duration_seconds, args.segment_time)
+  segment_time_seconds: int = compute_segment_time_seconds(total_duration_seconds, segment_time)
 
-  validate_arguments(total_duration_seconds, segment_time_seconds, args.segment_wrap)
+  validate_arguments(total_duration_seconds, segment_time_seconds, segment_wrap)
 
-  selected_sources: list[Source] = build_sources_from_urls(args.input_urls)
+  selected_sources: list[Source] = build_sources_from_urls(input_urls)
   selected_metadata: list[SourceMetadata] = load_metadata_from_environment(len(selected_sources))
 
   if not selected_sources:
@@ -324,7 +339,7 @@ async def async_main() -> int:
         metadata=selected_metadata[index],
         total_duration_seconds=total_duration_seconds,
         segment_time_seconds=segment_time_seconds,
-        segment_wrap=args.segment_wrap,
+        segment_wrap=segment_wrap,
         base_output_dir=output_root,
       )
     )
@@ -364,17 +379,35 @@ async def async_main() -> int:
 
   return 0
 
+
+def main(
+  input_urls: list[str],
+  total_duration: str,
+  segment_wrap: int | None = None,
+  segment_time: str | None = None,
+) -> None:
+  """Run audio extraction and persist the execution start time."""
+  s_datetime: datetime = datetime.now()
+  script_dir: Path = Path(__file__).resolve().parent
+  start_datetime_path: Path = script_dir / "execution_starting_date.txt"
+  start_datetime_path.write_text(s_datetime.strftime("%d/%m/%Y:%H:%M:%S"), encoding="utf-8")
+
+  exit_code: int = asyncio.run(
+    run_extraction(
+      input_urls=input_urls,
+      total_duration=total_duration,
+      segment_wrap=segment_wrap,
+      segment_time=segment_time,
+    )
+  )
+  if exit_code != 0:
+    raise RuntimeError(f"extract_audio failed with exit code {exit_code}")
+
 if __name__ == "__main__":
-  try:
-    s_datetime: datetime = datetime.now()
-    script_dir: Path = Path(__file__).resolve().parent
-    start_datetime_path: Path = script_dir / "execution_starting_date.txt"
-    start_datetime_path.write_text(s_datetime.strftime("%d/%m/%Y:%H:%M:%S"), encoding="utf-8")
-    exit_code: int = asyncio.run(async_main())
-  except ValueError as error:
-    print(f"Argument error: {error}", file=sys.stderr)
-    sys.exit(2)
-  except KeyboardInterrupt:
-    print("Interrupted by user", file=sys.stderr)
-    sys.exit(130)
-  sys.exit(exit_code)
+  parsed_args: argparse.Namespace = parse_args()
+  main(
+    input_urls=list(parsed_args.input_urls),
+    total_duration=parsed_args.total_duration,
+    segment_wrap=parsed_args.segment_wrap,
+    segment_time=parsed_args.segment_time,
+  )
