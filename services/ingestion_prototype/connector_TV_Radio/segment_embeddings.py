@@ -1,9 +1,9 @@
 from sentence_transformers import SentenceTransformer
 import ast
-import importlib
 import json
 import math
 import re
+import uuid
 from pathlib import Path
 from typing import Any, TypedDict
 
@@ -15,6 +15,7 @@ from numpy.typing import NDArray
 K: int = 6
 MIN_GAP_UNITS: int = 8
 PEAK_THRESHOLD: float = 0.25
+OUTPUT_DIR: Path = Path("./outputs")
 
 
 class Unit(TypedDict):
@@ -30,6 +31,20 @@ class Story(TypedDict):
   s: float
   e: float
   text: str
+
+
+class PipelineMetadata(TypedDict):
+  """Represents metadata stored in pipeline metadata.txt files."""
+  airflow_dag_id: str
+  extracted_at: str
+  connector_id: str
+  connector_name: str
+  source_url: str
+  source_name: str
+  source_type: str
+  language: str
+  country: str
+  source_tags: str
 
 
 def load_transcription(file_path: str) -> dict[str, str]:
@@ -237,37 +252,86 @@ def save_json(payload: Any, output_path: str) -> None:
     json.dump(payload, file, indent=2, ensure_ascii=False)
 
 
-def plot_scores(scores: list[float], boundaries: list[int], output_path: str) -> None:
-  """Save a line graph of boundary scores and selected boundaries."""
-  plt: Any = importlib.import_module("matplotlib.pyplot")
-  x_values: list[int] = list(range(len(scores)))
-  y_values: list[float] = [value if not math.isnan(value) else 0.0 for value in scores]
-
-  plt.figure(figsize=(14, 6))
-  plt.plot(x_values, y_values, marker="o", linewidth=1.5, label="boundary score")
-
-  if boundaries:
-    boundary_values: list[float] = [y_values[index] for index in boundaries]
-    plt.scatter(boundaries, boundary_values, color="red", s=50, label="selected boundaries", zorder=3)
-
-  plt.title("Boundary Scores for Story Segmentation")
-  plt.xlabel("Boundary Index (between unit i and i+1)")
-  plt.ylabel("Score (1 - cosine similarity)")
-  plt.grid(True, linestyle="--", alpha=0.4)
-  plt.legend()
-  plt.tight_layout()
-  plt.savefig(output_path, dpi=200)
-  plt.close()
-
-
 def iter_transcription_files(base_dir: Path) -> list[Path]:
   """Find all merged transcription files inside pipeline directories."""
   return sorted(base_dir.glob("pipeline_*/*_transcription_merged.json"))
 
 
-def build_segmented_output_path(transcription_path: Path) -> Path:
-  """Build output path by appending _segmented to file stem."""
-  return transcription_path.with_name(f"{transcription_path.stem}_segmented.json")
+def load_pipeline_metadata(metadata_path: Path) -> PipelineMetadata:
+  """Load pipeline metadata.txt into a dictionary."""
+  metadata: dict[str, str] = {}
+  for line in metadata_path.read_text(encoding="utf-8").splitlines():
+    if not line.strip() or "=" not in line:
+      continue
+    key, value = line.split("=", 1)
+    metadata[key.strip()] = value.strip()
+
+  return {
+    "airflow_dag_id": metadata.get("airflow_dag_id", ""),
+    "extracted_at": metadata.get("extracted_at", ""),
+    "connector_id": metadata.get("connector_id", ""),
+    "connector_name": metadata.get("connector_name", ""),
+    "source_url": metadata.get("source_url", ""),
+    "source_name": metadata.get("source_name", ""),
+    "source_type": metadata.get("source_type", ""),
+    "language": metadata.get("language", ""),
+    "country": metadata.get("country", ""),
+    "source_tags": metadata.get("source_tags", ""),
+  }
+
+
+def build_story_payload(metadata: PipelineMetadata, story: Story) -> dict[str, Any]:
+  """Build one output payload for a segmented news item."""
+  news_id: str = uuid.uuid4().hex
+  start: float = story["s"]
+  end: float = story["e"]
+  duration: float = max(0.0, end - start)
+
+  return {
+    "id": news_id,
+    "source_url": metadata["source_url"],
+    "airflow_dag_id": metadata["airflow_dag_id"],
+    "extracted_at": metadata["extracted_at"],
+    "connector_id": metadata["connector_id"],
+    "connector_name": metadata["connector_name"],
+    "source_name": metadata["source_name"],
+    "source_type": metadata["source_type"],
+    "language": metadata["language"],
+    "country": metadata["country"],
+    "source_tags": metadata["source_tags"],
+    "content": story["text"],
+    "other": {
+      "start": start,
+      "end": end,
+      "duration": duration,
+    },
+  }
+
+
+def build_outputs_dir(script_dir: Path) -> Path:
+  """Resolve and create the configured outputs directory."""
+  output_dir: Path = OUTPUT_DIR if OUTPUT_DIR.is_absolute() else (script_dir / OUTPUT_DIR)
+  output_dir.mkdir(parents=True, exist_ok=True)
+  return output_dir
+
+
+def save_story_payloads(output_dir: Path, metadata: PipelineMetadata, stories: list[Story]) -> list[Path]:
+  """Write one JSON file per segmented story into the outputs directory."""
+  output_paths: list[Path] = []
+  for story in stories:
+    payload: dict[str, Any] = build_story_payload(metadata, story)
+    output_path: Path = output_dir / f"{payload['id']}.json"
+    save_json(payload, str(output_path))
+    output_paths.append(output_path)
+  return output_paths
+
+
+def format_output_path(path: Path, script_dir: Path) -> str:
+  """Return a readable path for console output."""
+  try:
+    return str(path.relative_to(script_dir))
+  except ValueError:
+    return str(path)
 
 
 def main() -> None:
@@ -279,27 +343,25 @@ def main() -> None:
   peak_threshold = PEAK_THRESHOLD
 
   script_dir: Path = Path(__file__).resolve().parent
+  output_dir: Path = build_outputs_dir(script_dir)
   transcription_files: list[Path] = iter_transcription_files(script_dir)
 
   for transcription_file in transcription_files:
+    metadata_path: Path = transcription_file.parent / "metadata.txt"
+    metadata: PipelineMetadata = load_pipeline_metadata(metadata_path)
     transcription = load_transcription(str(transcription_file))
-    stories, scores, boundaries = segment_stories(
+    stories, _, _ = segment_stories(
       transcription=transcription,
       model=model,
       k=k,
       min_gap_units=min_gap_units,
       peak_threshold=peak_threshold,
     )
-
-    segmented_output_path: Path = build_segmented_output_path(transcription_file)
-    graph_output_path: Path = transcription_file.with_name(f"{transcription_file.stem}_scores.png")
-
-    save_json(stories, str(segmented_output_path))
-    plot_scores(scores, boundaries, str(graph_output_path))
+    output_paths: list[Path] = save_story_payloads(output_dir, metadata, stories)
 
     print(f"Processed: {transcription_file.relative_to(script_dir)}")
-    print(f"Saved segmented stories to: {segmented_output_path.relative_to(script_dir)}")
-    print(f"Saved boundary score graph to: {graph_output_path.relative_to(script_dir)}")
+    for output_path in output_paths:
+      print(f"Saved story JSON to: {format_output_path(output_path, script_dir)}")
 
 
 if __name__ == "__main__":

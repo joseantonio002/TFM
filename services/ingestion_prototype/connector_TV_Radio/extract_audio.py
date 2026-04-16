@@ -24,6 +24,7 @@ class SourceMetadata:
   extracted_at: str
   connector_id: str
   connector_name: str
+  source_url: str
   source_name: str
   source_type: str
   language: str
@@ -160,6 +161,7 @@ def load_metadata_from_environment(input_count: int) -> list[SourceMetadata]:
       extracted_at=extracted_at,
       connector_id=connector_id,
       connector_name=connector_name,
+      source_url="",
       source_name=source_names[index],
       source_type=source_types[index],
       language=languages[index],
@@ -178,6 +180,7 @@ def write_metadata_file(output_dir: Path, metadata: SourceMetadata) -> None:
     f"extracted_at={metadata.extracted_at}",
     f"connector_id={metadata.connector_id}",
     f"connector_name={metadata.connector_name}",
+    f"source_url={metadata.source_url}",
     f"source_name={metadata.source_name}",
     f"source_type={metadata.source_type}",
     f"language={metadata.language}",
@@ -223,7 +226,21 @@ async def run_ffmpeg_for_source(
   """Run one ffmpeg process for a single source."""
   source_output_dir: Path = base_output_dir / f"pipeline_{source.name}"
   source_output_dir.mkdir(parents=True, exist_ok=True)
-  write_metadata_file(source_output_dir, metadata)
+  write_metadata_file(
+    source_output_dir,
+    SourceMetadata(
+      airflow_dag_id=metadata.airflow_dag_id,
+      extracted_at=metadata.extracted_at,
+      connector_id=metadata.connector_id,
+      connector_name=metadata.connector_name,
+      source_url=source.url,
+      source_name=metadata.source_name,
+      source_type=metadata.source_type,
+      language=metadata.language,
+      country=metadata.country,
+      source_tags=metadata.source_tags,
+    ),
+  )
   log_path: Path = source_output_dir / "logs.txt"
 
   command: list[str] = [
