@@ -1,12 +1,10 @@
 import asyncio
 import argparse
-import json
 import re
 import sys
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Any
 from datetime import datetime
+from pathlib import Path
 
 TIME_PATTERN: re.Pattern[str] = re.compile(r"^(\d+):(\d{1,2}):(\d{1,2}(?:\.\d+)?)$")
 EXCEDING_TIME_BUFFER_SECONDS: int = 10
@@ -20,6 +18,7 @@ class Source:
 
 
 def parse_time_value(raw_value: str, argument_name: str) -> float:
+  """Convert a CLI time value into seconds."""
   value: str = raw_value.strip()
   if not value:
     raise ValueError(f"{argument_name} cannot be empty")
@@ -52,14 +51,16 @@ def parse_time_value(raw_value: str, argument_name: str) -> float:
 
 
 def parse_args() -> argparse.Namespace:
+  """Parse command-line arguments for audio extraction."""
   parser: argparse.ArgumentParser = argparse.ArgumentParser(
     description="Extract segmented audio from streaming sources in parallel"
   )
   parser.add_argument(
     "-i",
     nargs="+",
-    dest="input_ids",
-    help="Source IDs separated by spaces. If omitted, all sources are used.",
+    required=True,
+    dest="input_urls",
+    help="One or more source URLs separated by spaces.",
   )
   parser.add_argument(
     "-t",
@@ -81,42 +82,20 @@ def parse_args() -> argparse.Namespace:
   return parser.parse_args()
 
 
-def load_sources(file_path: Path) -> dict[str, Any]:
-  with file_path.open("r", encoding="utf-8") as source_file:
-    data: Any = json.load(source_file)
-  if not isinstance(data, dict):
-    raise ValueError("sources.json must contain an object keyed by source IDs")
-  return data
-
-
-def build_source(source_id: str, source_data: Any) -> Source:
-  if not isinstance(source_data, dict):
-    raise ValueError(f"Source '{source_id}' must be an object")
-  url: Any = source_data.get("url")
-  if not isinstance(url, str) or not url.strip():
-    raise ValueError(f"Source '{source_id}' has an invalid or missing 'url'")
-  raw_name: Any = source_data.get("name")
-  name: str = str(raw_name).strip() if raw_name is not None else ""
-  if not name:
-    name = source_id
-  return Source(source_id=source_id, name=name, url=url.strip())
-
-
-def select_sources(all_sources: dict[str, Any], selected_ids: list[str] | None) -> list[Source]:
-  ordered_ids: list[str]
-  if selected_ids is None:
-    ordered_ids = list(all_sources.keys())
-  else:
-    ordered_ids = selected_ids
-    missing_ids: list[str] = [source_id for source_id in ordered_ids if source_id not in all_sources]
-    if missing_ids:
-      missing_display: str = ", ".join(missing_ids)
-      raise ValueError(f"Source IDs not found in sources.json: {missing_display}")
-
-  return [build_source(source_id, all_sources[source_id]) for source_id in ordered_ids]
+def build_sources_from_urls(input_urls: list[str]) -> list[Source]:
+  """Build source metadata directly from the provided input URLs."""
+  sources: list[Source] = []
+  for index, raw_url in enumerate(input_urls, start=1):
+    url: str = raw_url.strip()
+    if not url:
+      raise ValueError("-i values cannot be empty")
+    source_id: str = f"input_{index:02d}"
+    sources.append(Source(source_id=source_id, name=source_id, url=url))
+  return sources
 
 
 def compute_segment_time_seconds(total_duration_seconds: int, raw_segment_time: str | None) -> int:
+  """Resolve the segment duration in seconds."""
   if raw_segment_time is None:
     computed: int = int(round(total_duration_seconds * 0.2))
     return max(1, computed)
@@ -126,6 +105,7 @@ def compute_segment_time_seconds(total_duration_seconds: int, raw_segment_time: 
 
 
 def validate_arguments(total_duration_seconds: int, segment_time_seconds: int, segment_wrap: int | None) -> None:
+  """Validate parsed CLI arguments."""
   if total_duration_seconds <= 0:
     raise ValueError("-t must be greater than 0 seconds")
 
@@ -211,7 +191,6 @@ async def async_main() -> int:
   """Parse arguments and execute ffmpeg jobs in parallel."""
   args: argparse.Namespace = parse_args()
   script_dir: Path = Path(__file__).resolve().parent
-  sources_path: Path = script_dir / "sources.json"
 
   total_duration_float: float = parse_time_value(args.total_duration, "-t")
   total_duration_seconds: int = max(1, int(round(total_duration_float)))
@@ -219,15 +198,14 @@ async def async_main() -> int:
 
   validate_arguments(total_duration_seconds, segment_time_seconds, args.segment_wrap)
 
-  sources_data: dict[str, Any] = load_sources(sources_path)
-  selected_sources: list[Source] = select_sources(sources_data, args.input_ids)
+  selected_sources: list[Source] = build_sources_from_urls(args.input_urls)
 
   if not selected_sources:
     raise ValueError("No sources selected")
 
   output_root: Path = script_dir
   tasks: list[asyncio.Task[tuple[Source, int]]] = [
-      asyncio.create_task(
+    asyncio.create_task(
       run_ffmpeg_for_source(
         source=source,
         total_duration_seconds=total_duration_seconds,
