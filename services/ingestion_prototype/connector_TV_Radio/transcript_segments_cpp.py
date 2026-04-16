@@ -9,13 +9,14 @@ from pathlib import Path
 from typing import Any
 
 
-SCRIPT_DIR: Path = Path(__file__).resolve().parent
-BASE_DIR: Path = SCRIPT_DIR.parent.parent
+BASE_DIR: Path = Path(__file__).resolve().parent.parent.parent
+RAW_OUTPUT_DIR: Path = Path("./outputs/raw")
 WHISPER_CLI_PATH: Path = (BASE_DIR / "../whisper.cpp/build/bin/whisper-cli").resolve()
 WHISPER_MODEL_PATH: Path = (BASE_DIR / "../whisper.cpp/models/ggml-tiny.bin").resolve()
-OUTPUT_DIR_RAW: Path = Path("./outputs/raw")
 MAX_PROCESSES: int = 3
 START_DATETIME: datetime | None = None
+CONNECTOR_DIR: Path = BASE_DIR / "ingestion_prototype" / "connector_TV_Radio"
+
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(r"^\s*(\[[^\]]+\])\s*(.*)$")
 
 def execute(audio_path: Path) -> str:
@@ -101,8 +102,12 @@ def find_full_audios(base_dir: Path) -> list[Path]:
   return full_audios
 
 
-def load_pipeline_metadata(metadata_path: Path) -> dict[str, str]:
-  """Load key=value metadata from a pipeline metadata file."""
+def load_pipeline_metadata(pipeline_dir: Path) -> dict[str, str]:
+  """Load pipeline metadata.txt as a key-value mapping."""
+  metadata_path: Path = pipeline_dir / "metadata.txt"
+  if not metadata_path.is_file():
+    raise FileNotFoundError(f"metadata.txt not found at {metadata_path}")
+
   metadata: dict[str, str] = {}
   for line in metadata_path.read_text(encoding="utf-8").splitlines():
     if not line.strip() or "=" not in line:
@@ -112,46 +117,50 @@ def load_pipeline_metadata(metadata_path: Path) -> dict[str, str]:
   return metadata
 
 
-def sanitize_filename_part(raw_value: str) -> str:
-  """Return a filesystem-safe filename fragment."""
+def sanitize_for_filename(raw_value: str) -> str:
+  """Convert an arbitrary value into a filesystem-safe token."""
   sanitized: str = re.sub(r"[^A-Za-z0-9._-]+", "_", raw_value.strip())
-  return sanitized.strip("_") or "unknown"
+  sanitized = sanitized.strip("._")
+  return sanitized or "unknown"
 
 
-def build_output_dir() -> Path:
-  """Resolve and create the transcription output directory."""
-  output_dir: Path = OUTPUT_DIR_RAW if OUTPUT_DIR_RAW.is_absolute() else (SCRIPT_DIR / OUTPUT_DIR_RAW)
+def build_raw_output_dir() -> Path:
+  """Resolve and create the configured raw output directory."""
+  output_dir: Path = RAW_OUTPUT_DIR if RAW_OUTPUT_DIR.is_absolute() else (CONNECTOR_DIR / RAW_OUTPUT_DIR)
   output_dir.mkdir(parents=True, exist_ok=True)
   return output_dir
 
 
-def build_output_path(output_dir: Path, metadata: dict[str, str]) -> Path:
-  """Build a unique JSON output path from pipeline metadata."""
-  connector_id: str = sanitize_filename_part(metadata.get("connector_id", "unknown_connector"))
-  airflow_dag_id: str = sanitize_filename_part(metadata.get("airflow_dag_id", "unknown_dag"))
-  executed_at: str = sanitize_filename_part(metadata.get("extracted_at", "unknown_datetime"))
-  base_name: str = f"{connector_id}_{airflow_dag_id}_{executed_at}"
-  output_path: Path = output_dir / f"{base_name}.json"
-
-  if not output_path.exists():
-    return output_path
-
-  suffix: int = 1
-  while True:
-    candidate_path: Path = output_dir / f"{base_name}_{suffix}.json"
-    if not candidate_path.exists():
-      return candidate_path
-    suffix += 1
+def build_raw_output_path(output_dir: Path, metadata: dict[str, str]) -> Path:
+  """Build the duplicated raw-output JSON path from pipeline metadata."""
+  connector_id: str = sanitize_for_filename(metadata.get("connector_id", ""))
+  airflow_dag_id: str = sanitize_for_filename(metadata.get("airflow_dag_id", ""))
+  extracted_at: str = sanitize_for_filename(metadata.get("extracted_at", ""))
+  source_name: str = sanitize_for_filename(metadata.get("source_name", ""))
+  filename: str = f"{connector_id}_{airflow_dag_id}_{extracted_at}_{source_name}.json"
+  return output_dir / filename
 
 
 def transcribe_audio(audio_path: Path) -> Path:
   """Transcribe one audio file and save the output JSON file."""
   if START_DATETIME is None:
     raise RuntimeError("Worker start datetime is not initialized.")
-  metadata_path: Path = audio_path.parent / "metadata.txt"
-  metadata: dict[str, str] = load_pipeline_metadata(metadata_path)
-  output_dir: Path = build_output_dir()
-  output_path: Path = build_output_path(output_dir, metadata)
+
+  segment_files: list[Path] = sorted(audio_path.parent.glob("*_out_00000.wav"))
+  if not segment_files:
+    raise ValueError(f"No source segment file found in {audio_path.parent}")
+
+  source_id: str = segment_files[0].stem.removesuffix("_out_00000")
+  metadata: dict[str, str] = load_pipeline_metadata(audio_path.parent)
+  source_type: str = metadata.get("source_type", "").strip()
+  source_name: str = metadata.get("source_name", "").strip()
+  if not source_type:
+    raise ValueError(f"Missing 'source_type' in {audio_path.parent / 'metadata.txt'}")
+  if not source_name:
+    raise ValueError(f"Missing 'source_name' in {audio_path.parent / 'metadata.txt'}")
+
+  output_path: Path = audio_path.parent / f"{source_id}_transcription.json"
+  raw_output_path: Path = build_raw_output_path(build_raw_output_dir(), metadata)
   raw_transcription: str = execute(audio_path)
   transcription: dict[str, str] = parse_transcription_segments(raw_transcription)
   s_dt: datetime = START_DATETIME
@@ -163,12 +172,14 @@ def transcribe_audio(audio_path: Path) -> Path:
 
   final_json: dict[str, Any] = {
     "transcription": transcription,
-    "channel": metadata.get("source_name", ""),
-    "source_type": metadata.get("source_type", ""),
+    "channel": source_name,
+    "source_type": source_type,
     "s_datetime": s_dt.strftime("%d/%m/%Y:%H:%M:%S"),
     "e_datetime": e_dt.strftime("%d/%m/%Y:%H:%M:%S"),
   }
-  output_path.write_text(json.dumps(final_json, ensure_ascii=False, indent=2), encoding="utf-8")
+  serialized_json: str = json.dumps(final_json, ensure_ascii=False, indent=2)
+  output_path.write_text(serialized_json, encoding="utf-8")
+  raw_output_path.write_text(serialized_json, encoding="utf-8")
   return output_path
 
 
@@ -176,8 +187,8 @@ def main() -> None:
   """Run multiprocessing transcription for all final audios."""
 
   validate_whisper_paths()
-  audio_files: list[Path] = find_full_audios(SCRIPT_DIR)
-  start_datetime_path: Path = SCRIPT_DIR / "execution_starting_date.txt"
+  audio_files: list[Path] = find_full_audios(CONNECTOR_DIR)
+  start_datetime_path: Path = CONNECTOR_DIR / "execution_starting_date.txt"
   start_datetime_text: str = start_datetime_path.read_text(encoding="utf-8").strip()
 
   if not start_datetime_text:
@@ -186,6 +197,8 @@ def main() -> None:
   if not audio_files:
     print("No *_full.wav files found in pipeline folders.")
     return
+
+  build_raw_output_dir()
 
   with mp.Pool(
     processes=MAX_PROCESSES,
