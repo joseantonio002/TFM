@@ -10,7 +10,7 @@ from typing import Any
 
 
 BASE_DIR: Path = Path(__file__).resolve()
-RAW_OUTPUT_DIR: Path = Path("./outputs/raw")
+RAW_OUTPUT_DIR: Path = Path("/outputs/raw")
 WHISPER_CLI_PATH: Path = ("./whisper.cpp/build/bin/whisper-cli")
 WHISPER_MODEL_PATH: Path = ("./whisper.cpp/models/ggml-tiny.bin")
 MAX_PROCESSES: int = 3
