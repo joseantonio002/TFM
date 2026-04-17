@@ -23,3 +23,14 @@ python3.12 -m venv ./.venv
 source .venv/bin/activate
 pip install -r requirements.txt
 apt install cmake -y
+-- EN EL HOST --
+git clone https://github.com/ggml-org/whisper.cpp.git
+sudo cp -r whisper.cpp/ TFM/services/ingestion_prototype/connector_TV_Radio_image/
+-- VUELTA AL CONTAINER --
+cd whisper.cpp/
+cmake -B build
+cmake --build build -j --config Release
+-- EN EL HOST --
+# Copiar el modelo que teniamos originalmente
+sudo cp ../../../whisper.cpp/models/ggml-tiny.bin ../connector_TV_Radio_image/whisper.cpp/models/
+-- VUELTA AL CONTAINER --
