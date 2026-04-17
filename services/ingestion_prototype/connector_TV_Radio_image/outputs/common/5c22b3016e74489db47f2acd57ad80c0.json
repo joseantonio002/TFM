@@ -1,0 +1,19 @@
+{
+  "id": "5c22b3016e74489db47f2acd57ad80c0",
+  "source_url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
+  "airflow_dag_id": "dag1",
+  "extracted_at": "2026-04-16 12:00:00",
+  "connector_id": "cid",
+  "connector_name": "cname",
+  "source_name": "NEWS_NAME",
+  "source_type": "NEWS_TYPE",
+  "language": "NEWS_LANG",
+  "country": "NEWS_COUNTRY",
+  "source_tags": "[\"tag1\",\"tag2\"]",
+  "content": "Al menos 16 personas han muerto desde este miércoles ucrania como consecuencia de los Sucesivos ataques lanzados por Rusia contra distintas regiones del país sobre las que Han impactado casi 700 drones de larga distancia y más de 400 misiles según las autoridades 4 de las víctimas han muerto en Kiev 8 en Odesa 3 en Nitro y 1 en Zapatilla mientras que los Heridos se cuentan por decenas El ministro de Exteriores de Ucrania Andrés y Viga con Dejó este jueves",
+  "other": {
+    "start": 53.68,
+    "end": 80.767,
+    "duration": 27.086999999999996
+  }
+}

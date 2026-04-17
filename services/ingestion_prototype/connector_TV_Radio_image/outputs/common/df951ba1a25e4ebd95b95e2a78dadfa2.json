@@ -1,0 +1,19 @@
+{
+  "id": "df951ba1a25e4ebd95b95e2a78dadfa2",
+  "source_url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
+  "airflow_dag_id": "dag1",
+  "extracted_at": "2026-04-16 12:00:00",
+  "connector_id": "cid",
+  "connector_name": "cname",
+  "source_name": "Actualidad 360",
+  "source_type": "TV",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"noticias\",\"españa\"]",
+  "content": "A la semana un postre distinto a la fruta y además sin azúcar es añadido Venecia a uno de los grandes iconos del patrimonio mundial se enfrenta a un futuro cada vez más Incierto El aumento de nivel del mar estrecha el margen de manejo braña hasta escenarios Extremos en los que incluso abandonar partes de la ciudad podría ser inevitable un estudio Advierte de que las soluciones actuales tienen fecha de caducidad y plantea hasta cuatro Caminos posibles todos con costes y renuncias porque lo que está en juego no es solo Venecia si no el anticipo de un problema global que afectará a muchas toñas costeras durante Las próximas de cada",
+  "other": {
+    "start": 0.0,
+    "end": 38.867,
+    "duration": 38.867
+  }
+}

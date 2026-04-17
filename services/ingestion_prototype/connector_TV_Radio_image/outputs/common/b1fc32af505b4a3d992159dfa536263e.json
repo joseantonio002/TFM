@@ -1,0 +1,19 @@
+{
+  "id": "b1fc32af505b4a3d992159dfa536263e",
+  "source_url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
+  "airflow_dag_id": "dag1",
+  "extracted_at": "2026-04-16 12:00:00",
+  "connector_id": "cid",
+  "connector_name": "cname",
+  "source_name": "Actualidad 360",
+  "source_type": "TV",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"noticias\",\"españa\"]",
+  "content": "Un viaje de la luna de miel se ha convertido en una auténtica tragedia Un médico de alicante ha resultado gravemente herido tras el ataque de un tiburón en las Maldivas en un suceso que le ha provocado la imputación de una pierna y que le mantiene ingresado En estado grave Un caso tan excepcional como impactante que pone el foco en los riesgos De ciertas actividades turísticas entonas con alta presencia de estos animales y que",
+  "other": {
+    "start": 38.867,
+    "end": 64.0,
+    "duration": 25.133000000000003
+  }
+}

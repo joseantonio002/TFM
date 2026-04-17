@@ -1,0 +1,19 @@
+{
+  "id": "b00dd7a9e5ab4c29b79653913b470879",
+  "source_url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
+  "airflow_dag_id": "dag1",
+  "extracted_at": "2026-04-16 12:00:00",
+  "connector_id": "cid",
+  "connector_name": "cname",
+  "source_name": "NEWS_NAME",
+  "source_type": "NEWS_TYPE",
+  "language": "NEWS_LANG",
+  "country": "NEWS_COUNTRY",
+  "source_tags": "[\"tag1\",\"tag2\"]",
+  "content": "los ataques que tocho de terroristas y afirmó que los bombardeos fueron dirigidos principalmente contra civiles por lo que calificó de crimen de guerra hasta última o la De ataques rusos según escribió en Superfilo Así mismo si Viga ocio a la comunidad Internacional a actuar de forma inmediata para incrementar la presión sobre Rusia E hizo a que más países seguían al tribunal especial que promueve Ucrania principalmente Con apoyo de la Unión Europea para jugar a Vladímir Putin y a otros dirigentes rusos Estos ataques por parte de Rusia constituyen una represalia contra instalaciones ucranianas De reducción de misiles hadrones así como contra el sector energético según el Ministerio De defensa ruso que considera",
+  "other": {
+    "start": 80.767,
+    "end": 122.24,
+    "duration": 41.473
+  }
+}
