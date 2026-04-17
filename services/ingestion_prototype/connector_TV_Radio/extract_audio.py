@@ -401,7 +401,8 @@ def main(
     )
   )
   if exit_code != 0:
-    raise RuntimeError(f"extract_audio failed with exit code {exit_code}")
+    print("One or more ffmpeg processes failed. Continuing execution")
+    #raise RuntimeError(f"extract_audio failed with exit code {exit_code}")
 
 if __name__ == "__main__":
   parsed_args: argparse.Namespace = parse_args()
