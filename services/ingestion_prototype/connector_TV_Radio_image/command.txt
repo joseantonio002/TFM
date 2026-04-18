@@ -11,7 +11,7 @@ python main.py -i https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.am
 
 
 
-
+container commands:
 apt update
 apt install ffmpeg=7:6.1.1-3ubuntu5
 apt install software-properties-common
