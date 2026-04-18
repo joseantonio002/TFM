@@ -18,7 +18,6 @@ apt install software-properties-common
 add-apt-repository ppa:deadsnakes/ppa
 apt install python3.12-full
 apt-get install python3-pip
-pip install -r requirements.txt
 python3.12 -m venv ./.venv
 source .venv/bin/activate
 pip install -r requirements.txt

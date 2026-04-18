@@ -310,7 +310,8 @@ def build_story_payload(metadata: PipelineMetadata, story: Story) -> dict[str, A
 
 def build_outputs_dir(script_dir: Path) -> Path:
   """Resolve and create the configured outputs directory."""
-  output_dir: Path = OUTPUT_DIR if OUTPUT_DIR.is_absolute() else (script_dir / OUTPUT_DIR)
+  #output_dir: Path = OUTPUT_DIR if OUTPUT_DIR.is_absolute() else (script_dir / OUTPUT_DIR)
+  output_dir = OUTPUT_DIR
   output_dir.mkdir(parents=True, exist_ok=True)
   return output_dir
 
@@ -362,7 +363,6 @@ def main() -> None:
     print(f"Processed: {transcription_file.relative_to(script_dir)}")
     for output_path in output_paths:
       print(f"Saved story JSON to: {format_output_path(output_path, script_dir)}")
-
-
+      
 if __name__ == "__main__":
   main()
