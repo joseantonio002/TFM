@@ -1,13 +1,12 @@
+import datetime
+
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
-from datetime import datetime
-
-current_date = datetime.now()
 
 with DAG(
   dag_id='testradiodag',
-  start_date=current_date,
+  start_date=datetime.datetime(2026, 4, 18, 21, 8, 30),
   schedule='0 0 * * *',
   catchup=False,
 ) as dag:
@@ -30,7 +29,7 @@ with DAG(
  '-sw',
  '5'],
     environment={'AIRFLOW_DAG_ID': 'testradiodag',
- 'EXTRACTED_AT': '{{ execution_date }}',
+ 'EXTRACTED_AT': '{{ ts }}',
  'CONNECTOR_ID': 'TestConector',
  'CONNECTOR_NAME': 'Test conector',
  'SOURCE_NAME': 'Onda Cero (España)::RNE Radio Nacional (General)',

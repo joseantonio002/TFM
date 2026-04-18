@@ -1,6 +1,6 @@
 {
   "TV/RadioES": {
-    "docker_image": "TV_RADIO_ES:latest",
+    "docker_image": "connector-tv-radio-image:latest",
     "connector_name": "TV/RadioES",
     "description": "Connector for Spanish TV and radio streams",
     "accepted_source_types": ["TV", "Radio"],

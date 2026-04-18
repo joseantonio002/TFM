@@ -1,13 +1,12 @@
+import datetime
+
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
-from datetime import datetime
-
-current_date = datetime.now()
 
 with DAG(
   dag_id='testdag',
-  start_date=current_date,
+  start_date=datetime.datetime(2026, 4, 18, 21, 8, 30),
   schedule='0 0 * * *',
   catchup=False,
 ) as dag:
@@ -25,7 +24,7 @@ with DAG(
     command=['-i',
  'https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8'],
     environment={'AIRFLOW_DAG_ID': 'testdag',
- 'EXTRACTED_AT': '{{ execution_date }}',
+ 'EXTRACTED_AT': '{{ ts }}',
  'CONNECTOR_ID': 'TestConector',
  'CONNECTOR_NAME': 'Test conector',
  'SOURCE_NAME': '24 horas',

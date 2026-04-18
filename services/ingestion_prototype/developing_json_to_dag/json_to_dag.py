@@ -7,6 +7,8 @@ from pathlib import Path
 from pprint import pformat
 from typing import Any
 
+from datetime import datetime
+
 
 def _resolve_path(base_dir: Path, target_path: str) -> Path:
   """Return an absolute path for a module-relative target path."""
@@ -42,7 +44,7 @@ def _build_environment(
   """Build the environment variables passed to the container."""
   return {
     "AIRFLOW_DAG_ID": dag_name,
-    "EXTRACTED_AT": "{{ execution_date }}",
+    "EXTRACTED_AT": "{{ ts }}",
     "CONNECTOR_ID": connector_id,
     "CONNECTOR_NAME": str(connector_data["connector_name"]),
     "SOURCE_NAME": "::".join(str(source["source_name"]) for source in sources_data),
@@ -62,21 +64,24 @@ def _render_dag_file(
   docker_image: str,
   command: list[str],
   environment: dict[str, str],
+  start_date: datetime.datetime,
 ) -> str:
   """Render the Python source for a generated DAG file."""
   command_literal: str = pformat(command, width=88, sort_dicts=False)
   environment_literal: str = pformat(environment, width=88, sort_dicts=False)
+  start_date_literal: str = (
+    f"datetime({start_date.year}, {start_date.month}, {start_date.day})"
+  )
 
-  return f'''from airflow import DAG
+  return f'''import datetime
+
+from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
-from datetime import datetime
-
-current_date = datetime.now()
 
 with DAG(
   dag_id={dag_name!r},
-  start_date=current_date,
+  start_date={start_date_literal},
   schedule={schedule!r},
   catchup=False,
 ) as dag:
@@ -114,6 +119,7 @@ def generate_dags(
   destination_dir.mkdir(parents=True, exist_ok=True)
 
   generated_files: list[str] = []
+  generated_at: datetime.datetime = datetime.datetime.now()
 
   for dag_name, dag_data in dags_config.items():
     connector_id: str = str(dag_data["connector_id"])
@@ -142,6 +148,7 @@ def generate_dags(
       docker_image=str(connector_data["docker_image"]),
       command=command,
       environment=environment,
+      start_date=generated_at,
     )
 
     output_path: Path = destination_dir / f"{dag_name}.py"

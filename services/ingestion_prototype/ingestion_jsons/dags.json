@@ -15,6 +15,17 @@
       "sw": 5
     },
     "is_active": true
+  },
+  "TVRadioDag": {
+    "task_id": "tv_radio_task",
+    "connector_id": "TV/RadioES",
+    "schedule": "0 0 * * *",
+    "seed_ids": ["24Horas", "Actualidad360", "RNERadio5TodoNoticiasMurcia", "OndaCero", "RNERadioNacional", "esRadio", "OndaRegionaldeMurcia", "9LaLomaTV"],
+    "params": {
+      "t": 2,
+      "sw": 10
+    },
+    "is_active": true
   }
 }
 
