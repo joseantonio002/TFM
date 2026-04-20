@@ -5,7 +5,6 @@ nlp = spacy.load(
     disable=["morphologizer", "parser", "attribute_ruler", "lemmatizer", "senter"]
 )
 
-
 print(nlp.get_pipe("ner").labels)
 
 doc = nlp("Madrid es la capital de España.")
