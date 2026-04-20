@@ -3,8 +3,8 @@ import json
 
 from NER.ner_main import ner_main
 
-INPUT_DIR_PATH: str = "./common"
-OUTPUT_DIR_PATH: str = "./outputs"
+INPUT_DIR_PATH: str = "/common"
+OUTPUT_DIR_PATH: str = "/outputs_nlp_pipeline"
 
 def load_metadata_from_environment() -> tuple[str, str]:
   return os.environ.get("AIRFLOW_DAG_ID", ""), os.environ.get("AIRFLOW_RUN_ID", "")
