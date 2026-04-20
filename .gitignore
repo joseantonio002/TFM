@@ -22,7 +22,11 @@ whisper.cpp/
 services/ingestion_prototype/logs
 
 **/pipeline_*/
+!pipeline_NLP/
 
 services/ingestion_prototype/connector_TV_Radio/outputs
 services/ingestion_prototype/connector_TV_Radio_image/outputs
 services/ingestion_prototype/connector_TV_Radio_image/outputs/raw/*
+
+common/
+services/pipeline_NLP/outputs/
