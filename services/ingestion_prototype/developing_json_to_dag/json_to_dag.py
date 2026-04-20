@@ -44,7 +44,8 @@ def _build_environment(
   """Build the environment variables passed to the container."""
   return {
     "AIRFLOW_DAG_ID": dag_name,
-    "EXTRACTED_AT": "{{ ts }}",
+    "EXTRACTED_AT": "{{ ti.start_date }}",
+    "AIRFLOW_RUN_ID": "{{ run_id }}",
     "CONNECTOR_ID": connector_id,
     "CONNECTOR_NAME": str(connector_data["connector_name"]),
     "SOURCE_NAME": "::".join(str(source["source_name"]) for source in sources_data),

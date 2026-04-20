@@ -34,7 +34,8 @@ with DAG(
  '-sw',
  '10'],
     environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
- 'EXTRACTED_AT': '{{ ts }}',
+ 'EXTRACTED_AT': '{{ ti.start_date }}',
+ 'AIRFLOW_RUN_ID': '{{ run_id }}',
  'CONNECTOR_ID': 'TV/RadioES',
  'CONNECTOR_NAME': 'TV/RadioES',
  'SOURCE_NAME': '24 horas::Actualidad 360::RNE Radio 5 Todo Noticias (Murcia)::Onda '

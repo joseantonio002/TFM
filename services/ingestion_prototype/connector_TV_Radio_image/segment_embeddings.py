@@ -269,6 +269,7 @@ def load_pipeline_metadata(metadata_path: Path) -> PipelineMetadata:
   return {
     "airflow_dag_id": metadata.get("airflow_dag_id", ""),
     "extracted_at": metadata.get("extracted_at", ""),
+    "airflow_run_id": metadata.get("airflow_run_id", ""),
     "connector_id": metadata.get("connector_id", ""),
     "connector_name": metadata.get("connector_name", ""),
     "source_url": metadata.get("source_url", ""),
@@ -292,6 +293,7 @@ def build_story_payload(metadata: PipelineMetadata, story: Story) -> dict[str, A
     "source_url": metadata["source_url"],
     "airflow_dag_id": metadata["airflow_dag_id"],
     "extracted_at": metadata["extracted_at"],
+    "airflow_run_id": metadata["airflow_run_id"],
     "connector_id": metadata["connector_id"],
     "connector_name": metadata["connector_name"],
     "source_name": metadata["source_name"],
@@ -321,7 +323,7 @@ def save_story_payloads(output_dir: Path, metadata: PipelineMetadata, stories: l
   output_paths: list[Path] = []
   for story in stories:
     payload: dict[str, Any] = build_story_payload(metadata, story)
-    output_path: Path = output_dir / f"{payload['id']}.json"
+    output_path: Path = output_dir / f"{metadata['airflow_dag_id']}_{metadata['airflow_run_id']}_{payload['id']}.json"
     save_json(payload, str(output_path))
     output_paths.append(output_path)
   return output_paths

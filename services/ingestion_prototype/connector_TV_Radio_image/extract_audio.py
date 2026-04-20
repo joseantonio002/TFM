@@ -22,6 +22,7 @@ class Source:
 class SourceMetadata:
   airflow_dag_id: str
   extracted_at: str
+  airflow_run_id: str
   connector_id: str
   connector_name: str
   source_url: str
@@ -126,6 +127,7 @@ def load_metadata_from_environment(input_count: int) -> list[SourceMetadata]:
   """Load global and source-scoped metadata from environment variables."""
   airflow_dag_id: str = os.environ.get("AIRFLOW_DAG_ID", "")
   extracted_at: str = os.environ.get("EXTRACTED_AT", "")
+  airflow_run_id: str = os.environ.get("AIRFLOW_RUN_ID", "")
   connector_id: str = os.environ.get("CONNECTOR_ID", "")
   connector_name: str = os.environ.get("CONNECTOR_NAME", "")
 
@@ -159,6 +161,7 @@ def load_metadata_from_environment(input_count: int) -> list[SourceMetadata]:
     SourceMetadata(
       airflow_dag_id=airflow_dag_id,
       extracted_at=extracted_at,
+      airflow_run_id=airflow_run_id,
       connector_id=connector_id,
       connector_name=connector_name,
       source_url="",
@@ -178,6 +181,7 @@ def write_metadata_file(output_dir: Path, metadata: SourceMetadata) -> None:
   metadata_lines: list[str] = [
     f"airflow_dag_id={metadata.airflow_dag_id}",
     f"extracted_at={metadata.extracted_at}",
+    f"airflow_run_id={metadata.airflow_run_id}",
     f"connector_id={metadata.connector_id}",
     f"connector_name={metadata.connector_name}",
     f"source_url={metadata.source_url}",
@@ -231,6 +235,7 @@ async def run_ffmpeg_for_source(
     SourceMetadata(
       airflow_dag_id=metadata.airflow_dag_id,
       extracted_at=metadata.extracted_at,
+      airflow_run_id=metadata.airflow_run_id,
       connector_id=metadata.connector_id,
       connector_name=metadata.connector_name,
       source_url=source.url,

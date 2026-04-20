@@ -1,12 +1,11 @@
 from datetime import datetime
-
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
 
 with DAG(
   dag_id='TVRadioDag',
-  start_date=datetime(2026, 4, 18),
+  start_date=datetime(2026, 4, 20),
   schedule='0 0 * * *',
   catchup=False,
 ) as dag:
@@ -35,7 +34,8 @@ with DAG(
  '-sw',
  '10'],
     environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
- 'EXTRACTED_AT': '{{ ts }}',
+ 'EXTRACTED_AT': '{{ ti.start_date }}',
+ 'AIRFLOW_RUN_ID': '{{ run_id }}',
  'CONNECTOR_ID': 'TV/RadioES',
  'CONNECTOR_NAME': 'TV/RadioES',
  'SOURCE_NAME': '24 horas::Actualidad 360::RNE Radio 5 Todo Noticias (Murcia)::Onda '
