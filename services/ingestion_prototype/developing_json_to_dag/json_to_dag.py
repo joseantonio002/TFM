@@ -73,8 +73,7 @@ def _render_dag_file(
     f"datetime({start_date.year}, {start_date.month}, {start_date.day})"
   )
 
-  return f'''import datetime
-
+  return f'''from datetime import datetime
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
@@ -119,7 +118,7 @@ def generate_dags(
   destination_dir.mkdir(parents=True, exist_ok=True)
 
   generated_files: list[str] = []
-  generated_at: datetime.datetime = datetime.datetime.now()
+  generated_at: datetime.datetime = datetime.now()
 
   for dag_name, dag_data in dags_config.items():
     connector_id: str = str(dag_data["connector_id"])

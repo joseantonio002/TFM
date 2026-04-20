@@ -1,12 +1,11 @@
-import datetime
-
+from datetime import datetime
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
 
 with DAG(
   dag_id='testdag',
-  start_date=datetime.datetime(2026, 4, 18, 21, 8, 30),
+  start_date=datetime(2026, 4, 20),
   schedule='0 0 * * *',
   catchup=False,
 ) as dag:
