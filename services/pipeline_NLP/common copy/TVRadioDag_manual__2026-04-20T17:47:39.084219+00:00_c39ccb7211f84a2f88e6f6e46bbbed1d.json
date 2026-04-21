@@ -1,0 +1,20 @@
+{
+  "id": "c39ccb7211f84a2f88e6f6e46bbbed1d",
+  "source_url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "Onda Cero (España)",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"news\", \"radio\"]",
+  "content": "Hola qué tal Mauro pescadero el padre y el hijo el mejor Arturo qué tal la familia Bien y la pequeña qué tal Está bien y tu gato Bien muy bien Estas Sow me encanta En el corazón del barrio par aconsejar de mejor Bienvenida Centuria de 21 Ahora vamos con la amiguera de la antigua Pero antes es una pausa rápida para recordarte Que el seguro de moto de la línea directa Es uno de los mejor valorados en España Vamos qué está en el Podium de los seguros Y eso es difícil de olvidar llama al 917 7700 O entrar en línea directacom 917 7700 o entrar en línea directacom El valor de ser directo Y ahora sí ese ambiguo y puedes seguir conduciendo este programa La brigola [MÚSICA]",
+  "other": {
+    "start": 54.68,
+    "end": 119.97999999999999,
+    "duration": 65.29999999999998
+  }
+}

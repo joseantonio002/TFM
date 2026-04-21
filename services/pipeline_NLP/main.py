@@ -27,4 +27,6 @@ if __name__ == "__main__":
         output_json = nlp_pipeline(input_json)
         with open(os.path.join(OUTPUT_DIR_PATH, file_name), "w") as f_out:
           json.dump(output_json, f_out, indent=2, ensure_ascii=False)   
+      # delete the input file after processing
+      os.remove(os.path.join(INPUT_DIR_PATH, file_name))
       
