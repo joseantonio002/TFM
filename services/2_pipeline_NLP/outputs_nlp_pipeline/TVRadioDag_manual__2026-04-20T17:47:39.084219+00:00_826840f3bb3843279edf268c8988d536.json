@@ -17,22 +17,24 @@
     "end": 32.6,
     "duration": 32.6
   },
-  "entities": {
-    "PER": [
-      "Han golpeado"
-    ],
-    "LOC": [
-      "Israel",
-      "Israel",
-      "Irán",
-      "Irán",
-      "Irán"
-    ],
-    "ORG": [],
-    "MISC": [
-      "Han destruido buena parte de la industria iraní",
-      "Las centrales nucleares",
-      "Una pobreza extrema que de aquí a décadas no levantará la Cabeza"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Han golpeado"
+      ],
+      "LOC": [
+        "Israel",
+        "Israel",
+        "Irán",
+        "Irán",
+        "Irán"
+      ],
+      "ORG": [],
+      "MISC": [
+        "Han destruido buena parte de la industria iraní",
+        "Las centrales nucleares",
+        "Una pobreza extrema que de aquí a décadas no levantará la Cabeza"
+      ]
+    }
   }
 }

@@ -17,31 +17,33 @@
     "end": 120.0,
     "duration": 87.4
   },
-  "entities": {
-    "PER": [
-      "Algunos",
-      "Como Netanyahu",
-      "Netanyahu",
-      "Netanyahu Juicios",
-      "Donald Trump"
-    ],
-    "LOC": [
-      "Sotana",
-      "nueva Les"
-    ],
-    "ORG": [
-      "República Islámica Que",
-      "A"
-    ],
-    "MISC": [
-      "Esta guerra",
-      "Los militares porque",
-      "Que",
-      "Ancho",
-      "Y ellos llevan las negociaciones Qué",
-      "Y pero problemas personales en caso",
-      "La guerra de Estados Unidos",
-      "Por lo que es posible"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Algunos",
+        "Como Netanyahu",
+        "Netanyahu",
+        "Netanyahu Juicios",
+        "Donald Trump"
+      ],
+      "LOC": [
+        "Sotana",
+        "nueva Les"
+      ],
+      "ORG": [
+        "República Islámica Que",
+        "A"
+      ],
+      "MISC": [
+        "Esta guerra",
+        "Los militares porque",
+        "Que",
+        "Ancho",
+        "Y ellos llevan las negociaciones Qué",
+        "Y pero problemas personales en caso",
+        "La guerra de Estados Unidos",
+        "Por lo que es posible"
+      ]
+    }
   }
 }

@@ -17,21 +17,23 @@
     "end": 54.56,
     "duration": 54.56
   },
-  "entities": {
-    "PER": [],
-    "LOC": [
-      "Junta Municipal",
-      "Junta Municipal",
-      "de Murcia"
-    ],
-    "ORG": [
-      "Junta Municipal de la Junta Claro",
-      "Junta Municipal"
-    ],
-    "MISC": [
-      "Bueno",
-      "Bueno sobreviva no de forma premeditada",
-      "Que la manga al menor"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [],
+      "LOC": [
+        "Junta Municipal",
+        "Junta Municipal",
+        "de Murcia"
+      ],
+      "ORG": [
+        "Junta Municipal de la Junta Claro",
+        "Junta Municipal"
+      ],
+      "MISC": [
+        "Bueno",
+        "Bueno sobreviva no de forma premeditada",
+        "Que la manga al menor"
+      ]
+    }
   }
 }

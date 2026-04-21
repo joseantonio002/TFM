@@ -17,24 +17,26 @@
     "end": 120.68,
     "duration": 31.760000000000005
   },
-  "entities": {
-    "PER": [
-      "Como Netanyahu",
-      "Netanyahu",
-      "Netanyahu Juicios"
-    ],
-    "LOC": [
-      "Qué",
-      "nueva Les",
-      "Gran"
-    ],
-    "ORG": [
-      "A"
-    ],
-    "MISC": [
-      "Y pero problemas personales en caso",
-      "Como la para exportar esta crisis interna",
-      "La guerra de Estados Unidos"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Como Netanyahu",
+        "Netanyahu",
+        "Netanyahu Juicios"
+      ],
+      "LOC": [
+        "Qué",
+        "nueva Les",
+        "Gran"
+      ],
+      "ORG": [
+        "A"
+      ],
+      "MISC": [
+        "Y pero problemas personales en caso",
+        "Como la para exportar esta crisis interna",
+        "La guerra de Estados Unidos"
+      ]
+    }
   }
 }

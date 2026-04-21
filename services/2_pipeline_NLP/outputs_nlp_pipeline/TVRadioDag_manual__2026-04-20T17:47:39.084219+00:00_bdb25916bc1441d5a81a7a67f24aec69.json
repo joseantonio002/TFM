@@ -17,22 +17,24 @@
     "end": 120.04,
     "duration": 65.48
   },
-  "entities": {
-    "PER": [
-      "Claro"
-    ],
-    "LOC": [
-      "Que"
-    ],
-    "ORG": [],
-    "MISC": [
-      "Qué expectativas pero don José",
-      "Pues",
-      "Al menos el calor si las ganas",
-      "El verano en la región de Murcia",
-      "La expectativa siempre",
-      "Eso es lo que tenemos aquí él me la gustó",
-      "Y bueno"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Claro"
+      ],
+      "LOC": [
+        "Que"
+      ],
+      "ORG": [],
+      "MISC": [
+        "Qué expectativas pero don José",
+        "Pues",
+        "Al menos el calor si las ganas",
+        "El verano en la región de Murcia",
+        "La expectativa siempre",
+        "Eso es lo que tenemos aquí él me la gustó",
+        "Y bueno"
+      ]
+    }
   }
 }

@@ -1,5 +1,5 @@
 Connect to database mydb using psql: 
 docker exec -it my-postgres psql -U myuser -d mydb
 
-Open terminanal:
+Open terminal:
 docker exec -it my-postgres bash

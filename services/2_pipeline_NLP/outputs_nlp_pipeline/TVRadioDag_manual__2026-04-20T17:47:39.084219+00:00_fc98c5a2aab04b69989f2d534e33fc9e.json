@@ -17,27 +17,29 @@
     "end": 58.08,
     "duration": 58.08
   },
-  "entities": {
-    "PER": [],
-    "LOC": [
-      "Nova Expresa",
-      "Jirón Informes",
-      "Nova Expresa",
-      "principado de Asturias Ah Y",
-      "Jirón En Nova Expresa",
-      "campo A",
-      "Álvarez Clari",
-      "Álvarez Clari",
-      "Pola de la Viana",
-      "Caballa",
-      "Álvarez Clari"
-    ],
-    "ORG": [],
-    "MISC": [
-      "Objeto",
-      "Pues",
-      "Implante",
-      "Déjame teléfono"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [],
+      "LOC": [
+        "Nova Expresa",
+        "Jirón Informes",
+        "Nova Expresa",
+        "principado de Asturias Ah Y",
+        "Jirón En Nova Expresa",
+        "campo A",
+        "Álvarez Clari",
+        "Álvarez Clari",
+        "Pola de la Viana",
+        "Caballa",
+        "Álvarez Clari"
+      ],
+      "ORG": [],
+      "MISC": [
+        "Objeto",
+        "Pues",
+        "Implante",
+        "Déjame teléfono"
+      ]
+    }
   }
 }

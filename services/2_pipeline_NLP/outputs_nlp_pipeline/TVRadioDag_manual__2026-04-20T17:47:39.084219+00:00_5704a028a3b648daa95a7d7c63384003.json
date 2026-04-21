@@ -17,30 +17,32 @@
     "end": 88.92,
     "duration": 88.92
   },
-  "entities": {
-    "PER": [
-      "Han golpeado"
-    ],
-    "LOC": [
-      "Estados Unidos",
-      "Israel",
-      "Israel",
-      "Irán",
-      "Irán",
-      "Irán",
-      "Porque",
-      "Sotana",
-      "Algunos"
-    ],
-    "ORG": [
-      "República Islámica Que",
-      "pes"
-    ],
-    "MISC": [
-      "Digamos",
-      "Han destruido buena parte de la industria iraní",
-      "Ya",
-      "No están"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Han golpeado"
+      ],
+      "LOC": [
+        "Estados Unidos",
+        "Israel",
+        "Israel",
+        "Irán",
+        "Irán",
+        "Irán",
+        "Porque",
+        "Sotana",
+        "Algunos"
+      ],
+      "ORG": [
+        "República Islámica Que",
+        "pes"
+      ],
+      "MISC": [
+        "Digamos",
+        "Han destruido buena parte de la industria iraní",
+        "Ya",
+        "No están"
+      ]
+    }
   }
 }

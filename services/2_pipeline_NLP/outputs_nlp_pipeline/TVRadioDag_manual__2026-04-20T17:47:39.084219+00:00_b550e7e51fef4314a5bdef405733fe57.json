@@ -17,25 +17,27 @@
     "end": 120.2,
     "duration": 62.120000000000005
   },
-  "entities": {
-    "PER": [
-      "Martini Blanco",
-      "Coca",
-      "Fuiste",
-      "Por",
-      "Marisa",
-      "Marisa"
-    ],
-    "LOC": [
-      "Alcampo Baco"
-    ],
-    "ORG": [
-      "Nutra",
-      "Ultra"
-    ],
-    "MISC": [
-      "Pues",
-      "Son muy competentes y atentos"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Martini Blanco",
+        "Coca",
+        "Fuiste",
+        "Por",
+        "Marisa",
+        "Marisa"
+      ],
+      "LOC": [
+        "Alcampo Baco"
+      ],
+      "ORG": [
+        "Nutra",
+        "Ultra"
+      ],
+      "MISC": [
+        "Pues",
+        "Son muy competentes y atentos"
+      ]
+    }
   }
 }

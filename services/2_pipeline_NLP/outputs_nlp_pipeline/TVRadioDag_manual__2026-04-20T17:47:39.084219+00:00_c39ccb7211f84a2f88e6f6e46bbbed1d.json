@@ -17,27 +17,29 @@
     "end": 119.97999999999999,
     "duration": 65.29999999999998
   },
-  "entities": {
-    "PER": [
-      "Mauro",
-      "Arturo"
-    ],
-    "LOC": [
-      "Hola",
-      "Bien",
-      "España"
-    ],
-    "ORG": [
-      "Bienvenida Centuria"
-    ],
-    "MISC": [
-      "Bien muy bien Estas Sow",
-      "Ahora",
-      "Que el seguro de moto de la línea",
-      "Podium",
-      "Y eso es difícil de olvidar",
-      "Y ahora",
-      "La brigola"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Mauro",
+        "Arturo"
+      ],
+      "LOC": [
+        "Hola",
+        "Bien",
+        "España"
+      ],
+      "ORG": [
+        "Bienvenida Centuria"
+      ],
+      "MISC": [
+        "Bien muy bien Estas Sow",
+        "Ahora",
+        "Que el seguro de moto de la línea",
+        "Podium",
+        "Y eso es difícil de olvidar",
+        "Y ahora",
+        "La brigola"
+      ]
+    }
   }
 }

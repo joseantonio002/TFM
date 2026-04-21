@@ -17,29 +17,31 @@
     "end": 139.88,
     "duration": 139.88
   },
-  "entities": {
-    "PER": [
-      "Vire",
-      "Madre",
-      "pepe",
-      "pepe me anillo pepe pepe pepe"
-    ],
-    "LOC": [
-      "Casamos",
-      "Palabrero de la Bija",
-      "china",
-      "Sola",
-      "la granada"
-    ],
-    "ORG": [],
-    "MISC": [
-      "Corona",
-      "De un cavazón",
-      "El mundo no me ante a su que me río",
-      "Lo que él lo no me",
-      "Ence allanate de la alemana de on me",
-      "A la mía",
-      "De minadora lo de un paso más mi no manda nada de más que pepe yo"
-    ]
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Vire",
+        "Madre",
+        "pepe",
+        "pepe me anillo pepe pepe pepe"
+      ],
+      "LOC": [
+        "Casamos",
+        "Palabrero de la Bija",
+        "china",
+        "Sola",
+        "la granada"
+      ],
+      "ORG": [],
+      "MISC": [
+        "Corona",
+        "De un cavazón",
+        "El mundo no me ante a su que me río",
+        "Lo que él lo no me",
+        "Ence allanate de la alemana de on me",
+        "A la mía",
+        "De minadora lo de un paso más mi no manda nada de más que pepe yo"
+      ]
+    }
   }
 }

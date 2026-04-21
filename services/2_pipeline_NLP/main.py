@@ -3,8 +3,8 @@ import json
 
 from NER.ner_main import ner_main
 
-INPUT_DIR_PATH: str = "/common"
-OUTPUT_DIR_PATH: str = "/outputs_nlp_pipeline"
+INPUT_DIR_PATH: str = "./common"
+OUTPUT_DIR_PATH: str = "./outputs_nlp_pipeline"
 
 def load_metadata_from_environment() -> tuple[str, str]:
   return os.environ.get("AIRFLOW_DAG_ID", ""), os.environ.get("AIRFLOW_RUN_ID", "")
@@ -14,7 +14,8 @@ def load_metadata_from_environment() -> tuple[str, str]:
 # If we want to add more steps to the pipeline, we can simply add them to this function.
 def nlp_pipeline(input_json: json) -> None:
   text = input_json['content']
-  input_json.update(ner_main(text))
+  input_json['nlp_pipeline'] = {}
+  input_json['nlp_pipeline'].update(ner_main(text))
   return input_json
   
 
