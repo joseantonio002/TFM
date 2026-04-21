@@ -1,0 +1,38 @@
+{
+  "id": "826840f3bb3843279edf268c8988d536",
+  "source_url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "RNE Radio 5 Todo Noticias (Murcia)",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"news\", \"radio\", \"murcia\"]",
+  "content": "estamos pendientes de ser realizados pero luego están Israel el problema de Israel es más grave Con Irán porque ellos lo que quieren es primero Llevar a Irán a la edad media es lo que están haciendo en realidad Han destruido buena parte de la industria iraní Han golpeado hasta las referencias y han notificado Las centrales nucleares han llevado prácticamente Irán a la Una pobreza extrema que de aquí a décadas no levantará la Cabeza en el mejor de los casos de las situaciones",
+  "other": {
+    "start": 0.0,
+    "end": 32.6,
+    "duration": 32.6
+  },
+  "entities": {
+    "PER": [
+      "Han golpeado"
+    ],
+    "LOC": [
+      "Israel",
+      "Israel",
+      "Irán",
+      "Irán",
+      "Irán"
+    ],
+    "ORG": [],
+    "MISC": [
+      "Han destruido buena parte de la industria iraní",
+      "Las centrales nucleares",
+      "Una pobreza extrema que de aquí a décadas no levantará la Cabeza"
+    ]
+  }
+}
