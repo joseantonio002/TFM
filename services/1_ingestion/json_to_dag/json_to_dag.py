@@ -115,8 +115,20 @@ with DAG(
     environment={environment_literal}
   )
 
+  insert_into_db = DockerOperator(
+    task_id="insert_into_db",
+    image="insert_into_db:latest",
+    api_version="auto",
+    auto_remove="force",
+    docker_url="unix://var/run/docker.sock",
+    network_mode="bridge",
+    mounts=[
+      Mount(source="common_nlp", target="/common_nlp", type="volume")
+    ],
+    environment={environment_literal}
+  )
 
-  run_connector >> pipeline_nlp
+  run_connector >> pipeline_nlp >> insert_into_db
 '''
 
 

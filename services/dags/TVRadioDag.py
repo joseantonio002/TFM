@@ -4,8 +4,8 @@ from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
 
 with DAG(
-  dag_id='TVRadioDag',
-  start_date=datetime(2026, 4, 22),
+  dag_id='totally_totally_new_dag',
+  start_date=datetime(2026, 4, 20),
   schedule='0 0 * * *',
   catchup=False,
 ) as dag:
@@ -31,8 +31,7 @@ with DAG(
  'https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8',
  'https://9laloma.tv/live.m3u8',
  '-t',
- '2',
- ],
+ '2'],
     environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
  'EXTRACTED_AT': '{{ ti.start_date }}',
  'AIRFLOW_RUN_ID': '{{ run_id }}',
@@ -78,5 +77,31 @@ with DAG(
                 '"television"]'}
   )
 
+  insert_into_db = DockerOperator(
+    task_id="insert_into_db",
+    image="insert_into_db:latest",
+    api_version="auto",
+    auto_remove="force",
+    docker_url="unix://var/run/docker.sock",
+    network_mode="bridge",
+    mounts=[
+      Mount(source="common_nlp", target="/common_nlp", type="volume")
+    ],
+    environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
+ 'EXTRACTED_AT': '{{ ti.start_date }}',
+ 'AIRFLOW_RUN_ID': '{{ run_id }}',
+ 'CONNECTOR_ID': 'TV/RadioES',
+ 'CONNECTOR_NAME': 'TV/RadioES',
+ 'SOURCE_NAME': '24 horas::Actualidad 360::RNE Radio 5 Todo Noticias (Murcia)::Onda '
+                'Cero (España)::RNE Radio Nacional (General)::esRadio::Onda Regional '
+                'de Murcia::9 La Loma TV',
+ 'SOURCE_TYPE': 'TV::TV::Radio::Radio::Radio::Radio::Radio::TV',
+ 'LANGUAGE': 'es::es::es::es::es::es::es::es',
+ 'COUNTRY': 'ES::ES::ES::ES::ES::ES::ES::ES',
+ 'SOURCE_TAGS': '["news", "television"]::["news", "television"]::["news", "radio", '
+                '"murcia"]::["news", "radio"]::["public_radio", "news"]::["news", '
+                '"radio"]::["regional_news", "radio", "murcia"]::["local_news", '
+                '"television"]'}
+  )
 
-  run_connector >> pipeline_nlp
+  run_connector >> pipeline_nlp >> insert_into_db

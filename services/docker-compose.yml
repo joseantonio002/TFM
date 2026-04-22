@@ -125,16 +125,16 @@ services:
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "0:0"
 
-  my-postgres:
+  newsdb:
     image: postgres:16
-    container_name: my-postgres
+    container_name: newsdb
     environment:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: newsdb
     volumes:
       - delete_pgdata:/var/lib/postgresql/data
-      - ./init:/docker-entrypoint-initdb.d
+      - ./3_database/init:/docker-entrypoint-initdb.d
 
 
 volumes:
