@@ -38,31 +38,31 @@ CREATE TABLE IF NOT EXISTS news (
 );
 
 -- Useful indexes
-CREATE INDEX IF NOT EXISTS idx_media_extractions_extracted_at
-    ON media_extractions (extracted_at);
+CREATE INDEX IF NOT EXISTS idx_news_extracted_at
+    ON news (extracted_at);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_connector_id
-    ON media_extractions (connector_id);
+CREATE INDEX IF NOT EXISTS idx_news_connector_id
+    ON news (connector_id);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_source_type
-    ON media_extractions (source_type);
+CREATE INDEX IF NOT EXISTS idx_news_source_type
+    ON news (source_type);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_language
-    ON media_extractions (language);
+CREATE INDEX IF NOT EXISTS idx_news_language
+    ON news (language);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_country
-    ON media_extractions (country);
+CREATE INDEX IF NOT EXISTS idx_news_country
+    ON news (country);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_source_tags_gin
-    ON media_extractions USING gin (source_tags);
+CREATE INDEX IF NOT EXISTS idx_news_source_tags_gin
+    ON news USING gin (source_tags);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_other_gin
-    ON media_extractions USING gin (other);
+CREATE INDEX IF NOT EXISTS idx_news_other_gin
+    ON news USING gin (other);
 
-CREATE INDEX IF NOT EXISTS idx_media_extractions_nlp_pipeline_gin
-    ON media_extractions USING gin (nlp_pipeline);
+CREATE INDEX IF NOT EXISTS idx_news_nlp_pipeline_gin
+    ON news USING gin (nlp_pipeline);
 
 -- Optional full text search over content (Spanish example)
-CREATE INDEX IF NOT EXISTS idx_media_extractions_content_fts
-    ON media_extractions
+CREATE INDEX IF NOT EXISTS idx_news_content_fts
+    ON news
     USING gin (to_tsvector('spanish', coalesce(content, '')));
