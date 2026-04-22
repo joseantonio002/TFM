@@ -5,10 +5,11 @@ from docker.types import Mount
 
 with DAG(
   dag_id='TVRadioDag',
-  start_date=datetime(2026, 4, 20),
+  start_date=datetime(2026, 4, 22),
   schedule='0 0 * * *',
   catchup=False,
 ) as dag:
+
   run_connector = DockerOperator(
     task_id='tv_radio_task',
     image='connector-tv-radio-image:latest',
@@ -31,8 +32,7 @@ with DAG(
  'https://9laloma.tv/live.m3u8',
  '-t',
  '2',
- '-sw',
- '10'],
+ ],
     environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
  'EXTRACTED_AT': '{{ ti.start_date }}',
  'AIRFLOW_RUN_ID': '{{ run_id }}',
@@ -49,3 +49,34 @@ with DAG(
                 '"radio"]::["regional_news", "radio", "murcia"]::["local_news", '
                 '"television"]'},
   )
+
+  pipeline_nlp = DockerOperator(
+    task_id="pipeline_nlp",
+    image="pipeline_nlp:latest",
+    api_version="auto",
+    auto_remove="force",
+    docker_url="unix://var/run/docker.sock",
+    network_mode="bridge",
+    mounts=[
+      Mount(source="common", target="/common", type="volume"),
+      Mount(source="common_nlp", target="/outputs_nlp_pipeline", type="volume")
+    ],
+    environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
+ 'EXTRACTED_AT': '{{ ti.start_date }}',
+ 'AIRFLOW_RUN_ID': '{{ run_id }}',
+ 'CONNECTOR_ID': 'TV/RadioES',
+ 'CONNECTOR_NAME': 'TV/RadioES',
+ 'SOURCE_NAME': '24 horas::Actualidad 360::RNE Radio 5 Todo Noticias (Murcia)::Onda '
+                'Cero (España)::RNE Radio Nacional (General)::esRadio::Onda Regional '
+                'de Murcia::9 La Loma TV',
+ 'SOURCE_TYPE': 'TV::TV::Radio::Radio::Radio::Radio::Radio::TV',
+ 'LANGUAGE': 'es::es::es::es::es::es::es::es',
+ 'COUNTRY': 'ES::ES::ES::ES::ES::ES::ES::ES',
+ 'SOURCE_TAGS': '["news", "television"]::["news", "television"]::["news", "radio", '
+                '"murcia"]::["news", "radio"]::["public_radio", "news"]::["news", '
+                '"radio"]::["regional_news", "radio", "murcia"]::["local_news", '
+                '"television"]'}
+  )
+
+
+  run_connector >> pipeline_nlp

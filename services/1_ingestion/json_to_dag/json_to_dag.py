@@ -85,6 +85,7 @@ with DAG(
   schedule={schedule!r},
   catchup=False,
 ) as dag:
+
   run_connector = DockerOperator(
     task_id={task_id!r},
     image={docker_image!r},
@@ -99,6 +100,23 @@ with DAG(
     command={command_literal},
     environment={environment_literal},
   )
+
+  pipeline_nlp = DockerOperator(
+    task_id="pipeline_nlp",
+    image="pipeline_nlp:latest",
+    api_version="auto",
+    auto_remove="force",
+    docker_url="unix://var/run/docker.sock",
+    network_mode="bridge",
+    mounts=[
+      Mount(source="common", target="/common", type="volume"),
+      Mount(source="common_nlp", target="/outputs_nlp_pipeline", type="volume")
+    ],
+    environment={environment_literal}
+  )
+
+
+  run_connector >> pipeline_nlp
 '''
 
 
@@ -130,7 +148,6 @@ def generate_dags(
 
     seed_ids: list[str] = list(dag_data.get("seed_ids") or connector_data["default_sources"])
     seed_links: list[str] = [seed_list_data[seed_id]["source_url"] for seed_id in seed_ids]
-    print(seed_links)
     sources_data: list[dict[str, Any]] = [seed_list_data[seed_id] for seed_id in seed_ids]
     params: dict[str, Any] = dict(dag_data.get("params", {}))
 
