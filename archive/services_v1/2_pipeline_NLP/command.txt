@@ -1,0 +1,23 @@
+AIRFLOW_DAG_ID=TVRadioDag \
+AIRFLOW_RUN_ID="manual__2026-04-20T17:47:39.084219+00:00" \
+python main.py
+
+
+docker container run -v common:/common/ -v delete_outputs_pipeline:/outputs_nlp_pipeline --rm -e AIRFLOW_DAG_ID='TVRadioDag' -e AIRFLOW_RUN_ID="manual__2026-04-20T17:47:39.084219+00:00"  pipeline_nlp:latest
+
+
+Instalar Spacy y es_core_news_lg
+
+# Actualiza pip setuptools y wheel
+pip install -U pip setuptools wheel
+# Instala Spacy en la versión adecuada para q funcione es_core_news_lg https://huggingface.co/spacy/es_core_news_lg
+python -m pip install "spacy==3.8.0"
+# Instala es_core_news_lg
+python -m spacy download es_core_news_lg
+
+Output del NER:
+
+PER: persona
+ORG: organización
+LOC: lugar
+MISC: miscelánea, cajón de sastre para entidades que no entran bien en las otras categorías

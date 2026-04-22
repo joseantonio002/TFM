@@ -1,0 +1,10 @@
+AIRFLOW_DAG_ID=dag1 \
+EXTRACTED_AT="2026-04-16 12:00:00" \
+CONNECTOR_ID=cid \
+CONNECTOR_NAME=cname \
+SOURCE_NAME="NEWS_NAME::RADIO_NAME::FALSE_NAME" \
+SOURCE_TYPE="NEWS_TYPE::RADIO_TYPE::FALSE_TYPE" \
+LANGUAGE="NEWS_LANG::RADIO_LANG::FALSE_LANG" \
+COUNTRY="NEWS_COUNTRY::RADIO_COUNTRY::FALSE_COUNTRY" \
+SOURCE_TAGS='["tag1","tag2"]::["tag3","tag4"]::["tag2"]' \
+python main.py -i https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8 https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playt/amg01821-lovetvfast-lovges/pllist.m3u8 -t 00:02:00 -st 00:00:10

@@ -1,0 +1,32 @@
+{
+  "testdag": {
+    "task_id": "test_task",
+    "connector_id": "TestConector",
+    "schedule": "0 0 * * *",
+    "is_active": true
+  },
+  "testradiodag": {
+    "task_id": "test_task2",
+    "connector_id": "TestConector",
+    "schedule": "0 0 * * *",
+    "seed_ids": ["OndaCero", "RNERadioNacional"],
+    "params": {
+      "t": 60,
+      "sw": 5
+    },
+    "is_active": true
+  },
+  "TVRadioDag": {
+    "task_id": "tv_radio_task",
+    "connector_id": "TV/RadioES",
+    "schedule": "0 0 * * *",
+    "seed_ids": ["24Horas", "Actualidad360", "RNERadio5TodoNoticiasMurcia", "OndaCero", "RNERadioNacional", "esRadio", "OndaRegionaldeMurcia", "9LaLomaTV"],
+    "params": {
+      "t": 2,
+      "sw": 10
+    },
+    "is_active": true
+  }
+}
+
+

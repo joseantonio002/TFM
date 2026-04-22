@@ -1,0 +1,32 @@
+{
+  "id": "753dfbe1dac14d429e1cec4d28875007",
+  "source_url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "Onda Cero (España)",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"news\", \"radio\"]",
+  "content": "Gratis y cocina para todo Por ser pagaron tres veces sin intereses debatamos el precio de tus seguros sea cual sea Ya Man 91 5 5 5 5 5 5 5 5 5 5 Me da la mutua y todos contentos condiciones de mutua Punto es 99 dos gafas de marca por solo noventa y nueve euros 99 solo en óptica informa de en solo ópticalcom Vamos de visita",
+  "other": {
+    "start": 0.0,
+    "end": 54.68,
+    "duration": 54.68
+  },
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [],
+      "LOC": [],
+      "ORG": [],
+      "MISC": [
+        "Por ser",
+        "Ya Man 91",
+        "Punto"
+      ]
+    }
+  }
+}

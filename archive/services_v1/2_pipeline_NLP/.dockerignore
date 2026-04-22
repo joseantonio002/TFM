@@ -1,0 +1,5 @@
+.venv
+common
+outputs
+__pycache__
+command.txt

@@ -1,0 +1,39 @@
+AIRFLOW_DAG_ID=dag1 \
+EXTRACTED_AT="2026-04-16 12:00:00" \
+CONNECTOR_ID=cid \
+CONNECTOR_NAME=cname \
+SOURCE_NAME="NEWS_NAME::RADIO_NAME::FALSE_NAME" \
+SOURCE_TYPE="NEWS_TYPE::RADIO_TYPE::FALSE_TYPE" \
+LANGUAGE="NEWS_LANG::RADIO_LANG::FALSE_LANG" \
+COUNTRY="NEWS_COUNTRY::RADIO_COUNTRY::FALSE_COUNTRY" \
+SOURCE_TAGS='["tag1","tag2"]::["tag3","tag4"]::["tag2"]' \
+python main.py -i https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8 https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playt/amg01821-lovetvfast-lovges/pllist.m3u8 -t 00:02:00 -st 00:00:10
+
+
+
+container commands:
+apt update
+apt install ffmpeg=7:6.1.1-3ubuntu5
+apt install software-properties-common
+add-apt-repository ppa:deadsnakes/ppa
+apt install python3.12-full
+apt-get install python3-pip
+python3.12 -m venv ./.venv
+source .venv/bin/activate
+pip install -r requirements.txt
+apt install cmake -y
+-- EN EL HOST --
+git clone https://github.com/ggml-org/whisper.cpp.git
+sudo cp -r whisper.cpp/ TFM/services/ingestion_prototype/connector_TV_Radio_image/
+-- VUELTA AL CONTAINER --
+cd whisper.cpp/
+cmake -B build
+cmake --build build -j --config Release
+-- EN EL HOST --
+# Copiar el modelo que teniamos originalmente
+sudo cp ../../../whisper.cpp/models/ggml-tiny.bin ../connector_TV_Radio_image/whisper.cpp/models/
+-- VUELTA AL CONTAINER --
+apt-get install -y openjdk-17-jdk
+rm -rf /var/lib/apt/lists/*
+JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+PATH=$PATH:$JAVA_HOME/bin

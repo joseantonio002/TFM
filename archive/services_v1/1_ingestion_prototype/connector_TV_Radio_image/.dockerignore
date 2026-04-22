@@ -1,0 +1,7 @@
+.venv
+__pycache__
+.git
+whisper.cpp/.git
+command.txt
+execution_starting_date.txt
+sources.json

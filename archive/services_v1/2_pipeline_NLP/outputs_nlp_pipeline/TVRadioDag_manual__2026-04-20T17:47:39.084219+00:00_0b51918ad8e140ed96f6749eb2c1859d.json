@@ -1,0 +1,39 @@
+{
+  "id": "0b51918ad8e140ed96f6749eb2c1859d",
+  "source_url": "https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "Onda Regional de Murcia",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"regional_news\", \"radio\", \"murcia\"]",
+  "content": "Es la Junta Municipal de la Junta Claro la Junta Municipal es para algún Bueno es verdad que la Junta Municipal es muy cercana al ciudadano En la final lo que estáis en la Junta Municipal Soy gente que todos conocemos y tenemos acceso a vosotros Y que para el día a día y para la cita a los y pequeñas Y tal pues está muy bien pero es que muchas veces olvidamos Bueno sobreviva no de forma premeditada pero se olvida Que la manga al menor tiene su propia marca y es un destino turístico A nivel nacional que es conocido a nivel internacional Y que muchísima gente y yo no por menos preciar a la región de Murcia Conoce la región de Murcia porque viene la manga al menor Entonces estamos aquí con una joya turística que no debemos presentarnos",
+  "other": {
+    "start": 0.0,
+    "end": 54.56,
+    "duration": 54.56
+  },
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [],
+      "LOC": [
+        "Junta Municipal",
+        "Junta Municipal",
+        "de Murcia"
+      ],
+      "ORG": [
+        "Junta Municipal de la Junta Claro",
+        "Junta Municipal"
+      ],
+      "MISC": [
+        "Bueno",
+        "Bueno sobreviva no de forma premeditada",
+        "Que la manga al menor"
+      ]
+    }
+  }
+}

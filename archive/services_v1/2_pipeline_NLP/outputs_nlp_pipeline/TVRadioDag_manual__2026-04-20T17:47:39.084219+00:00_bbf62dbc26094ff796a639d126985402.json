@@ -1,0 +1,42 @@
+{
+  "id": "bbf62dbc26094ff796a639d126985402",
+  "source_url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "RNE Radio Nacional (General)",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"public_radio\", \"news\"]",
+  "content": "Y ellos llevan las negociaciones Qué ocurre con ellos A ellos con un pueblo a punto de una sublevación nueva Les interesa a mantener una guerra pero debajo intensidad Como Netanyahu exactamente como Netanyahu Tienen tantos problemas dentro Y pero problemas personales en caso de Netanyahu Juicios pendientes y tal que necesita una forma Como la para exportar esta crisis interna Pero una guerra debajo intensidad La guerra de Estados Unidos y Gran es de máxima índigo",
+  "other": {
+    "start": 88.92,
+    "end": 120.68,
+    "duration": 31.760000000000005
+  },
+  "nlp_pipeline": {
+    "entities": {
+      "PER": [
+        "Como Netanyahu",
+        "Netanyahu",
+        "Netanyahu Juicios"
+      ],
+      "LOC": [
+        "Qué",
+        "nueva Les",
+        "Gran"
+      ],
+      "ORG": [
+        "A"
+      ],
+      "MISC": [
+        "Y pero problemas personales en caso",
+        "Como la para exportar esta crisis interna",
+        "La guerra de Estados Unidos"
+      ]
+    }
+  }
+}

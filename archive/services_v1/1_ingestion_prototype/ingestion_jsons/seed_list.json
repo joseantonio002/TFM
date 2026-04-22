@@ -1,0 +1,90 @@
+{
+  "24Horas": {
+    "source_name": "24 horas",
+    "source_type": "TV",
+    "source_url": "https://d32rw80ytx9uxs.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-vlldndmow4yre/24HES.m3u8",
+    "source_tags": ["news", "television"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Spanish free-to-air news television channel. News and debate programming",
+    "is_active": true
+  },
+  "Actualidad360": {
+    "source_name": "Actualidad 360",
+    "source_type": "TV",
+    "source_url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
+    "source_tags": ["news", "television"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Free 24-hour news channel covering national and international current affairs",
+    "is_active": true
+  },
+  "9LaLomaTV": {
+    "source_name": "9 La Loma TV",
+    "source_type": "TV",
+    "source_url": "https://9laloma.tv/live.m3u8",
+    "source_tags": ["local_news", "television"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Local television channel with news and programs focused on La Loma and surrounding areas",
+    "is_active": true
+  },
+  "RNERadio5TodoNoticiasMurcia": {
+    "source_name": "RNE Radio 5 Todo Noticias (Murcia)",
+    "source_type": "Radio",
+    "source_url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high",
+    "source_tags": ["news", "radio", "murcia"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Public all-news radio station focused on continuous information and public service",
+    "is_active": true
+  },
+  "OndaCero": {
+    "source_name": "Onda Cero (España)",
+    "source_type": "Radio",
+    "source_url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8",
+    "source_tags": ["news", "radio"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "National general-interest radio network with news, commentary, and entertainment programs",
+    "is_active": true
+  },
+  "RNERadioNacional": {
+    "source_name": "RNE Radio Nacional (General)",
+    "source_type": "Radio",
+    "source_url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
+    "source_tags": ["public_radio", "news"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Public general-interest radio station with news, culture, and magazine-style programming",
+    "is_active": true
+  },
+  "esRadio": {
+    "source_name": "esRadio",
+    "source_type": "Radio",
+    "source_url": "https://server9.emitironline.com:8822/",
+    "source_tags": ["news", "radio"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "National general-interest radio network featuring news, commentary, and opinion programs",
+    "is_active": true
+  },
+  "OndaRegionaldeMurcia": {
+    "source_name": "Onda Regional de Murcia",
+    "source_type": "Radio",
+    "source_url": "https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8",
+    "source_tags": ["regional_news", "radio", "murcia"],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Regional public radio station with news, sports, and programs focused on Murcia",
+    "is_active": true
+  }
+}
