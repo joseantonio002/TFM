@@ -4,6 +4,8 @@ from typing import Any, Dict
 from psycopg2 import sql
 from psycopg2.extras import Json
 
+import json
+
 import psycopg2
 
 
@@ -82,41 +84,17 @@ def insert_media_extraction(conn, payload: Dict[str, Any], table_name: str = "ne
 
 
 if __name__ == "__main__":
-    payload = {
-        "id": "bbf62dbc26094ff796a639d126985402",
-        "source_url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
-        "airflow_dag_id": "TVRadioDag",
-        "extracted_at": "2026-04-20 17:47:41.534719+00:00",
-        "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
-        "connector_id": "TV/RadioES",
-        "connector_name": "TV/RadioES",
-        "source_name": "RNE Radio Nacional (General)",
-        "source_type": "Radio",
-        "language": "es",
-        "country": "ES",
-        "source_tags": "[\"public_radio\", \"news\"]",
-        "content": "Y ellos llevan las negociaciones...",
-        "other": {
-            "start": 88.92,
-            "end": 120.68,
-            "duration": 31.76
-        },
-        "nlp_pipeline": {
-            "entities": {
-                "PER": ["Como Netanyahu", "Netanyahu", "Netanyahu Juicios"]
-            }
-        }
-    }
+    payload_path = "/home/jose/TFM/services/2_pipeline_NLP/outputs_nlp_pipeline/TVRadioDag_manual__2026-04-20T17:47:39.084219+00:00_fc98c5a2aab04b69989f2d534e33fc9e.json"
 
-    conn = psycopg2.connect(
+    with open(payload_path, "r", encoding="utf-8") as f:
+        payload = json.load(f)
+
+    with psycopg2.connect(
         host="localhost",
         port=5432,
         dbname="newsdb",
         user="myuser",
         password="mypassword"
-    )
-
-    inserted_id = insert_media_extraction(conn, payload)
-    print("Inserted:", inserted_id)
-
-    conn.close()
+    ) as conn:
+        inserted_id = insert_media_extraction(conn, payload)
+        print("Inserted:", inserted_id)
