@@ -4,8 +4,10 @@ from typing import Any, Dict
 from psycopg2 import sql
 from psycopg2.extras import Json
 
+import psycopg2
 
-def insert_media_extraction_safe(conn, payload: Dict[str, Any], table_name: str = "news") -> str:
+
+def insert_media_extraction(conn, payload: Dict[str, Any], table_name: str = "news") -> str:
     required_fields = ["id", "source_url", "extracted_at"]
     missing = [field for field in required_fields if field not in payload or payload[field] is None]
     if missing:
@@ -76,3 +78,45 @@ def insert_media_extraction_safe(conn, payload: Dict[str, Any], table_name: str 
         inserted_id = cur.fetchone()[0]
     conn.commit()
     return inserted_id
+
+
+
+if __name__ == "__main__":
+    payload = {
+        "id": "bbf62dbc26094ff796a639d126985402",
+        "source_url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
+        "airflow_dag_id": "TVRadioDag",
+        "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+        "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+        "connector_id": "TV/RadioES",
+        "connector_name": "TV/RadioES",
+        "source_name": "RNE Radio Nacional (General)",
+        "source_type": "Radio",
+        "language": "es",
+        "country": "ES",
+        "source_tags": "[\"public_radio\", \"news\"]",
+        "content": "Y ellos llevan las negociaciones...",
+        "other": {
+            "start": 88.92,
+            "end": 120.68,
+            "duration": 31.76
+        },
+        "nlp_pipeline": {
+            "entities": {
+                "PER": ["Como Netanyahu", "Netanyahu", "Netanyahu Juicios"]
+            }
+        }
+    }
+
+    conn = psycopg2.connect(
+        host="localhost",
+        port=5432,
+        dbname="newsdb",
+        user="myuser",
+        password="mypassword"
+    )
+
+    inserted_id = insert_media_extraction(conn, payload)
+    print("Inserted:", inserted_id)
+
+    conn.close()

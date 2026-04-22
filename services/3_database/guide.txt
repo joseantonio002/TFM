@@ -3,3 +3,6 @@ docker exec -it my-postgres psql -U myuser -d mydb
 
 Open terminal:
 docker exec -it my-postgres bash
+
+
+pip install psycopg2-binary
