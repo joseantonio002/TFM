@@ -30,3 +30,5 @@ services/ingestion_prototype/connector_TV_Radio_image/outputs/raw/*
 
 common/
 services/pipeline_NLP/outputs_nlp_pipeline/
+
+*logs/
