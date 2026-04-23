@@ -134,9 +134,9 @@ with DAG(
 
 def generate_dags(
   dags_config: dict[str, Any],
+  output_dir: str,
   connectors_path: str = "../ingestion_jsons/connectors.json",
   seed_list_path: str = "../ingestion_jsons/seed_list.json",
-  output_dir: str = "./dags",
 ) -> list[str]:
   """Generate DAG Python files from a DAG configuration mapping."""
   base_dir: Path = Path(__file__).resolve().parent
@@ -191,7 +191,7 @@ def generate_dags_from_file(
   dags_json_path: str,
   connectors_path: str = "../ingestion_jsons/connectors.json",
   seed_list_path: str = "../ingestion_jsons/seed_list.json",
-  output_dir: str = "./dags",
+  output_dir: str = "../../dags",
 ) -> list[str]:
   """Generate DAG files from a JSON file path."""
   base_dir: Path = Path(__file__).resolve().parent
