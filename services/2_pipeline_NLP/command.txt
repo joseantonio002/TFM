@@ -1,3 +1,7 @@
+IMAGE NAME: pipeline_nlp:latest
+docker build -t pipeline_nlp:latest .
+
+
 AIRFLOW_DAG_ID=TVRadioDag \
 AIRFLOW_RUN_ID="manual__2026-04-20T17:47:39.084219+00:00" \
 python main.py

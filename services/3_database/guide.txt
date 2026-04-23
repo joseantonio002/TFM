@@ -1,3 +1,6 @@
+IMAGE NAME: insert_into_db:latest
+docker build -t insert_into_db:latest .
+
 Connect to database mydb using psql: 
 docker exec -it my-postgres psql -U myuser -d mydb
 
