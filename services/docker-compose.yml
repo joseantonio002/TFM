@@ -41,6 +41,8 @@ services:
       retries: 5
       start_period: 5s
     restart: always
+    networks:
+      - compose_net
 
   airflow-apiserver:
     <<: *airflow-common
@@ -58,6 +60,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    networks:
+      - compose_net
 
   airflow-scheduler:
     <<: *airflow-common
@@ -75,6 +79,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    networks:
+      - compose_net
 
   airflow-dag-processor:
     <<: *airflow-common
@@ -90,6 +96,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+    networks:
+      - compose_net
 
   airflow-init:
     <<: *airflow-common
@@ -124,6 +132,8 @@ services:
       _AIRFLOW_WWW_USER_PASSWORD: ${_AIRFLOW_WWW_USER_PASSWORD:-airflow}
       _PIP_ADDITIONAL_REQUIREMENTS: ''
     user: "0:0"
+    networks:
+      - compose_net
 
   newsdb:
     image: postgres:16
@@ -135,7 +145,18 @@ services:
     volumes:
       - delete_pgdata:/var/lib/postgresql/data
       - ./3_database/init:/docker-entrypoint-initdb.d
+    networks:
+      - compose_net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U myuser -d newsdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
+networks:
+  compose_net:
+    name: compose_net
 
 volumes:
   postgres-db-volume:

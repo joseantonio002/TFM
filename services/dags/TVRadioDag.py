@@ -4,7 +4,7 @@ from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
 
 with DAG(
-  dag_id='totally_totally_new_dag',
+  dag_id='totally_totally_tot_new_dag',
   start_date=datetime(2026, 4, 20),
   schedule='0 0 * * *',
   catchup=False,
@@ -16,7 +16,7 @@ with DAG(
     api_version="auto",
     auto_remove="force",
     docker_url="unix://var/run/docker.sock",
-    network_mode="bridge",
+    network_mode="compose_net",
     mounts=[
       Mount(source="raw", target="/outputs/raw", type="volume"),
       Mount(source="common", target="/outputs/common", type="volume"),
@@ -55,7 +55,7 @@ with DAG(
     api_version="auto",
     auto_remove="force",
     docker_url="unix://var/run/docker.sock",
-    network_mode="bridge",
+    network_mode="compose_net",
     mounts=[
       Mount(source="common", target="/common", type="volume"),
       Mount(source="common_nlp", target="/outputs_nlp_pipeline", type="volume")
@@ -83,7 +83,7 @@ with DAG(
     api_version="auto",
     auto_remove="force",
     docker_url="unix://var/run/docker.sock",
-    network_mode="bridge",
+    network_mode="compose_net",
     mounts=[
       Mount(source="common_nlp", target="/common_nlp", type="volume")
     ],
