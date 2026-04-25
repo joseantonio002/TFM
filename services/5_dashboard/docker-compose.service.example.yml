@@ -1,0 +1,13 @@
+services:
+  news-dashboard:
+    build:
+      context: ./5_dashboard
+    environment:
+      NEWS_API_BASE_URL: http://news-api:8000
+    ports:
+      - "8501:8501"
+    depends_on:
+      news-api:
+        condition: service_started
+    networks:
+      - compose_net
