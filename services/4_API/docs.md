@@ -1,442 +1,27 @@
-# News Analytics API
-
-API REST para consultar noticias almacenadas en PostgreSQL y obtener métricas agregadas para dashboards.
-
-## Base URL
-
-```http
-http://localhost:8000
-````
-
----
-
-# Filtros comunes
-
-La mayoría de endpoints aceptan estos filtros:
-
-| Filtro         | Tipo          | Descripción                                |
-| -------------- | ------------- | ------------------------------------------ |
-| `from`         | datetime/date | Fecha inicial                              |
-| `to`           | datetime/date | Fecha final                                |
-| `source_type`  | string        | Tipo de fuente, por ejemplo `Radio` o `TV` |
-| `source_name`  | string        | Nombre de la fuente, por ejemplo `esRadio` |
-| `country`      | string        | País, por ejemplo `ES`                     |
-| `language`     | string        | Idioma, por ejemplo `es`                   |
-| `connector_id` | string        | ID del conector, por ejemplo `TV/RadioES`  |
-
-Ejemplo:
-
-```http
-GET /metrics/volume?from=2026-04-01&to=2026-04-20&source_type=Radio&country=ES
-```
-
----
-
-# Endpoints
-
-## GET /health
-
-Comprueba si la API está funcionando.
-
-### Filtros
-
-No acepta filtros.
-
-### Respuesta
-
-```json
-{
-  "status": "ok",
-  "service": "news-analytics-api",
-  "version": "0.1.0"
-}
-```
-
----
-
-## GET /records
-
-Devuelve registros individuales de noticias.
-
-### Filtros
-
-Acepta filtros comunes y además:
-
-| Filtro   | Tipo | Descripción                    |
-| -------- | ---- | ------------------------------ |
-| `limit`  | int  | Número máximo de registros     |
-| `offset` | int  | Desplazamiento para paginación |
-
-### Ejemplo
-
-```http
-GET /records?from=2026-04-20&source_type=Radio&limit=10&offset=0
-```
-
-### Respuesta
-
-```json
-{
-  "data": [
-    {
-      "id": "b550e7e51fef4314a5bdef405733fe57",
-      "source_name": "esRadio",
-      "source_type": "Radio",
-      "language": "es",
-      "country": "ES",
-      "extracted_at": "2026-04-20T17:47:41Z",
-      "duration": 62.12,
-      "content_preview": "En el que se servirán...",
-      "entities": {
-        "PER": ["Marisa"],
-        "LOC": ["Alcampo Baco"],
-        "ORG": ["Nutra", "Ultra"]
-      }
-    }
-  ],
-  "pagination": {
-    "limit": 10,
-    "offset": 0,
-    "total": 1240
-  }
-}
-```
-
----
-
-## GET /metrics/volume
-
-Devuelve el número de noticias agrupadas por intervalo temporal.
-
-### Filtros
-
-Acepta filtros comunes y además:
-
-| Filtro     | Tipo   | Valores                        |
-| ---------- | ------ | ------------------------------ |
-| `group_by` | string | `hour`, `day`, `week`, `month` |
-
-### Ejemplo
-
-```http
-GET /metrics/volume?from=2026-04-01&to=2026-04-20&group_by=day
-```
-
-### Respuesta
-
-```json
-{
-  "metric": "volume",
-  "group_by": "day",
-  "data": [
-    {
-      "date": "2026-04-20",
-      "count": 124
-    }
-  ]
-}
-```
-
----
-
-## GET /metrics/duration
-
-Devuelve duración total y media de los registros.
-
-La duración se calcula usando:
-
-```sql
-other->>'duration'
-```
-
-### Filtros
-
-Acepta filtros comunes y además:
-
-| Filtro     | Tipo   | Valores                        |
-| ---------- | ------ | ------------------------------ |
-| `group_by` | string | `hour`, `day`, `week`, `month` |
-
-### Ejemplo
-
-```http
-GET /metrics/duration?from=2026-04-01&to=2026-04-20&group_by=day
-```
-
-### Respuesta
-
-```json
-{
-  "metric": "duration",
-  "unit": "minutes",
-  "group_by": "day",
-  "data": [
-    {
-      "date": "2026-04-20",
-      "total_minutes": 386.4,
-      "avg_minutes": 2.7,
-      "items": 143
-    }
-  ]
-}
-```
-
----
-
-## GET /metrics/source-distribution
-
-Devuelve la distribución de noticias por fuente.
-
-### Filtros
-
-Acepta filtros comunes y además:
-
-| Filtro     | Tipo   | Valores                      |
-| ---------- | ------ | ---------------------------- |
-| `group_by` | string | `source_name`, `source_type` |
-
-### Ejemplo
-
-```http
-GET /metrics/source-distribution?from=2026-04-01&group_by=source_name
-```
-
-### Respuesta
-
-```json
-{
-  "metric": "source_distribution",
-  "group_by": "source_name",
-  "data": [
-    {
-      "source_name": "esRadio",
-      "count": 420,
-      "total_minutes": 812.5
-    },
-    {
-      "source_name": "COPE",
-      "count": 310,
-      "total_minutes": 621.2
-    }
-  ]
-}
-```
-
----
-
-## GET /metrics/entity-ranking
-
-Devuelve ranking de entidades nombradas extraídas del campo `nlp_pipeline`.
-
-### Filtros
-
-Acepta filtros comunes y además:
-
-| Filtro        | Tipo   | Valores                     |
-| ------------- | ------ | --------------------------- |
-| `entity_type` | string | `PER`, `LOC`, `ORG`, `MISC` |
-| `limit`       | int    | Número máximo de entidades  |
-
-### Ejemplo
-
-```http
-GET /metrics/entity-ranking?entity_type=ORG&limit=20
-```
-
-### Respuesta
-
-```json
-{
-  "metric": "entity_ranking",
-  "entity_type": "ORG",
-  "data": [
-    {
-      "entity": "Ultra",
-      "mentions": 32,
-      "records": 18
-    },
-    {
-      "entity": "Nutra",
-      "mentions": 21,
-      "records": 15
-    }
-  ]
-}
-```
-
----
-
-## GET /metrics/keyword-frequency
-
-Devuelve las palabras más frecuentes encontradas en el campo `content`.
-
-### Filtros
-
-Acepta filtros comunes y además:
-
-| Filtro              | Tipo | Descripción                |
-| ------------------- | ---- | -------------------------- |
-| `limit`             | int  | Número máximo de palabras  |
-| `min_length`        | int  | Longitud mínima de palabra |
-| `exclude_stopwords` | bool | Excluir palabras comunes   |
-
-### Ejemplo
-
-```http
-GET /metrics/keyword-frequency?from=2026-04-01&limit=20&min_length=4&exclude_stopwords=true
-```
-
-### Respuesta
-
-```json
-{
-  "metric": "keyword_frequency",
-  "language": "es",
-  "data": [
-    {
-      "keyword": "protestas",
-      "count": 56,
-      "records": 41
-    },
-    {
-      "keyword": "subvenciones",
-      "count": 34,
-      "records": 22
-    }
-  ]
-}
-```
-
----
-
-## GET /alerts
-
-Devuelve alertas calculadas a partir de reglas simples.
-
-Ejemplos de reglas:
-
-* Aparición frecuente de palabras como `crisis`, `protesta`, `bloqueo`, `subvención`, `manifestación`.
-* Aumento alto de volumen en una fuente.
-* Muchas menciones de una misma entidad.
-
-### Filtros
-
-Acepta filtros comunes.
-
-### Ejemplo
-
-```http
-GET /alerts?from=2026-04-20&to=2026-04-21
-```
-
-### Respuesta
-
-```json
-{
-  "data": [
-    {
-      "id": "alert_001",
-      "type": "keyword_match",
-      "severity": "medium",
-      "title": "Aumento de menciones sobre subvenciones",
-      "description": "El término 'subvenciones' aparece varias veces en el periodo seleccionado.",
-      "created_at": "2026-04-20T18:00:00Z",
-      "related_filters": {
-        "keyword": "subvenciones",
-        "source_type": "Radio"
-      }
-    }
-  ]
-}
-```
-
----
-
-# Diseño recomendado
-
-La API debe estar separada de la visualización.
-
-La visualización no debería depender de consultas SQL ni de la estructura interna exacta de la base de datos. Solo debería consumir endpoints estables como:
-
-```http
-GET /metrics/volume
-GET /metrics/duration
-GET /metrics/source-distribution
-GET /metrics/entity-ranking
-GET /metrics/keyword-frequency
-GET /alerts
-```
-
-De esta forma, si más adelante cambia el dashboard, se puede reutilizar la misma API.
-
----
-
-# Ejemplo de servicio en docker-compose
-
-```yaml
-news_api:
-  build: ./4_api
-  container_name: news_api
-  environment:
-    POSTGRES_HOST: newsdb
-    POSTGRES_PORT: 5432
-    POSTGRES_DB: newsdb
-    POSTGRES_USER: myuser
-    POSTGRES_PASSWORD: mypassword
-  ports:
-    - "8000:8000"
-  depends_on:
-    newsdb:
-      condition: service_healthy
-  networks:
-    - compose_net
-```
-
-
-
-## 1º) Prompt para tu agente
-
-```text
-Quiero que programes una API REST en Python usando FastAPI para consultar métricas de noticias almacenadas en una base de datos PostgreSQL.
+Quiero que programes una API REST en Python usando FastAPI para consultar métricas de noticias almacenadas en una base de datos PostgreSQL. Guarda todo lo relacionado con la API (código, entorno de python, Dockerfile...) en @services/4_API
 
 Contexto:
-La API se ejecutará dentro de un contenedor Docker dentro de un docker-compose.
-La base de datos PostgreSQL ya existe en el mismo compose con este servicio:
+La API se ejecutará dentro de un contenedor Docker dentro de el docker compose @services/docker-compose.yml.
+La base de datos PostgreSQL ya existe en el mismo compose con este servicio newsdb:
 
-service name: newsdb
-database: newsdb
-user: myuser
-password: mypassword
-host: newsdb
-port: 5432
+La API debe conectarse a Postgres usando variables de entorno, dichas variables se van a pasar en el docker compose y son:
+POSTGRES_USER
+POSTGRES_PASSWORD
+POSTGRES_DB
+NEWSDB_CONTAINER_NAME
 
-La API debe conectarse a Postgres usando variables de entorno, no valores hardcodeados.
-
-Variables esperadas:
-POSTGRES_HOST=newsdb
-POSTGRES_PORT=5432
-POSTGRES_DB=newsdb
-POSTGRES_USER=myuser
-POSTGRES_PASSWORD=mypassword
 
 Requisitos técnicos:
-- Usar Python 3.11 o superior.
 - Usar FastAPI.
 - Usar uvicorn como servidor.
-- Usar SQLAlchemy o psycopg para acceder a PostgreSQL.
-- Separar el código en una estructura limpia:
-  - app/main.py
-  - app/db.py
-  - app/models.py o app/schemas.py
-  - app/routers/
-  - app/services/
+- Usar SQLAlchemy o psycopg para acceder a PostgreSQL.?????????????
 - Crear Dockerfile para la API.
 - Crear requirements.txt.
 - La API debe escuchar en 0.0.0.0:8000.
-- Añadir CORS básico para permitir acceso desde un frontend web.
+- No añadas nada de seguridad, ni CORS ni nada, solamente los endpoints
 - Añadir endpoint /health.
 - El código debe estar preparado para ejecutarse dentro del docker-compose usando la red compose_net.
-- No debe acceder directamente a localhost para conectar con Postgres. Debe usar el hostname newsdb.
+- No debe acceder directamente a localhost para conectar con Postgres. Debe usar el hostname.
 
 La tabla de noticias ya existe en Postgres. Asume que se llama news, pero deja el nombre configurable con una constante o variable si es posible.
 
@@ -457,7 +42,7 @@ Campos disponibles en la tabla:
 - other
 - nlp_pipeline
 
-Los campos other y nlp_pipeline pueden ser JSONB. En other existe duration. En nlp_pipeline existe una estructura parecida a:
+Los campos other y nlp_pipeline son JSONB. En other existe duration. En nlp_pipeline existe una estructura parecida a:
 {
   "entities": {
     "PER": ["Persona 1"],
@@ -466,6 +51,26 @@ Los campos other y nlp_pipeline pueden ser JSONB. En other existe duration. En n
     "MISC": ["Otro término"]
   }
 }
+
+En @services/3_database/init/01-schema.sql tienes la definición de la tabla. Te dejo un ejemplo de una fila ya cargada:
+```
+id             | c00ba563a1c24515874340da7a029b37
+source_url     | https://rtvelivestream.rtve.es/rne_r1_main.m3u8
+airflow_dag_id | TVRadioDag
+extracted_at   | 2026-04-23 10:31:59.799549+00
+airflow_run_id | manual__2026-04-23T10:31:58.982470+00:00
+connector_id   | TV/RadioES
+connector_name | TV/RadioES
+source_name    | RNE Radio Nacional (General)
+source_type    | Radio
+language       | es
+country        | ES
+source_tags    | ["public_radio", "news"]
+content        | Y tibia al izquierdo eso significaría caso de ser rotura mínimo 5 semanas de baja con lo que diría dios a la temporada en cuanto al fútbol club Barcelona y habrá que ver el grado de rotura de esta lesión y sobre todo esperar que no tenga afectado el tendón que eso sería el peor escenario que haría perderse ya el mundial Pues ahí hemos adentro Germán cualquier novedad nos pides paso hasta luego perfecto sola huelgas guerra hay preocupación mundo convulsión pero también hay alguna luz Y es precisamente lo que está pasando la Universidad del Calá España y el español celebrando sus letras el escritor mexicano Gonzalo Velorio Te recibiré el paraninfo de la Universidad del Calá el Cervantes hace su discurso en este instante Con los pies metidos debajo y las patas delanteras de la silla para no caer en la tentación de levantar mi y abandonar la tarea Escribiendo lo que acaso sin yo saberlo ya escribieron otros Mire el mi hermano mayor que me llevaba 22 años los mismos que le llevo yo a mi primo Benito Gonzalo Velorio también una llamada a la Unión entre las letras y España esos lazos que hay entre España y México
+other          | {"end": 81.0, "start": 0.0, "duration": 81.0}
+nlp_pipeline   | {"entities": {"LOC": ["Universidad del Calá España", "Universidad del Calá", "España", "España", "México"], "ORG": ["Barcelona", "Unión"], "PER": ["Gonzalo Velorio Te", "Cervantes", "Escribiendo", "Mire", "Benito Gonzalo Velorio"], "MISC": ["mundial Pues", "Germán", "Con los pies metidos debajo"]}}
+created_at     | 2026-04-23 10:36:22.269841+00
+```
 
 Endpoints que quiero:
 
@@ -484,6 +89,7 @@ Filtros:
 - connector_id
 - limit
 - offset
+- fields Filtro único para /records, campos que nos queremos traer
 
 3. GET /metrics/volume
 Devuelve número de noticias agrupadas por tiempo.
@@ -555,20 +161,6 @@ Filtros:
 - min_length
 - exclude_stopwords
 
-8. GET /alerts
-Devuelve alertas simples calculadas a partir de reglas básicas.
-Para prototipo implementar al menos:
-- keyword_spike o keyword_match basado en palabras como crisis, protesta, bloqueo, subvención, manifestación.
-- source_volume_spike si una fuente tiene muchos registros.
-Filtros:
-- from
-- to
-- source_type
-- source_name
-- country
-- language
-- connector_id
-
 Requisitos de diseño:
 - Crear una función reutilizable para aplicar filtros comunes a las queries.
 - Validar parámetros con Pydantic/FastAPI Query.
@@ -584,26 +176,5 @@ Requisitos de diseño:
 También quiero que generes:
 - Dockerfile
 - requirements.txt
-- ejemplo de servicio para añadir al docker-compose
+- ejemplo de servicio para añadir a @services/docker-compose.yml
 - README corto explicando cómo levantar la API
-
-Ejemplo de servicio docker-compose esperado:
-
-news_api:
-  build: ./4_api
-  container_name: news_api
-  environment:
-    POSTGRES_HOST: newsdb
-    POSTGRES_PORT: 5432
-    POSTGRES_DB: newsdb
-    POSTGRES_USER: myuser
-    POSTGRES_PASSWORD: mypassword
-  ports:
-    - "8000:8000"
-  depends_on:
-    newsdb:
-      condition: service_healthy
-  networks:
-    - compose_net
-```
-

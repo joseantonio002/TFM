@@ -2,10 +2,11 @@ from datetime import datetime
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
+import os
 
 with DAG(
   dag_id='TVRadioDag',
-  start_date=datetime(2026, 4, 23),
+  start_date=datetime(2026, 4, 25),
   schedule='0 */2 * * *',
   catchup=False,
 ) as dag:
@@ -17,6 +18,7 @@ with DAG(
     auto_remove="force",
     docker_url="unix://var/run/docker.sock",
     network_mode="compose_net",
+    mount_tmp_dir=False,
     mounts=[
       Mount(source="raw", target="/outputs/raw", type="volume"),
       Mount(source="common", target="/outputs/common", type="volume"),
@@ -31,7 +33,7 @@ with DAG(
  'https://server9.emitironline.com:8822/',
  'https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8',
  '-t',
- '60'],
+ '2'],
     environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
  'EXTRACTED_AT': '{{ ti.start_date }}',
  'AIRFLOW_RUN_ID': '{{ run_id }}',
@@ -56,6 +58,7 @@ with DAG(
     auto_remove="force",
     docker_url="unix://var/run/docker.sock",
     network_mode="compose_net",
+    mount_tmp_dir=False,
     mounts=[
       Mount(source="common", target="/common", type="volume"),
       Mount(source="common_nlp", target="/outputs_nlp_pipeline", type="volume")
@@ -84,10 +87,11 @@ with DAG(
     auto_remove="force",
     docker_url="unix://var/run/docker.sock",
     network_mode="compose_net",
+    mount_tmp_dir=False,
     mounts=[
       Mount(source="common_nlp", target="/common_nlp", type="volume")
     ],
-    environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
+    environment={**{'AIRFLOW_DAG_ID': 'TVRadioDag',
  'EXTRACTED_AT': '{{ ti.start_date }}',
  'AIRFLOW_RUN_ID': '{{ run_id }}',
  'CONNECTOR_ID': 'TV/RadioES',
@@ -101,7 +105,12 @@ with DAG(
  'SOURCE_TAGS': '["news", "television"]::["news", "television"]::["local_news", '
                 '"television"]::["news", "radio", "murcia"]::["news", '
                 '"radio"]::["public_radio", "news"]::["news", '
-                '"radio"]::["regional_news", "radio", "murcia"]'}
+                '"radio"]::["regional_news", "radio", "murcia"]'},
+      "POSTGRES_USER": os.getenv("POSTGRES_USER"),
+      "POSTGRES_PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+      "POSTGRES_DB": os.getenv("POSTGRES_DB"),
+      "NEWSDB_CONTAINER_NAME": os.getenv("NEWSDB_CONTAINER_NAME"),
+  }
   )
 
   run_connector >> pipeline_nlp >> insert_into_db

@@ -74,10 +74,18 @@ def _render_dag_file(
     f"datetime({start_date.year}, {start_date.month}, {start_date.day})"
   )
 
+  db_environment_literal: str = f"""{{**{environment_literal},
+      "POSTGRES_USER": os.getenv("POSTGRES_USER"),
+      "POSTGRES_PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+      "POSTGRES_DB": os.getenv("POSTGRES_DB"),
+      "NEWSDB_CONTAINER_NAME": os.getenv("NEWSDB_CONTAINER_NAME"),
+  }}"""
+
   return f'''from datetime import datetime
 from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
+import os
 
 with DAG(
   dag_id={dag_name!r},
@@ -128,7 +136,7 @@ with DAG(
     mounts=[
       Mount(source="common_nlp", target="/common_nlp", type="volume")
     ],
-    environment={environment_literal}
+    environment={db_environment_literal}
   )
 
   run_connector >> pipeline_nlp >> insert_into_db
