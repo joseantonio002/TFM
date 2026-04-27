@@ -109,11 +109,12 @@ Si posteriormente se especifican fuentes en `dags.json`, estas **sobrescriben** 
     "params": {
       "parametro1": "valor",
       "parametro2": "valor"
-    },
-    "is_active": true
+    }
   }
 }
 ```
+
+>Nota: dags.json no tiene campo is_active porque eso se maneja desde la airflow UI
 
 ## Descripción de campos
 
@@ -122,6 +123,8 @@ Si posteriormente se especifican fuentes en `dags.json`, estas **sobrescriben** 
 * `schedule` → planificación de ejecución en formato Airflow.
 * `seed_ids` *(opcional)* → lista de seeds que se pasarán como parámetro. Se guarda el seed_id y en base a eso se extrae posteriormente el enlace especificado en seed_list.json->source_url
 * `params` *(opcional)* → parámetros enviados durante la creación del contenedor.
+
+
 
 ---
 
