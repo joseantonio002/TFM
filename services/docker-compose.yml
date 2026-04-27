@@ -190,6 +190,19 @@ services:
     networks:
       - compose_net
 
+  ingestion-web-app:
+    build:
+      context: ./1_ingestion/ingestion_web_app
+    environment:
+      INGESTION_API_BASE_URL: http://ingestion-api:8001
+    ports:
+      - "8502:8502"
+    depends_on:
+      ingestion-api:
+        condition: service_started
+    networks:
+      - compose_net
+
   news-dashboard:
     build:
       context: ./5_dashboard
