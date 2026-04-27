@@ -217,6 +217,21 @@ def generate_dags_from_file(
   )
 
 
+def generate_dags_from_json(
+  input_json: dict[str, Any],
+  connectors_path: str = "../ingestion_jsons/connectors.json",
+  seed_list_path: str = "../ingestion_jsons/seed_list.json",
+  output_dir: str = "../../dags",
+) -> list[str]:
+  """Generate DAG files from an in-memory JSON mapping."""
+  return generate_dags(
+    dags_config=input_json,
+    connectors_path=connectors_path,
+    seed_list_path=seed_list_path,
+    output_dir=output_dir,
+  )
+
+
 if __name__ == "__main__":
   """Generate DAG files from the default dags.json when run as a script."""
   generate_dags_from_file("../ingestion_jsons/dags.json")
