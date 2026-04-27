@@ -175,6 +175,21 @@ services:
     networks:
       - compose_net
 
+  ingestion-api:
+    build:
+      context: ./1_ingestion
+      dockerfile: ingestion_api/Dockerfile
+    environment:
+      INGESTION_JSONS_DIR: /jsons
+      DAGS_OUTPUT_DIR: /dags
+    volumes:
+      - ./1_ingestion/ingestion_jsons:/jsons
+      - ${AIRFLOW_PROJ_DIR:-.}/dags:/dags
+    ports:
+      - "8001:8001"
+    networks:
+      - compose_net
+
   news-dashboard:
     build:
       context: ./5_dashboard
