@@ -104,6 +104,7 @@ Si posteriormente se especifican fuentes en `dags.json`, estas **sobrescriben** 
     "connector_id": "id del conector",
     "task_id": "task id en Airflow",
     "schedule": "schedule de la tarea en formato Airflow",
+    "start_date": "punto desde el que Airflow empieza a medir cuándo crear el primer DAG Run, poner cadena de texto con lo que se pondría en el propio dag",
     "seed_ids": [seed_id1, seed_id2],
     "params": {
       "parametro1": "valor",

@@ -6,7 +6,7 @@ import os
 
 with DAG(
   dag_id='TVRadioDag',
-  start_date=datetime(2026, 4, 25),
+  start_date=datetime(2024, 1, 1),
   schedule='0 */2 * * *',
   catchup=False,
 ) as dag:
@@ -33,7 +33,7 @@ with DAG(
  'https://server9.emitironline.com:8822/',
  'https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8',
  '-t',
- '2'],
+ '60'],
     environment={'AIRFLOW_DAG_ID': 'TVRadioDag',
  'EXTRACTED_AT': '{{ ti.start_date }}',
  'AIRFLOW_RUN_ID': '{{ run_id }}',
