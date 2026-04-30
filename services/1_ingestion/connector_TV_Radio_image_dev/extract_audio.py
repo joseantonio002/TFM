@@ -195,7 +195,6 @@ def write_metadata_file(output_dir: Path, metadata: SourceMetadata) -> None:
 
 def compute_segment_time_seconds(total_duration_seconds: int) -> int:
   """Resolve the segment duration in seconds."""
-  print(total_duration_seconds)
   if total_duration_seconds <= 1800: # 30 minutes
     return total_duration_seconds
   elif total_duration_seconds <= 3600: # 1 hour
@@ -318,7 +317,6 @@ async def run_extraction(
   total_duration_float: float = parse_time_value(total_duration, "-t")
   total_duration_seconds: int = max(1, int(round(total_duration_float)))
   segment_time_seconds: int = compute_segment_time_seconds(total_duration_seconds)
-  print(segment_time_seconds)
   validate_arguments(total_duration_seconds, segment_time_seconds)
   selected_metadata: list[SourceMetadata] = load_metadata_from_environment(len(input_urls))
   selected_sources: list[Source] = build_sources_from_urls(input_urls, selected_metadata)
