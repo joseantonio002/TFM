@@ -235,12 +235,13 @@ def transcribe_pipeline_segments(
       time.sleep(POLL_INTERVAL_SECONDS)
       continue
 
+    print(f"Starting transcription: {candidate_audio.name}", flush=True)
     output_path, duration_seconds = transcribe_audio_segment(
       audio_path=candidate_audio,
       start_datetime=start_datetime,
       segment_start_seconds=next_segment_start_seconds,
     )
-    print(f"Saved segment transcription: {output_path}")
+    print(f"Finished transcription: {candidate_audio.name} -> {output_path}", flush=True)
     next_segment_start_seconds += duration_seconds
     next_segment_index += 1
 

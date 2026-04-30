@@ -29,17 +29,6 @@ def parse_args() -> argparse.Namespace:
     dest="total_duration",
     help="Total recording duration: integer minutes or HH:MM:SS(.msec)",
   )
-  parser.add_argument(
-    "-sw",
-    type=int,
-    dest="segment_wrap",
-    help="Optional ffmpeg segment_wrap value (int > 0)",
-  )
-  parser.add_argument(
-    "-st",
-    dest="segment_time",
-    help="Optional segment_time: integer minutes or HH:MM:SS(.msec)",
-  )
   return parser.parse_args()
 
 
@@ -77,8 +66,6 @@ def main() -> None:
       extract_audio.main,
       input_urls=input_urls,
       total_duration=args.total_duration,
-      segment_wrap=args.segment_wrap,
-      segment_time=args.segment_time,
       write_start_datetime=False,
     )
   except BaseException as error:
