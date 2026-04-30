@@ -195,7 +195,13 @@ def write_metadata_file(output_dir: Path, metadata: SourceMetadata) -> None:
 
 def compute_segment_time_seconds(total_duration_seconds: int) -> int:
   """Resolve the segment duration in seconds."""
-  return 30
+  print(total_duration_seconds)
+  if total_duration_seconds <= 1800: # 30 minutes
+    return total_duration_seconds
+  elif total_duration_seconds <= 3600: # 1 hour
+    return total_duration_seconds // 2 if total_duration_seconds % 2 == 0 else (total_duration_seconds // 2) + 1
+  else:
+    return 1800 # 30 minutes
 
 
 def validate_arguments(total_duration_seconds: int, segment_time_seconds: int) -> None:
@@ -206,7 +212,7 @@ def validate_arguments(total_duration_seconds: int, segment_time_seconds: int) -
   if segment_time_seconds <= 0:
     raise ValueError("-st must resolve to a value greater than 0 seconds")
 
-  if segment_time_seconds >= total_duration_seconds:
+  if segment_time_seconds > total_duration_seconds:
     raise ValueError("segment_time_seconds must be less than total_duration_seconds")
 
 
@@ -312,7 +318,7 @@ async def run_extraction(
   total_duration_float: float = parse_time_value(total_duration, "-t")
   total_duration_seconds: int = max(1, int(round(total_duration_float)))
   segment_time_seconds: int = compute_segment_time_seconds(total_duration_seconds)
-
+  print(segment_time_seconds)
   validate_arguments(total_duration_seconds, segment_time_seconds)
   selected_metadata: list[SourceMetadata] = load_metadata_from_environment(len(input_urls))
   selected_sources: list[Source] = build_sources_from_urls(input_urls, selected_metadata)
