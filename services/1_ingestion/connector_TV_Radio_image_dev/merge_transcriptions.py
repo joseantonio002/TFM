@@ -9,11 +9,15 @@ from typing import Any
 import language_tool_python
 
 BASE_DIR: Path = Path(__file__).resolve().parent
+RAW_OUTPUT_DIR: Path = Path("/outputs/raw")
 MIN_WORDS_PER_BLOCK: int = 9 # Previous: 30
 MAX_WORDS_PER_BLOCK: int = 12 # Previous: 90
 MAX_PROCESSES: int = 3
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(
   r"^\[(\d{2}:\d{2}:\d{2}\.\d{3})\s+-->\s+(\d{2}:\d{2}:\d{2}\.\d{3})\]$"
+)
+SEGMENT_TRANSCRIPTION_PATTERN: re.Pattern[str] = re.compile(
+  r"^(?P<source_id>.+)_out_(?P<index>\d+)\.transcription\.json$"
 )
 TOOL: language_tool_python.LanguageTool | None = None
 
@@ -31,6 +35,15 @@ class TranscriptSegment:
   end_time: str
   text: str
   is_music: bool
+
+
+@dataclass(frozen=True)
+class SegmentTranscriptionFile:
+  """Represent one per-audio transcription file."""
+
+  path: Path
+  source_id: str
+  index: int
 
 
 def is_music_text(text: str) -> bool:
@@ -114,6 +127,161 @@ def milliseconds_to_timestamp(total_milliseconds: int) -> str:
   seconds: int = remainder_after_minutes // 1_000
   milliseconds: int = remainder_after_minutes % 1_000
   return f"{hours:02d}:{minutes:02d}:{seconds:02d}.{milliseconds:03d}"
+
+
+def parse_segment_transcription_path(file_path: Path) -> SegmentTranscriptionFile | None:
+  """Parse one per-audio transcription filename."""
+  match: re.Match[str] | None = SEGMENT_TRANSCRIPTION_PATTERN.match(file_path.name)
+  if match is None:
+    return None
+  return SegmentTranscriptionFile(
+    path=file_path,
+    source_id=match.group("source_id"),
+    index=int(match.group("index")),
+  )
+
+
+def find_segment_transcription_groups(pipeline_dir: Path) -> dict[str, list[SegmentTranscriptionFile]]:
+  """Group per-audio transcription files by source id."""
+  grouped_files: dict[str, list[SegmentTranscriptionFile]] = {}
+  for file_path in sorted(pipeline_dir.glob("*_out_*.transcription.json")):
+    segment_file: SegmentTranscriptionFile | None = parse_segment_transcription_path(file_path)
+    if segment_file is None:
+      continue
+    grouped_files.setdefault(segment_file.source_id, []).append(segment_file)
+
+  for source_id, segment_files in grouped_files.items():
+    grouped_files[source_id] = sorted(segment_files, key=lambda segment_file: segment_file.index)
+  return grouped_files
+
+
+def shift_timestamp(timestamp: str, offset_milliseconds: int) -> str:
+  """Shift one timestamp range by an offset in milliseconds."""
+  start_time, end_time = parse_timestamp(timestamp)
+  shifted_start: str = milliseconds_to_timestamp(timestamp_to_milliseconds(start_time) + offset_milliseconds)
+  shifted_end: str = milliseconds_to_timestamp(timestamp_to_milliseconds(end_time) + offset_milliseconds)
+  return f"[{shifted_start} --> {shifted_end}]"
+
+
+def load_pipeline_metadata(pipeline_dir: Path) -> dict[str, str]:
+  """Load pipeline metadata.txt as a key-value mapping."""
+  metadata_path: Path = pipeline_dir / "metadata.txt"
+  if not metadata_path.is_file():
+    return {}
+
+  metadata: dict[str, str] = {}
+  for line in metadata_path.read_text(encoding="utf-8").splitlines():
+    if not line.strip() or "=" not in line:
+      continue
+    key, value = line.split("=", 1)
+    metadata[key.strip()] = value.strip()
+  return metadata
+
+
+def sanitize_for_filename(raw_value: str) -> str:
+  """Convert an arbitrary value into a filesystem-safe token."""
+  sanitized: str = re.sub(r"[^A-Za-z0-9._-]+", "_", raw_value.strip())
+  sanitized = sanitized.strip("._")
+  return sanitized or "unknown"
+
+
+def build_raw_output_path(metadata: dict[str, str]) -> Path:
+  """Build the duplicated raw-output JSON path from pipeline metadata."""
+  RAW_OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+  connector_id: str = sanitize_for_filename(metadata.get("connector_id", ""))
+  airflow_dag_id: str = sanitize_for_filename(metadata.get("airflow_dag_id", ""))
+  extracted_at: str = sanitize_for_filename(metadata.get("extracted_at", ""))
+  source_name: str = sanitize_for_filename(metadata.get("source_name", ""))
+  filename: str = f"{connector_id}_{airflow_dag_id}_{extracted_at}_{source_name}.json"
+  return RAW_OUTPUT_DIR / filename
+
+
+def numeric_json_value(data: dict[str, Any], key: str) -> float | None:
+  """Read an optional numeric JSON value."""
+  value: Any = data.get(key)
+  if isinstance(value, int | float):
+    return float(value)
+  return None
+
+
+def merge_segment_transcription_group(
+  pipeline_dir: Path,
+  source_id: str,
+  segment_files: list[SegmentTranscriptionFile],
+) -> Path:
+  """Merge per-audio transcriptions into one source-level transcription file."""
+  merged_transcription: dict[str, str] = {}
+  first_data: dict[str, Any] | None = None
+  last_data: dict[str, Any] | None = None
+  cumulative_offset_milliseconds: int = 0
+
+  for segment_file in segment_files:
+    data: Any = json.loads(segment_file.path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+      raise ValueError(f"Invalid JSON structure in {segment_file.path}")
+
+    raw_transcription: Any = data.get("transcription")
+    if not isinstance(raw_transcription, dict):
+      raise ValueError(f"Missing or invalid 'transcription' in {segment_file.path}")
+
+    if first_data is None:
+      first_data = data
+    last_data = data
+
+    segment_start_seconds: float | None = numeric_json_value(data, "segment_start_seconds")
+    if segment_start_seconds is None:
+      offset_milliseconds: int = cumulative_offset_milliseconds
+    else:
+      offset_milliseconds = int(round(segment_start_seconds * 1000))
+
+    for timestamp, text in raw_transcription.items():
+      if not isinstance(timestamp, str) or not isinstance(text, str):
+        raise ValueError(f"Invalid transcription entry in {segment_file.path}")
+      merged_transcription[shift_timestamp(timestamp, offset_milliseconds)] = text
+
+    segment_duration_seconds: float | None = numeric_json_value(data, "segment_duration_seconds")
+    if segment_duration_seconds is not None:
+      cumulative_offset_milliseconds = offset_milliseconds + int(round(segment_duration_seconds * 1000))
+
+  if first_data is None or last_data is None:
+    raise ValueError(f"No segment transcriptions found for {source_id} in {pipeline_dir}")
+
+  output_data: dict[str, Any] = dict(first_data)
+  output_data["transcription"] = merged_transcription
+  output_data["s_datetime"] = first_data.get("s_datetime", "")
+  output_data["e_datetime"] = last_data.get("e_datetime", "")
+  output_data.pop("segment_audio_file", None)
+  output_data.pop("segment_index", None)
+  output_data.pop("segment_start_seconds", None)
+  output_data.pop("segment_duration_seconds", None)
+
+  output_path: Path = pipeline_dir / f"{source_id}_transcription.json"
+  serialized_json: str = json.dumps(output_data, ensure_ascii=False, indent=2)
+  output_path.write_text(serialized_json, encoding="utf-8")
+
+  metadata: dict[str, str] = load_pipeline_metadata(pipeline_dir)
+  if metadata:
+    build_raw_output_path(metadata).write_text(serialized_json, encoding="utf-8")
+
+  return output_path
+
+
+def merge_segment_transcriptions(base_dir: Path) -> list[Path]:
+  """Merge all per-audio transcription files into source-level transcription files."""
+  merged_paths: list[Path] = []
+  for pipeline_dir in sorted(base_dir.glob("pipeline_*")):
+    if not pipeline_dir.is_dir():
+      continue
+    grouped_files: dict[str, list[SegmentTranscriptionFile]] = find_segment_transcription_groups(pipeline_dir)
+    for source_id, segment_files in grouped_files.items():
+      merged_paths.append(
+        merge_segment_transcription_group(
+          pipeline_dir=pipeline_dir,
+          source_id=source_id,
+          segment_files=segment_files,
+        )
+      )
+  return merged_paths
 
 
 def split_segment_by_word_limit(segment: TranscriptSegment) -> list[TranscriptSegment]:
@@ -379,6 +547,10 @@ def process_transcription_file(file_path: Path) -> Path:
 
 def main() -> None:
   """Process all pipeline transcription files and write merged outputs."""
+  premerged_files: list[Path] = merge_segment_transcriptions(BASE_DIR)
+  for premerged_file in premerged_files:
+    print(f"Saved source transcription: {premerged_file}")
+
   transcription_files: list[Path] = find_transcription_files(BASE_DIR)
   if not transcription_files:
     print("No transcription files found in pipeline folders.")

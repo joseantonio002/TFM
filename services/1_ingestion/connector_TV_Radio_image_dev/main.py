@@ -1,6 +1,8 @@
 """Run the full TV/Radio connector pipeline in sequence."""
 
 import argparse
+import multiprocessing as mp
+from pathlib import Path
 from typing import Any
 
 import extract_audio
@@ -47,19 +49,46 @@ def run_step(step_name: str, step_callable: Any, *args: Any, **kwargs: Any) -> N
   step_callable(*args, **kwargs)
 
 
+def build_pipeline_dirs(input_urls: list[str]) -> list[Path]:
+  """Build expected dev pipeline directories from the configured sources."""
+  selected_metadata: list[extract_audio.SourceMetadata] = extract_audio.load_metadata_from_environment(len(input_urls))
+  selected_sources: list[extract_audio.Source] = extract_audio.build_sources_from_urls(input_urls, selected_metadata)
+  script_dir: Path = Path(__file__).resolve().parent
+  return [script_dir / f"pipeline_{source.source_id}" for source in selected_sources]
+
+
 def main() -> None:
   """Run all connector pipeline steps sequentially."""
   args: argparse.Namespace = parse_args()
-
-  run_step(
-    "1/4 extract_audio",
-    extract_audio.main,
-    input_urls=list(args.input_urls),
-    total_duration=args.total_duration,
-    segment_wrap=args.segment_wrap,
-    segment_time=args.segment_time,
+  input_urls: list[str] = list(args.input_urls)
+  pipeline_dirs: list[Path] = build_pipeline_dirs(input_urls)
+  start_datetime_text: str = extract_audio.write_execution_starting_date()
+  transcription_stop_event: Any = mp.Event()
+  transcription_workers: list[mp.Process] = transcript_segments_cpp.start_transcription_workers(
+    pipeline_dirs=pipeline_dirs,
+    stop_event=transcription_stop_event,
+    start_datetime_text=start_datetime_text,
   )
-  run_step("2/4 transcript_segments_cpp", transcript_segments_cpp.main)
+
+  extraction_error: BaseException | None = None
+  try:
+    run_step(
+      "1/4 extract_audio + transcript_segments_cpp",
+      extract_audio.main,
+      input_urls=input_urls,
+      total_duration=args.total_duration,
+      segment_wrap=args.segment_wrap,
+      segment_time=args.segment_time,
+      write_start_datetime=False,
+    )
+  except BaseException as error:
+    extraction_error = error
+  finally:
+    transcription_stop_event.set()
+
+  run_step("2/4 transcript_segments_cpp", transcript_segments_cpp.join_transcription_workers, transcription_workers)
+  if extraction_error is not None:
+    raise extraction_error
   run_step("3/4 merge_transcriptions", merge_transcriptions.main)
   run_step("4/4 segment_embeddings", segment_embeddings.main)
 

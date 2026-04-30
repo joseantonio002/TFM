@@ -3,6 +3,7 @@ import json
 import multiprocessing as mp
 import re
 import subprocess
+import time
 import wave
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -13,10 +14,11 @@ BASE_DIR: Path = Path(__file__).resolve()
 RAW_OUTPUT_DIR: Path = Path("/outputs/raw")
 WHISPER_CLI_PATH: Path = ("./whisper.cpp/build/bin/whisper-cli")
 WHISPER_MODEL_PATH: Path = ("./whisper.cpp/models/ggml-tiny.bin")
-MAX_PROCESSES: int = 3
 START_DATETIME: datetime | None = None
+POLL_INTERVAL_SECONDS: float = 2.0
 
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(r"^\s*(\[[^\]]+\])\s*(.*)$")
+SEGMENT_AUDIO_PATTERN: re.Pattern[str] = re.compile(r"^(?P<source_id>.+)_out_(?P<index>\d+)\.wav$")
 
 def execute(audio_path: Path) -> str:
   """Run whisper-cli transcription command once."""
@@ -83,14 +85,36 @@ def init_worker(start_datetime_text: str) -> None:
   START_DATETIME = datetime.strptime(start_datetime_text, "%d/%m/%Y:%H:%M:%S")
 
 
-def find_full_audios(base_dir: Path) -> list[Path]:
-  """Find every final WAV file inside pipeline folders."""
-  full_audios: list[Path] = []
-  for pipeline_dir in base_dir.iterdir():
-    if not pipeline_dir.is_dir() or not pipeline_dir.name.startswith("pipeline_"):
+def find_pipeline_dirs(base_dir: Path) -> list[Path]:
+  """Find every pipeline directory that can contain segmented audio."""
+  return sorted(
+    pipeline_dir
+    for pipeline_dir in base_dir.glob("pipeline_*")
+    if pipeline_dir.is_dir()
+  )
+
+
+def parse_segment_audio_path(audio_path: Path) -> tuple[str, int]:
+  """Extract source id and segment index from a segment audio path."""
+  match: re.Match[str] | None = SEGMENT_AUDIO_PATTERN.match(audio_path.name)
+  if match is None:
+    raise ValueError(f"Invalid segment audio filename: {audio_path.name}")
+  return match.group("source_id"), int(match.group("index"))
+
+
+def find_segment_audios(pipeline_dir: Path) -> dict[int, Path]:
+  """Find available segment WAV files keyed by their segment index."""
+  segment_audios: dict[int, Path] = {}
+  if not pipeline_dir.is_dir():
+    return segment_audios
+
+  for audio_path in sorted(pipeline_dir.glob("*_out_*.wav")):
+    try:
+      _, segment_index = parse_segment_audio_path(audio_path)
+    except ValueError:
       continue
-    full_audios.extend(sorted(pipeline_dir.glob("*_full.wav")))
-  return full_audios
+    segment_audios[segment_index] = audio_path
+  return segment_audios
 
 
 def load_pipeline_metadata(pipeline_dir: Path) -> dict[str, str]:
@@ -132,16 +156,24 @@ def build_raw_output_path(output_dir: Path, metadata: dict[str, str]) -> Path:
   return output_dir / filename
 
 
-def transcribe_audio(audio_path: Path) -> Path:
-  """Transcribe one audio file and save the output JSON file."""
-  if START_DATETIME is None:
-    raise RuntimeError("Worker start datetime is not initialized.")
+def get_audio_duration_seconds(audio_path: Path) -> float:
+  """Read the duration of a WAV file in seconds."""
+  with wave.open(str(audio_path), "rb") as wf:
+    return wf.getnframes() / wf.getframerate()
 
-  segment_files: list[Path] = sorted(audio_path.parent.glob("*_out_00000.wav"))
-  if not segment_files:
-    raise ValueError(f"No source segment file found in {audio_path.parent}")
 
-  source_id: str = segment_files[0].stem.removesuffix("_out_00000")
+def build_segment_output_path(audio_path: Path) -> Path:
+  """Build the transcription JSON path for one segment audio file."""
+  return audio_path.with_suffix(".transcription.json")
+
+
+def transcribe_audio_segment(
+  audio_path: Path,
+  start_datetime: datetime,
+  segment_start_seconds: float,
+) -> tuple[Path, float]:
+  """Transcribe one segment audio file and save its JSON output."""
+  source_id, segment_index = parse_segment_audio_path(audio_path)
   metadata: dict[str, str] = load_pipeline_metadata(audio_path.parent)
   source_type: str = metadata.get("source_type", "").strip()
   source_name: str = metadata.get("source_name", "").strip()
@@ -150,15 +182,12 @@ def transcribe_audio(audio_path: Path) -> Path:
   if not source_name:
     raise ValueError(f"Missing 'source_name' in {audio_path.parent / 'metadata.txt'}")
 
-  output_path: Path = audio_path.parent / f"{source_id}_transcription.json"
-  raw_output_path: Path = build_raw_output_path(build_raw_output_dir(), metadata)
+  output_path: Path = build_segment_output_path(audio_path)
   raw_transcription: str = execute(audio_path)
   transcription: dict[str, str] = parse_transcription_segments(raw_transcription)
-  s_dt: datetime = START_DATETIME
+  duration_seconds: float = get_audio_duration_seconds(audio_path)
 
-  with wave.open(str(audio_path), "rb") as wf:
-    duration_seconds: float = wf.getnframes() / wf.getframerate()
-
+  s_dt: datetime = start_datetime + timedelta(seconds=segment_start_seconds)
   e_dt: datetime = s_dt + timedelta(seconds=duration_seconds)
 
   final_json: dict[str, Any] = {
@@ -167,38 +196,106 @@ def transcribe_audio(audio_path: Path) -> Path:
     "source_type": source_type,
     "s_datetime": s_dt.strftime("%d/%m/%Y:%H:%M:%S"),
     "e_datetime": e_dt.strftime("%d/%m/%Y:%H:%M:%S"),
+    "segment_audio_file": audio_path.name,
+    "segment_index": segment_index,
+    "segment_start_seconds": segment_start_seconds,
+    "segment_duration_seconds": duration_seconds,
   }
   serialized_json: str = json.dumps(final_json, ensure_ascii=False, indent=2)
   output_path.write_text(serialized_json, encoding="utf-8")
-  raw_output_path.write_text(serialized_json, encoding="utf-8")
-  return output_path
+  return output_path, duration_seconds
 
 
-def main() -> None:
-  """Run multiprocessing transcription for all final audios."""
+def transcribe_pipeline_segments(
+  pipeline_dir: Path,
+  stop_event: Any,
+  start_datetime_text: str,
+) -> None:
+  """Transcribe one source pipeline directory sequentially as segments become ready."""
+  start_datetime: datetime = datetime.strptime(start_datetime_text, "%d/%m/%Y:%H:%M:%S")
+  next_segment_index: int = 0
+  next_segment_start_seconds: float = 0.0
 
-  audio_files: list[Path] = find_full_audios(Path(__file__).resolve().parent)
+  while True:
+    segment_audios: dict[int, Path] = find_segment_audios(pipeline_dir)
+    candidate_audio: Path | None = segment_audios.get(next_segment_index)
+
+    if candidate_audio is None:
+      if stop_event.is_set():
+        break
+      time.sleep(POLL_INTERVAL_SECONDS)
+      continue
+
+    next_audio_exists: bool = (next_segment_index + 1) in segment_audios
+    if not next_audio_exists and not stop_event.is_set():
+      time.sleep(POLL_INTERVAL_SECONDS)
+      continue
+
+    if candidate_audio.stat().st_size == 0:
+      time.sleep(POLL_INTERVAL_SECONDS)
+      continue
+
+    output_path, duration_seconds = transcribe_audio_segment(
+      audio_path=candidate_audio,
+      start_datetime=start_datetime,
+      segment_start_seconds=next_segment_start_seconds,
+    )
+    print(f"Saved segment transcription: {output_path}")
+    next_segment_start_seconds += duration_seconds
+    next_segment_index += 1
+
+
+def start_transcription_workers(
+  pipeline_dirs: list[Path],
+  stop_event: Any,
+  start_datetime_text: str,
+) -> list[mp.Process]:
+  """Start one transcription process per source pipeline directory."""
+  workers: list[mp.Process] = []
+  for pipeline_dir in pipeline_dirs:
+    worker: mp.Process = mp.Process(
+      target=transcribe_pipeline_segments,
+      args=(pipeline_dir, stop_event, start_datetime_text),
+      name=f"transcribe_{pipeline_dir.name}",
+    )
+    worker.start()
+    workers.append(worker)
+  return workers
+
+
+def join_transcription_workers(workers: list[mp.Process]) -> None:
+  """Wait for transcription workers and raise if any failed."""
+  failed_workers: list[str] = []
+  for worker in workers:
+    worker.join()
+    if worker.exitcode not in (0, None):
+      failed_workers.append(f"{worker.name}={worker.exitcode}")
+
+  if failed_workers:
+    raise RuntimeError(f"Transcription workers failed: {', '.join(failed_workers)}")
+
+
+def main(pipeline_dirs: list[Path] | None = None) -> None:
+  """Run one transcription process per source for all available segments."""
+  selected_pipeline_dirs: list[Path] = pipeline_dirs or find_pipeline_dirs(Path(__file__).resolve().parent)
   start_datetime_path: Path = Path(__file__).resolve().parent / "./execution_starting_date.txt"
   start_datetime_text: str = start_datetime_path.read_text(encoding="utf-8").strip()
 
   if not start_datetime_text:
     raise ValueError(f"Empty starting datetime in {start_datetime_path}")
 
-  if not audio_files:
-    print("No *_full.wav files found in pipeline folders.")
+  if not selected_pipeline_dirs:
+    print("No pipeline folders found.")
     return
 
-  build_raw_output_dir()
-
-  with mp.Pool(
-    processes=MAX_PROCESSES,
-    initializer=init_worker,
-    initargs=(start_datetime_text,),
-  ) as pool:
-    output_paths: list[Path] = pool.map(transcribe_audio, audio_files)
-
-  for output_path in output_paths:
-    print(f"Saved transcription: {output_path}")
+  stop_event: Any = mp.Event()
+  stop_event.set()
+  workers: list[mp.Process] = start_transcription_workers(
+    pipeline_dirs=selected_pipeline_dirs,
+    stop_event=stop_event,
+    start_datetime_text=start_datetime_text,
+  )
+  join_transcription_workers(workers)
 
 
 if __name__ == "__main__":

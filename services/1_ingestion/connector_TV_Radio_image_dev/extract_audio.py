@@ -193,6 +193,15 @@ def write_metadata_file(output_dir: Path, metadata: SourceMetadata) -> None:
   metadata_path.write_text("\n".join(metadata_lines) + "\n", encoding="utf-8")
 
 
+def write_execution_starting_date(script_dir: Path | None = None) -> str:
+  """Persist and return the pipeline execution start datetime text."""
+  current_script_dir: Path = script_dir if script_dir is not None else Path(__file__).resolve().parent
+  start_datetime_path: Path = current_script_dir / "execution_starting_date.txt"
+  start_datetime_text: str = datetime.now().strftime("%d/%m/%Y:%H:%M:%S")
+  start_datetime_path.write_text(start_datetime_text, encoding="utf-8")
+  return start_datetime_text
+
+
 def compute_segment_time_seconds(total_duration_seconds: int) -> int:
   """Resolve the segment duration in seconds."""
   if total_duration_seconds <= 1800: # 30 minutes
@@ -203,6 +212,24 @@ def compute_segment_time_seconds(total_duration_seconds: int) -> int:
     return 1800 # 30 minutes
 
 
+def resolve_segment_time_seconds(total_duration_seconds: int, segment_time: str | None) -> int:
+  """Resolve explicit or automatic segment duration in seconds."""
+  if segment_time is None:
+    return compute_segment_time_seconds(total_duration_seconds)
+  segment_time_float: float = parse_time_value(segment_time, "-st")
+  return max(1, int(round(segment_time_float)))
+
+
+def build_segment_cut_times(total_duration_seconds: int, segment_time_seconds: int) -> list[int]:
+  """Build ffmpeg split times while folding leftover duration into the last segment."""
+  if total_duration_seconds <= segment_time_seconds:
+    return []
+
+  full_segment_count: int = total_duration_seconds // segment_time_seconds
+  output_segment_count: int = full_segment_count
+  return [segment_time_seconds * index for index in range(1, output_segment_count)]
+
+
 def validate_arguments(total_duration_seconds: int, segment_time_seconds: int) -> None:
   """Validate parsed CLI arguments."""
   if total_duration_seconds <= 0:
@@ -211,9 +238,6 @@ def validate_arguments(total_duration_seconds: int, segment_time_seconds: int) -
   if segment_time_seconds <= 0:
     raise ValueError("-st must resolve to a value greater than 0 seconds")
 
-  if segment_time_seconds > total_duration_seconds:
-    raise ValueError("segment_time_seconds must be less than total_duration_seconds")
-
 
 async def run_ffmpeg_for_source(
   source: Source,
@@ -221,6 +245,7 @@ async def run_ffmpeg_for_source(
   total_duration_seconds: int,
   base_output_dir: Path,
   segment_time_seconds: int,
+  segment_wrap: int | None,
 ) -> tuple[Source, int]:
   """Run one ffmpeg process for a single source."""
   source_output_dir: Path = base_output_dir / f"pipeline_{source.source_id}"
@@ -242,6 +267,10 @@ async def run_ffmpeg_for_source(
     ),
   )
   log_path: Path = source_output_dir / "logs.txt"
+  segment_cut_times: list[int] = build_segment_cut_times(
+    total_duration_seconds=total_duration_seconds,
+    segment_time_seconds=segment_time_seconds,
+  )
 
   command: list[str] = [
     "ffmpeg",
@@ -257,19 +286,22 @@ async def run_ffmpeg_for_source(
     "-map", "0:a:0",
     "-c:a", "pcm_s16le",
     "-f", "segment",
-    "-segment_time", str(segment_time_seconds),
     "-segment_format", "wav",
     "-reset_timestamps", "1",
     "-segment_start_number", "0",
   ]
 
+  if segment_cut_times:
+    command.extend(["-segment_times", ",".join(str(cut_time) for cut_time in segment_cut_times)])
+  else:
+    command.extend(["-segment_time", str(total_duration_seconds)])
+
+  if segment_wrap is not None:
+    command.extend(["-segment_wrap", str(segment_wrap)])
+
   command.extend(
     [
       f"{source.source_id}_out_%05d.wav",
-      # Full output (same bounded duration)
-      "-map", "0:a:0",
-      "-c:a", "pcm_s16le",
-      f"{source.source_id}_full.wav",
     ]
   )
 
@@ -310,14 +342,18 @@ async def async_main() -> int:
 async def run_extraction(
   input_urls: list[str],
   total_duration: str,
+  segment_wrap: int | None = None,
+  segment_time: str | None = None,
 ) -> int:
   """Execute ffmpeg extraction jobs from explicit arguments."""
   script_dir: Path = Path(__file__).resolve().parent
 
   total_duration_float: float = parse_time_value(total_duration, "-t")
   total_duration_seconds: int = max(1, int(round(total_duration_float)))
-  segment_time_seconds: int = compute_segment_time_seconds(total_duration_seconds)
+  segment_time_seconds: int = resolve_segment_time_seconds(total_duration_seconds, segment_time)
   validate_arguments(total_duration_seconds, segment_time_seconds)
+  if segment_wrap is not None and segment_wrap <= 0:
+    raise ValueError("-sw must be greater than 0 when provided")
   selected_metadata: list[SourceMetadata] = load_metadata_from_environment(len(input_urls))
   selected_sources: list[Source] = build_sources_from_urls(input_urls, selected_metadata)
 
@@ -332,6 +368,7 @@ async def run_extraction(
         metadata=selected_metadata[index],
         total_duration_seconds=total_duration_seconds,
         segment_time_seconds=segment_time_seconds,
+        segment_wrap=segment_wrap,
         base_output_dir=output_root,
       )
     )
@@ -375,17 +412,20 @@ async def run_extraction(
 def main(
   input_urls: list[str],
   total_duration: str,
+  segment_wrap: int | None = None,
+  segment_time: str | None = None,
+  write_start_datetime: bool = True,
 ) -> None:
   """Run audio extraction and persist the execution start time."""
-  s_datetime: datetime = datetime.now()
-  script_dir: Path = Path(__file__).resolve().parent
-  start_datetime_path: Path = script_dir / "execution_starting_date.txt"
-  start_datetime_path.write_text(s_datetime.strftime("%d/%m/%Y:%H:%M:%S"), encoding="utf-8")
+  if write_start_datetime:
+    write_execution_starting_date()
 
   exit_code: int = asyncio.run(
     run_extraction(
       input_urls=input_urls,
       total_duration=total_duration,
+      segment_wrap=segment_wrap,
+      segment_time=segment_time,
     )
   )
   if exit_code != 0:
@@ -395,5 +435,7 @@ if __name__ == "__main__":
   parsed_args: argparse.Namespace = parse_args()
   main(
     input_urls=list(parsed_args.input_urls),
-    total_duration=parsed_args.total_duration
+    total_duration=parsed_args.total_duration,
+    segment_wrap=parsed_args.segment_wrap,
+    segment_time=parsed_args.segment_time,
   )

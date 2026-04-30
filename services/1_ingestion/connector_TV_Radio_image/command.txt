@@ -13,12 +13,12 @@ AIRFLOW_DAG_ID=dag1 \
 EXTRACTED_AT="2026-04-16 12:00:00" \
 CONNECTOR_ID=cid \
 CONNECTOR_NAME=cname \
-SOURCE_NAME="24 horas" \
-SOURCE_TYPE="TV" \
-LANGUAGE="es" \
-COUNTRY="ES" \
-SOURCE_TAGS='["tag1", "tag2"]' \
-python extract_audio.py -i https://ztnr.rtve.es/ztnr/1694255.m3u8 -t 2
+SOURCE_NAME="24 horas::Onda Cero" \
+SOURCE_TYPE="TV::Radio" \
+LANGUAGE="es::es" \
+COUNTRY="ES::ES" \
+SOURCE_TAGS='["tag1", "tag2"]::["tag1", "tag2"]' \
+python main.py -i https://ztnr.rtve.es/ztnr/1694255.m3u8 https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8 -t 33
 
 container commands:
 apt update
