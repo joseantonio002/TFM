@@ -3,7 +3,10 @@
     "source_name": "24 horas",
     "source_type": "TV",
     "source_url": "https://ztnr.rtve.es/ztnr/1694255.m3u8",
-    "source_tags": ["news", "television"],
+    "source_tags": [
+      "news",
+      "television"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -14,7 +17,10 @@
     "source_name": "Actualidad 360",
     "source_type": "TV",
     "source_url": "https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8",
-    "source_tags": ["news", "television"],
+    "source_tags": [
+      "news",
+      "television"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -25,7 +31,10 @@
     "source_name": "9 La Loma TV",
     "source_type": "TV",
     "source_url": "https://9laloma.tv/live.m3u8",
-    "source_tags": ["local_news", "television"],
+    "source_tags": [
+      "local_news",
+      "television"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -36,7 +45,11 @@
     "source_name": "RNE Radio 5 Todo Noticias (Murcia)",
     "source_type": "Radio",
     "source_url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high",
-    "source_tags": ["news", "radio", "murcia"],
+    "source_tags": [
+      "news",
+      "radio",
+      "murcia"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -47,7 +60,10 @@
     "source_name": "Onda Cero (España)",
     "source_type": "Radio",
     "source_url": "https://atres-live.ondacero.es/live/ondacero/bitrate_1.m3u8",
-    "source_tags": ["news", "radio"],
+    "source_tags": [
+      "news",
+      "radio"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -58,7 +74,10 @@
     "source_name": "RNE Radio Nacional (General)",
     "source_type": "Radio",
     "source_url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
-    "source_tags": ["public_radio", "news"],
+    "source_tags": [
+      "public_radio",
+      "news"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -69,7 +88,10 @@
     "source_name": "esRadio",
     "source_type": "Radio",
     "source_url": "https://server9.emitironline.com:8822/",
-    "source_tags": ["news", "radio"],
+    "source_tags": [
+      "news",
+      "radio"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
@@ -80,11 +102,28 @@
     "source_name": "Onda Regional de Murcia",
     "source_type": "Radio",
     "source_url": "https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8",
-    "source_tags": ["regional_news", "radio", "murcia"],
+    "source_tags": [
+      "regional_news",
+      "radio",
+      "murcia"
+    ],
     "lang": "es",
     "country": "ES",
     "default_connector_id": "TV/RadioES",
     "description": "Regional public radio station with news, sports, and programs focused on Murcia",
+    "is_active": true
+  },
+  "borrar": {
+    "source_name": "Nevuana",
+    "source_type": "adssafaf",
+    "source_url": "https://example.com/live.m3u8",
+    "source_tags": [
+      "news"
+    ],
+    "lang": "es",
+    "country": "ES",
+    "default_connector_id": "TV/RadioES",
+    "description": "Describe la fuente de datos",
     "is_active": true
   }
 }

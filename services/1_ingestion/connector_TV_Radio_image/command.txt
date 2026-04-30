@@ -9,7 +9,16 @@ COUNTRY="NEWS_COUNTRY::RADIO_COUNTRY::FALSE_COUNTRY" \
 SOURCE_TAGS='["tag1","tag2"]::["tag3","tag4"]::["tag2"]' \
 python main.py -i https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playlist/amg01821-lovetvfast-lovenews-lges/playlist.m3u8 https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high https://amg01821-lovetv-amg01821c27-lg-es-6726.playouts.now.amagi.tv/playt/amg01821-lovetvfast-lovges/pllist.m3u8 -t 00:02:00 -st 00:00:10
 
-
+AIRFLOW_DAG_ID=dag1 \
+EXTRACTED_AT="2026-04-16 12:00:00" \
+CONNECTOR_ID=cid \
+CONNECTOR_NAME=cname \
+SOURCE_NAME="24 horas" \
+SOURCE_TYPE="TV" \
+LANGUAGE="es" \
+COUNTRY="ES" \
+SOURCE_TAGS='["tag1", "tag2"]' \
+python extract_audio.py -i https://ztnr.rtve.es/ztnr/1694255.m3u8 -t 2
 
 container commands:
 apt update
