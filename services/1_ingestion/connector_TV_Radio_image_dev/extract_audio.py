@@ -304,16 +304,6 @@ async def run_ffmpeg_for_source(
 
   return source, return_code
 
-
-async def async_main() -> int:
-  """Parse arguments and execute ffmpeg jobs in parallel."""
-  args: argparse.Namespace = parse_args()
-  return await run_extraction(
-    input_urls=list(args.input_urls),
-    total_duration=args.total_duration,
-  )
-
-
 async def run_extraction(
   input_urls: list[str],
   total_duration: str,

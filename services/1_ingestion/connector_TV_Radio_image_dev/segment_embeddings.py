@@ -15,7 +15,7 @@ from numpy.typing import NDArray
 K: int = 6
 MIN_GAP_UNITS: int = 8
 PEAK_THRESHOLD: float = 0.25
-OUTPUT_DIR: Path = Path("/outputs/common")
+OUTPUT_DIR: Path = Path("./outputs/common")
 
 
 class Unit(TypedDict):

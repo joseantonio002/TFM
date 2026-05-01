@@ -11,7 +11,6 @@ from typing import Any
 
 
 BASE_DIR: Path = Path(__file__).resolve()
-RAW_OUTPUT_DIR: Path = Path("/outputs/raw")
 WHISPER_CLI_PATH: Path = ("./whisper.cpp/build/bin/whisper-cli")
 WHISPER_MODEL_PATH: Path = ("./whisper.cpp/models/ggml-tiny.bin")
 START_DATETIME: datetime | None = None
@@ -130,30 +129,6 @@ def load_pipeline_metadata(pipeline_dir: Path) -> dict[str, str]:
     key, value = line.split("=", 1)
     metadata[key.strip()] = value.strip()
   return metadata
-
-
-def sanitize_for_filename(raw_value: str) -> str:
-  """Convert an arbitrary value into a filesystem-safe token."""
-  sanitized: str = re.sub(r"[^A-Za-z0-9._-]+", "_", raw_value.strip())
-  sanitized = sanitized.strip("._")
-  return sanitized or "unknown"
-
-
-def build_raw_output_dir() -> Path:
-  """Resolve and create the configured raw output directory."""
-  output_dir: Path = RAW_OUTPUT_DIR
-  output_dir.mkdir(parents=True, exist_ok=True)
-  return output_dir
-
-
-def build_raw_output_path(output_dir: Path, metadata: dict[str, str]) -> Path:
-  """Build the duplicated raw-output JSON path from pipeline metadata."""
-  connector_id: str = sanitize_for_filename(metadata.get("connector_id", ""))
-  airflow_dag_id: str = sanitize_for_filename(metadata.get("airflow_dag_id", ""))
-  extracted_at: str = sanitize_for_filename(metadata.get("extracted_at", ""))
-  source_name: str = sanitize_for_filename(metadata.get("source_name", ""))
-  filename: str = f"{connector_id}_{airflow_dag_id}_{extracted_at}_{source_name}.json"
-  return output_dir / filename
 
 
 def get_audio_duration_seconds(audio_path: Path) -> float:
