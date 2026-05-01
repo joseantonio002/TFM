@@ -12,7 +12,8 @@ from typing import Any
 
 BASE_DIR: Path = Path(__file__).resolve()
 WHISPER_CLI_PATH: Path = ("./whisper.cpp/build/bin/whisper-cli")
-WHISPER_MODEL_PATH: Path = ("./whisper.cpp/models/ggml-tiny.bin")
+# ggml-base.bin ggml-small.bin 
+WHISPER_MODEL_PATH: Path = ("./whisper.cpp/models/ggml-small.bin")
 START_DATETIME: datetime | None = None
 POLL_INTERVAL_SECONDS: float = 2.0
 
