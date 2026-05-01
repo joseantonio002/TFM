@@ -29,6 +29,12 @@ def parse_args() -> argparse.Namespace:
     dest="total_duration",
     help="Total recording duration: integer minutes or HH:MM:SS(.msec)",
   )
+  parser.add_argument(
+    "-m",
+    choices=["tiny", "base", "small"],
+    dest="whisper_model",
+    help="Optional whisper model to use for transcription.",
+  )
   return parser.parse_args()
 
 
@@ -53,10 +59,12 @@ def main() -> None:
   pipeline_dirs: list[Path] = build_pipeline_dirs(input_urls)
   start_datetime_text: str = extract_audio.write_execution_starting_date()
   transcription_stop_event: Any = mp.Event()
+  print(f"Using whisper model: {args.whisper_model}" if args.whisper_model else "Using default whisper model small")
   transcription_workers: list[mp.Process] = transcript_segments_cpp.start_transcription_workers(
     pipeline_dirs=pipeline_dirs,
     stop_event=transcription_stop_event,
     start_datetime_text=start_datetime_text,
+    whisper_model=args.whisper_model,
   )
 
   extraction_error: BaseException | None = None

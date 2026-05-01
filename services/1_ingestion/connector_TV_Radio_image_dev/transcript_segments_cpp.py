@@ -13,12 +13,30 @@ from typing import Any
 BASE_DIR: Path = Path(__file__).resolve()
 WHISPER_CLI_PATH: Path = ("./whisper.cpp/build/bin/whisper-cli")
 # ggml-base.bin ggml-small.bin 
-WHISPER_MODEL_PATH: Path = ("./whisper.cpp/models/ggml-small.bin")
+WHISPER_MODELS_DIR: Path = Path("./whisper.cpp/models")
+DEFAULT_WHISPER_MODEL_PATH: Path = WHISPER_MODELS_DIR / "ggml-small.bin"
+WHISPER_MODEL_PATH: Path = DEFAULT_WHISPER_MODEL_PATH
+WHISPER_MODEL_OPTIONS: set[str] = {"tiny", "base", "small"}
 START_DATETIME: datetime | None = None
 POLL_INTERVAL_SECONDS: float = 2.0
 
 TIMESTAMP_PATTERN: re.Pattern[str] = re.compile(r"^\s*(\[[^\]]+\])\s*(.*)$")
 SEGMENT_AUDIO_PATTERN: re.Pattern[str] = re.compile(r"^(?P<source_id>.+)_out_(?P<index>\d+)\.wav$")
+
+def build_whisper_model_path(whisper_model: str | None) -> Path:
+  """Build the whisper model path from an optional model name."""
+  if whisper_model is None:
+    return DEFAULT_WHISPER_MODEL_PATH
+  if whisper_model not in WHISPER_MODEL_OPTIONS:
+    raise ValueError(f"Invalid whisper model: {whisper_model}")
+  return WHISPER_MODELS_DIR / f"ggml-{whisper_model}.bin"
+
+
+def set_whisper_model_path(whisper_model: str | None) -> None:
+  """Set the process-local whisper model path."""
+  global WHISPER_MODEL_PATH
+  WHISPER_MODEL_PATH = build_whisper_model_path(whisper_model)
+
 
 def execute(audio_path: Path) -> str:
   """Run whisper-cli transcription command once."""
@@ -186,8 +204,10 @@ def transcribe_pipeline_segments(
   pipeline_dir: Path,
   stop_event: Any,
   start_datetime_text: str,
+  whisper_model: str | None = None,
 ) -> None:
   """Transcribe one source pipeline directory sequentially as segments become ready."""
+  set_whisper_model_path(whisper_model)
   start_datetime: datetime = datetime.strptime(start_datetime_text, "%d/%m/%Y:%H:%M:%S")
   next_segment_index: int = 0
   next_segment_start_seconds: float = 0.0
@@ -226,13 +246,14 @@ def start_transcription_workers(
   pipeline_dirs: list[Path],
   stop_event: Any,
   start_datetime_text: str,
+  whisper_model: str | None = None,
 ) -> list[mp.Process]:
   """Start one transcription process per source pipeline directory."""
   workers: list[mp.Process] = []
   for pipeline_dir in pipeline_dirs:
     worker: mp.Process = mp.Process(
       target=transcribe_pipeline_segments,
-      args=(pipeline_dir, stop_event, start_datetime_text),
+      args=(pipeline_dir, stop_event, start_datetime_text, whisper_model),
       name=f"transcribe_{pipeline_dir.name}",
     )
     worker.start()
@@ -252,7 +273,7 @@ def join_transcription_workers(workers: list[mp.Process]) -> None:
     raise RuntimeError(f"Transcription workers failed: {', '.join(failed_workers)}")
 
 
-def main(pipeline_dirs: list[Path] | None = None) -> None:
+def main(pipeline_dirs: list[Path] | None = None, whisper_model: str | None = None) -> None:
   """Run one transcription process per source for all available segments."""
   selected_pipeline_dirs: list[Path] = pipeline_dirs or find_pipeline_dirs(Path(__file__).resolve().parent)
   start_datetime_path: Path = Path(__file__).resolve().parent / "./execution_starting_date.txt"
@@ -271,6 +292,7 @@ def main(pipeline_dirs: list[Path] | None = None) -> None:
     pipeline_dirs=selected_pipeline_dirs,
     stop_event=stop_event,
     start_datetime_text=start_datetime_text,
+    whisper_model=whisper_model,
   )
   join_transcription_workers(workers)
 
