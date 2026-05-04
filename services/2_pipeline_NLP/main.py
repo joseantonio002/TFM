@@ -1,7 +1,7 @@
 import os
 import json
 
-from NER.ner_main import ner_main
+from pipeline_steps.NER.ner_main import ner_main
 
 INPUT_DIR_PATH: str = "/common"
 OUTPUT_DIR_PATH: str = "/outputs_nlp_pipeline"
