@@ -23,6 +23,7 @@ services/ingestion_prototype/logs
 
 **/pipeline_*/
 !pipeline_NLP/
+!pipeline_NLP/pipeline_steps/
 
 services/ingestion_prototype/connector_TV_Radio/outputs
 services/ingestion_prototype/connector_TV_Radio_image/outputs
