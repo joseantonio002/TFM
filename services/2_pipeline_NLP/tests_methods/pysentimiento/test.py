@@ -5,7 +5,7 @@ from pysentimiento import create_analyzer
 analyzer = create_analyzer(task="sentiment", lang="es")
 
 
-def split_text_into_sentences(text: str, min_words: int = 5, max_words: int = 10) -> List[str]:
+def split_text_into_sentences(text: str, min_words: int = 10, max_words: int = 15) -> List[str]:
   """Split a text into chunks containing between min_words and max_words words."""
   words: List[str] = text.split()
   sentences: List[str] = []
