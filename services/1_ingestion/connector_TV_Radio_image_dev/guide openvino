@@ -6,4 +6,57 @@ cmake --build build -j --config Release
 --- Convertir modelos a openvino
 (mismo entorno que openvino)
 pip install openai-whisper
+pip install onnxscript
+python convert-whisper-to-openvino.py --model base
+
+
+Esto me daba error porque la instalación de pip de openvino no es suficiente ya que no incluye c++ headers y demas, hay que instalar openvino desde source
+'''
+The instructions you're following are correct, but they're for a different OpenVINO distribution method than what you installed via pip.
+
+Quick Answer
+You installed OpenVINO using the PyPI distribution (pip install openvino), which only provides the Python API and doesn't include the setupvars.sh script. The instructions you found are for the Archive distribution downloaded from the OpenVINO release page, which includes the full toolkit with C++ headers, samples, and environment setup scripts.
+
+Detailed Explanation
+Two Different Installation Methods
+OpenVINO provides multiple distribution channels, each with different contents:
+
+Archive Distribution (what the instructions reference):
+
+Downloaded from release page as a .tgz file
+Contains both C/C++ and Python APIs
+Includes code samples and C++ headers
+Contains setupvars.sh script for environment configuration
+Extracted to directories like /opt/intel/openvino_2026.0.0/ install-openvino-archive-linux.rst:10-18
+PyPI Distribution (what you installed):
+
+Installed via pip install openvino
+Python API only install-openvino-pip.rst:12-17
+No setupvars.sh script needed
+Environment is automatically configured when used in Python
+The setupvars.sh Script
+The setupvars.sh script is located in the archive distribution and sets up environment variables for C++ development: setupvars.sh:1-175
+
+It configures:
+
+Library paths (LD_LIBRARY_PATH)
+Python paths (PYTHONPATH)
+CMake configuration paths
+TBB library paths
+What You Should Do
+For building whisper.cpp with OpenVINO support, you need the Archive distribution because:
+
+whisper.cpp is a C/C++ project that needs OpenVINO's C++ libraries and headers
+The build system needs to locate OpenVINO libraries via environment variables set by setupvars.sh
+To fix this:
+
+Download the OpenVINO archive package from the release page
+Extract it to a directory like /opt/intel/openvino_2026.0.0/
+Source the setupvars script: source /opt/intel/openvino_2026.0.0/setupvars.sh
+Then build whisper.cpp with OpenVINO support
+The pip installation is fine for Python development but insufficient for C++ projects like whisper.cpp.
+'''
+
+
+https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-archive-linux.html
 
