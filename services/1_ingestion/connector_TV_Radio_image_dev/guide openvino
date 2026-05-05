@@ -60,3 +60,7 @@ The pip installation is fine for Python development but insufficient for C++ pro
 
 https://docs.openvino.ai/2024/get-started/install-openvino/install-openvino-archive-linux.html
 
+
+Como configurar whisper cpp con openvino
+
+https://github.com/ggml-org/whisper.cpp#openvino-support

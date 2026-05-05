@@ -1,4 +1,4 @@
-FROM python:3.12-slim
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VIRTUAL_ENV=/opt/venv
@@ -15,9 +15,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   cmake \
   ffmpeg \
   openjdk-21-jdk \
-  && rm -rf /var/lib/apt/lists/*
+  software-properties-common && \
+  add-apt-repository ppa:deadsnakes/ppa -y && \
+  apt-get update && \
+  apt-get install -y --no-install-recommends python3.12 python3.12-venv && \
+  rm -rf /var/lib/apt/lists/*
 
-RUN python -m venv "${VIRTUAL_ENV}"
+
+RUN python3.12 -m venv "${VIRTUAL_ENV}"
 
 COPY requirements.txt ./requirements.txt
 
@@ -26,9 +31,19 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
 
 COPY . .
 
-RUN cmake -S whisper.cpp -B whisper.cpp/build && \
-  cmake --build whisper.cpp/build -j --config Release
+RUN mkdir -p /opt/intel/openvino_2024.6.0 && \
+    tar -xf openvino_2024.6.0.tgz -C /opt/intel/openvino_2024.6.0 --strip-components=1 && \
+    rm openvino_2024.6.0.tgz && \
+    cd /opt/intel/openvino_2024.6.0 && \
+    ./install_dependencies/install_openvino_dependencies.sh -y && \
+    cd /opt/intel && \
+    ln -s openvino_2024.6.0 openvino_2024
 
-RUN python preload_models.py
+RUN bash -lc "source /opt/intel/openvino_2024/setupvars.sh && \
+    cd whisper.cpp && \
+    cmake -B build -DWHISPER_OPENVINO=1 && \
+    cmake --build build -j --config Release"
+
+RUN python3.12 preload_models.py
 
 ENTRYPOINT ["python", "main.py"]
