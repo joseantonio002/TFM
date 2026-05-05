@@ -9,7 +9,7 @@ from typing import Any
 import language_tool_python
 
 BASE_DIR: Path = Path(__file__).resolve().parent
-RAW_OUTPUT_DIR: Path = Path("./outputs/raw")
+RAW_OUTPUT_DIR: Path = Path("/outputs/raw")
 MIN_WORDS_PER_BLOCK: int = 9 # Previous: 30
 MAX_WORDS_PER_BLOCK: int = 12 # Previous: 90
 MAX_PROCESSES: int = 3
