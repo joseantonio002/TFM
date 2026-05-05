@@ -35,6 +35,13 @@ def parse_args() -> argparse.Namespace:
     dest="whisper_model",
     help="Optional whisper model to use for transcription.",
   )
+  parser.add_argument(
+    "-nt",
+    type=int,
+    default=1,
+    dest="whisper_threads",
+    help="Number of whisper.cpp threads to use per transcription process.",
+  )
   return parser.parse_args()
 
 
@@ -56,15 +63,20 @@ def main() -> None:
   """Run all connector pipeline steps sequentially."""
   args: argparse.Namespace = parse_args()
   input_urls: list[str] = list(args.input_urls)
+  if args.whisper_threads <= 0:
+    raise ValueError("-nt must be greater than 0")
+
   pipeline_dirs: list[Path] = build_pipeline_dirs(input_urls)
   start_datetime_text: str = extract_audio.write_execution_starting_date()
   transcription_stop_event: Any = mp.Event()
   print(f"Using whisper model: {args.whisper_model}" if args.whisper_model else "Using default whisper model small")
+  print(f"Using whisper threads per transcription process: {args.whisper_threads}")
   transcription_workers: list[mp.Process] = transcript_segments_cpp.start_transcription_workers(
     pipeline_dirs=pipeline_dirs,
     stop_event=transcription_stop_event,
     start_datetime_text=start_datetime_text,
     whisper_model=args.whisper_model,
+    whisper_threads=args.whisper_threads,
   )
 
   extraction_error: BaseException | None = None

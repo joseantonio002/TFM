@@ -2,3 +2,8 @@ pip install -U openvino==2024.6.0
 cmake -B build -DWHISPER_OPENVINO=1 -DOpenVINO_DIR=/home/jose/TFM/services/1_ingestion/connector_TV_Radio_image_dev/.venv/lib/python3.12/site-packages/openvino/cmake
 cmake --build build -j --config Release
 
+
+--- Convertir modelos a openvino
+(mismo entorno que openvino)
+pip install openai-whisper
+

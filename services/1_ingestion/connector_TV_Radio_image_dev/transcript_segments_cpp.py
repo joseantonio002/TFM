@@ -17,6 +17,7 @@ WHISPER_MODELS_DIR: Path = Path("./whisper.cpp/models")
 DEFAULT_WHISPER_MODEL_PATH: Path = WHISPER_MODELS_DIR / "ggml-small.bin"
 WHISPER_MODEL_PATH: Path = DEFAULT_WHISPER_MODEL_PATH
 WHISPER_MODEL_OPTIONS: set[str] = {"tiny", "base", "small"}
+WHISPER_THREADS: int = 1
 START_DATETIME: datetime | None = None
 POLL_INTERVAL_SECONDS: float = 2.0
 
@@ -38,6 +39,14 @@ def set_whisper_model_path(whisper_model: str | None) -> None:
   WHISPER_MODEL_PATH = build_whisper_model_path(whisper_model)
 
 
+def set_whisper_threads(whisper_threads: int) -> None:
+  """Set the process-local whisper thread count."""
+  if whisper_threads <= 0:
+    raise ValueError("whisper_threads must be greater than 0")
+  global WHISPER_THREADS
+  WHISPER_THREADS = whisper_threads
+
+
 def execute(audio_path: Path) -> str:
   """Run whisper-cli transcription command once."""
   command: list[str] = [
@@ -47,7 +56,7 @@ def execute(audio_path: Path) -> str:
     "-l",
     "es",
     "-t", # -t Number of threads to use (default: number of CPU cores)
-    "1", # Avoid CPU oversubscription when using multiple Pool workers
+    str(WHISPER_THREADS), # Avoid CPU oversubscription when using multiple workers
     "-f",
     str(audio_path),
   ]
@@ -205,9 +214,11 @@ def transcribe_pipeline_segments(
   stop_event: Any,
   start_datetime_text: str,
   whisper_model: str | None = None,
+  whisper_threads: int = 1,
 ) -> None:
   """Transcribe one source pipeline directory sequentially as segments become ready."""
   set_whisper_model_path(whisper_model)
+  set_whisper_threads(whisper_threads)
   start_datetime: datetime = datetime.strptime(start_datetime_text, "%d/%m/%Y:%H:%M:%S")
   next_segment_index: int = 0
   next_segment_start_seconds: float = 0.0
@@ -247,13 +258,14 @@ def start_transcription_workers(
   stop_event: Any,
   start_datetime_text: str,
   whisper_model: str | None = None,
+  whisper_threads: int = 1,
 ) -> list[mp.Process]:
   """Start one transcription process per source pipeline directory."""
   workers: list[mp.Process] = []
   for pipeline_dir in pipeline_dirs:
     worker: mp.Process = mp.Process(
       target=transcribe_pipeline_segments,
-      args=(pipeline_dir, stop_event, start_datetime_text, whisper_model),
+      args=(pipeline_dir, stop_event, start_datetime_text, whisper_model, whisper_threads),
       name=f"transcribe_{pipeline_dir.name}",
     )
     worker.start()
@@ -273,7 +285,11 @@ def join_transcription_workers(workers: list[mp.Process]) -> None:
     raise RuntimeError(f"Transcription workers failed: {', '.join(failed_workers)}")
 
 
-def main(pipeline_dirs: list[Path] | None = None, whisper_model: str | None = None) -> None:
+def main(
+  pipeline_dirs: list[Path] | None = None,
+  whisper_model: str | None = None,
+  whisper_threads: int = 1,
+) -> None:
   """Run one transcription process per source for all available segments."""
   selected_pipeline_dirs: list[Path] = pipeline_dirs or find_pipeline_dirs(Path(__file__).resolve().parent)
   start_datetime_path: Path = Path(__file__).resolve().parent / "./execution_starting_date.txt"
@@ -293,6 +309,7 @@ def main(pipeline_dirs: list[Path] | None = None, whisper_model: str | None = No
     stop_event=stop_event,
     start_datetime_text=start_datetime_text,
     whisper_model=whisper_model,
+    whisper_threads=whisper_threads,
   )
   join_transcription_workers(workers)
 
