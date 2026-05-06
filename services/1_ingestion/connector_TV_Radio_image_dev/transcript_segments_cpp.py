@@ -12,9 +12,8 @@ from typing import Any
 
 BASE_DIR: Path = Path(__file__).resolve()
 WHISPER_CLI_PATH: Path = ("./whisper.cpp/build/bin/whisper-cli")
-# ggml-base.bin ggml-small.bin 
 WHISPER_MODELS_DIR: Path = Path("./whisper.cpp/models")
-DEFAULT_WHISPER_MODEL_PATH: Path = WHISPER_MODELS_DIR / "ggml-small.bin"
+DEFAULT_WHISPER_MODEL_PATH: Path = WHISPER_MODELS_DIR / "ggml-tiny.bin"
 WHISPER_MODEL_PATH: Path = DEFAULT_WHISPER_MODEL_PATH
 WHISPER_MODEL_OPTIONS: set[str] = {"tiny", "base", "small"}
 WHISPER_THREADS: int = 1

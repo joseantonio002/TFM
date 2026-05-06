@@ -7,6 +7,11 @@ ENV JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64
 ENV LTP_PATH=/opt/model-cache/language-tool
 ENV SENTENCE_TRANSFORMERS_HOME=/opt/model-cache/sentence-transformers
 ENV HF_HOME=/opt/model-cache/huggingface
+ENV INTEL_OPENVINO_DIR=/opt/intel/openvino_2024
+ENV OpenVINO_DIR=/opt/intel/openvino_2024/runtime/cmake
+ENV TBB_DIR=/opt/intel/openvino_2024/runtime/3rdparty/tbb/lib/cmake/TBB
+ENV LD_LIBRARY_PATH=/opt/intel/openvino_2024/runtime/lib/intel64:/opt/intel/openvino_2024/runtime/3rdparty/tbb/lib
+ENV PKG_CONFIG_PATH=/opt/intel/openvino_2024/runtime/lib/intel64/pkgconfig
 
 WORKDIR /app
 
