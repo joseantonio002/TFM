@@ -44,6 +44,8 @@ RUN bash -lc "source /opt/intel/openvino_2024/setupvars.sh && \
     cmake -B build -DWHISPER_OPENVINO=1 && \
     cmake --build build -j --config Release"
 
-RUN python3.12 preload_models.py
+RUN which python && python -c "import sys; print(sys.executable)"
+
+RUN python preload_models.py
 
 ENTRYPOINT ["python", "main.py"]
