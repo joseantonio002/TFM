@@ -6,8 +6,6 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from preload_models import LANGUAGE_TOOL_VERSION
-
 import language_tool_python
 
 BASE_DIR: Path = Path(__file__).resolve().parent
@@ -26,10 +24,7 @@ TOOL: language_tool_python.LanguageTool | None = None
 def init_worker() -> None:
   """Load shared worker resources once per worker process."""
   global TOOL
-  TOOL = language_tool_python.LanguageTool(
-      "es-ES",
-      language_tool_download_version=LANGUAGE_TOOL_VERSION,
-  )
+  TOOL = language_tool_python.LanguageTool("es-ES")
 
 @dataclass
 class TranscriptSegment:

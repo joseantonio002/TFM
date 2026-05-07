@@ -1,5 +1,6 @@
 .venv
 common
 outputs
+common*
 __pycache__
 command.txt
