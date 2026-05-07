@@ -129,7 +129,7 @@ def extract_yake_topics(text: str, ngram_size: int) -> list[str]:
     dedupLim=0.9,
     dedupFunc="seqm",
     windowsSize=1,
-    top=10,
+    top=5,
     stopwords=spanish_stopwords,
     features=None,
   )

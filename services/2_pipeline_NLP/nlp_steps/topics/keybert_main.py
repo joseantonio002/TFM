@@ -78,7 +78,7 @@ def keybert_main(text: str) -> dict:
         text,
         keyphrase_ngram_range=(1, 1),
         stop_words=spanish_stopwords,
-        top_n=10,
+        top_n=8,
         use_mmr=True,
         diversity=0.5
     )
