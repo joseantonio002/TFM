@@ -1,0 +1,12 @@
+import spacy
+
+nlp = spacy.load(
+    "es_core_news_lg",
+    disable=["morphologizer", "parser", "attribute_ruler", "lemmatizer", "senter"]
+)
+
+print(nlp.get_pipe("ner").labels)
+
+#doc = nlp("Es la Junta Municipal de la Junta Claro la Junta Municipal es para algún Bueno es verdad que la Junta Municipal es muy cercana al ciudadano En la final lo que estáis en la Junta Municipal Soy gente que todos conocemos y tenemos acceso a vosotros Y que para el día a día y para la cita a los y pequeñas Y tal pues está muy bien pero es que muchas veces olvidamos Bueno sobreviva no de forma premeditada pero se olvida Que la manga al menor tiene su propia marca y es un destino turístico A nivel nacional que es conocido a nivel internacional Y que muchísima gente y yo no por menos preciar a la región de Murcia Conoce la región de Murcia porque viene la manga al menor Entonces estamos aquí con una joya turística que no debemos presentarnos")
+doc = nlp("La zona Quién es el problema en esta zona Para según Estados Unidos es irán que agita la estabilidad de la región Por lo tanto estos dos objetivos meco objetivo Digamos están pendientes de ser realizados Pero luego están Israel El problema de Israel es más grave con Irán Porque ellos lo que quieren es primero llevar a Irán a la edad media Que es lo que están haciendo en realidad Han destruido buena parte de la industria iraní Han golpeado hasta las regeneras Ya no digamos las centrales nucleares Y han llevado prácticamente irán a la una pobreza extrema Que de aquí décadas no levantará la cabeza en el mejor de los casos de las situaciones Y segundo quiere acabar con el régimen islámico Esto es so objetivo Entonces hasta que no consiga esto esta guerra continuará Yo lo que quiere creo es que como el régimen de Irán Que ahora estaba con control de los militares Porque hay un dato muy interesante que ha ocurrido por esta guerra Que el que le digo ha sido eliminado del poder de la teocracia islámica No están ya no veremos a ver a los hombres de Sotana En el poder Algunos pasarán por ahí por para decir que aquí estamos Pero el poder real estaba bajo el control de los militares En hecho como un denegó al prestado Incluso han apartado al presidente de la República Islámica Que es pes esquían la han apartado prácticamente en la fan desautorizado")
+print([(ent.text, ent.label_) for ent in doc.ents])

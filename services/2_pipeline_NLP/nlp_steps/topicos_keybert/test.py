@@ -30,7 +30,7 @@ es son fue fueron será serán ha han hay haber se su sus mi mis tu tus especial
 
 keywords = kw_model.extract_keywords(
     text,
-    keyphrase_ngram_range=(1, 3),
+    keyphrase_ngram_range=(1, 1),
     stop_words=list(spanish_stopwords),
     top_n=10,
     use_mmr=True,

@@ -71,6 +71,7 @@ def main() -> None:
   transcription_stop_event: Any = mp.Event()
   print(f"Using whisper model: {args.whisper_model}" if args.whisper_model else "Using default whisper model small")
   print(f"Using whisper threads per transcription process: {args.whisper_threads}")
+  print(f"Listening for: {args.total_duration}")
   transcription_workers: list[mp.Process] = transcript_segments_cpp.start_transcription_workers(
     pipeline_dirs=pipeline_dirs,
     stop_event=transcription_stop_event,

@@ -1,10 +1,11 @@
 import os
 import json
 
-from test_methods.NER.ner_main import ner_main
+#from test_methods.NER.ner_main import ner_main
+from nlp_steps.pysentimiento.pysentimiento_main import pysentimiento_main
 
-INPUT_DIR_PATH: str = "/common"
-OUTPUT_DIR_PATH: str = "/outputs_nlp_pipeline"
+INPUT_DIR_PATH: str = "./common"
+OUTPUT_DIR_PATH: str = "./outputs_nlp_pipeline"
 
 def load_metadata_from_environment() -> tuple[str, str]:
   return os.environ.get("AIRFLOW_DAG_ID", ""), os.environ.get("AIRFLOW_RUN_ID", "")
@@ -15,7 +16,8 @@ def load_metadata_from_environment() -> tuple[str, str]:
 def nlp_pipeline(input_json: json) -> None:
   text = input_json['content']
   input_json['nlp_pipeline'] = {}
-  input_json['nlp_pipeline'].update(ner_main(text))
+  #input_json['nlp_pipeline'].update(ner_main(text))
+  input_json['nlp_pipeline'] = pysentimiento_main(text)
   return input_json
   
 
