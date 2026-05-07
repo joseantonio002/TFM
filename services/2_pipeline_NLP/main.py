@@ -3,6 +3,8 @@ import json
 
 #from test_methods.NER.ner_main import ner_main
 from nlp_steps.pysentimiento.pysentimiento_main import pysentimiento_main
+from nlp_steps.threat_classifier.threat_class_main import threat_class_main
+from nlp_steps.topics.keybert_main import keybert_main
 
 INPUT_DIR_PATH: str = "./common"
 OUTPUT_DIR_PATH: str = "./outputs_nlp_pipeline"
@@ -16,8 +18,12 @@ def load_metadata_from_environment() -> tuple[str, str]:
 def nlp_pipeline(input_json: json) -> None:
   text = input_json['content']
   input_json['nlp_pipeline'] = {}
-  #input_json['nlp_pipeline'].update(ner_main(text))
-  input_json['nlp_pipeline'] = pysentimiento_main(text)
+  key, value = threat_class_main(text)
+  input_json['nlp_pipeline'][key] = value
+  key, value = pysentimiento_main(text)
+  input_json['nlp_pipeline'][key] = value
+  key, value = topics_main(text)
+  input_json['nlp_pipeline'][key] = value
   return input_json
   
 

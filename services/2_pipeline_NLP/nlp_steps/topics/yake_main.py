@@ -1,8 +1,7 @@
-from keybert import KeyBERT
+import yake
+from keybert_main import spanish_stopwords
 
-kw_model = KeyBERT("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
-
-text = """
+text = text = """
 La zona Quién es el problema en esta zona Para según Estados Unidos es irán 
 que agita la estabilidad de la región Por lo tanto estos dos objetivos meco objetivo Digamos 
 están pendientes de ser realizados Pero luego están Israel El problema de Israel es 
@@ -21,19 +20,19 @@ hecho como un denegó al prestado Incluso han apartado al presidente de la Repú
 Islámica Que es pes esquían la han apartado prácticamente en la fan desautorizado
 """
 
-spanish_stopwords = set("""
-a ante bajo cabe con contra de desde durante en entre hacia hasta mediante
-para por según sin sobre tras y o u el la los las un una unos unas
-lo al del que quien quienes cuyo cuya cuyos cuyas donde cuando como
-es son fue fueron será serán ha han hay haber se su sus mi mis tu tus especialmente
-""".split())
-
-keywords = kw_model.extract_keywords(
-    text,
-    keyphrase_ngram_range=(1, 1),
-    stop_words=list(spanish_stopwords),
-    top_n=10,
-    use_mmr=True,
-    diversity=0.5
+# With custom parameters
+custom_kw_extractor = yake.KeywordExtractor(
+    lan="es",              # language
+    n=1,                   # ngram size
+    dedupLim=0.9,          # deduplication threshold
+    dedupFunc='seqm',      # deduplication function
+    windowsSize=1,         # context window
+    top=10,                # number of keywords to extract
+    stopwords=spanish_stopwords,
+    features=None          # custom features
 )
-print(keywords)
+
+keywords = custom_kw_extractor.extract_keywords(text)
+
+for kw, score in keywords:
+    print(f"{kw} ({score})")

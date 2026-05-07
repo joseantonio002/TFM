@@ -51,6 +51,5 @@ def analyze_sentences_average(sentences: List[str]) -> Dict[str, float]:
 def pysentimiento_main(text: str) -> dict:
   sentences = split_text_into_sentences(text)
   sent = analyze_sentences_average(sentences)
-  return {
-    "sentiment": sent
-  }
+  return "sentiment", sent
+  
