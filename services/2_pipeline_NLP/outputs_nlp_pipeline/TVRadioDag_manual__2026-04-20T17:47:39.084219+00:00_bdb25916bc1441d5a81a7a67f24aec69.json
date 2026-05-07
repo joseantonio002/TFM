@@ -1,0 +1,64 @@
+{
+  "id": "bdb25916bc1441d5a81a7a67f24aec69",
+  "source_url": "https://crmlive.redctnet.es/liveedge/orm/orm/playlist.m3u8",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "Onda Regional de Murcia",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"regional_news\", \"radio\", \"murcia\"]",
+  "content": "Creo la atención necesaria Qué expectativas pero don José qué expectativas tenéis de cara Pues al verano que yo diría que empezó allá Al menos el calor si las ganas también El verano en la región de Murcia era la temporada de pieza un poquito antes También qué expectativas tenéis La expectativa siempre son buenas ya lo he dicho antes la temporada Siempre funciona si nosotros realmente no tenemos Eso es lo que tenemos aquí él me la gustó tenemos la misma cantidad de habitantes Que hay en la ciudad de Murcia Claro pero en el resto de meses tenemos un déficit Es troquelar Y bueno tenemos un déficit pero bueno porque hay que apostar por el turismo Hay que apostar por un recus por un mar menor que tiene las condiciones increíbles Para aprender a navegar embalas y lo tenemos durante todo los meses de ingeniado Claro que tenemos la problemática y cuando tenemos que",
+  "other": {
+    "start": 54.56,
+    "end": 120.04,
+    "duration": 65.48
+  },
+  "nlp_pipeline": {
+    "threat_classification": {
+      "level": "info",
+      "category": "general",
+      "confidence": 0.3,
+      "source": "keyword"
+    },
+    "sentiment": {
+      "positive": 0.2720432865433395,
+      "negative": 0.2767224382609129,
+      "neutral": 0.45123428031802176
+    },
+    "topics": [
+      "verano",
+      "expectativas",
+      "creo",
+      "empezó",
+      "aprender",
+      "región",
+      "apostar",
+      "no",
+      "poquito",
+      "déficit",
+      "murcia",
+      "claro",
+      "tenéis",
+      "temporada",
+      "meses",
+      "bueno",
+      "murcia claro",
+      "expectativas tenéis",
+      "don josé",
+      "ingeniado claro",
+      "atención necesaria",
+      "mar menor",
+      "condiciones increíbles",
+      "navegar embalas",
+      "región de murcia",
+      "ciudad de murcia",
+      "josé qué expectativas",
+      "creo la atención",
+      "diría que empezó"
+    ]
+  }
+}

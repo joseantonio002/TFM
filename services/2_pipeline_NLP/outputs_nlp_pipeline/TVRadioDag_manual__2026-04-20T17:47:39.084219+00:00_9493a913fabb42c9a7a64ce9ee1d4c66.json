@@ -1,0 +1,68 @@
+{
+  "id": "9493a913fabb42c9a7a64ce9ee1d4c66",
+  "source_url": "https://dispatcher.rndfnk.com/crtve/rne5/mur/mp3/high",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "RNE Radio 5 Todo Noticias (Murcia)",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"news\", \"radio\", \"murcia\"]",
+  "content": "Y segundo quiere acabar con el régimen islámico Esto es subjetivo entonces hasta que no consiga esto Esta guerra continuará Y o lo que quiere creo es que como el régimen es En las que me digan que que ahora estaba con control de Los militares porque hay un dato muy interesante Que ha ocurrido por esta guerra Que el que le digo ha sido eliminado del poder de la teocracia islámica Que no debería haber a los hombres de Sotana y en el poder Algunos pasará por ahí por para decir que aquí estamos Pero el poder real estaba junto con trucos militares Ancho como un cínico al sede estado Incluso han apartado al presidente de la República Islámica Que es desde que han apartado prácticamente la han desautorizado Y ellos llevan las negociaciones Qué ocurre con ellos A ellos con un pueblo a punto de escuna sublevación nueva Les interesa a mantener una guerra pero debajo intensidad Como Netanyahu exactamente como Netanyahu Tienen tantos problemas dentro Y pero problemas personales en caso de Netanyahu Juicios pendientes y tal Que necesitar una forma de la para exportar esta crisis interna Pero una guerra debajo intensidad La guerra de Estados Unidos hay gran es de máxima intensidad Por lo que es posible que lleguen a un acuerdo con Donald Trump Para que los hemos quedado en la actividad de la zona Tenemos que dejarla aquí Estaremos pendientes que se vayan de la zona",
+  "other": {
+    "start": 32.6,
+    "end": 120.0,
+    "duration": 87.4
+  },
+  "nlp_pipeline": {
+    "threat_classification": {
+      "level": "high",
+      "category": "conflict",
+      "confidence": 0.8,
+      "source": "keyword"
+    },
+    "sentiment": {
+      "positive": 0.048891113459831104,
+      "negative": 0.5410507131600752,
+      "neutral": 0.4100581663660705
+    },
+    "topics": [
+      "islámico",
+      "régimen",
+      "guerra",
+      "netanyahu",
+      "continuará",
+      "dejarla",
+      "teocracia",
+      "trump",
+      "desautorizado",
+      "exportar",
+      "intensidad",
+      "islámica",
+      "apartado",
+      "debajo",
+      "zona",
+      "quiere",
+      "estaba",
+      "netanyahu juicios",
+      "debajo intensidad",
+      "donald trump",
+      "república islámica",
+      "estados unidos",
+      "netanyahu exactamente",
+      "militares ancho",
+      "juicios pendientes",
+      "estaremos pendientes",
+      "guerra debajo",
+      "netanyahu juicios pendientes",
+      "guerra debajo intensidad",
+      "trucos militares ancho",
+      "segundo quiere acabar",
+      "real estaba junto",
+      "escuna sublevación nueva"
+    ]
+  }
+}

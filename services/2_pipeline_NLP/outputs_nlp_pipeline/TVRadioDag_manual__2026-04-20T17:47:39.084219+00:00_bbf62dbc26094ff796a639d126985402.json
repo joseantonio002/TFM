@@ -1,0 +1,64 @@
+{
+  "id": "bbf62dbc26094ff796a639d126985402",
+  "source_url": "https://rtvelivestream.rtve.es/rne_r1_main.m3u8",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "RNE Radio Nacional (General)",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"public_radio\", \"news\"]",
+  "content": "Y ellos llevan las negociaciones Qué ocurre con ellos A ellos con un pueblo a punto de una sublevación nueva Les interesa a mantener una guerra pero debajo intensidad Como Netanyahu exactamente como Netanyahu Tienen tantos problemas dentro Y pero problemas personales en caso de Netanyahu Juicios pendientes y tal que necesita una forma Como la para exportar esta crisis interna Pero una guerra debajo intensidad La guerra de Estados Unidos y Gran es de máxima índigo",
+  "other": {
+    "start": 88.92,
+    "end": 120.68,
+    "duration": 31.760000000000005
+  },
+  "nlp_pipeline": {
+    "threat_classification": {
+      "level": "high",
+      "category": "conflict",
+      "confidence": 0.8,
+      "source": "keyword"
+    },
+    "sentiment": {
+      "positive": 0.03498576860874891,
+      "negative": 0.5355088114738464,
+      "neutral": 0.42950541973114015
+    },
+    "topics": [
+      "netanyahu",
+      "guerra",
+      "crisis",
+      "negociaciones",
+      "mantener",
+      "estados",
+      "nueva",
+      "exportar",
+      "juicios",
+      "intensidad",
+      "debajo",
+      "unidos",
+      "gran",
+      "problemas",
+      "índigo",
+      "estados unidos",
+      "netanyahu juicios",
+      "debajo intensidad",
+      "juicios pendientes",
+      "netanyahu exactamente",
+      "máxima índigo",
+      "sublevación nueva",
+      "crisis interna",
+      "problemas dentro",
+      "problemas personales",
+      "netanyahu juicios pendientes",
+      "guerra debajo intensidad",
+      "unidos y gran",
+      "llevan las negociaciones"
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "b550e7e51fef4314a5bdef405733fe57",
+  "source_url": "https://server9.emitironline.com:8822/",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "esRadio",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"news\", \"radio\"]",
+  "content": "En el que se servirán no che Voy a abrir un disco barco a la misma goza donde puede comprar todo lo que necesita Pues donde va a ser Nutra casa Y de precios pues mira tienes ahora mismo de oferta Martini Blanco y de color a 695 café natural y mezcla a 995 de kilo y paquea 10 se es un aperitivo Coca del de fruto secos a solo 890 que te sale a menos de 3 euros del kilo Y que te la tienen ahí Son muy competentes y atentos Ultra casa envía y acero y ultra casa hijo nueva nave en el polígono de roles junto a la Alcampo Baco este año cambiamos la cocina Fuiste a preguntar Por supuesto Marisa cocinas resanes la mejor oferta desde solo 29 euros al mes Y la podemos pagar hasta en 60 meses 5 años para pagar Marisa",
+  "other": {
+    "start": 58.08,
+    "end": 120.2,
+    "duration": 62.120000000000005
+  },
+  "nlp_pipeline": {
+    "threat_classification": {
+      "level": "info",
+      "category": "general",
+      "confidence": 0.3,
+      "source": "keyword"
+    },
+    "sentiment": {
+      "positive": 0.17880871454253794,
+      "negative": 0.15169848864898086,
+      "neutral": 0.6694927752017975
+    },
+    "topics": [
+      "aperitivo",
+      "martini",
+      "precios",
+      "coca",
+      "servirán",
+      "barco",
+      "disco",
+      "kilo",
+      "solo",
+      "acero",
+      "marisa",
+      "casa",
+      "ultra",
+      "euros",
+      "oferta",
+      "pagar",
+      "nutra",
+      "ultra casa",
+      "martini blanco",
+      "alcampo baco",
+      "nutra casa",
+      "aperitivo coca",
+      "supuesto marisa",
+      "oferta martini",
+      "marisa cocinas",
+      "pagar marisa",
+      "atentos ultra",
+      "oferta martini blanco",
+      "supuesto marisa cocinas",
+      "marisa cocinas resanes",
+      "atentos ultra casa",
+      "ultra casa envía",
+      "ultra casa hijo",
+      "casa hijo nueva",
+      "hijo nueva nave"
+    ]
+  }
+}

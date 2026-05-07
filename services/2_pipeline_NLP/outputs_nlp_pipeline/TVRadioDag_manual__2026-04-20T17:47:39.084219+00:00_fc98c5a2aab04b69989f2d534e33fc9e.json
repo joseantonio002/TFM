@@ -1,0 +1,70 @@
+{
+  "id": "fc98c5a2aab04b69989f2d534e33fc9e",
+  "source_url": "https://server9.emitironline.com:8822/",
+  "airflow_dag_id": "TVRadioDag",
+  "extracted_at": "2026-04-20 17:47:41.534719+00:00",
+  "airflow_run_id": "manual__2026-04-20T17:47:39.084219+00:00",
+  "connector_id": "TV/RadioES",
+  "connector_name": "TV/RadioES",
+  "source_name": "esRadio",
+  "source_type": "Radio",
+  "language": "es",
+  "country": "ES",
+  "source_tags": "[\"news\", \"radio\"]",
+  "content": "En Nova Expresa en él al campo de por cello en Jirón Informes en el 98401907999999com En Objeto En Nova Expresa es centro autorizado 619 por la consejería de salud del principado de Asturias Ah Y en Jirón En Nova Expresa también les espera en el centro comercial al campo A la clínica dental Álvarez Clari oye no puede estar más tiempo sin dientes Pues saldrá de Álvarez Clari con los dientes en el día Implante puestos desde solo 30 euros y podemos pagar hasta en 60 meses Déjame teléfono es que ya mora mismo En Pola de la Viana 9842483435 y en Caballa cinta 9841091422 Álvarez Clari la clínica dental para ti",
+  "other": {
+    "start": 0.0,
+    "end": 58.08,
+    "duration": 58.08
+  },
+  "nlp_pipeline": {
+    "threat_classification": {
+      "level": "info",
+      "category": "general",
+      "confidence": 0.3,
+      "source": "keyword"
+    },
+    "sentiment": {
+      "positive": 0.08459090428160769,
+      "negative": 0.22630757891706058,
+      "neutral": 0.6891015129429954
+    },
+    "topics": [
+      "dental",
+      "autorizado",
+      "cello",
+      "meses",
+      "9842483435",
+      "clínica",
+      "teléfono",
+      "euros",
+      "implante",
+      "caballa",
+      "nova",
+      "expresa",
+      "álvarez",
+      "clari",
+      "jirón",
+      "campo",
+      "centro",
+      "dientes",
+      "nova expresa",
+      "álvarez clari",
+      "jirón informes",
+      "clínica dental",
+      "dental álvarez",
+      "clari oye",
+      "meses déjame",
+      "caballa cinta",
+      "día implante",
+      "implante puestos",
+      "dental álvarez clari",
+      "álvarez clari oye",
+      "clínica dental álvarez",
+      "meses déjame teléfono",
+      "día implante puestos",
+      "tiempo sin dientes",
+      "objeto en nova"
+    ]
+  }
+}

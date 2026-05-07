@@ -4,14 +4,13 @@ import json
 #from test_methods.NER.ner_main import ner_main
 from nlp_steps.pysentimiento.pysentimiento_main import pysentimiento_main
 from nlp_steps.threat_classifier.threat_class_main import threat_class_main
-from nlp_steps.topics.keybert_main import keybert_main
+from nlp_steps.topics.topics_main import topics_main
 
-INPUT_DIR_PATH: str = "./common"
-OUTPUT_DIR_PATH: str = "./outputs_nlp_pipeline"
+INPUT_DIR_PATH: str = "/common"
+OUTPUT_DIR_PATH: str = "/outputs_nlp_pipeline"
 
 def load_metadata_from_environment() -> tuple[str, str]:
   return os.environ.get("AIRFLOW_DAG_ID", ""), os.environ.get("AIRFLOW_RUN_ID", "")
-
 
 # Function that performs the NLP pipeline on the given content.
 # If we want to add more steps to the pipeline, we can simply add them to this function.

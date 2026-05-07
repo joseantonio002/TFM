@@ -70,14 +70,14 @@ tema temas aspecto aspectos
 """.split())
 
 
-spanish_stopwords = spanish_stopwords | extra_stopwords
+spanish_stopwords = list(spanish_stopwords | extra_stopwords)
 
 
 def keybert_main(text: str) -> dict:
     keywords = kw_model.extract_keywords(
         text,
         keyphrase_ngram_range=(1, 1),
-        stop_words=list(spanish_stopwords),
+        stop_words=spanish_stopwords,
         top_n=10,
         use_mmr=True,
         diversity=0.5
