@@ -4,6 +4,7 @@ import ast
 import json
 import math
 import re
+import sys
 import uuid
 from pathlib import Path
 from typing import Any, TypedDict
@@ -17,6 +18,23 @@ K: int = 6
 MIN_GAP_UNITS: int = 8
 PEAK_THRESHOLD: float = 0.25
 OUTPUT_DIR: Path = Path("/outputs/common")
+SEGMENT_PRESETS: dict[str, dict[str, float]] = {
+  "short": {
+    "k": 3,
+    "min_gap_units": 4,
+    "peak_threshold": 0.16,
+  },
+  "medium": {
+    "k": 5,
+    "min_gap_units": 8,
+    "peak_threshold": 0.22,
+  },
+  "long": {
+    "k": 8,
+    "min_gap_units": 12,
+    "peak_threshold": 0.18,
+  },
+}
 
 
 class Unit(TypedDict):
@@ -344,6 +362,12 @@ def parse_args() -> argparse.Namespace:
     description="Segment merged transcriptions into story chunks"
   )
   parser.add_argument(
+    "-news_length",
+    choices=sorted(SEGMENT_PRESETS.keys()),
+    dest="news_length",
+    help="Use a preset tuned for short, medium, or long news items.",
+  )
+  parser.add_argument(
     "-k",
     type=int,
     default=K,
@@ -367,6 +391,20 @@ def parse_args() -> argparse.Namespace:
   return parser.parse_args()
 
 
+def resolve_segmentation_parameters(
+  k: int,
+  min_gap_units: int,
+  peak_threshold: float,
+  news_length: str | None = None,
+) -> tuple[int, int, float]:
+  """Resolve manual or preset segmentation parameters."""
+  if news_length is None:
+    return k, min_gap_units, peak_threshold
+
+  preset: dict[str, float] = SEGMENT_PRESETS[news_length]
+  return int(preset["k"]), int(preset["min_gap_units"]), float(preset["peak_threshold"])
+
+
 def validate_parameters(k: int, min_gap_units: int, peak_threshold: float) -> None:
   """Validate segmentation parameter values."""
   if k <= 0:
@@ -377,8 +415,25 @@ def validate_parameters(k: int, min_gap_units: int, peak_threshold: float) -> No
     raise ValueError("-pt must be greater than or equal to 0")
 
 
-def main(k: int = K, min_gap_units: int = MIN_GAP_UNITS, peak_threshold: float = PEAK_THRESHOLD) -> None:
+def has_manual_segmentation_flags(argv: list[str]) -> bool:
+  """Return whether manual segmentation flags were provided explicitly."""
+  manual_flags: tuple[str, ...] = ("-k", "-mgu", "-pt")
+  return any(flag in argv for flag in manual_flags)
+
+
+def main(
+  k: int = K,
+  min_gap_units: int = MIN_GAP_UNITS,
+  peak_threshold: float = PEAK_THRESHOLD,
+  news_length: str | None = None,
+) -> None:
   """Segment all merged transcriptions in pipeline directories."""
+  k, min_gap_units, peak_threshold = resolve_segmentation_parameters(
+    k=k,
+    min_gap_units=min_gap_units,
+    peak_threshold=peak_threshold,
+    news_length=news_length,
+  )
   validate_parameters(k, min_gap_units, peak_threshold)
   model = SentenceTransformer("BAAI/bge-m3")
 
@@ -406,4 +461,11 @@ def main(k: int = K, min_gap_units: int = MIN_GAP_UNITS, peak_threshold: float =
 
 if __name__ == "__main__":
   args: argparse.Namespace = parse_args()
-  main(k=args.k, min_gap_units=args.min_gap_units, peak_threshold=args.peak_threshold)
+  if args.news_length is not None and has_manual_segmentation_flags(sys.argv[1:]):
+    raise ValueError("-news_length cannot be combined with -k, -mgu, or -pt")
+  main(
+    k=args.k,
+    min_gap_units=args.min_gap_units,
+    peak_threshold=args.peak_threshold,
+    news_length=args.news_length,
+  )

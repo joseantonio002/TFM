@@ -3,6 +3,7 @@
 import argparse
 import multiprocessing as mp
 import os
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -64,6 +65,12 @@ def parse_args() -> argparse.Namespace:
     dest="peak_threshold",
     help="Minimum boundary score required to keep a peak candidate.",
   )
+  parser.add_argument(
+    "-news_length",
+    choices=sorted(segment_embeddings.SEGMENT_PRESETS.keys()),
+    dest="news_length",
+    help="Use a preset tuned for short, medium, or long news items.",
+  )
   return parser.parse_args()
 
 
@@ -71,6 +78,12 @@ def run_step(step_name: str, step_callable: Any, *args: Any, **kwargs: Any) -> N
   """Execute one pipeline step and print progress."""
   print(f"[STEP] {step_name}")
   step_callable(*args, **kwargs)
+
+
+def has_manual_segmentation_flags(argv: list[str]) -> bool:
+  """Return whether manual segmentation flags were provided explicitly."""
+  manual_flags: tuple[str, ...] = ("-k", "-mgu", "-pt")
+  return any(flag in argv for flag in manual_flags)
 
 
 def build_pipeline_dirs(input_urls: list[str]) -> list[Path]:
@@ -93,15 +106,29 @@ def main() -> None:
     raise ValueError("-mgu must be greater than 0")
   if args.peak_threshold < 0.0:
     raise ValueError("-pt must be greater than or equal to 0")
+  if args.news_length is not None and has_manual_segmentation_flags(sys.argv[1:]):
+    raise ValueError("-news_length cannot be combined with -k, -mgu, or -pt")
+
+  resolved_k: int
+  resolved_min_gap_units: int
+  resolved_peak_threshold: float
+  resolved_k, resolved_min_gap_units, resolved_peak_threshold = segment_embeddings.resolve_segmentation_parameters(
+    k=args.k,
+    min_gap_units=args.min_gap_units,
+    peak_threshold=args.peak_threshold,
+    news_length=args.news_length,
+  )
 
   pipeline_dirs: list[Path] = build_pipeline_dirs(input_urls)
   start_datetime_text: str = extract_audio.write_execution_starting_date()
   transcription_stop_event: Any = mp.Event()
   print(f"Using whisper model: {args.whisper_model}" if args.whisper_model else "Using default whisper model small")
   print(f"Using whisper threads per transcription process: {args.whisper_threads}")
-  print(f"Using segmentation k: {args.k}")
-  print(f"Using segmentation min_gap_units: {args.min_gap_units}")
-  print(f"Using segmentation peak_threshold: {args.peak_threshold}")
+  if args.news_length is not None:
+    print(f"Using segmentation preset: {args.news_length}")
+  print(f"Using segmentation k: {resolved_k}")
+  print(f"Using segmentation min_gap_units: {resolved_min_gap_units}")
+  print(f"Using segmentation peak_threshold: {resolved_peak_threshold}")
   print(f"Listening for: {args.total_duration} minutes")
   print(f"Processing sources: {os.environ.get('SOURCE_NAME').replace('::', ', ')}")
   transcription_workers: list[mp.Process] = transcript_segments_cpp.start_transcription_workers(
@@ -133,9 +160,10 @@ def main() -> None:
   run_step(
     "4/4 segment_embeddings",
     segment_embeddings.main,
-    k=args.k,
-    min_gap_units=args.min_gap_units,
-    peak_threshold=args.peak_threshold,
+    k=resolved_k,
+    min_gap_units=resolved_min_gap_units,
+    peak_threshold=resolved_peak_threshold,
+    news_length=args.news_length,
   )
 
 
