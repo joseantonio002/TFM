@@ -30,7 +30,7 @@ with DAG(
  '-m',
  'base',
  '-news_length',
- 'small',
+ 'short',
  '-nt',
  '2'],
     environment={'AIRFLOW_DAG_ID': 'OndaCero_general',
