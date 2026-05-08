@@ -1,3 +1,4 @@
+import argparse
 from sentence_transformers import SentenceTransformer
 import ast
 import json
@@ -337,13 +338,49 @@ def format_output_path(path: Path, script_dir: Path) -> str:
     return str(path)
 
 
-def main() -> None:
-  """Segment all merged transcriptions in pipeline directories."""
-  model = SentenceTransformer("BAAI/bge-m3")
+def parse_args() -> argparse.Namespace:
+  """Parse optional CLI overrides for segmentation parameters."""
+  parser: argparse.ArgumentParser = argparse.ArgumentParser(
+    description="Segment merged transcriptions into story chunks"
+  )
+  parser.add_argument(
+    "-k",
+    type=int,
+    default=K,
+    dest="k",
+    help="Boundary window size.",
+  )
+  parser.add_argument(
+    "-mgu",
+    type=int,
+    default=MIN_GAP_UNITS,
+    dest="min_gap_units",
+    help="Minimum gap between accepted boundaries in units.",
+  )
+  parser.add_argument(
+    "-pt",
+    type=float,
+    default=PEAK_THRESHOLD,
+    dest="peak_threshold",
+    help="Minimum score for a boundary peak candidate.",
+  )
+  return parser.parse_args()
 
-  k = K
-  min_gap_units = MIN_GAP_UNITS
-  peak_threshold = PEAK_THRESHOLD
+
+def validate_parameters(k: int, min_gap_units: int, peak_threshold: float) -> None:
+  """Validate segmentation parameter values."""
+  if k <= 0:
+    raise ValueError("-k must be greater than 0")
+  if min_gap_units <= 0:
+    raise ValueError("-mgu must be greater than 0")
+  if peak_threshold < 0.0:
+    raise ValueError("-pt must be greater than or equal to 0")
+
+
+def main(k: int = K, min_gap_units: int = MIN_GAP_UNITS, peak_threshold: float = PEAK_THRESHOLD) -> None:
+  """Segment all merged transcriptions in pipeline directories."""
+  validate_parameters(k, min_gap_units, peak_threshold)
+  model = SentenceTransformer("BAAI/bge-m3")
 
   script_dir: Path = Path(__file__).resolve().parent
   output_dir: Path = build_outputs_dir(script_dir)
@@ -365,6 +402,8 @@ def main() -> None:
     print(f"Processed: {transcription_file.relative_to(script_dir)}")
     for output_path in output_paths:
       print(f"Saved story JSON to: {format_output_path(output_path, script_dir)}")
-      
+
+
 if __name__ == "__main__":
-  main()
+  args: argparse.Namespace = parse_args()
+  main(k=args.k, min_gap_units=args.min_gap_units, peak_threshold=args.peak_threshold)

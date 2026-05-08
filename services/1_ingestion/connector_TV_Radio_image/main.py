@@ -43,6 +43,27 @@ def parse_args() -> argparse.Namespace:
     dest="whisper_threads",
     help="Number of whisper.cpp threads to use per transcription process.",
   )
+  parser.add_argument(
+    "-k",
+    type=int,
+    default=segment_embeddings.K,
+    dest="k",
+    help="Boundary window size for story segmentation.",
+  )
+  parser.add_argument(
+    "-mgu",
+    type=int,
+    default=segment_embeddings.MIN_GAP_UNITS,
+    dest="min_gap_units",
+    help="Minimum distance in units between accepted boundaries.",
+  )
+  parser.add_argument(
+    "-pt",
+    type=float,
+    default=segment_embeddings.PEAK_THRESHOLD,
+    dest="peak_threshold",
+    help="Minimum boundary score required to keep a peak candidate.",
+  )
   return parser.parse_args()
 
 
@@ -66,14 +87,23 @@ def main() -> None:
   input_urls: list[str] = list(args.input_urls)
   if args.whisper_threads <= 0:
     raise ValueError("-nt must be greater than 0")
+  if args.k <= 0:
+    raise ValueError("-k must be greater than 0")
+  if args.min_gap_units <= 0:
+    raise ValueError("-mgu must be greater than 0")
+  if args.peak_threshold < 0.0:
+    raise ValueError("-pt must be greater than or equal to 0")
 
   pipeline_dirs: list[Path] = build_pipeline_dirs(input_urls)
   start_datetime_text: str = extract_audio.write_execution_starting_date()
   transcription_stop_event: Any = mp.Event()
   print(f"Using whisper model: {args.whisper_model}" if args.whisper_model else "Using default whisper model small")
   print(f"Using whisper threads per transcription process: {args.whisper_threads}")
+  print(f"Using segmentation k: {args.k}")
+  print(f"Using segmentation min_gap_units: {args.min_gap_units}")
+  print(f"Using segmentation peak_threshold: {args.peak_threshold}")
   print(f"Listening for: {args.total_duration} minutes")
-  print(f"Processing sources: {os.environ.get("SOURCE_NAME").replace('::', ', ')}")
+  print(f"Processing sources: {os.environ.get('SOURCE_NAME').replace('::', ', ')}")
   transcription_workers: list[mp.Process] = transcript_segments_cpp.start_transcription_workers(
     pipeline_dirs=pipeline_dirs,
     stop_event=transcription_stop_event,
@@ -100,7 +130,13 @@ def main() -> None:
   if extraction_error is not None:
     raise extraction_error
   run_step("3/4 merge_transcriptions", merge_transcriptions.main)
-  run_step("4/4 segment_embeddings", segment_embeddings.main)
+  run_step(
+    "4/4 segment_embeddings",
+    segment_embeddings.main,
+    k=args.k,
+    min_gap_units=args.min_gap_units,
+    peak_threshold=args.peak_threshold,
+  )
 
 
 if __name__ == "__main__":
