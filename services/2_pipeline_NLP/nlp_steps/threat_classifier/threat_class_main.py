@@ -116,6 +116,7 @@ HIGH_KEYWORDS: KeywordMap = {
 MEDIUM_KEYWORDS: KeywordMap = {
     "protesta": "protest",
     "protestas": "protest",
+    "protestar": "protest",
     "disturbio": "protest",
     "disturbios": "protest",
     "agitacion": "protest",
@@ -235,6 +236,9 @@ EXCLUSIONS = [
     "boda",
     "vacaciones",
     "consejos de viaje",
+    "futbol",
+    "gol",
+    "goles"
 ]
 SHORT_KEYWORDS = {
     "guerra",
