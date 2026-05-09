@@ -9,3 +9,8 @@ docker exec -it my-postgres bash
 
 
 pip install psycopg2-binary
+
+docker exec -i newsdb psql -U myuser -d newsdb \
+  -t -A \
+  -c "SELECT '===== ROW ' || row_number() OVER () || ' =====' || E'\n' || content || E'\n===== END ROW =====' FROM news WHERE airflow_run_id = 'AIRFLOW_RUN_ID';" \
+  > news_content.txt
