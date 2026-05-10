@@ -109,6 +109,8 @@ CUSTOM_KEYWORDS: list[str] = [
   "orden de evacuacion",
   "fusion nuclear",
   "fusion del nucleo",
+  "enfermedad",
+  "cuarentena"
 ]
 
 

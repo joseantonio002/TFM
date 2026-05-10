@@ -148,6 +148,8 @@ MEDIUM_KEYWORDS: KeywordMap = {
     "corte de energia": "infrastructure",
     "caida de internet": "infrastructure",
     "descarrilamiento": "infrastructure",
+    "PCR": "health",
+    "cuarentena": "health"
 }
 LOW_KEYWORDS: KeywordMap = {
     "eleccion": "diplomatic",

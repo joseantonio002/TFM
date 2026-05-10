@@ -300,7 +300,17 @@ def load_pipeline_metadata(metadata_path: Path) -> PipelineMetadata:
   }
 
 
-def build_story_payload(metadata: PipelineMetadata, story: Story) -> dict[str, Any]:
+def build_story_payload(
+  metadata: PipelineMetadata,
+  story: Story,
+  t: str | None,
+  nt: str | None,
+  m: str | None,
+  k: int,
+  min_gap_units: int,
+  peak_threshold: float,
+  news_length: str | None,
+) -> dict[str, Any]:
   """Build one output payload for a segmented news item."""
   news_id: str = uuid.uuid4().hex
   start: float = story["s"]
@@ -325,6 +335,15 @@ def build_story_payload(metadata: PipelineMetadata, story: Story) -> dict[str, A
       "start": start,
       "end": end,
       "duration": duration,
+      "parameters": {
+        "t": t,
+        "nt": nt,
+        "m": m,
+        "k": k,
+        "mgu": min_gap_units,
+        "pt": peak_threshold,
+        "news_length": news_length,
+      },
     },
   }
 
@@ -337,11 +356,32 @@ def build_outputs_dir(script_dir: Path) -> Path:
   return output_dir
 
 
-def save_story_payloads(output_dir: Path, metadata: PipelineMetadata, stories: list[Story]) -> list[Path]:
+def save_story_payloads(
+  output_dir: Path,
+  metadata: PipelineMetadata,
+  stories: list[Story],
+  t: str | None,
+  nt: str | None,
+  m: str | None,
+  k: int,
+  min_gap_units: int,
+  peak_threshold: float,
+  news_length: str | None,
+) -> list[Path]:
   """Write one JSON file per segmented story into the outputs directory."""
   output_paths: list[Path] = []
   for story in stories:
-    payload: dict[str, Any] = build_story_payload(metadata, story)
+    payload: dict[str, Any] = build_story_payload(
+      metadata=metadata,
+      story=story,
+      t=t,
+      nt=nt,
+      m=m,
+      k=k,
+      min_gap_units=min_gap_units,
+      peak_threshold=peak_threshold,
+      news_length=news_length,
+    )
     output_path: Path = output_dir / f"{metadata['airflow_dag_id']}_{metadata['airflow_run_id']}_{payload['id']}.json"
     save_json(payload, str(output_path))
     output_paths.append(output_path)
@@ -360,6 +400,21 @@ def parse_args() -> argparse.Namespace:
   """Parse optional CLI overrides for segmentation parameters."""
   parser: argparse.ArgumentParser = argparse.ArgumentParser(
     description="Segment merged transcriptions into story chunks"
+  )
+  parser.add_argument(
+    "-t",
+    dest="t",
+    help="Pass-through parameter stored in output payloads.",
+  )
+  parser.add_argument(
+    "-nt",
+    dest="nt",
+    help="Pass-through parameter stored in output payloads.",
+  )
+  parser.add_argument(
+    "-m",
+    dest="m",
+    help="Pass-through parameter stored in output payloads.",
   )
   parser.add_argument(
     "-news_length",
@@ -422,6 +477,9 @@ def has_manual_segmentation_flags(argv: list[str]) -> bool:
 
 
 def main(
+  t: str | None = None,
+  nt: str | None = None,
+  m: str | None = None,
   k: int = K,
   min_gap_units: int = MIN_GAP_UNITS,
   peak_threshold: float = PEAK_THRESHOLD,
@@ -452,7 +510,18 @@ def main(
       min_gap_units=min_gap_units,
       peak_threshold=peak_threshold,
     )
-    output_paths: list[Path] = save_story_payloads(output_dir, metadata, stories)
+    output_paths: list[Path] = save_story_payloads(
+      output_dir=output_dir,
+      metadata=metadata,
+      stories=stories,
+      t=t,
+      nt=nt,
+      m=m,
+      k=k,
+      min_gap_units=min_gap_units,
+      peak_threshold=peak_threshold,
+      news_length=news_length,
+    )
 
     print(f"Processed: {transcription_file.relative_to(script_dir)}")
     for output_path in output_paths:
@@ -464,6 +533,9 @@ if __name__ == "__main__":
   if args.news_length is not None and has_manual_segmentation_flags(sys.argv[1:]):
     raise ValueError("-news_length cannot be combined with -k, -mgu, or -pt")
   main(
+    t=args.t,
+    nt=args.nt,
+    m=args.m,
     k=args.k,
     min_gap_units=args.min_gap_units,
     peak_threshold=args.peak_threshold,
