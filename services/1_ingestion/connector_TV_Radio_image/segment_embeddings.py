@@ -20,14 +20,14 @@ PEAK_THRESHOLD: float = 0.25
 OUTPUT_DIR: Path = Path("/outputs/common")
 SEGMENT_PRESETS: dict[str, dict[str, float]] = {
   "short": {
-    "k": 3,
-    "min_gap_units": 4,
-    "peak_threshold": 0.16,
+    "k": 4,
+    "min_gap_units": 5,
+    "peak_threshold": 0.22,
   },
   "medium": {
-    "k": 5,
+    "k": 6,
     "min_gap_units": 8,
-    "peak_threshold": 0.22,
+    "peak_threshold": 0.20,
   },
   "long": {
     "k": 8,
