@@ -9,9 +9,9 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   },
   "24Horas_Laborales_tarde": {
@@ -39,7 +39,7 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
       "nt": 2
     }

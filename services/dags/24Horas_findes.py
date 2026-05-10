@@ -28,7 +28,7 @@ with DAG(
  '-t',
  '30',
  '-m',
- 'base',
+ 'tiny',
  '-news_length',
  'short',
  '-nt',
