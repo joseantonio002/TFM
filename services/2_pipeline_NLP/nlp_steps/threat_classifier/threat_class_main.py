@@ -221,6 +221,8 @@ EXCLUSIONS = [
     "proteina",
     "hidratos de carbono",
     "parejas",
+    "novia",
+    "novio",
     "citas",
     "dieta",
     "fitness",
@@ -230,6 +232,7 @@ EXCLUSIONS = [
     "moda",
     "celebridad",
     "pelicula",
+    "película",
     "serie",
     "deportes",
     "juego",
@@ -240,7 +243,11 @@ EXCLUSIONS = [
     "consejos de viaje",
     "futbol",
     "gol",
-    "goles"
+    "goles",
+    "motociclismo",
+    "motoGP",
+    "tenis",
+    "baloncesto",
 ]
 SHORT_KEYWORDS = {
     "guerra",

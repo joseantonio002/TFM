@@ -21,7 +21,7 @@ OUTPUT_DIR: Path = Path("/outputs/common")
 SEGMENT_PRESETS: dict[str, dict[str, float]] = {
   "short": {
     "k": 4,
-    "min_gap_units": 5,
+    "min_gap_units": 6,
     "peak_threshold": 0.22,
   },
   "medium": {
