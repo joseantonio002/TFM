@@ -81,10 +81,13 @@ from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from docker.types import Mount
 import os
+from datetime import datetime
+
+local_tz = pendulum.timezone("Europe/Madrid")
 
 with DAG(
   dag_id={dag_name!r},
-  start_date={start_date},
+  start_date={start_date}.replace(tzinfo=local_tz),
   schedule={schedule!r},
   catchup=False,
 ) as dag:
