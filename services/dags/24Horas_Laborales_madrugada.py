@@ -11,7 +11,7 @@ local_tz = pendulum.timezone("Europe/Madrid")
 with DAG(
   dag_id='24Horas_Laborales_madrugada',
   start_date=datetime(2024, 1, 1).replace(tzinfo=local_tz),
-  schedule='30 0 * * 1-5',
+  schedule='30 1 * * 1-5',
   catchup=False,
 ) as dag:
 

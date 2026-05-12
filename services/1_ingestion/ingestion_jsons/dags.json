@@ -2,7 +2,7 @@
   "24Horas_Laborales_madrugada": {
     "task_id": "24Horas_Laborales_madrugada_task",
     "connector_id": "TV/RadioES",
-    "schedule": "30 0 * * 1-5",
+    "schedule": "30 1 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "24Horas"
@@ -17,7 +17,7 @@
   "24Horas_Laborales_tarde": {
     "task_id": "24Horas_Laborales_tarde_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 15 * * 1-5",
+    "schedule": "0 16 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "24Horas"
@@ -32,7 +32,7 @@
   "24Horas_findes": {
     "task_id": "24Horas_findes_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 6,10 * * 0,6",
+    "schedule": "0 7,11 * * 0,6",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "24Horas"
@@ -47,7 +47,7 @@
   "RNE_laborales_temprano_0600": {
     "task_id": "RNE_laborales_temprano_0600_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 5 * * 1-5",
+    "schedule": "0 6 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "RNERadio5TodoNoticiasMurcia"
@@ -62,7 +62,7 @@
   "RNE_laborales_temprano_0800": {
     "task_id": "RNE_laborales_temprano_0800_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 7 * * 1-5",
+    "schedule": "0 8 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "RNERadio5TodoNoticiasMurcia"
@@ -77,7 +77,7 @@
   "RNE_laborales_tarde": {
     "task_id": "RNE_laborales_tarde_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 19,21 * * 1-5",
+    "schedule": "0 20,22 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "RNERadio5TodoNoticiasMurcia"
@@ -92,7 +92,7 @@
   "RNE_findes": {
     "task_id": "RNE_findes_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 13,22 * * 0,6",
+    "schedule": "0 14,23 * * 0,6",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "RNERadio5TodoNoticiasMurcia"
@@ -107,7 +107,7 @@
   "OndaCero_general": {
     "task_id": "OndaCero_general_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 13 * * 0,1-5",
+    "schedule": "0 14 * * 0,1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "OndaCero"
@@ -122,7 +122,7 @@
   "OndaCero_sabado": {
     "task_id": "OndaCero_sabado_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 13 * * 6",
+    "schedule": "0 14 * * 6",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "OndaCero"
@@ -137,7 +137,7 @@
   "esRadio_esnoticia": {
     "task_id": "esRadio_esnoticia_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 13 * * 1-5",
+    "schedule": "0 14 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "esRadio"
@@ -152,7 +152,7 @@
   "esRadio_nochedecuesta": {
     "task_id": "esRadio_nochedecuesta_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 19 * * 1-5",
+    "schedule": "0 20 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "esRadio"
@@ -167,7 +167,7 @@
   "ORM_laborales": {
     "task_id": "ORM_laborales_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 19 * * 1-5",
+    "schedule": "0 20 * * 1-5",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "OndaRegionaldeMurcia"
@@ -182,7 +182,7 @@
   "ORM_findes": {
     "task_id": "ORM_findes_task",
     "connector_id": "TV/RadioES",
-    "schedule": "0 7,13 * * 0,6",
+    "schedule": "0 8,14 * * 0,6",
     "start_date": "datetime(2024, 1, 1)",
     "seed_ids": [
       "OndaRegionaldeMurcia"

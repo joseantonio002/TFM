@@ -11,7 +11,7 @@ local_tz = pendulum.timezone("Europe/Madrid")
 with DAG(
   dag_id='esRadio_esnoticia',
   start_date=datetime(2024, 1, 1).replace(tzinfo=local_tz),
-  schedule='0 13 * * 1-5',
+  schedule='0 14 * * 1-5',
   catchup=False,
 ) as dag:
 
