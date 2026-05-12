@@ -1279,4 +1279,174 @@ Mientras le hacía sentir Al abrazarle su pistola en el costado Rabal llevaba ot
 
 
 ---
+ Using whisper model: tiny
+[2026-05-12 01:30:06] INFO - Using whisper threads per transcription process: 3
+[2026-05-12 01:30:06] INFO - Using segmentation preset: short
+[2026-05-12 01:30:06] INFO - Using segmentation k: 4
+[2026-05-12 01:30:06] INFO - Using segmentation min_gap_units: 6
+[2026-05-12 01:30:06] INFO - Using segmentation peak_threshold: 0.22
+[2026-05-12 01:30:06] INFO - Listening for: 30 minutes
 
+
+===== ROW 1 =====
+El siglo pasado una giratoria Ve una leyenda porque hizo que de su Linares Natal en Jaén lo llevará a los grandes escenarios del mundo Mi propósito es que del mundo llevarlo a la gente porque la guitarra es patrimonio de la gente En junio actuará en la auditoria nacional y después seguir extendiendo en el mundo la pasión por la guitarra española
+===== END ROW =====
+===== ROW 2 =====
+de un anarco lancha en vuelta a estar estable y fuera de peligro Los agentes murieron en ese accidente cuando chocaron dos embarcaciones del cuerpo La guerra civil mantiene una investigación abierta Donald Trump considera totalmente inaceptable la respuesta de Irán a su plan de paz una propuesta de la que no se conocen los detalles y aleja de nuevo la posibilidad de paz en la región
+===== END ROW =====
+===== ROW 3 =====
+La Segunda Guerra Mundial Se trata del intercambio De mil prisiones Que debía realizar sé coincidiendo con la Trigo Ucrania ha entregado Una lista de prisiones A la parte rusa Y espera que Estados Unidos Garantice que el intercambio Finalmente se produce El Presidente Ruso Vladímir Putin Se ha referido También durante el fin De semana la guerra De la Segunda Guerra Mundial Creo que está llegando a su fin ha señalado Pero sigue siendo un junto Pero no se teque A pesar de los níveas
+===== END ROW =====
+===== ROW 4 =====
+muy bajo En París está una de las contagiadas Más graves una francesa repatriada del barco El se teja de Dona Muy y Alipuzichi valentía bienvenido Si quiero antivirus ha confirmado este lunes la ministra de Sanidad que asegura que subidas tan riesgo Hay veintidós contactos a los que controlaron Francia 4 de ellos
+===== END ROW =====
+===== ROW 5 =====
+De ese instante Im sorry guys Ucrania y Rusia Han acusado Mutuamente de violar el trigo a motivo De la conmemoración Del fin de la Segunda Guerra Mundial Este lunes El Presidente Ucraniano Volvo de Miel Zelenski Ha denunciado Que Rusia no tiene Intención de poner fin A esta guerra Y que se están preparando Para nuevos ataques El alto el fuego Se ha mantenido parcialmente No habido bombardeo Masivos de ninguna De las partes Pero las situaciones distinta En el frente Según el Presidente Zelenski En ese caso El Presidente Zelenski Ha denunciado De la Segunda Guerra Mundial
+===== END ROW =====
+===== ROW 6 =====
+Agradecen al gobierno su gestión y el ejecutivo saca pecho Insolidaridad difunde el PP al que a sean su actitud Estorbar sembrar el odio hablar mucho de caos y derruido y alimentar los buyos Pero los populares insisten en criticar el trato dado al gobierno canario Seguimos siendo críticos ante lo consideramos una descoordinación Nos parece muy razonable que el señor Clavijo exige a información y exige a coordinación Un choque que se avivaba con el atrás del barco la presidenta del cabildo
+===== END ROW =====
+===== ROW 7 =====
+en este hospital de Atlanta Y un segundo paciente que dio un positivo débil es decir no concluyente en la prueba que hicieron en España Ahora está en Nebraska con otras 15 personas a los que harán chequeos dos veces al día a una sí Las autoridades insisten En que el riesgo para el público en general sigue siendo muy
+===== END ROW =====
+===== ROW 8 =====
+Su ex viceprimera Ministra Ángela Reina Y su ministro de Sanidad Westriting Atentos el anecdótico momento Que ha protagonizado El Presidente francés De Manuel Macron En un acto en Kenya Hay Im sorry guys Ante el río Que había las anas Se han levantado De su asiento Y ha cogido En micrófono antes De tiempo Para pedir silencio al público Es una total falta De respeto ha dicho Y ha pedido a quienes Quisieran estar hablando Por su cuenta Que abandonaran el lugar Sus palabras han surgido De efecto habido aplauso De todos Incluido ponentes Y silencio a partir
+===== END ROW =====
+===== ROW 9 =====
+Por su parte Netanyahu de gura Que aún queda trabajo por hacer en Irán Y sobra ya que Si el régimen Iraní se debilita Será el final de Esboza Y de Jamás Y mientras en China Todo está preparado Para recibir el presidente estadounidense Se espera que Trump aprovecha Su visita al gerente asiático Para pedir a Xi Jinping Que presione Irán Para que haga concesiones Y pongo a fin
+===== END ROW =====
+===== ROW 10 =====
+Por su parte Intenta reactivar las negociaciones De paz estancada Desde el comienzo De la guerra de Irán El fútbol cuarterona Recorrido las calles De la ciudad con del Para celebrar este lunes Con la ficción la consecución De subtítulos 21 de liga Durante casi 5 horas Miles de personas Se han agolpado en las óperas Para ver de cerca La autobuses que viajaban
+===== END ROW =====
+===== ROW 11 =====
+el presidente canario el gobierno presenta la gestión de la crisis del barco Como un éxito Las críticas del partido popular han bajado de cimerios y dirigentes y organizaciones internacionales han felicitado a España El director general de la organización mundial de la salud se reunirá este martes con Pedro Sánchez de Moncho La homo la ONU y la Comisión Europea Han Enana which Spain
+===== END ROW =====
+===== ROW 12 =====
+origen de la Naviera también desembarcar al cadáver de la mujer que murió en Elon dius el pasado dos de mayo Los 14 españoles que viajaban en el barco 13 pasajeros y un triple ante Van a pasar su segunda noche aislados en el pital coméselas de Madrid Uno de ellos ha dado positivo provisional y ha sido trasladado a la planamente y dos Donde están
+===== END ROW =====
+===== ROW 13 =====
+el precio del petróleo Pero ha habido movimientos Muy llamativos De algunos operadores Que se adelantaron A lo que ocurrió Después y obtuvieron Beneficios millonarios La justicia estadounidense Está investigando sí tuvieron información Privilegiada Estados unidos con el foco En al menos cuatro De los anuncios de Trump Minutos antes se realizaron Un número inusual De compraventas de crudo Con las que se lograron Beneficios muy elevados Los expertos apuntan Que tenían información Privilegiada En este momento Lo que tenemos es un mercado Altamente sensible Con los problemas geopolíticos Y obviamente En el origen de todas estas Informaciones Ya no son gente del mercado si no gente política Que de alguna manera Tienen esa información Por tanto Se hace un poco más difícil
+===== END ROW =====
+===== ROW 14 =====
+guardia civil seguía dos embarcaciones relacionadas con el narcotráfico O cubría apenas 48 horas después de la muerte de Germán y Jerónimo Los dos agentes de la guardia civil fallecidos el pasado viernes Cuando perseguían a una narco lancha a frente a la costa se vuelva Uno de sus compañeros que resultó herido de gravedad en la misma operación Ya está estable y fuera de peligro Estos sucesos son los últimos de una larga lista No son la provincia no vence sino en toda la zona del estrecho Hace poco más de dos años en febrero de 2024 Otros dos agentes perdían la vida en un accidente similar en Barbate y Cádiz Las asociaciones policiales denuncian desde hace años falta de medios Ya no es tanto el tipo de embarcación como
+===== END ROW =====
+===== ROW 15 =====
+de Valores ha montado al Exfutbolista Gerard Y que con 200000 euros por invertir en Bolsa con información privilegiada Según el organismo piqué recibí un suegro de un empresario amigo José Liza al que también ha montado y comprobaciones de una empresa Días antes de ser adquirida Luego vendió las acciones con un beneficio aproximado de 50000 euros La Comisión también ha montado a Liza con otros 100000 euros
+===== END ROW =====
+===== ROW 16 =====
+De controlar Los reguladores Detectaron movimientos inusuales Por primera vez el 23 de marzo Minutos antes de que Trump anunciará el retraso De los ataques contra infraestructuras Energéticas y danés Volvió ocurrir algo Similar 3 veces más en abril Antes de esos anuncios Se pusieron en marcha Dos mil doscientos millones De euros En operaciones presuntamente fraudulentas Que se sospecha Sabían Dante mano Que el precio del crudo Caería Hay un indicio De que esa persona Ha contado en un determinado Momento con una información Privilegiada en razón De su posición No en una información Que estaba a el alcance De todos los operadores En el mercado Por tanto En cuanto aparece Esa situación A las autoridades Tienen la obligación De investigar Aunque el regulador estadounidense Ya advirtió esas prácticas Especuladoras en marzo El Departamento De justicia De Estados Unidos ha abierto Ahora la primera investigación En este momento Las autoridades De este momento Que tiene que anunciar A la policía A acuerdo entre los
+===== END ROW =====
+===== ROW 17 =====
+Entre los ministros de exteriores De la Unión Europea Para imponer nuevas Ansiones a los colonos Israelíes violentos Que actúan en Cisjordania Requería una animizad Ha sido posible Gracias al cambio de gobierno en un cría La Unión Europea ha llegado A un acuerdo Para probar nuevas acciones A la sección además va acompañada De nueva sanciones Contra figuras Destacadas de jamás Ha dicho el alta Representante Calla Calas El de hoy es un primer paso Hay que pasar a la acción A asegurar la jefa De la diplomacia Europea Los sancionados No podrán entrar En la Unión Europea Y se congelaran Sus activos bancarios La última vez qué bruselas A probo sanciones A colonos fue En 2024 Pero sí A brabantes En otro tipo de medidas Varios países Entre ellos España Se suspende al menos Parcialmente el acuerdo Comercial con Israel No ha habido Una nueva propuesta De la Comisión Europea el alta representante recuerda Que sigue habiendo países Que
+===== END ROW =====
+===== ROW 18 =====
+oportunidad inigualable de conocer al Gaudí más auténtica El líder de Basan Pampinos Volcó Gran aclara en Madrid el próximo once de septiembre Para interpretar con una orquesta el tercer e icónico disco de la banda de Chicago Melancolía de inmunizantes que ha cumplido
+===== END ROW =====
+===== ROW 19 =====
+En el hospital universitario Rad bot en este de los países bajos han sido puestos en cuarentena 12 trabajadores del centro Según el hospital no se siguieron correctamente los protocolos y se cometieron errores de procedimiento durante La toma de muestras de sangre y orina del paciente con atavíos evacuado del cochero Los empleados permanecerán en cuarentena durante seis semanas Como medida de precaución Más allá del desenguanto con
+===== END ROW =====
+===== ROW 20 =====
+Para celebrar su segunda Liga en dos años 4 días después Del histórico Pase al final De la liga conferencia De futbol él raye vaticano Regresó a Vallecas En busca de Tres puntos vitales Para sellar su permanencia En primera división Pero en equipo No se puede recordar El mensaje A ver si está tendrá Que esperar otra jornada Más para conseguir la salvación
+===== END ROW =====
+===== ROW 21 =====
+De la mente todo estaba en más o menos bueno estado de conservación pero es existía Durante cuatro años un equipo de especialistas ha estado trabajando de manera minuciosa en todos los elementos Un auténtico viaje a los orígenes de la vivienda No es ha sorprendido mucho la forma en la que iba transitando con los diferentes colores El cómo iba jugando con las texturas el cómo matizaba a los encuentros de materiales son de en las que si se es difícil de encontrar En los elementos recuperados estos pavimentos reconstruidos a partir del posicionales Los estucos y ganchos destinados a colgar cuadros manillas y pomos o este original sistema de ventilación Una
+===== END ROW =====
+===== ROW 22 =====
+Tiene una semana Con una semana Y que es el Mamadera Fantasmas Para que se inaugure El Mundial de Fútbol Este verano Casi 40 días Del mejor Fútbol de selecciones Que van a poder vivir En el radio y de española Y que ojalá terminé Con la segunda estrella Para la selección española En más largo de la historia Más equipos que nunca Y por primera vez En tres países distintos Mundial de muchos récords Con canciones De la liga Por primera vez En tres países distintos Mundial de muchos récords Con canciones sociales Estadios a punto
+===== END ROW =====
+===== ROW 23 =====
+El Navarro Javier Fernández de 12 años Yo también me di cuenta de que ustedes capaz de abrazar al diferente Y eso para mí es muy importante Pues que aunque yo soy español La mitad de mis genes son como leñas No hacía aquí y una parte de mi herencia española Pero también tengo herencia genética De muchísimos sitios Eso es también de Europa Es España es diversidad En esta edición han participado más de 10000 escolares De toda España
+===== END ROW =====
+===== ROW 24 =====
+La reanudación de las negociaciones entre Estados Unidos De Irán han llegado un punto muerto Mientras el alto el fuego se vuelve cada vez más inestable El fracaso de la propuesta estadounidense Para poner fin a la guerra en Oriente Medio Elevan las tensiones y prolonga el estancamiento Entre ambas partes Trump ve totalmente inaceptable La respuesta de Irán a su propuesta de paz Y califa
+===== END ROW =====
+===== ROW 25 =====
+Tras empatar a uno Contra el Girona Empezaron marcando Los dejó Pérez Con un gol del brasileño alejado A los 85 minutos El Girona Con otro gol Del uruguayo Cristiano Estancia A los 89 empato El partido Conociendo un punto Que además condena Descenso al real vio En el mar Madrid Y que dejo ese marino Sustituya Arbelo En el banquillo blanco En el club sienten que es lo que necesitan Y aunque están trabajando En ello no planean Anunciarlo hasta que termine Esta temporada La segunda temporada Seguida sin ninguno De los títulos tradicionales Agravada y explicada Por la falta de identidad
+===== END ROW =====
+===== ROW 26 =====
+a recursos y ayudas Pero la cobra de él una pensión y ella el ingreso mínimo vital Sus situaciones en la práctica no es prioritaria Según el ayuntamiento no estarían en los primeros puestos Para conseguir una vivienda protegida Estamos trabajando para tener una solución a corto plazo Aunque no sea una vivienda directamente que podía ser una pensión O también bueno pues algún tipo de alojamiento de urgencia Viste a la situación Jordi Monse se plantean abandonar la ciudad Para poder vivir dignamente La Comisión Nacional del Mercado
+===== END ROW =====
+===== ROW 27 =====
+desinfección del puerto según los protocolos A pesar de todo sanidad tiene claro que los próximos días pueden ir apareciendo más positivos entre los viajeros No podemos ir encontrando con personas que presenten síntomas y que presenten empresas responsivas Por eso hemos tomado todas las precauciones y todos los mecanismos de seguridad para De alguna manera tratar a esas personas que inicialmente eran contactos con todas las medidas de seguridad En países bajos país de
+===== END ROW =====
+===== ROW 28 =====
+ahora sobre quienes lideran la OMS Cuando la organización mundial de la salud con los que tiene al frente de la opción Mal la cosa tiene que ser Precisamente con el director general de la OMS se reunirá Pedro Sánchez Mañana en la Monclova Continúa a la investigación con la muerte de dos guardias civiles del pasado viernes Mientras siga en una narco lancha a 80 millas de la costa se vuelva Este lunes hemos sabido que un jugado se vuelva ha abierto dirigentes para investigar el caso Con este sonido se despertaban la pasada noche los vecinos del roto en vuelta Un helicóptero de la
+===== END ROW =====
+===== ROW 29 =====
+Sus ídolos Que han disfrutado Con esta celebración Tras una temporada En la que han conseguido Además La supercopa de España Le van dos quichés Ni a la cabeza Y los trofeos siempre A buen recaudo En una tarde Cargada de referencias Y cánticos Hacia el eterno rival La ficción tomó Las ciudades De la salida del campo En una competición Por conseguir El mejor sitio Para ver a los campeones quienes No tuvieron rival Fueron el dupla Que siempre preparados Para la cámara Y para dar Su homenaje dulce O salado Mientras algún compañero Estaba por descansar el resto Al hem se la importa A un tenía en cuerda Para rato Y no parar a una fiesta A la que no faltó Hansi Flick
+===== END ROW =====
+===== ROW 30 =====
+Y selecciones confirmadas cursado Cabo verde Son varias las que debutan Y tal día O Chile Se han quedado fuera Será el primer baile Para algunos y suena El último de otros El sexto para Messi Cristiano Ronaldo Sinarca El portugués lo habrá hecho En más citas mundiales que nadie La uno emito un partido Por jornada Todos los España Y los principales cruces Incluidas las semifinales Y la final Donde esperemos repetir Esta imagen Y ver a España Levantar su segunda Copa Mundial Qué tal están Tenemos por delante
+===== END ROW =====
+===== ROW 31 =====
+900 los empleados de expedidos El rey de España como jardinero o como director de orquesta Así es como ven a Felipe sexto algunos de los niños que han participado En el tradicional concurso que es un rey para ti Con dibujos colas o figuras de plastilina El atraparon nos quita los malos sueños y el rey pues soluciona los problemas Que tenemos en España un líder que no une y nos hace sentir A los días seres pañales Así ven al rey los ganadores del concurso escolar que es un rey para ti Que hoy han conocido a Felipe sexto en Madrid Este año ya se ha colado la inteligencia artificial con este diario De la princesa Leonor Escuchar es tan importante como hablar Pero sobre todo se ha destacado por cómo ve al rey
+===== END ROW =====
+===== ROW 32 =====
+tuvo finalmente que amarrarse al puerto por la mala mar para facilitar que bajaran los últimos 28 pasajeros que después abandonaron la isla en avión Un pasaje del español procedente de este barco el indio y que permanezca es lado en el hospital como suya de Madrid ha dado positivo provisional en la prueba PCR que se realizó a la llegada Los otros 13 pasajeros españoles han dado negativo provisional enrancia a un perorado del estado de salud de la mujer que dio positivo El barco de Antivirus viaja el indio del viernes durante la persecución
+===== END ROW =====
+===== ROW 33 =====
+El barco del Brote de Antivirus viaja a Rumba a Países Vagos todo el pasaje ha sido repatriado ya a sus respectivos países Esta es la imagen del buque lleno sé dé Canarias el indio del Brote de Antivirus viaja a Rumba a Países Vagos todo el pasaje ha sido repatriado ya a sus respectivos países Esta es la imagen del buque lleno sé dé Canarias el indio
+===== END ROW =====
+===== ROW 34 =====
+Sin embargo el juez lo se ha absuelto de detención y legal Los menores van un año tú teclados en un centro en Asturias Hay un índice que mide el precio de el alquiler con la información fiscal que aportan los caseros Ese índice confirma lo que cuenta a los indicios que les forzó para pagar cada vez mayor En la última década la renta de los contratos de alquiler subió casi un 23 por ciento Sobre todo contratos nuevos lo que ya estaban en vigor han
+===== END ROW =====
+===== ROW 35 =====
+La fabricante de automóviles Nissan ha lanzado uniere para 200 Son de trabajadores en sus tres centros de producción en Cataluña Es decir un 37 de su plantilla La actividad en la planta del Prat de Libertad Quedará reducida al mínimo La marca Nipona esgrime razones económicas Productivas y de organización y lo sindicatos han mostrado un rechazo frontal Y de momento no reconocen el inicio de las negociaciones con la directiva En total en Europa serán
+===== END ROW =====
+===== ROW 36 =====
+Putin está dispuesto a reunirse Con representantes Ucranianos de alto nivel en Moscú O en un tercer país Pero no durante las negociaciones si no desde una perspectiva histórica A largo plazo Casto él Ve te miedo preciate Libo es tú de desate No esto te hace una Acánchete Negocia El líder ruso ha propuesto Un nuevo mediador Para las conversaciones con ucrania De las negociaciones De paz Estancadas desde el comienzo De la guerra de Irán Es un hombre que ha sido rechazado Tanto por Alemania Como por la Unión Europea Por sus estrechas Relaciones comerciales con Rusia Creo que la cultura Ha inspirado De la Novia y la Novia Por Russian State A una compañía Es decir Que es una persona Que se va a ser En both sides De este tipo Ucrania
+===== END ROW =====
+===== ROW 37 =====
+El Pentágono anunció que su porta bien es Libro Ford Retornará a su puerto base en el estado de Virginia Regresa a través de desplegado durante 11 meses En Europa Caribe y Oriente Medio Donde ha participado en los operativos relacionados Con la captura de Nicolás Maduro o la Guerra contra Irán Según el Pentágono el repliegue parcial de sus activos No implica una desescalada inmediata del conflicto en Oriente Medio
+===== END ROW =====
+===== ROW 38 =====
+euros no había lo Las primeras semanas las pasaron en una parte de la hasta que no cubren Decidieron vivir en su coche Enterada ando vuelta y vuelta nos quedamos aquí Tundamos los asientos y pues luego nos ponemos el saco de dormir Sí hace anempiscinas municipales y alimentan en parte Gracias a un comedor social y lo que les ofrecen en vida desbocales Lo peor de vivir un coche que me lo he listado que es un cómodo Yo tengo sido la verdad Los servicios sociales les están asesorando para qué acceden
+===== END ROW =====
+===== ROW 39 =====
+Al estancamiento del conflicto Donald Trump Han mete que estadounidense Empieza a apagar también Las consecuencias de su guerra Están cada en Irán El presidente estadounidense Estudió a suspender temporalmente El impuesto federal a la gasolina Hasta que bajé el precio Trump considera inaceptable En la respuesta de Irán A sus condiciones para el fin de la guerra Desde que empezó La contienda Los mensajes de Donald Trump Han disparado
+===== END ROW =====
+===== ROW 40 =====
+Trabajando en la restauración De la tercera planta se ha abierto al público La emblemática casabais Un espacio que mantiene La esencia De un piso señorial Que estuvo habitado Por la familia aballo Hasta el 2019 se imaginan Poder ver Un apartamento Tal y como lo Video Gaudí La tercera planta Se abrió La única en la que Hasta hace apenas 7 años Vivía una descendiente De la influyente familia De empresarios Que dio nombre al edificio Los bayo Que estudies habitada Permitido que La restauración Se ha casi exaltado Original de 1906 todos los estucos Los colores Los techos undulados Con un estuco armado Como el que veis Los elementos plurales Que aparecieron Debajo de las Diferentes capas de pintura A los arrimaderos Las carpinterías
+===== END ROW =====
+===== ROW 41 =====
+directamente evacuados desde el crucero Ganan en aislamiento estricto Habida repatriación también en Alemania reunido suizo país bajos Hay consenso en aislarles 6 semanas pero discrepancias sobre si lo pasarán en los pitá logos en sus casas Países bajos por ejemplo barajas que puedan salir a la calle con mascarilla y distancia Allí viaja ya Elon dius abordo todavía el cadáver de una Alemana y parte de la tripulación Su capitán Para ellos y sus familias
+===== END ROW =====
+===== ROW 42 =====
+que realmente haya embarcaciones y medios Acompañados de un código penal duro para este tipo de situaciones El ayuntamiento se vuelva anunciado este lunes que se sumará esas demandas Al llevar a pleno una emoción para exterior más efectivos y recursos en la lucha contra el narcotráfico El ministerio de la interior por su parte asegura que desde 2018 Se han puesto más medios que nunca de incorporar un 20 por ciento más efectivos Y una veintena de embarcaciones
+===== END ROW =====
+===== ROW 43 =====
+subido un poco menos En búsqueda de un techo digno a veces se vuelve directamente imposible Una pareja de jubilados por ejemplo de Sabadell lleva 7 meses viviendo en su coche Vagaban 650 euros alquiler por una vivienda en Sabadell Un municipio declarado pensionado según la ley de vivienda Cuando el contrato finalizó el propietario no quise renovarlo Así que empezaron a buscar piso Si había de alquiler eran entre 800 y 900
+===== END ROW =====
+===== ROW 44 =====
+asegura que es otra imposición de Madrid y les acusa de someterles Mientras la izquierda lamenta que el PP siga a la estela de box y reivindica en los servicios públicos La estrategia de box en la que ha caído el señor Dejó es sencillamente una puesta profundamente equivocada Y ahora en las noticias en las institutos terroristas y absolutamente vergonzoso Y box sigue extendiendo la sombra de la duda
+===== END ROW =====
+===== ROW 45 =====
+Y un vestuario resquebrajado Empujan marino Como principal candidato A poner las individualidades Al servicio del equipo Una figura muy respetada en los taquillos Para imponerse en un vestuario Con los jugadores Exhibiendo poder El último ejemplo Las polémicas publicaciones De Mbaye una Este medio día Con una media sombría Después de perder la liga En Albarsa Por el estero Así van cuando el francés ausente Subió la foto Con un A la Madrid No se prevé anuncio Hasta que acaba la liga No he contado No he tenido contacto Ni con el presidente Ni con ningún directivo Decía hierro Que cuando cabe la liga
+===== END ROW =====
+===== ROW 46 =====
+el ministerio de exteriores Defiendes su posición Todo lo que propusimos Consiste en exigencia razonable Propuestas responsables y sugerencias generosas No solo por los intereses de Irán También por el bien la estabilidad Y seguridad de toda la región Y del mundo ha dicho el portavoz del ministerio Iraní Te eran exigen levantamiento de sanciones Que se descongelen activos Y el control sobre el estrecho de Inmuta Antes de comenzar las negociaciones Sobre sus reservas de uranio Por lo que llegara a un acuerdo No será una tarea fácil
+===== END ROW =====
+===== ROW 47 =====
+la unidad de alto aislamiento En Francia ha empeorado el estado de salud de la mujer que dio positivo Y en Estados Unidos hay un positivo leve Hay más países tratando de controlar el virus en Estados Unidos hace el seguimiento a 18 personas Pero preocupan sobre todo dos una porque tiene síntomas en cuenta
+===== END ROW =====
+===== ROW 48 =====
+Para el gobierno el dispositivo organizado en Canarias ha sido un éxito también para el director general de la Gomes Nada thank you for your commitment Ha agradecido a España todo el trabajo bien hecho En el crucero se han quedado 28 personas tripulación Que ha acampado ya rumba el puerto de Róterdam ahora queda la
+===== END ROW =====
+===== ROW 49 =====
+Un martes marcado Por chubascos tormentas Que van a volver a viajar Desde lo de este Pendular hacia el noreste Que serán de nuevo Localmente fuerte Sobre todo En el entorno de la cordilla cantábrica En la ibérica también En áreas de Cataluña puntualmente Eran acompañados De granizo Y de fuertes Rachas de viento Las máximas Se van a mover poco No pasarán de los Centros de un pleno investigador En el noreste A la gente De la semana en Barcelona Después de cuatro años
+===== END ROW =====
+===== ROW 50 =====
+En deportes del fuego Cuéllar celosa recorrido las calles de la ciudad condal para celebrar con la ficción la concepción de subtítulos número 20 de liga una de casi 5 horas miles de personas se agolpaban las ocenas para ver de cerca en la autobuses que viajaban sus ídolos que han disfrutado por esta celebración tras una temporada en la que han conseguido además de salida la supercopa de España
+===== END ROW =====
+===== ROW 51 =====
+Menos de 48 horas después de la llegada de Londres a Tenerife ya están rumba a países bajos el barco y los dos vuelos con los últimos pasajeros que quedaban en el crucero afectado por el virote de Antivirus El fuerte viento ha retrasado ligeramente el operativo para desembarcar estas últimas 28 personas del total de 147 que viajaban a bordo del crucero de lujo Finalmente el buque ha tenido que atracar en el puerto de Granadilla Es el momento en que terminaba la evacuación del crucero a costado debido al viento y la mala mar no se ha podido hacer con el barco fondeando y ha tenido que atracar en el puerto Al final 28 personas lo han abandonado y han subido a dos aviones rumba a países bajos en uno de ellos iban 22 personas La mayoría miembros de la tripulación pero también un médico y 12 epidemias logos en el segundo vuelo 6 viajeros
+===== END ROW =====
+===== ROW 52 =====
+el alto el fuego de increíblemente débil Diría que es el más débil Después de leer la basura que nos enviaron Ni siquiera lo he terminado No voy a perder el tiempo leyéndolo Está en cuidados intensivos ha dicho el presidente de Estados Unidos Es el último revés a los intentos Por acabar con la guerra en Oriente Medio Que ha paralizado el transporte marítimo Y disparado los precios de la energía Desde Irán
+===== END ROW =====
+===== ROW 53 =====
+Mientras la investigación por la muerte de Germán y Jerónimo Continúa Un jugado se vuelva ya ha abierto de licencias para investigar el caso Ya sentencia para los padres que tuvieron a sus tres hijos encerrados durante 4 años En esta casa de Objeto Nos han condenado a dos años y 10 meses de prisión para cada uno Por los delitos de violencia mítica habitual y abandono de familia
+===== END ROW =====
+===== ROW 54 =====
+no están de acuerdo En reino unido El primer ministro Se ha dirigido a los Que dentro de su propio Partido Cuestionan su líder ágoras La derrota de los laboristas En las ediciones regionales Starmer Dice que él luchará Para seguir en el cargo Y aboga Por un mayor acercamiento Con Europa Quinterna se agarrara Al clavo ardiendo De la Unión Europea Para intentar Reimpulsar su mandato después Del varapalo o de las Elecciones de la semana Pasada Su objetivo ahora Es reconstruir Esa relación Para que empujen A tomar El mayor Por poniendo Al reino unido En el corazón De Europa Han sido sus palabras Starmer Asegura que el Brexit Ha empobrecido Y debilitado Al país Y de su impulsor Y vencedor De las elecciones Ha dicho que es un estafador Y un oportunista Dos son los candidatos Que están desafiando El liderazgo de Starmer
+===== END ROW =====

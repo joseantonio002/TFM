@@ -53,40 +53,10 @@
       "RNERadio5TodoNoticiasMurcia"
     ],
     "params": {
-      "t": 30,
-      "m": "base",
-      "news_length": "short",
-      "nt": 2
-    }
-  },
-  "RNE_laborales_temprano_0630": {
-    "task_id": "RNE_laborales_temprano_0630_task",
-    "connector_id": "TV/RadioES",
-    "schedule": "30 5 * * 1-5",
-    "start_date": "datetime(2024, 1, 1)",
-    "seed_ids": [
-      "RNERadio5TodoNoticiasMurcia"
-    ],
-    "params": {
-      "t": 30,
-      "m": "base",
-      "news_length": "short",
-      "nt": 2
-    }
-  },
-  "RNE_laborales_temprano_0700": {
-    "task_id": "RNE_laborales_temprano_0700_task",
-    "connector_id": "TV/RadioES",
-    "schedule": "0 6 * * 1-5",
-    "start_date": "datetime(2024, 1, 1)",
-    "seed_ids": [
-      "RNERadio5TodoNoticiasMurcia"
-    ],
-    "params": {
-      "t": 30,
-      "m": "base",
-      "news_length": "short",
-      "nt": 2
+      "t": 90,
+      "m": "tiny",
+      "news_length": "medium",
+      "nt": 3
     }
   },
   "RNE_laborales_temprano_0800": {
@@ -99,9 +69,9 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   },
   "RNE_laborales_tarde": {
