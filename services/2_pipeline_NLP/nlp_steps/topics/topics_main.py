@@ -1,9 +1,12 @@
 import re
 import unicodedata
+from pathlib import Path
 
 import yake
 
 from .keybert_main import keybert_main, spanish_stopwords
+
+TOPICS_STOPWORDS_PATH: Path = Path(__file__).with_name("topics_stopwords.txt")
 
 CUSTOM_KEYWORDS: list[str] = [
   "iran",
@@ -149,6 +152,16 @@ def extract_custom_keyword_topics(text: str) -> list[str]:
   return custom_topics
 
 
+def load_topics_stopwords() -> set[str]:
+  """Load normalized topic stopwords from the local stopwords file."""
+  with TOPICS_STOPWORDS_PATH.open("r", encoding="utf-8") as file:
+    return {
+      normalize_text(line)
+      for line in file
+      if normalize_text(line)
+    }
+
+
 def add_unique_topics(topics: list[str], new_topics: list[str], seen_topics: set[str]) -> None:
   """Add non-empty topics without duplicated normalized forms."""
   for topic in new_topics:
@@ -164,6 +177,7 @@ def topics_main(text: str) -> tuple[str, list[str]]:
   """Extract topics from text using KeyBERT, YAKE and custom keywords."""
   topics: list[str] = []
   seen_topics: set[str] = set()
+  topics_stopwords: set[str] = load_topics_stopwords()
 
   _keybert_key, keybert_keywords = keybert_main(text)
   keybert_topics = [keyword for keyword, _score in keybert_keywords]
@@ -177,5 +191,6 @@ def topics_main(text: str) -> tuple[str, list[str]]:
   add_unique_topics(topics, yake_two_word_topics, seen_topics)
   add_unique_topics(topics, yake_three_word_topics, seen_topics)
   add_unique_topics(topics, custom_keyword_topics, seen_topics)
+  topics = [topic for topic in topics if normalize_text(topic) not in topics_stopwords]
 
   return "topics", topics
