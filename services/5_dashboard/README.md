@@ -1,15 +1,19 @@
-# News Dashboard
+# Media Intelligence Dashboard
 
-Dashboard prototipo en Streamlit para explorar la API de noticias.
+Dashboard de una sola pagina en Streamlit para explorar topics, categorias de amenaza y sentimiento desde la API de noticias.
 
 ## Que muestra
 
-- volumen temporal
-- duracion total y media
-- distribucion por tipo y fuente
-- ranking de entidades
-- keywords frecuentes
-- tabla de registros recientes
+- total de noticias disponibles y noticias que cumplen los filtros
+- ranking horizontal de topics o categorias de amenaza
+- heatmap de topics/categorias por fuente con numero de noticias
+- heatmap de topics/categorias por fuente con sentimiento medio `positive - negative`
+
+## Filtros
+
+- rango de fechas, por defecto los ultimos 7 dias
+- selector multiple de fuentes por `source_name`, por defecto todas las fuentes
+- numero de topics/categorias a mostrar, de `1` a `20`
 
 ## Variable de entorno
 

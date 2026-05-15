@@ -1,8 +1,8 @@
-"""Streamlit dashboard for the news metrics API."""
+"""Single-page Streamlit dashboard for media intelligence metrics."""
 
 from __future__ import annotations
 
-from datetime import date, datetime, time, timezone
+from datetime import date, datetime, time, timedelta, timezone
 import os
 from typing import Any
 
@@ -14,7 +14,10 @@ import streamlit as st
 
 API_BASE_URL: str = os.getenv("NEWS_API_BASE_URL", "http://localhost:8000").rstrip("/")
 REQUEST_TIMEOUT_SECONDS: int = 20
-DEFAULT_RECORD_FIELDS: str = "id,source_name,source_type,language,country,extracted_at,content"
+DIMENSION_OPTIONS: dict[str, str] = {
+  "Topics": "topic",
+  "Threat categories": "threat_category",
+}
 
 
 def build_iso_datetime(input_date: date | None, end_of_day: bool = False) -> str | None:
@@ -27,13 +30,15 @@ def build_iso_datetime(input_date: date | None, end_of_day: bool = False) -> str
 
 
 def clean_params(params: dict[str, Any]) -> dict[str, Any]:
-  """Remove empty values from the API query parameters."""
+  """Remove empty values from API query parameters while preserving lists."""
 
   cleaned_params: dict[str, Any] = {}
   for key, value in params.items():
     if value is None:
       continue
     if isinstance(value, str) and not value.strip():
+      continue
+    if isinstance(value, list) and not value:
       continue
     cleaned_params[key] = value
   return cleaned_params
@@ -59,282 +64,228 @@ def load_dataframe(endpoint: str, params: dict[str, Any]) -> tuple[dict[str, Any
   try:
     payload: dict[str, Any] = fetch_api_data(endpoint, params)
   except requests.RequestException as exc:
-    st.error(f"Error consultando {endpoint}: {exc}")
+    st.error(f"Error loading {endpoint}: {exc}")
     return None, pd.DataFrame()
 
   data_frame: pd.DataFrame = pd.DataFrame(payload.get("data", []))
   return payload, data_frame
 
 
-def summarize_duration(duration_frame: pd.DataFrame) -> tuple[float, float]:
-  """Calculate total and weighted average duration from grouped buckets."""
+def render_header() -> None:
+  """Render dashboard page metadata and title."""
 
-  if duration_frame.empty:
-    return 0.0, 0.0
-
-  total_duration: float = float(duration_frame["total_duration"].sum())
-  total_records: int = int(duration_frame["records"].sum())
-  average_duration: float = total_duration / total_records if total_records > 0 else 0.0
-  return total_duration, average_duration
+  st.set_page_config(page_title="Media Intelligence Dashboard", layout="wide")
+  st.title("Media Intelligence Dashboard")
+  st.caption(f"Data source: {API_BASE_URL}")
 
 
-def render_metric_cards(volume_frame: pd.DataFrame, duration_frame: pd.DataFrame) -> None:
-  """Render the top summary metrics row."""
+def get_date_range_value() -> tuple[date, date] | None:
+  """Render and validate the dashboard date range filter."""
 
-  total_records: int = int(volume_frame["records"].sum()) if not volume_frame.empty else 0
-  total_duration, average_duration = summarize_duration(duration_frame)
-  active_days: int = int(volume_frame["bucket"].nunique()) if not volume_frame.empty else 0
-
-  column_1, column_2, column_3, column_4 = st.columns(4)
-  column_1.metric("Registros", total_records)
-  column_2.metric("Duracion total", f"{total_duration:.1f}s")
-  column_3.metric("Duracion media", f"{average_duration:.1f}s")
-  column_4.metric("Buckets activos", active_days)
-
-
-def render_time_series(volume_frame: pd.DataFrame, duration_frame: pd.DataFrame) -> None:
-  """Render the time series charts for volume and duration."""
-
-  column_1, column_2 = st.columns(2)
-
-  with column_1:
-    st.subheader("Volumen temporal")
-    if volume_frame.empty:
-      st.info("No hay datos para mostrar.")
-    else:
-      chart_frame: pd.DataFrame = volume_frame.copy()
-      chart_frame["bucket"] = pd.to_datetime(chart_frame["bucket"])
-      figure = px.line(
-        chart_frame,
-        x="bucket",
-        y="records",
-        markers=True,
-        labels={"bucket": "Fecha", "records": "Registros"},
-      )
-      st.plotly_chart(figure, use_container_width=True)
-
-  with column_2:
-    st.subheader("Duracion temporal")
-    if duration_frame.empty:
-      st.info("No hay datos para mostrar.")
-    else:
-      chart_frame = duration_frame.copy()
-      chart_frame["bucket"] = pd.to_datetime(chart_frame["bucket"])
-      figure = px.bar(
-        chart_frame,
-        x="bucket",
-        y="total_duration",
-        labels={"bucket": "Fecha", "total_duration": "Duracion total (s)"},
-      )
-      st.plotly_chart(figure, use_container_width=True)
-
-
-def render_distribution_section(
-  source_type_frame: pd.DataFrame,
-  source_name_frame: pd.DataFrame,
-) -> None:
-  """Render source distribution charts."""
-
-  column_1, column_2 = st.columns(2)
-
-  with column_1:
-    st.subheader("Distribucion por tipo")
-    if source_type_frame.empty:
-      st.info("No hay datos para mostrar.")
-    else:
-      figure = px.bar(
-        source_type_frame,
-        x="source",
-        y="records",
-        labels={"source": "Tipo", "records": "Registros"},
-      )
-      st.plotly_chart(figure, use_container_width=True)
-
-  with column_2:
-    st.subheader("Top fuentes")
-    if source_name_frame.empty:
-      st.info("No hay datos para mostrar.")
-    else:
-      top_sources_frame: pd.DataFrame = source_name_frame.head(10)
-      figure = px.bar(
-        top_sources_frame,
-        x="records",
-        y="source",
-        orientation="h",
-        labels={"source": "Fuente", "records": "Registros"},
-      )
-      figure.update_layout(yaxis={"categoryorder": "total ascending"})
-      st.plotly_chart(figure, use_container_width=True)
-
-
-def render_semantic_section(entity_frame: pd.DataFrame, keyword_frame: pd.DataFrame) -> None:
-  """Render entities and keywords charts."""
-
-  column_1, column_2 = st.columns(2)
-
-  with column_1:
-    st.subheader("Ranking de entidades")
-    if entity_frame.empty:
-      st.info("No hay entidades para mostrar.")
-    else:
-      figure = px.bar(
-        entity_frame,
-        x="mentions",
-        y="entity",
-        orientation="h",
-        labels={"entity": "Entidad", "mentions": "Menciones"},
-      )
-      figure.update_layout(yaxis={"categoryorder": "total ascending"})
-      st.plotly_chart(figure, use_container_width=True)
-
-  with column_2:
-    st.subheader("Keywords frecuentes")
-    if keyword_frame.empty:
-      st.info("No hay keywords para mostrar.")
-    else:
-      figure = px.bar(
-        keyword_frame,
-        x="frequency",
-        y="keyword",
-        orientation="h",
-        labels={"keyword": "Keyword", "frequency": "Frecuencia"},
-      )
-      figure.update_layout(yaxis={"categoryorder": "total ascending"})
-      st.plotly_chart(figure, use_container_width=True)
-
-
-def render_records_table(records_frame: pd.DataFrame) -> None:
-  """Render the recent records table."""
-
-  st.subheader("Registros recientes")
-  if records_frame.empty:
-    st.info("No hay registros para mostrar.")
-    return
-
-  formatted_frame: pd.DataFrame = records_frame.copy()
-  if "content" in formatted_frame.columns:
-    formatted_frame["content"] = formatted_frame["content"].fillna("").astype(str).str.slice(0, 180)
-  st.dataframe(formatted_frame, use_container_width=True, hide_index=True)
-
-
-def render_sidebar_filters() -> dict[str, Any]:
-  """Render the sidebar filters and return the API params."""
-
-  st.sidebar.header("Filtros")
   today: date = date.today()
-  default_from: date = today.replace(day=max(1, today.day - 7))
+  default_from: date = today - timedelta(days=7)
+  selected_value: date | tuple[date, ...] = st.sidebar.date_input(
+    "Date Range",
+    value=(default_from, today),
+  )
 
-  from_date: date | None = st.sidebar.date_input("Desde", value=default_from)
-  to_date: date | None = st.sidebar.date_input("Hasta", value=today)
-  source_type: str = st.sidebar.text_input("Source type")
-  source_name: str = st.sidebar.text_input("Source name")
-  country: str = st.sidebar.text_input("Country")
-  language: str = st.sidebar.text_input("Language")
-  connector_id: str = st.sidebar.text_input("Connector ID")
-  group_by: str = st.sidebar.selectbox("Agrupar por", options=["hour", "day", "week", "month"], index=1)
-  entity_type: str = st.sidebar.selectbox("Tipo de entidad", options=["PER", "LOC", "ORG", "MISC"], index=1)
-  keyword_limit: int = st.sidebar.slider("Top keywords", min_value=5, max_value=30, value=10)
-  entity_limit: int = st.sidebar.slider("Top entidades", min_value=5, max_value=30, value=10)
-  records_limit: int = st.sidebar.slider("Registros a mostrar", min_value=5, max_value=50, value=10)
+  if not isinstance(selected_value, tuple) or len(selected_value) != 2:
+    st.warning("Select a start and end date to load the dashboard.")
+    return None
+  from_date, to_date = selected_value
+  if from_date > to_date:
+    st.error("The start date must be lower than or equal to the end date.")
+    return None
+  return from_date, to_date
 
+
+def render_sidebar_filters(source_options: list[str]) -> dict[str, Any] | None:
+  """Render dashboard filters and return API query parameter values."""
+
+  st.sidebar.header("Filters")
+  date_range: tuple[date, date] | None = get_date_range_value()
+  if date_range is None:
+    return None
+
+  selected_sources: list[str] = st.sidebar.multiselect(
+    "Sources",
+    options=source_options,
+    default=source_options,
+  )
+  if not selected_sources:
+    st.warning("Select at least one source to load the dashboard.")
+    return None
+
+  topic_limit: int = st.sidebar.slider("Number of topics to show", min_value=1, max_value=20, value=10)
+  from_date, to_date = date_range
   return {
     "from": build_iso_datetime(from_date, end_of_day=False),
     "to": build_iso_datetime(to_date, end_of_day=True),
-    "source_type": source_type,
-    "source_name": source_name,
-    "country": country,
-    "language": language,
-    "connector_id": connector_id,
-    "group_by": group_by,
-    "entity_type": entity_type,
-    "keyword_limit": keyword_limit,
-    "entity_limit": entity_limit,
-    "records_limit": records_limit,
+    "source_name": selected_sources,
+    "limit": topic_limit,
   }
 
 
-def render_header() -> None:
-  """Render the dashboard title and context."""
+def render_metric_cards(summary_frame: pd.DataFrame) -> None:
+  """Render total and filtered news counts."""
 
-  st.set_page_config(page_title="News Metrics Dashboard", layout="wide")
-  st.title("Dashboard de noticias")
-  st.caption(f"Fuente de datos: {API_BASE_URL}")
+  total_records: int = 0
+  filtered_records: int = 0
+  if not summary_frame.empty:
+    total_records = int(summary_frame.iloc[0].get("total_records", 0))
+    filtered_records = int(summary_frame.iloc[0].get("filtered_records", 0))
+
+  column_1, column_2 = st.columns(2)
+  column_1.metric("Total news available", total_records)
+  column_2.metric("News matching filters", filtered_records)
+
+
+def render_dimension_selector(key: str) -> str:
+  """Render a per-visualization dimension toggle."""
+
+  selected_label: str = st.radio(
+    "Y axis",
+    options=list(DIMENSION_OPTIONS.keys()),
+    horizontal=True,
+    key=key,
+  )
+  return DIMENSION_OPTIONS[selected_label]
+
+
+def render_ranking_chart(common_params: dict[str, Any]) -> None:
+  """Render the topic/category ranking bar chart."""
+
+  st.subheader("News by topic or threat category")
+  dimension: str = render_dimension_selector("ranking_dimension")
+  _, ranking_frame = load_dataframe(
+    "/metrics/nlp-ranking",
+    {**common_params, "dimension": dimension},
+  )
+
+  if ranking_frame.empty:
+    st.info("No data available for the selected filters.")
+    return
+
+  chart_frame: pd.DataFrame = ranking_frame.sort_values("records", ascending=True)
+  figure = px.bar(
+    chart_frame,
+    x="records",
+    y="dimension",
+    orientation="h",
+    labels={"dimension": "Topic / category", "records": "News"},
+  )
+  figure.update_layout(height=max(420, 28 * len(chart_frame)))
+  st.plotly_chart(figure, use_container_width=True)
+
+
+def build_heatmap_frame(
+  matrix_frame: pd.DataFrame,
+  value_column: str,
+  selected_sources: list[str],
+) -> pd.DataFrame:
+  """Build a pivoted dimension-by-source frame for heatmap rendering."""
+
+  dimension_order: list[str] = list(
+    matrix_frame.groupby("dimension")["records"].sum().sort_values(ascending=False).index
+  )
+  heatmap_frame: pd.DataFrame = matrix_frame.pivot_table(
+    index="dimension",
+    columns="source_name",
+    values=value_column,
+    aggfunc="mean" if value_column == "average_sentiment" else "sum",
+    fill_value=0,
+  )
+  heatmap_frame = heatmap_frame.reindex(index=dimension_order)
+  heatmap_frame = heatmap_frame.reindex(columns=selected_sources, fill_value=0)
+  return heatmap_frame
+
+
+def render_records_heatmap(common_params: dict[str, Any], selected_sources: list[str]) -> None:
+  """Render the source-by-dimension news-count heatmap."""
+
+  st.subheader("News count by source")
+  dimension: str = render_dimension_selector("count_matrix_dimension")
+  _, matrix_frame = load_dataframe(
+    "/metrics/nlp-source-matrix",
+    {**common_params, "dimension": dimension},
+  )
+
+  if matrix_frame.empty:
+    st.info("No data available for the selected filters.")
+    return
+
+  heatmap_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "records", selected_sources)
+  figure = px.imshow(
+    heatmap_frame,
+    aspect="auto",
+    color_continuous_scale="Blues",
+    labels={"x": "Source", "y": "Topic / category", "color": "News"},
+  )
+  figure.update_layout(height=max(420, 28 * len(heatmap_frame)))
+  st.plotly_chart(figure, use_container_width=True)
+
+
+def render_sentiment_heatmap(common_params: dict[str, Any], selected_sources: list[str]) -> None:
+  """Render the source-by-dimension average sentiment heatmap."""
+
+  st.subheader("Average sentiment by source")
+  dimension: str = render_dimension_selector("sentiment_matrix_dimension")
+  _, matrix_frame = load_dataframe(
+    "/metrics/nlp-source-matrix",
+    {**common_params, "dimension": dimension},
+  )
+
+  if matrix_frame.empty:
+    st.info("No data available for the selected filters.")
+    return
+
+  heatmap_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "average_sentiment", selected_sources)
+  figure = px.imshow(
+    heatmap_frame,
+    aspect="auto",
+    color_continuous_scale="RdYlGn",
+    zmin=-1,
+    zmax=1,
+    labels={"x": "Source", "y": "Topic / category", "color": "Sentiment"},
+  )
+  figure.update_layout(height=max(420, 28 * len(heatmap_frame)))
+  st.plotly_chart(figure, use_container_width=True)
 
 
 def main() -> None:
   """Run the Streamlit dashboard application."""
 
   render_header()
-  filters: dict[str, Any] = render_sidebar_filters()
+  _, sources_frame = load_dataframe("/sources", {})
+  if sources_frame.empty or "source_name" not in sources_frame.columns:
+    st.error("No sources are available from the API.")
+    st.stop()
+
+  source_options: list[str] = sorted(sources_frame["source_name"].dropna().astype(str).tolist())
+  filters: dict[str, Any] | None = render_sidebar_filters(source_options)
+  if filters is None:
+    st.stop()
+
   common_params: dict[str, Any] = {
     "from": filters["from"],
     "to": filters["to"],
-    "source_type": filters["source_type"],
     "source_name": filters["source_name"],
-    "country": filters["country"],
-    "language": filters["language"],
-    "connector_id": filters["connector_id"],
+    "limit": filters["limit"],
   }
+  summary_params: dict[str, Any] = {
+    "from": filters["from"],
+    "to": filters["to"],
+    "source_name": filters["source_name"],
+  }
+  _, summary_frame = load_dataframe("/metrics/summary", summary_params)
 
-  volume_payload, volume_frame = load_dataframe(
-    "/metrics/volume",
-    {**common_params, "group_by": filters["group_by"]},
-  )
-  duration_payload, duration_frame = load_dataframe(
-    "/metrics/duration",
-    {**common_params, "group_by": filters["group_by"]},
-  )
-  _, source_type_frame = load_dataframe(
-    "/metrics/source-distribution",
-    {**common_params, "group_by": "source_type"},
-  )
-  _, source_name_frame = load_dataframe(
-    "/metrics/source-distribution",
-    {**common_params, "group_by": "source_name"},
-  )
-  _, entity_frame = load_dataframe(
-    "/metrics/entity-ranking",
-    {
-      **common_params,
-      "entity_type": filters["entity_type"],
-      "limit": filters["entity_limit"],
-    },
-  )
-  _, keyword_frame = load_dataframe(
-    "/metrics/keyword-frequency",
-    {
-      **common_params,
-      "limit": filters["keyword_limit"],
-      "min_length": 4,
-      "exclude_stopwords": True,
-    },
-  )
-  _, records_frame = load_dataframe(
-    "/records",
-    {
-      **common_params,
-      "limit": filters["records_limit"],
-      "offset": 0,
-      "fields": DEFAULT_RECORD_FIELDS,
-    },
-  )
-
-  if volume_payload is None or duration_payload is None:
-    st.stop()
-
-  render_metric_cards(volume_frame, duration_frame)
-
-  overview_tab, semantic_tab, records_tab = st.tabs(["Overview", "Semantica", "Registros"])
-
-  with overview_tab:
-    render_time_series(volume_frame, duration_frame)
-    render_distribution_section(source_type_frame, source_name_frame)
-
-  with semantic_tab:
-    render_semantic_section(entity_frame, keyword_frame)
-
-  with records_tab:
-    render_records_table(records_frame)
+  render_metric_cards(summary_frame)
+  st.divider()
+  render_ranking_chart(common_params)
+  st.divider()
+  render_records_heatmap(common_params, filters["source_name"])
+  st.divider()
+  render_sentiment_heatmap(common_params, filters["source_name"])
 
 
 if __name__ == "__main__":

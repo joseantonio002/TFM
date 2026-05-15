@@ -121,6 +121,37 @@ def test_source_distribution_endpoint(base_url: str, api_session: requests.Sessi
     assert isinstance(row["records"], int)
 
 
+def test_sources_endpoint(base_url: str, api_session: requests.Session) -> None:
+  """Verify that available sources are returned for dashboard filters."""
+
+  response: requests.Response = api_session.get(f"{base_url}/sources", timeout=10)
+
+  assert response.status_code == 200
+  payload: dict[str, Any] = response.json()
+  assert payload["metric"] == "sources"
+  assert isinstance(payload["data"], list)
+  for row in payload["data"]:
+    assert set(row.keys()) == {"source_name", "records"}
+    assert isinstance(row["source_name"], str)
+    assert isinstance(row["records"], int)
+
+
+def test_summary_metrics_endpoint(base_url: str, api_session: requests.Session) -> None:
+  """Verify that summary metrics expose total and filtered counts."""
+
+  response: requests.Response = api_session.get(f"{base_url}/metrics/summary", timeout=10)
+
+  assert response.status_code == 200
+  payload: dict[str, Any] = response.json()
+  assert payload["metric"] == "summary"
+  assert isinstance(payload["data"], list)
+  assert len(payload["data"]) == 1
+  row: dict[str, Any] = payload["data"][0]
+  assert set(row.keys()) == {"total_records", "filtered_records"}
+  assert isinstance(row["total_records"], int)
+  assert isinstance(row["filtered_records"], int)
+
+
 def test_entity_ranking_endpoint(base_url: str, api_session: requests.Session) -> None:
   """Verify that entity ranking returns entity, mentions and record counts."""
 
@@ -144,28 +175,49 @@ def test_entity_ranking_endpoint(base_url: str, api_session: requests.Session) -
     assert isinstance(row["records"], int)
 
 
-def test_keyword_frequency_endpoint(base_url: str, api_session: requests.Session) -> None:
-  """Verify that keyword frequency returns the expected aggregate shape."""
+def test_nlp_ranking_endpoint(base_url: str, api_session: requests.Session) -> None:
+  """Verify that NLP ranking returns topics or threat categories."""
 
   response: requests.Response = api_session.get(
-    f"{base_url}/metrics/keyword-frequency",
-    params={"limit": 5, "min_length": 4, "exclude_stopwords": "true"},
+    f"{base_url}/metrics/nlp-ranking",
+    params={"dimension": "topic", "limit": 5},
     timeout=10,
   )
 
   assert response.status_code == 200
   payload: dict[str, Any] = response.json()
-  assert payload["metric"] == "keyword-frequency"
+  assert payload["metric"] == "nlp-ranking"
+  assert payload["filters"]["dimension"] == "topic"
   assert payload["filters"]["limit"] == 5
-  assert payload["filters"]["min_length"] == 4
-  assert payload["filters"]["exclude_stopwords"] is True
   assert isinstance(payload["data"], list)
   assert len(payload["data"]) <= 5
   for row in payload["data"]:
-    assert set(row.keys()) == {"keyword", "frequency", "records"}
-    assert isinstance(row["keyword"], str)
-    assert isinstance(row["frequency"], int)
+    assert set(row.keys()) == {"dimension", "records"}
+    assert isinstance(row["dimension"], str)
     assert isinstance(row["records"], int)
+
+
+def test_nlp_source_matrix_endpoint(base_url: str, api_session: requests.Session) -> None:
+  """Verify that NLP source matrix returns counts and average sentiment."""
+
+  response: requests.Response = api_session.get(
+    f"{base_url}/metrics/nlp-source-matrix",
+    params={"dimension": "threat_category", "limit": 5},
+    timeout=10,
+  )
+
+  assert response.status_code == 200
+  payload: dict[str, Any] = response.json()
+  assert payload["metric"] == "nlp-source-matrix"
+  assert payload["filters"]["dimension"] == "threat_category"
+  assert payload["filters"]["limit"] == 5
+  assert isinstance(payload["data"], list)
+  for row in payload["data"]:
+    assert set(row.keys()) == {"dimension", "source_name", "records", "average_sentiment"}
+    assert isinstance(row["dimension"], str)
+    assert isinstance(row["source_name"], str)
+    assert isinstance(row["records"], int)
+    assert isinstance(row["average_sentiment"], (int, float))
 
 
 def test_invalid_group_by_returns_validation_error(

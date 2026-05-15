@@ -25,7 +25,7 @@ Los siguientes filtros estan disponibles en casi todos los endpoints:
 - `from`: fecha/hora inicial en formato ISO 8601
 - `to`: fecha/hora final en formato ISO 8601
 - `source_type`: filtra por tipo de fuente
-- `source_name`: filtra por nombre de fuente
+- `source_name`: filtra por nombre de fuente. Puede repetirse para consultar varias fuentes
 - `country`: filtra por pais
 - `language`: filtra por idioma
 - `connector_id`: filtra por conector
@@ -33,7 +33,7 @@ Los siguientes filtros estan disponibles en casi todos los endpoints:
 Ejemplo:
 
 ```text
-?from=2026-04-20T00:00:00Z&to=2026-04-25T23:59:59Z&language=es&country=ES
+?from=2026-04-20T00:00:00Z&to=2026-04-25T23:59:59Z&source_name=24%20horas&source_name=RNE
 ```
 
 ## `GET /health`
@@ -122,6 +122,72 @@ GET /records?language=es&source_type=Radio&limit=2&fields=id,source_name,extract
         "start": 0.0,
         "duration": 81.0
       }
+    }
+  ]
+}
+```
+
+## `GET /sources`
+
+Devuelve las fuentes disponibles para selectores del dashboard.
+
+### Parametros
+
+No tiene parametros.
+
+### Ejemplo
+
+```http
+GET /sources
+```
+
+### Respuesta
+
+```json
+{
+  "metric": "sources",
+  "filters": {},
+  "data": [
+    {
+      "source_name": "24 horas",
+      "records": 120
+    },
+    {
+      "source_name": "RNE",
+      "records": 95
+    }
+  ]
+}
+```
+
+## `GET /metrics/summary`
+
+Devuelve el numero total de noticias en la tabla y el numero de noticias que cumplen los filtros enviados.
+
+### Parametros
+
+- Filtros comunes
+
+### Ejemplo
+
+```http
+GET /metrics/summary?from=2026-05-08T00:00:00Z&to=2026-05-15T23:59:59Z&source_name=24%20horas
+```
+
+### Respuesta
+
+```json
+{
+  "metric": "summary",
+  "filters": {
+    "from": "2026-05-08T00:00:00+00:00",
+    "to": "2026-05-15T23:59:59+00:00",
+    "source_name": ["24 horas"]
+  },
+  "data": [
+    {
+      "total_records": 3500,
+      "filtered_records": 42
     }
   ]
 }
@@ -280,50 +346,98 @@ GET /metrics/entity-ranking?entity_type=LOC&language=es&limit=5
 }
 ```
 
-## `GET /metrics/keyword-frequency`
+## `GET /metrics/nlp-ranking`
 
-Devuelve las palabras mas frecuentes encontradas en `content`. Este endpoint calcula la frecuencia en Python a partir de los registros filtrados.
+Devuelve el ranking de topics o categorias de amenaza extraidas desde `nlp_pipeline`.
 
 ### Parametros
 
 - Filtros comunes
-- `limit`: numero maximo de palabras devueltas. Rango `1-1000`. Por defecto `20`
-- `min_length`: longitud minima de palabra. Rango `1-100`. Por defecto `4`
-- `exclude_stopwords`: si vale `true`, excluye stopwords comunes en espanol. Por defecto `true`
+- `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
+- `limit`: numero maximo de dimensiones devueltas. Rango `1-20`. Por defecto `10`
+
+Cuando `dimension=topic`, se excluyen los topics presentes en `app/topic_stopwords.txt` antes de calcular el ranking.
 
 ### Significado de los campos de salida
 
-- `keyword`: palabra detectada
-- `frequency`: numero total de apariciones
-- `records`: numero de registros distintos donde aparece
+- `dimension`: topic o categoria
+- `records`: numero de noticias distintas donde aparece
 
 ### Ejemplo
 
 ```http
-GET /metrics/keyword-frequency?language=es&limit=10&min_length=5&exclude_stopwords=true
+GET /metrics/nlp-ranking?dimension=topic&limit=10&source_name=24%20horas
 ```
 
 ### Respuesta
 
 ```json
 {
-  "metric": "keyword-frequency",
+  "metric": "nlp-ranking",
   "filters": {
-    "language": "es",
-    "limit": 10,
-    "min_length": 5,
-    "exclude_stopwords": true
+    "source_name": ["24 horas"],
+    "dimension": "topic",
+    "limit": 10
   },
   "data": [
     {
-      "keyword": "guerra",
-      "frequency": 14,
-      "records": 9
+      "dimension": "submarinistas",
+      "records": 5
     },
     {
-      "keyword": "mexico",
-      "frequency": 11,
-      "records": 7
+      "dimension": "rescate",
+      "records": 4
+    }
+  ]
+}
+```
+
+## `GET /metrics/nlp-source-matrix`
+
+Devuelve una matriz larga de topics o categorias por fuente, con conteos de noticias y sentimiento medio.
+
+### Parametros
+
+- Filtros comunes
+- `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
+- `limit`: numero maximo de dimensiones usadas. Rango `1-20`. Por defecto `10`
+
+El campo `average_sentiment` se calcula como `positive - negative` usando `nlp_pipeline.sentiment`, por lo que su rango esperado es `-1` a `1`.
+
+### Significado de los campos de salida
+
+- `dimension`: topic o categoria
+- `source_name`: fuente
+- `records`: numero de noticias distintas
+- `average_sentiment`: media de `positive - negative`
+
+### Ejemplo
+
+```http
+GET /metrics/nlp-source-matrix?dimension=threat_category&limit=10
+```
+
+### Respuesta
+
+```json
+{
+  "metric": "nlp-source-matrix",
+  "filters": {
+    "dimension": "threat_category",
+    "limit": 10
+  },
+  "data": [
+    {
+      "dimension": "general",
+      "source_name": "24 horas",
+      "records": 18,
+      "average_sentiment": -0.12
+    },
+    {
+      "dimension": "politics",
+      "source_name": "RNE",
+      "records": 10,
+      "average_sentiment": 0.08
     }
   ]
 }
@@ -331,7 +445,7 @@ GET /metrics/keyword-frequency?language=es&limit=10&min_length=5&exclude_stopwor
 
 ## Errores esperables
 
-- `422 Unprocessable Entity`: parametro invalido, por ejemplo un `group_by` no permitido o un `fields` con columnas no soportadas
+- `422 Unprocessable Entity`: parametro invalido, por ejemplo un `group_by`, `dimension` o `fields` no soportado
 - `503 Service Unavailable`: error de conexion con PostgreSQL
 
 ## Notas de uso
@@ -339,4 +453,5 @@ GET /metrics/keyword-frequency?language=es&limit=10&min_length=5&exclude_stopwor
 - Todos los resultados se devuelven en JSON.
 - Los registros de `/records` se ordenan por `extracted_at DESC`.
 - Las metricas temporales usan `DATE_TRUNC` sobre `extracted_at`.
+- Las metricas de topics excluyen los valores definidos en `app/topic_stopwords.txt`.
 - Si no se informa `NEWS_TABLE_NAME`, la API consulta la tabla `news`.

@@ -1,10 +1,11 @@
 # News Metrics API
 
-API REST en FastAPI para consultar registros y metricas de la tabla `news` en PostgreSQL.
+API REST en FastAPI para consultar registros y metricas de inteligencia de medios de la tabla `news` en PostgreSQL.
 
 ## Estructura
 
 - `app/main.py`: endpoints y queries
+- `app/topic_stopwords.txt`: stopwords de topics excluidas de las metricas NLP
 - `app/config.py`: configuracion por variables de entorno
 - `app/database.py`: conexion a PostgreSQL
 - `Dockerfile`: imagen de la API
@@ -29,11 +30,16 @@ API REST en FastAPI para consultar registros y metricas de la tabla `news` en Po
 
 - `GET /health`
 - `GET /records`
+- `GET /sources`
+- `GET /metrics/summary`
 - `GET /metrics/volume`
 - `GET /metrics/duration`
 - `GET /metrics/source-distribution`
 - `GET /metrics/entity-ranking`
-- `GET /metrics/keyword-frequency`
+- `GET /metrics/nlp-ranking`
+- `GET /metrics/nlp-source-matrix`
+
+Los endpoints con filtro `source_name` aceptan multiples fuentes repitiendo el parametro, por ejemplo `?source_name=24%20horas&source_name=RNE`.
 
 ## Tests
 

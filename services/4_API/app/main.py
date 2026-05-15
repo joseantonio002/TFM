@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from collections import Counter
 from datetime import datetime
 from enum import Enum
-import re
+from functools import lru_cache
+from pathlib import Path
 from typing import Any, Annotated
 
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -34,19 +34,7 @@ DEFAULT_RECORD_FIELDS: list[str] = [
   "nlp_pipeline",
 ]
 ALLOWED_RECORD_FIELDS: set[str] = set(DEFAULT_RECORD_FIELDS + ["created_at"])
-WORD_PATTERN: re.Pattern[str] = re.compile(r"\b[^\W_]+\b", re.UNICODE)
-STOPWORDS: set[str] = {
-  "a", "al", "algo", "algunas", "algunos", "ante", "antes", "como", "con",
-  "contra", "cual", "cuando", "de", "del", "desde", "donde", "dos", "e",
-  "el", "ella", "ellas", "ellos", "en", "entre", "era", "erais", "eran",
-  "eras", "eres", "es", "esa", "esas", "ese", "eso", "esos", "esta",
-  "estaba", "estado", "estamos", "estan", "estar", "estas", "este", "esto",
-  "estos", "fue", "fueron", "ha", "habia", "han", "hasta", "hay", "la",
-  "las", "le", "les", "lo", "los", "mas", "me", "mi", "mis", "muy",
-  "no", "nos", "o", "os", "para", "pero", "por", "porque", "que", "quien",
-  "se", "si", "sin", "sobre", "son", "su", "sus", "te", "tenia", "tiene",
-  "tienen", "to", "tu", "un", "una", "uno", "unos", "y",
-}
+TOPIC_STOPWORDS_PATH: Path = Path(__file__).with_name("topic_stopwords.txt")
 
 app: FastAPI = FastAPI(title=API_TITLE, version=API_VERSION)
 
@@ -76,6 +64,13 @@ class EntityType(str, Enum):
   misc = "MISC"
 
 
+class NlpDimension(str, Enum):
+  """Supported NLP dimensions for dashboard aggregations."""
+
+  topic = "topic"
+  threat_category = "threat_category"
+
+
 class CommonFilters(BaseModel):
   """Validated common filters shared across records and metrics endpoints."""
 
@@ -84,12 +79,12 @@ class CommonFilters(BaseModel):
   from_datetime: datetime | None = Field(default=None, alias="from")
   to_datetime: datetime | None = Field(default=None, alias="to")
   source_type: str | None = None
-  source_name: str | None = None
+  source_name: list[str] | None = None
   country: str | None = None
   language: str | None = None
   connector_id: str | None = None
 
-  @field_validator("source_type", "source_name", "country", "language", "connector_id")
+  @field_validator("source_type", "country", "language", "connector_id")
   @classmethod
   def strip_string_values(cls, value: str | None) -> str | None:
     """Trim string filters and normalize empty values to None."""
@@ -98,6 +93,20 @@ class CommonFilters(BaseModel):
       return None
     stripped_value: str = value.strip()
     return stripped_value or None
+
+  @field_validator("source_name")
+  @classmethod
+  def strip_source_names(cls, value: list[str] | None) -> list[str] | None:
+    """Trim source-name filters and normalize empty lists to None."""
+
+    if value is None:
+      return None
+    source_names: list[str] = []
+    for source_name in value:
+      stripped_source_name: str = source_name.strip()
+      if stripped_source_name and stripped_source_name not in source_names:
+        source_names.append(stripped_source_name)
+    return source_names or None
 
   @model_validator(mode="after")
   def validate_date_range(self) -> "CommonFilters":
@@ -112,7 +121,7 @@ def get_common_filters(
   from_datetime: Annotated[datetime | None, Query(alias="from")] = None,
   to_datetime: Annotated[datetime | None, Query(alias="to")] = None,
   source_type: Annotated[str | None, Query()] = None,
-  source_name: Annotated[str | None, Query()] = None,
+  source_name: Annotated[list[str] | None, Query()] = None,
   country: Annotated[str | None, Query()] = None,
   language: Annotated[str | None, Query()] = None,
   connector_id: Annotated[str | None, Query()] = None,
@@ -180,7 +189,7 @@ def build_common_filters_sql(
     clauses.append(sql.SQL("{} = %s").format(build_column_reference("source_type", table_alias)))
     parameters.append(filters.source_type)
   if filters.source_name is not None:
-    clauses.append(sql.SQL("{} = %s").format(build_column_reference("source_name", table_alias)))
+    clauses.append(sql.SQL("{} = ANY(%s::text[])").format(build_column_reference("source_name", table_alias)))
     parameters.append(filters.source_name)
   if filters.country is not None:
     clauses.append(sql.SQL("{} = %s").format(build_column_reference("country", table_alias)))
@@ -236,17 +245,36 @@ def resolve_record_fields(fields: str | None) -> list[str]:
     raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
-def tokenize_content(content: str, min_length: int, exclude_stopwords: bool) -> list[str]:
-  """Split content into normalized tokens for keyword analysis."""
+@lru_cache(maxsize=1)
+def load_topic_stopwords() -> list[str]:
+  """Load normalized topic stopwords used to exclude noisy NLP topics."""
 
-  tokens: list[str] = []
-  for match in WORD_PATTERN.findall(content.lower()):
-    if len(match) < min_length:
-      continue
-    if exclude_stopwords and match in STOPWORDS:
-      continue
-    tokens.append(match)
-  return tokens
+  if not TOPIC_STOPWORDS_PATH.exists():
+    return []
+  stopwords: list[str] = []
+  for raw_stopword in TOPIC_STOPWORDS_PATH.read_text(encoding="utf-8").splitlines():
+    stopword: str = raw_stopword.strip().lower()
+    if stopword and stopword not in stopwords:
+      stopwords.append(stopword)
+  return stopwords
+
+
+def build_sentiment_score_expression(table_alias: str | None = None) -> sql.Composable:
+  """Build the SQL expression for positive-minus-negative sentiment score."""
+
+  nlp_pipeline_column: sql.Composable = build_column_reference("nlp_pipeline", table_alias)
+  return sql.SQL(
+    "COALESCE(NULLIF({} -> 'sentiment' ->> 'positive', '')::double precision, 0) - "
+    "COALESCE(NULLIF({} -> 'sentiment' ->> 'negative', '')::double precision, 0)"
+  ).format(nlp_pipeline_column, nlp_pipeline_column)
+
+
+def build_threat_category_expression(table_alias: str | None = None) -> sql.Composable:
+  """Build the SQL expression for normalized threat-classification category."""
+
+  return sql.SQL(
+    "COALESCE(NULLIF(LOWER(TRIM({} -> 'threat_classification' ->> 'category')), ''), 'unknown')"
+  ).format(build_column_reference("nlp_pipeline", table_alias))
 
 
 def execute_query(query: sql.Composable, parameters: list[Any]) -> list[dict[str, Any]]:
@@ -301,6 +329,50 @@ def get_records(
       resolved_filters,
       {"limit": limit, "offset": offset, "fields": selected_fields},
     ),
+    "data": rows,
+  }
+
+
+@app.get("/sources")
+def get_sources() -> dict[str, Any]:
+  """Return the available source names for dashboard selection."""
+
+  query: sql.Composable = sql.SQL(
+    "SELECT source_name, COUNT(*)::int AS records "
+    "FROM {} WHERE source_name IS NOT NULL AND TRIM(source_name) <> '' "
+    "GROUP BY source_name ORDER BY source_name ASC"
+  ).format(sql.Identifier(NEWS_TABLE_NAME))
+  rows: list[dict[str, Any]] = execute_query(query, [])
+
+  return {
+    "metric": "sources",
+    "filters": {},
+    "data": rows,
+  }
+
+
+@app.get("/metrics/summary")
+def get_summary_metrics(
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+) -> dict[str, Any]:
+  """Return total and filtered news counts for dashboard summary cards."""
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  where_sql, parameters = build_common_filters_sql(resolved_filters)
+  query: sql.Composable = sql.SQL(
+    "SELECT "
+    "(SELECT COUNT(*)::int FROM {}) AS total_records, "
+    "(SELECT COUNT(*)::int FROM {}{}) AS filtered_records"
+  ).format(
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier(NEWS_TABLE_NAME),
+    where_sql,
+  )
+  rows: list[dict[str, Any]] = execute_query(query, parameters)
+
+  return {
+    "metric": "summary",
+    "filters": serialize_filters(resolved_filters),
     "data": rows,
   }
 
@@ -433,54 +505,135 @@ def get_entity_ranking_metrics(
   }
 
 
-@app.get("/metrics/keyword-frequency")
-def get_keyword_frequency_metrics(
+@app.get("/metrics/nlp-ranking")
+def get_nlp_ranking_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
-  limit: Annotated[int, Query(ge=1, le=1000)] = 20,
-  min_length: Annotated[int, Query(ge=1, le=100)] = 4,
-  exclude_stopwords: Annotated[bool, Query()] = True,
+  dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
+  limit: Annotated[int, Query(ge=1, le=20)] = 10,
 ) -> dict[str, Any]:
-  """Return the most frequent keywords found in record content."""
+  """Return top NLP topics or threat categories by distinct news records."""
 
   resolved_filters: CommonFilters = filters or get_common_filters()
-  where_sql, parameters = build_common_filters_sql(resolved_filters)
-  query: sql.Composable = sql.SQL(
-    "SELECT content FROM {}{} ORDER BY extracted_at DESC"
-  ).format(
-    sql.Identifier(NEWS_TABLE_NAME),
-    where_sql,
-  )
-  rows: list[dict[str, Any]] = execute_query(query, parameters)
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
 
-  keyword_counter: Counter[str] = Counter()
-  record_counter: Counter[str] = Counter()
-  for row in rows:
-    content: str | None = row.get("content")
-    if not content:
-      continue
-    tokens: list[str] = tokenize_content(content, min_length, exclude_stopwords)
-    keyword_counter.update(tokens)
-    record_counter.update(set(tokens))
-
-  data: list[dict[str, Any]] = []
-  for keyword, frequency in keyword_counter.most_common(limit):
-    data.append(
-      {
-        "keyword": keyword,
-        "frequency": frequency,
-        "records": record_counter[keyword],
-      }
+  if dimension == NlpDimension.topic:
+    query: sql.Composable = sql.SQL(
+      "WITH exploded AS ("
+      "SELECT {} AS id, LOWER(TRIM(topic.value)) AS dimension "
+      "FROM {} AS {} "
+      "CROSS JOIN LATERAL jsonb_array_elements_text("
+      "COALESCE({} -> 'topics', '[]'::jsonb)"
+      ") AS topic(value){}"
+      ") "
+      "SELECT dimension, COUNT(DISTINCT id)::int AS records "
+      "FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[])) "
+      "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+    ).format(
+      build_column_reference("id", "n"),
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      build_column_reference("nlp_pipeline", "n"),
+      where_sql,
     )
+    rows: list[dict[str, Any]] = execute_query(query, parameters + [load_topic_stopwords(), limit])
+  else:
+    category_expression: sql.Composable = build_threat_category_expression("n")
+    query = sql.SQL(
+      "SELECT {} AS dimension, COUNT(*)::int AS records "
+      "FROM {} AS {}{} GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+    ).format(
+      category_expression,
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      where_sql,
+    )
+    rows = execute_query(query, parameters + [limit])
 
   return {
-    "metric": "keyword-frequency",
+    "metric": "nlp-ranking",
     "filters": serialize_filters(
       resolved_filters,
-      {
-        "limit": limit,
-        "min_length": min_length,
-        "exclude_stopwords": exclude_stopwords,
-      },
+      {"dimension": dimension.value, "limit": limit},
     ),
-    "data": data,
+    "data": rows,
+  }
+
+
+@app.get("/metrics/nlp-source-matrix")
+def get_nlp_source_matrix_metrics(
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+  dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
+  limit: Annotated[int, Query(ge=1, le=20)] = 10,
+) -> dict[str, Any]:
+  """Return NLP topic/category counts and average sentiment by source."""
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  source_expression: sql.Composable = sql.SQL(
+    "COALESCE(NULLIF(TRIM({}), ''), 'unknown')"
+  ).format(build_column_reference("source_name", "n"))
+  sentiment_expression: sql.Composable = build_sentiment_score_expression("n")
+
+  if dimension == NlpDimension.topic:
+    query: sql.Composable = sql.SQL(
+      "WITH exploded AS ("
+      "SELECT {} AS id, {} AS source_name, LOWER(TRIM(topic.value)) AS dimension, "
+      "{} AS sentiment_score FROM {} AS {} "
+      "CROSS JOIN LATERAL jsonb_array_elements_text("
+      "COALESCE({} -> 'topics', '[]'::jsonb)"
+      ") AS topic(value){}"
+      "), filtered AS ("
+      "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+      "), top_dimensions AS ("
+      "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM filtered "
+      "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+      ") "
+      "SELECT f.dimension, f.source_name, COUNT(DISTINCT f.id)::int AS records, "
+      "COALESCE(AVG(f.sentiment_score), 0)::double precision AS average_sentiment "
+      "FROM filtered AS f INNER JOIN top_dimensions AS t ON f.dimension = t.dimension "
+      "GROUP BY f.dimension, f.source_name, t.records "
+      "ORDER BY t.records DESC, f.dimension ASC, f.source_name ASC"
+    ).format(
+      build_column_reference("id", "n"),
+      source_expression,
+      sentiment_expression,
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      build_column_reference("nlp_pipeline", "n"),
+      where_sql,
+    )
+    rows: list[dict[str, Any]] = execute_query(query, parameters + [load_topic_stopwords(), limit])
+  else:
+    category_expression: sql.Composable = build_threat_category_expression("n")
+    query = sql.SQL(
+      "WITH categorized AS ("
+      "SELECT {} AS id, {} AS source_name, {} AS dimension, {} AS sentiment_score "
+      "FROM {} AS {}{}"
+      "), top_dimensions AS ("
+      "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM categorized "
+      "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+      ") "
+      "SELECT c.dimension, c.source_name, COUNT(DISTINCT c.id)::int AS records, "
+      "COALESCE(AVG(c.sentiment_score), 0)::double precision AS average_sentiment "
+      "FROM categorized AS c INNER JOIN top_dimensions AS t ON c.dimension = t.dimension "
+      "GROUP BY c.dimension, c.source_name, t.records "
+      "ORDER BY t.records DESC, c.dimension ASC, c.source_name ASC"
+    ).format(
+      build_column_reference("id", "n"),
+      source_expression,
+      category_expression,
+      sentiment_expression,
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      where_sql,
+    )
+    rows = execute_query(query, parameters + [limit])
+
+  return {
+    "metric": "nlp-source-matrix",
+    "filters": serialize_filters(
+      resolved_filters,
+      {"dimension": dimension.value, "limit": limit},
+    ),
+    "data": rows,
   }
