@@ -12,8 +12,9 @@ apt install -y python3 python3-pip python3-venv libpq-dev gcc curl
 python3 -m venv /venv
 . /venv/bin/activate
 pip install --upgrade pip
-pip install -r /workspace/services/3_database/requirements.txt
-pip install -r /workspace/services/2_pipeline_NLP/requirements.txt
+pip install spacy
+pip install pyscopasdfadsf
+python -m spacy download es_core_news_lg
 python /workspace/services/3_database/refresh_news_entities.py \
   --host newsdb \
   --port 5432 \

@@ -64,7 +64,7 @@ def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
     user=args.user,
     password=args.password
   ) as conn:
-    with conn.cursor(name="news_entities_cursor") as select_cursor, conn.cursor() as update_cursor:
+    with conn.cursor(name="news_entities_cursor", withhold=True) as select_cursor, conn.cursor() as update_cursor:
       select_cursor.itersize = args.batch_size
       select_cursor.execute(select_query)
 
