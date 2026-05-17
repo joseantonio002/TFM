@@ -13,7 +13,7 @@ python3 -m venv /venv
 . /venv/bin/activate
 pip install --upgrade pip
 pip install spacy
-pip install pyscopasdfadsf
+pip install psycopg2-binary==2.9.12
 python -m spacy download es_core_news_lg
 python /workspace/services/3_database/refresh_news_entities.py \
   --host newsdb \
