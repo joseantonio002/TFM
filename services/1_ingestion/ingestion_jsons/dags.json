@@ -24,9 +24,9 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   },
   "24Horas_findes": {
@@ -41,7 +41,7 @@
       "t": 30,
       "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   },
   "RNE_laborales_temprano_0600": {
@@ -84,9 +84,9 @@
     ],
     "params": {
       "t": 60,
-      "m": "base",
+      "m": "tiny",
       "news_length": "medium",
-      "nt": 2
+      "nt": 3
     }
   },
   "RNE_findes": {
@@ -99,9 +99,9 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   },
   "OndaCero_general": {
@@ -174,9 +174,9 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   },
   "ORM_findes": {
@@ -189,9 +189,9 @@
     ],
     "params": {
       "t": 30,
-      "m": "base",
+      "m": "tiny",
       "news_length": "short",
-      "nt": 2
+      "nt": 3
     }
   }
 }

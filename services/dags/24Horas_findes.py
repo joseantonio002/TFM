@@ -36,7 +36,7 @@ with DAG(
  '-news_length',
  'short',
  '-nt',
- '2'],
+ '3'],
     environment={'AIRFLOW_DAG_ID': '24Horas_findes',
  'EXTRACTED_AT': '{{ ti.start_date }}',
  'AIRFLOW_RUN_ID': '{{ run_id }}',
