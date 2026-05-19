@@ -1,21 +1,23 @@
 import argparse
 import importlib.util
 import os
+import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 import psycopg2
 from psycopg2 import sql
 from psycopg2.extras import Json, execute_batch
 
 DEFAULT_BATCH_SIZE: int = 100
-NER_MAIN_PATH: Path = Path(__file__).resolve().parent.parent / "2_pipeline_NLP" / "nlp_steps" / "NER" / "ner_main.py"
+NLP_PIPELINE_DIR: Path = Path(__file__).resolve().parent.parent / "2_pipeline_NLP"
+NLP_PIPELINE_MAIN_PATH: Path = NLP_PIPELINE_DIR / "main.py"
 
 
 def parse_args() -> argparse.Namespace:
   """Parse command line arguments for the database refresh script."""
   parser = argparse.ArgumentParser(
-    description="Refresh news.nlp_pipeline.entities using the current ner_main.py output."
+    description="Refresh news.nlp_pipeline using the current full NLP pipeline output."
   )
   parser.add_argument("--host", default=os.getenv("NEWSDB_CONTAINER_NAME", "localhost"))
   parser.add_argument("--port", type=int, default=int(os.getenv("POSTGRES_PORT", "5432")))
@@ -27,30 +29,33 @@ def parse_args() -> argparse.Namespace:
   return parser.parse_args()
 
 
-def load_ner_main() -> Any:
-  """Load the ner_main function directly from the NLP pipeline file."""
-  spec = importlib.util.spec_from_file_location("news_ner_main_module", NER_MAIN_PATH)
+def load_nlp_pipeline() -> Callable[[dict[str, Any]], dict[str, Any]]:
+  """Load the nlp_pipeline function directly from the NLP pipeline main file."""
+  if str(NLP_PIPELINE_DIR) not in sys.path:
+    sys.path.insert(0, str(NLP_PIPELINE_DIR))
+
+  spec = importlib.util.spec_from_file_location("news_nlp_pipeline_module", NLP_PIPELINE_MAIN_PATH)
   if spec is None or spec.loader is None:
-    raise ImportError(f"Could not load ner_main module from {NER_MAIN_PATH}")
+    raise ImportError(f"Could not load NLP pipeline module from {NLP_PIPELINE_MAIN_PATH}")
   module = importlib.util.module_from_spec(spec)
   spec.loader.exec_module(module)
-  return module.ner_main
+  return module.nlp_pipeline
 
 
-def build_updated_nlp_pipeline(nlp_pipeline: Any, content: str, ner_function: Any) -> dict[str, Any]:
-  """Replace the entities section while preserving the rest of nlp_pipeline."""
-  updated_nlp_pipeline: dict[str, Any] = dict(nlp_pipeline) if isinstance(nlp_pipeline, dict) else {}
-  updated_nlp_pipeline.pop("entities", None)
-  updated_nlp_pipeline.update(ner_function(content or ""))
-  return updated_nlp_pipeline
+def build_updated_nlp_pipeline(content: str, pipeline_function: Callable[[dict[str, Any]], dict[str, Any]]) -> dict[str, Any]:
+  """Run the full NLP pipeline and return the replacement nlp_pipeline payload."""
+  pipeline_input: dict[str, Any] = {"content": content or ""}
+  pipeline_output: dict[str, Any] = pipeline_function(pipeline_input)
+  nlp_pipeline = pipeline_output.get("nlp_pipeline", {})
+  return nlp_pipeline if isinstance(nlp_pipeline, dict) else {}
 
 
 def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
-  """Refresh the entities payload for every row in the selected news table."""
-  ner_function = load_ner_main()
+  """Refresh the full NLP pipeline payload for every row in the selected news table."""
+  pipeline_function = load_nlp_pipeline()
   processed_rows: int = 0
   updated_rows: int = 0
-  select_query = sql.SQL("SELECT id, content, nlp_pipeline FROM {table}").format(
+  select_query = sql.SQL("SELECT id, content FROM {table}").format(
     table=sql.Identifier(args.table)
   )
   update_query = sql.SQL("UPDATE {table} SET nlp_pipeline = %(nlp_pipeline)s WHERE id = %(id)s").format(
@@ -74,9 +79,9 @@ def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
           break
 
         update_params: list[dict[str, Any]] = []
-        for row_id, content, nlp_pipeline in rows:
+        for row_id, content in rows:
           processed_rows += 1
-          updated_nlp_pipeline = build_updated_nlp_pipeline(nlp_pipeline, content or "", ner_function)
+          updated_nlp_pipeline = build_updated_nlp_pipeline(content or "", pipeline_function)
           update_params.append({
             "id": row_id,
             "nlp_pipeline": Json(updated_nlp_pipeline)

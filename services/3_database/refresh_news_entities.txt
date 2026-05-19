@@ -1,9 +1,8 @@
-Sí. Para que funcione contra newsdb, el contenedor tiene que estar en la red compose_net.
-Lanza uno interactivo con Ubuntu y con tu repo montado dentro:
+Desde la raíz del repo, lanza un contenedor interactivo con los servicios montados:
 docker run --rm -it \
-  --name refresh-news-entities \
+  --name refresh-news-nlp-pipeline \
   --network compose_net \
-  -v "$HOME/services:/workspace/services" \
+  -v "$(pwd)/services:/workspace/services" \
   ubuntu:latest \
   bash
 Dentro del contenedor, ejecuta esto:
@@ -12,32 +11,9 @@ apt install -y python3 python3-pip python3-venv libpq-dev gcc curl
 python3 -m venv /venv
 . /venv/bin/activate
 pip install --upgrade pip
-pip install spacy
-pip install psycopg2-binary==2.9.12
-python -m spacy download es_core_news_lg
+pip install -r /workspace/services/2_pipeline_NLP/requirements.txt
+pip install -r /workspace/services/3_database/requirements.txt
 python /workspace/services/3_database/refresh_news_entities.py \
-  --host newsdb \
-  --port 5432 \
-  --dbname newsdb \
-  --user myuser \
-  --password mypassword
-Notas importantes:
-- Uso newsdb porque ese es el nombre real del contenedor.
-- Con -v "$HOME/services:/workspace/services" no hace falta copiar archivos manualmente; ya los ves dentro del contenedor.
-- Si de verdad quieres copiarlos en vez de montar volumen, te doy también la variante con docker cp.
-Si prefieres la variante de copiar el código dentro del contenedor, usa esta secuencia:
-docker run --rm -it --name refresh-news-entities --network compose_net ubuntu:latest bash
-En otra terminal de la VM:
-docker cp "$HOME/services" refresh-news-entities:/workspace
-Y luego dentro del contenedor:
-apt update
-apt install -y python3 python3-pip python3-venv libpq-dev gcc curl
-python3 -m venv /venv
-. /venv/bin/activate
-pip install --upgrade pip
-pip install -r /workspace/3_database/requirements.txt
-pip install -r /workspace/2_pipeline_NLP/requirements.txt
-python /workspace/3_database/refresh_news_entities.py \
   --host newsdb \
   --port 5432 \
   --dbname newsdb \
