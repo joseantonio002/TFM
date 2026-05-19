@@ -16,15 +16,20 @@ def load_metadata_from_environment() -> tuple[str, str]:
 # Function that performs the NLP pipeline on the given content.
 # If we want to add more steps to the pipeline, we can simply add them to this function.
 def nlp_pipeline(input_json: json) -> None:
+  print("Starting NLP pipeline")
   text = input_json['content']
   input_json['nlp_pipeline'] = {}
   key, value = threat_class_main(text)
+  print(f"Threat class completed")
   input_json['nlp_pipeline'][key] = value
   key, value = pysentimiento_main(text)
+  print(f"Pysentimiento completed")
   input_json['nlp_pipeline'][key] = value
   key, value = topics_main(text)
+  print(f"Topics completed")
   input_json['nlp_pipeline'][key] = value
   key, value = ner_main(text)
+  print(f"NER completed")
   input_json['nlp_pipeline'][key] = value
   return input_json
   
