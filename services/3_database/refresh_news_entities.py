@@ -1,5 +1,5 @@
 import argparse
-import importlib.util
+import importlib
 import os
 import sys
 from pathlib import Path
@@ -11,13 +11,19 @@ from psycopg2.extras import Json, execute_batch
 
 DEFAULT_BATCH_SIZE: int = 100
 NLP_PIPELINE_DIR: Path = Path(__file__).resolve().parent.parent / "2_pipeline_NLP"
-NLP_PIPELINE_MAIN_PATH: Path = NLP_PIPELINE_DIR / "main.py"
+StepFunction = Callable[[str], tuple[str, Any]]
+NLP_STEPS: dict[str, tuple[str, str]] = {
+  "entities": ("nlp_steps.NER.ner_main", "ner_main"),
+  "sentiment": ("nlp_steps.pysentimiento.pysentimiento_main", "pysentimiento_main"),
+  "threat_classification": ("nlp_steps.threat_classifier.threat_class_main", "threat_class_main"),
+  "topics": ("nlp_steps.topics.topics_main", "topics_main"),
+}
 
 
 def parse_args() -> argparse.Namespace:
   """Parse command line arguments for the database refresh script."""
   parser = argparse.ArgumentParser(
-    description="Refresh news.nlp_pipeline using the current full NLP pipeline output."
+    description="Refresh one news.nlp_pipeline step using the current NLP pipeline code."
   )
   parser.add_argument("--host", default=os.getenv("NEWSDB_CONTAINER_NAME", "localhost"))
   parser.add_argument("--port", type=int, default=int(os.getenv("POSTGRES_PORT", "5432")))
@@ -26,36 +32,34 @@ def parse_args() -> argparse.Namespace:
   parser.add_argument("--password", default=os.getenv("POSTGRES_PASSWORD", "mypassword"))
   parser.add_argument("--table", default="news")
   parser.add_argument("--batch-size", type=int, default=DEFAULT_BATCH_SIZE)
+  parser.add_argument("--step", required=True, choices=sorted(NLP_STEPS))
   return parser.parse_args()
 
 
-def load_nlp_pipeline() -> Callable[[dict[str, Any]], dict[str, Any]]:
-  """Load the nlp_pipeline function directly from the NLP pipeline main file."""
+def load_nlp_step(step: str) -> StepFunction:
+  """Load the selected NLP step function from the pipeline modules."""
   if str(NLP_PIPELINE_DIR) not in sys.path:
     sys.path.insert(0, str(NLP_PIPELINE_DIR))
 
-  spec = importlib.util.spec_from_file_location("news_nlp_pipeline_module", NLP_PIPELINE_MAIN_PATH)
-  if spec is None or spec.loader is None:
-    raise ImportError(f"Could not load NLP pipeline module from {NLP_PIPELINE_MAIN_PATH}")
-  module = importlib.util.module_from_spec(spec)
-  spec.loader.exec_module(module)
-  return module.nlp_pipeline
+  module_path, function_name = NLP_STEPS[step]
+  module = importlib.import_module(module_path)
+  return getattr(module, function_name)
 
 
-def build_updated_nlp_pipeline(content: str, pipeline_function: Callable[[dict[str, Any]], dict[str, Any]]) -> dict[str, Any]:
-  """Run the full NLP pipeline and return the replacement nlp_pipeline payload."""
-  pipeline_input: dict[str, Any] = {"content": content or ""}
-  pipeline_output: dict[str, Any] = pipeline_function(pipeline_input)
-  nlp_pipeline = pipeline_output.get("nlp_pipeline", {})
-  return nlp_pipeline if isinstance(nlp_pipeline, dict) else {}
+def build_updated_nlp_pipeline(nlp_pipeline: Any, content: str, step_function: StepFunction) -> dict[str, Any]:
+  """Run one NLP step and replace only that step in the nlp_pipeline payload."""
+  updated_nlp_pipeline: dict[str, Any] = dict(nlp_pipeline) if isinstance(nlp_pipeline, dict) else {}
+  key, value = step_function(content or "")
+  updated_nlp_pipeline[key] = value
+  return updated_nlp_pipeline
 
 
-def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
-  """Refresh the full NLP pipeline payload for every row in the selected news table."""
-  pipeline_function = load_nlp_pipeline()
+def refresh_news_nlp_step(args: argparse.Namespace) -> tuple[int, int]:
+  """Refresh one NLP pipeline step payload for every row in the selected news table."""
+  step_function = load_nlp_step(args.step)
   processed_rows: int = 0
   updated_rows: int = 0
-  select_query = sql.SQL("SELECT id, content FROM {table}").format(
+  select_query = sql.SQL("SELECT id, content, nlp_pipeline FROM {table}").format(
     table=sql.Identifier(args.table)
   )
   update_query = sql.SQL("UPDATE {table} SET nlp_pipeline = %(nlp_pipeline)s WHERE id = %(id)s").format(
@@ -69,7 +73,7 @@ def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
     user=args.user,
     password=args.password
   ) as conn:
-    with conn.cursor(name="news_entities_cursor", withhold=True) as select_cursor, conn.cursor() as update_cursor:
+    with conn.cursor(name="news_nlp_step_cursor", withhold=True) as select_cursor, conn.cursor() as update_cursor:
       select_cursor.itersize = args.batch_size
       select_cursor.execute(select_query)
 
@@ -79,9 +83,9 @@ def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
           break
 
         update_params: list[dict[str, Any]] = []
-        for row_id, content in rows:
+        for row_id, content, nlp_pipeline in rows:
           processed_rows += 1
-          updated_nlp_pipeline = build_updated_nlp_pipeline(content or "", pipeline_function)
+          updated_nlp_pipeline = build_updated_nlp_pipeline(nlp_pipeline, content or "", step_function)
           update_params.append({
             "id": row_id,
             "nlp_pipeline": Json(updated_nlp_pipeline)
@@ -100,9 +104,9 @@ def refresh_news_entities(args: argparse.Namespace) -> tuple[int, int]:
 
 
 def main() -> None:
-  """Run the news entities refresh process and print a short summary."""
+  """Run the news NLP step refresh process and print a short summary."""
   args = parse_args()
-  processed_rows, updated_rows = refresh_news_entities(args)
+  processed_rows, updated_rows = refresh_news_nlp_step(args)
   print(f"Processed rows: {processed_rows}")
   print(f"Updated rows: {updated_rows}")
 

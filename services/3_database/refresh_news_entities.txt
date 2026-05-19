@@ -14,8 +14,11 @@ pip install --upgrade pip
 pip install -r /workspace/services/2_pipeline_NLP/requirements.txt
 pip install -r /workspace/services/3_database/requirements.txt
 python /workspace/services/3_database/refresh_news_entities.py \
+  --step entities \
   --host newsdb \
   --port 5432 \
   --dbname newsdb \
   --user myuser \
   --password mypassword
+
+Valores permitidos para --step: entities, sentiment, threat_classification, topics.
