@@ -5,6 +5,7 @@ import json
 from nlp_steps.pysentimiento.pysentimiento_main import pysentimiento_main
 from nlp_steps.threat_classifier.threat_class_main import threat_class_main
 from nlp_steps.topics.topics_main import topics_main
+from nlp_steps.NER.ner_main import ner_main
 
 INPUT_DIR_PATH: str = "/common"
 OUTPUT_DIR_PATH: str = "/outputs_nlp_pipeline"
@@ -22,6 +23,8 @@ def nlp_pipeline(input_json: json) -> None:
   key, value = pysentimiento_main(text)
   input_json['nlp_pipeline'][key] = value
   key, value = topics_main(text)
+  input_json['nlp_pipeline'][key] = value
+  key, value = ner_main(text)
   input_json['nlp_pipeline'][key] = value
   return input_json
   

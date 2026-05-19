@@ -64,11 +64,4 @@ def ner_main(text: str) -> dict[str, dict[str, list[str]]]:
     else:
       add_unique_entity(misc, ent.text, seen_misc)
 
-  return {
-    "entities": {
-      "PER": per,
-      "LOC": loc,
-      "ORG": org,
-      "MISC": misc
-    }
-  }
+  return "entities", { "PER": per, "LOC": loc, "ORG": org, "MISC": misc}
