@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -69,4 +70,53 @@ def test_nlp_ranking_topic_passes_aggregation_after_stopwords(
     ["pedro sánchez", "pedro sánchez", "pedro sánchez"],
     ["noise"],
     10,
+  ]
+
+
+def test_topic_timeline_uses_selected_aggregated_topic(
+  monkeypatch: pytest.MonkeyPatch,
+) -> None:
+  """Verify topic timeline filters by the selected normalized topic."""
+
+  captured_parameters: dict[str, list[Any]] = {}
+
+  def fake_execute_query(query: Any, parameters: list[Any]) -> list[dict[str, Any]]:
+    """Capture query parameters and return a minimal timeline row."""
+
+    captured_parameters["parameters"] = parameters
+    return [
+      {
+        "bucket": "2026-05-01",
+        "records": 16,
+        "average_sentiment": 0.2,
+        "alert_score": 3,
+        "alert_level": "medium",
+      }
+    ]
+
+  from_datetime: datetime = datetime(2026, 5, 1, tzinfo=timezone.utc)
+  to_datetime: datetime = datetime(2026, 5, 2, tzinfo=timezone.utc)
+  monkeypatch.setattr(main, "load_topic_stopwords", lambda: ["noise"])
+  monkeypatch.setattr(
+    main,
+    "load_topic_aggregation_pairs",
+    lambda: (["sánchez", "pedro"], ["pedro sánchez", "pedro sánchez"]),
+  )
+  monkeypatch.setattr(main, "execute_query", fake_execute_query)
+
+  payload: dict[str, Any] = main.get_topic_timeline_metrics(
+    topic=" Pedro Sánchez ",
+    filters=main.CommonFilters(**{"from": from_datetime, "to": to_datetime}),
+  )
+
+  assert payload["data"][0]["records"] == 16
+  assert captured_parameters["parameters"] == [
+    ["sánchez", "pedro"],
+    ["pedro sánchez", "pedro sánchez"],
+    from_datetime,
+    to_datetime,
+    ["noise"],
+    "pedro sánchez",
+    from_datetime,
+    to_datetime,
   ]

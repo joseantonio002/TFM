@@ -303,6 +303,21 @@ def build_threat_category_expression(table_alias: str | None = None) -> sql.Comp
   ).format(build_column_reference("nlp_pipeline", table_alias))
 
 
+def build_alert_score_expression(table_alias: str | None = None) -> sql.Composable:
+  """Build the SQL expression mapping threat categories to ordered alert scores."""
+
+  threat_category_expression: sql.Composable = build_threat_category_expression(table_alias)
+  return sql.SQL(
+    "CASE {} "
+    "WHEN 'info' THEN 1 "
+    "WHEN 'low' THEN 2 "
+    "WHEN 'medium' THEN 3 "
+    "WHEN 'high' THEN 4 "
+    "WHEN 'critical' THEN 5 "
+    "ELSE NULL END"
+  ).format(threat_category_expression)
+
+
 def execute_query(query: sql.Composable, parameters: list[Any]) -> list[dict[str, Any]]:
   """Execute a SQL query and return all rows as dictionaries."""
 
@@ -535,7 +550,7 @@ def get_entity_ranking_metrics(
 def get_nlp_ranking_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
   dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
-  limit: Annotated[int, Query(ge=1, le=20)] = 10,
+  limit: Annotated[int, Query(ge=1, le=25)] = 10,
 ) -> dict[str, Any]:
   """Return top NLP topics or threat categories by distinct news records."""
 
@@ -600,7 +615,7 @@ def get_nlp_ranking_metrics(
 def get_nlp_source_matrix_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
   dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
-  limit: Annotated[int, Query(ge=1, le=20)] = 10,
+  limit: Annotated[int, Query(ge=1, le=25)] = 10,
 ) -> dict[str, Any]:
   """Return NLP topic/category counts and average sentiment by source."""
 
@@ -681,5 +696,88 @@ def get_nlp_source_matrix_metrics(
       resolved_filters,
       {"dimension": dimension.value, "limit": limit},
     ),
+    "data": rows,
+  }
+
+
+@app.get("/metrics/topic-timeline")
+def get_topic_timeline_metrics(
+  topic: Annotated[str, Query(min_length=1)],
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+) -> dict[str, Any]:
+  """Return daily alert, sentiment and record counts for one aggregated topic."""
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  if resolved_filters.from_datetime is None or resolved_filters.to_datetime is None:
+    raise HTTPException(status_code=422, detail="Both 'from' and 'to' are required for topic timeline")
+
+  normalized_topic: str = topic.strip().lower()
+  if not normalized_topic:
+    raise HTTPException(status_code=422, detail="Topic must not be empty")
+
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+  sentiment_expression: sql.Composable = build_sentiment_score_expression("n")
+  alert_score_expression: sql.Composable = build_alert_score_expression("n")
+  query: sql.Composable = sql.SQL(
+    "WITH topic_aggregation AS ("
+    "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+    "), exploded AS ("
+    "SELECT {} AS id, DATE_TRUNC('day', {})::date AS bucket, "
+    "LOWER(TRIM(topic.value)) AS dimension, {} AS sentiment_score, {} AS alert_score "
+    "FROM {} AS {} "
+    "CROSS JOIN LATERAL jsonb_array_elements_text("
+    "COALESCE({} -> 'topics', '[]'::jsonb)"
+    ") AS topic(value){}"
+    "), filtered AS ("
+    "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+    "), normalized AS ("
+    "SELECT COALESCE(a.canonical, f.dimension) AS dimension, f.id, f.bucket, "
+    "f.sentiment_score, f.alert_score "
+    "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
+    "), selected AS ("
+    "SELECT * FROM normalized WHERE dimension = %s"
+    "), aggregated AS ("
+    "SELECT bucket, COUNT(DISTINCT id)::int AS records, "
+    "AVG(sentiment_score)::double precision AS average_sentiment, MAX(alert_score)::int AS alert_score "
+    "FROM selected GROUP BY bucket"
+    "), days AS ("
+    "SELECT generate_series("
+    "DATE_TRUNC('day', %s::timestamptz), "
+    "DATE_TRUNC('day', %s::timestamptz), "
+    "INTERVAL '1 day'"
+    ")::date AS bucket"
+    ") "
+    "SELECT d.bucket, COALESCE(a.records, 0)::int AS records, "
+    "a.average_sentiment, a.alert_score, "
+    "CASE a.alert_score "
+    "WHEN 1 THEN 'info' "
+    "WHEN 2 THEN 'low' "
+    "WHEN 3 THEN 'medium' "
+    "WHEN 4 THEN 'high' "
+    "WHEN 5 THEN 'critical' "
+    "ELSE NULL END AS alert_level "
+    "FROM days AS d LEFT JOIN aggregated AS a ON d.bucket = a.bucket "
+    "ORDER BY d.bucket ASC"
+  ).format(
+    build_column_reference("id", "n"),
+    build_column_reference("extracted_at", "n"),
+    sentiment_expression,
+    alert_score_expression,
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier("n"),
+    build_column_reference("nlp_pipeline", "n"),
+    where_sql,
+  )
+  rows: list[dict[str, Any]] = execute_query(
+    query,
+    [topic_aggregation_variants, topic_aggregation_canonicals]
+    + parameters
+    + [load_topic_stopwords(), normalized_topic, resolved_filters.from_datetime, resolved_filters.to_datetime],
+  )
+
+  return {
+    "metric": "topic-timeline",
+    "filters": serialize_filters(resolved_filters, {"topic": normalized_topic}),
     "data": rows,
   }

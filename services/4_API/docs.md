@@ -354,7 +354,7 @@ Devuelve el ranking de topics o categorias de amenaza extraidas desde `nlp_pipel
 
 - Filtros comunes
 - `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
-- `limit`: numero maximo de dimensiones devueltas. Rango `1-20`. Por defecto `10`
+- `limit`: numero maximo de dimensiones devueltas. Rango `1-25`. Por defecto `10`
 
 Cuando `dimension=topic`, primero se excluyen los topics presentes en `app/topic_stopwords.txt` y despues se agregan variantes usando `app/topic_aggregations.txt`.
 
@@ -400,7 +400,7 @@ Devuelve una matriz larga de topics o categorias por fuente, con conteos de noti
 
 - Filtros comunes
 - `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
-- `limit`: numero maximo de dimensiones usadas. Rango `1-20`. Por defecto `10`
+- `limit`: numero maximo de dimensiones usadas. Rango `1-25`. Por defecto `10`
 
 El campo `average_sentiment` se calcula como `positive - negative` usando `nlp_pipeline.sentiment`, por lo que su rango esperado es `-1` a `1`.
 
@@ -438,6 +438,53 @@ GET /metrics/nlp-source-matrix?dimension=threat_category&limit=10
       "source_name": "RNE",
       "records": 10,
       "average_sentiment": 0.08
+    }
+  ]
+}
+```
+
+## `GET /metrics/topic-timeline`
+
+Devuelve la evolucion diaria de un unico topic agregado, con numero de noticias, sentimiento medio y nivel maximo de alerta.
+
+### Parametros
+
+- Filtros comunes. Requiere `from` y `to` para construir todos los dias del rango.
+- `topic`: topic agregado exacto a consultar.
+
+El topic se compara despues de excluir stopwords y aplicar `app/topic_aggregations.txt`, igual que en `GET /metrics/nlp-ranking`.
+
+### Significado de los campos de salida
+
+- `bucket`: dia.
+- `records`: numero de noticias distintas del topic en ese dia.
+- `average_sentiment`: media de `positive - negative` para el topic en ese dia.
+- `alert_score`: nivel de alerta numerico. `info=1`, `low=2`, `medium=3`, `high=4`, `critical=5`.
+- `alert_level`: nivel de alerta textual correspondiente al maximo nivel observado ese dia.
+
+### Ejemplo
+
+```http
+GET /metrics/topic-timeline?topic=pedro%20s%C3%A1nchez&from=2026-04-20T00:00:00Z&to=2026-04-25T23:59:59Z
+```
+
+### Respuesta
+
+```json
+{
+  "metric": "topic-timeline",
+  "filters": {
+    "from": "2026-04-20T00:00:00Z",
+    "to": "2026-04-25T23:59:59Z",
+    "topic": "pedro sánchez"
+  },
+  "data": [
+    {
+      "bucket": "2026-04-20",
+      "records": 12,
+      "average_sentiment": -0.18,
+      "alert_score": 3,
+      "alert_level": "medium"
     }
   ]
 }

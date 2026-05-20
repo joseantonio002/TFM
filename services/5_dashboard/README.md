@@ -8,12 +8,14 @@ Dashboard de una sola pagina en Streamlit para explorar topics, categorias de am
 - ranking horizontal de topics o categorias de amenaza
 - heatmap de topics/categorias por fuente con numero de noticias
 - heatmap de topics/categorias por fuente con sentimiento medio `positive - negative`
+- evolucion diaria del nivel de alerta o sentimiento para un topic seleccionado, con volumen diario de noticias de fondo
 
 ## Filtros
 
 - rango de fechas, por defecto los ultimos 7 dias
 - selector multiple de fuentes por `source_name`, por defecto todas las fuentes
-- numero de topics/categorias a mostrar, de `1` a `20`
+- numero de topics/categorias a mostrar, de `1` a `25`
+- buscador de topic para la evolucion temporal, limitado a los topics visibles segun el filtro anterior
 
 ## Variable de entorno
 

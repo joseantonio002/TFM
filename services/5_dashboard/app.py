@@ -8,6 +8,8 @@ from typing import Any
 
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 import requests
 import streamlit as st
 
@@ -18,6 +20,11 @@ DIMENSION_OPTIONS: dict[str, str] = {
   "Topics": "topic",
   "Threat categories": "threat_category",
 }
+TIMELINE_METRIC_OPTIONS: dict[str, str] = {
+  "Alert level": "alert",
+  "Sentiment": "sentiment",
+}
+ALERT_LEVELS: list[str] = ["info", "low", "medium", "high", "critical"]
 
 
 def build_iso_datetime(input_date: date | None, end_of_day: bool = False) -> str | None:
@@ -116,7 +123,7 @@ def render_sidebar_filters(source_options: list[str]) -> dict[str, Any] | None:
     st.warning("Select at least one source to load the dashboard.")
     return None
 
-  topic_limit: int = st.sidebar.slider("Number of topics to show", min_value=1, max_value=20, value=10)
+  topic_limit: int = st.sidebar.slider("Number of topics to show", min_value=1, max_value=25, value=10)
   from_date, to_date = date_range
   return {
     "from": build_iso_datetime(from_date, end_of_day=False),
@@ -239,16 +246,150 @@ def render_sentiment_heatmap(common_params: dict[str, Any], selected_sources: li
     st.info("No data available for the selected filters.")
     return
 
-  heatmap_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "average_sentiment", selected_sources)
-  figure = px.imshow(
-    heatmap_frame,
-    aspect="auto",
-    color_continuous_scale="RdYlGn",
-    zmin=-1,
-    zmax=1,
-    labels={"x": "Source", "y": "Topic / category", "color": "Sentiment"},
+  sentiment_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "average_sentiment", selected_sources)
+  records_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "records", selected_sources).reindex_like(sentiment_frame)
+  figure = go.Figure(
+    data=go.Heatmap(
+      z=sentiment_frame.to_numpy(),
+      x=list(sentiment_frame.columns),
+      y=list(sentiment_frame.index),
+      customdata=records_frame.to_numpy(),
+      colorscale="RdYlGn",
+      zmin=-1,
+      zmax=1,
+      colorbar={"title": "Sentiment"},
+      hovertemplate=(
+        "Topic / category: %{y}<br>"
+        "Source: %{x}<br>"
+        "Sentiment: %{z:.3f}<br>"
+        "News: %{customdata}<extra></extra>"
+      ),
+    )
   )
-  figure.update_layout(height=max(420, 28 * len(heatmap_frame)))
+  figure.update_layout(
+    height=max(420, 28 * len(sentiment_frame)),
+    xaxis_title="Source",
+    yaxis_title="Topic / category",
+  )
+  st.plotly_chart(figure, use_container_width=True)
+
+
+def render_timeline_metric_selector(key: str) -> str:
+  """Render the topic timeline metric selector."""
+
+  selected_label: str = st.radio(
+    "Metric",
+    options=list(TIMELINE_METRIC_OPTIONS.keys()),
+    horizontal=True,
+    key=key,
+  )
+  return TIMELINE_METRIC_OPTIONS[selected_label]
+
+
+def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
+  """Render daily alert or sentiment evolution for one selected topic."""
+
+  st.subheader("Daily alert level or sentiment by topic")
+  _, ranking_frame = load_dataframe(
+    "/metrics/nlp-ranking",
+    {**common_params, "dimension": "topic"},
+  )
+  if ranking_frame.empty or "dimension" not in ranking_frame.columns:
+    st.info("No topic options available for the selected filters.")
+    return
+
+  topic_options: list[str] = ranking_frame["dimension"].dropna().astype(str).tolist()
+  if not topic_options:
+    st.info("No topic options available for the selected filters.")
+    return
+  if st.session_state.get("topic_timeline_topic") not in topic_options:
+    st.session_state["topic_timeline_topic"] = topic_options[0]
+
+  selected_topic: str = st.selectbox(
+    "Topic",
+    options=topic_options,
+    key="topic_timeline_topic",
+  )
+  selected_metric: str = render_timeline_metric_selector("topic_timeline_metric")
+  timeline_params: dict[str, Any] = {
+    "from": common_params.get("from"),
+    "to": common_params.get("to"),
+    "source_name": common_params.get("source_name"),
+    "topic": selected_topic,
+  }
+  _, timeline_frame = load_dataframe("/metrics/topic-timeline", timeline_params)
+  if timeline_frame.empty:
+    st.info("No timeline data available for the selected topic.")
+    return
+
+  timeline_frame["bucket"] = pd.to_datetime(timeline_frame["bucket"]).dt.date
+  timeline_frame["records"] = timeline_frame["records"].fillna(0).astype(int)
+  figure = make_subplots(specs=[[{"secondary_y": True}]])
+  figure.add_bar(
+    x=timeline_frame["bucket"],
+    y=timeline_frame["records"],
+    name="News",
+    marker_color="rgba(250, 128, 114, 0.35)",
+    hovertemplate="Date: %{x}<br>News: %{y}<extra></extra>",
+    secondary_y=True,
+  )
+
+  if selected_metric == "alert":
+    line_values: pd.Series = timeline_frame["alert_score"].where(timeline_frame["records"] > 0)
+    figure.add_trace(
+      go.Scatter(
+        x=timeline_frame["bucket"],
+        y=line_values,
+        mode="lines+markers",
+        name="Alert level",
+        customdata=timeline_frame[["alert_level", "records"]].to_numpy(),
+        line={"color": "#4C5FD5", "width": 3},
+        marker={"size": 8},
+        hovertemplate=(
+          "Date: %{x}<br>"
+          "Alert level: %{customdata[0]}<br>"
+          "News: %{customdata[1]}<extra></extra>"
+        ),
+      ),
+      secondary_y=False,
+    )
+    figure.update_yaxes(
+      title_text="Alert level",
+      tickmode="array",
+      tickvals=list(range(1, len(ALERT_LEVELS) + 1)),
+      ticktext=ALERT_LEVELS,
+      range=[0.7, 5.3],
+      secondary_y=False,
+    )
+  else:
+    line_values = timeline_frame["average_sentiment"].where(timeline_frame["records"] > 0)
+    figure.add_trace(
+      go.Scatter(
+        x=timeline_frame["bucket"],
+        y=line_values,
+        mode="lines+markers",
+        name="Sentiment",
+        customdata=timeline_frame[["records"]].to_numpy(),
+        line={"color": "#1F7A5C", "width": 3},
+        marker={"size": 8},
+        hovertemplate=(
+          "Date: %{x}<br>"
+          "Sentiment: %{y:.3f}<br>"
+          "News: %{customdata[0]}<extra></extra>"
+        ),
+      ),
+      secondary_y=False,
+    )
+    figure.update_yaxes(title_text="Sentiment", range=[-1, 1], secondary_y=False)
+
+  figure.update_yaxes(visible=False, showgrid=False, secondary_y=True)
+  figure.update_layout(
+    height=500,
+    hovermode="x unified",
+    bargap=0.1,
+    xaxis_title="Date",
+    legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
+  )
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -286,6 +427,8 @@ def main() -> None:
   render_records_heatmap(common_params, filters["source_name"])
   st.divider()
   render_sentiment_heatmap(common_params, filters["source_name"])
+  st.divider()
+  render_topic_timeline_chart(common_params)
 
 
 if __name__ == "__main__":
