@@ -356,7 +356,7 @@ Devuelve el ranking de topics o categorias de amenaza extraidas desde `nlp_pipel
 - `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
 - `limit`: numero maximo de dimensiones devueltas. Rango `1-20`. Por defecto `10`
 
-Cuando `dimension=topic`, se excluyen los topics presentes en `app/topic_stopwords.txt` antes de calcular el ranking.
+Cuando `dimension=topic`, primero se excluyen los topics presentes en `app/topic_stopwords.txt` y despues se agregan variantes usando `app/topic_aggregations.txt`.
 
 ### Significado de los campos de salida
 
@@ -453,5 +453,5 @@ GET /metrics/nlp-source-matrix?dimension=threat_category&limit=10
 - Todos los resultados se devuelven en JSON.
 - Los registros de `/records` se ordenan por `extracted_at DESC`.
 - Las metricas temporales usan `DATE_TRUNC` sobre `extracted_at`.
-- Las metricas de topics excluyen los valores definidos en `app/topic_stopwords.txt`.
+- Las metricas de topics excluyen los valores definidos en `app/topic_stopwords.txt` y agregan variantes con `app/topic_aggregations.txt`.
 - Si no se informa `NEWS_TABLE_NAME`, la API consulta la tabla `news`.

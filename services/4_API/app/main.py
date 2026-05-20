@@ -35,6 +35,7 @@ DEFAULT_RECORD_FIELDS: list[str] = [
 ]
 ALLOWED_RECORD_FIELDS: set[str] = set(DEFAULT_RECORD_FIELDS + ["created_at"])
 TOPIC_STOPWORDS_PATH: Path = Path(__file__).with_name("topic_stopwords.txt")
+TOPIC_AGGREGATIONS_PATH: Path = Path(__file__).with_name("topic_aggregations.txt")
 
 app: FastAPI = FastAPI(title=API_TITLE, version=API_VERSION)
 
@@ -257,6 +258,31 @@ def load_topic_stopwords() -> list[str]:
     if stopword and stopword not in stopwords:
       stopwords.append(stopword)
   return stopwords
+
+
+@lru_cache(maxsize=1)
+def load_topic_aggregation_pairs() -> tuple[list[str], list[str]]:
+  """Load topic variants and their canonical aggregation labels."""
+
+  if not TOPIC_AGGREGATIONS_PATH.exists():
+    return [], []
+  variants: list[str] = []
+  canonicals: list[str] = []
+  seen_variants: set[str] = set()
+  for raw_line in TOPIC_AGGREGATIONS_PATH.read_text(encoding="utf-8").splitlines():
+    if "<-" not in raw_line:
+      continue
+    raw_canonical, raw_variants = raw_line.split("<-", maxsplit=1)
+    canonical: str = raw_canonical.strip().lower()
+    if not canonical:
+      continue
+    for raw_variant in raw_variants.split("|"):
+      variant: str = raw_variant.strip().lower()
+      if variant and variant not in seen_variants:
+        variants.append(variant)
+        canonicals.append(canonical)
+        seen_variants.add(variant)
+  return variants, canonicals
 
 
 def build_sentiment_score_expression(table_alias: str | None = None) -> sql.Composable:
@@ -517,16 +543,24 @@ def get_nlp_ranking_metrics(
   where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
 
   if dimension == NlpDimension.topic:
+    topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
     query: sql.Composable = sql.SQL(
-      "WITH exploded AS ("
+      "WITH topic_aggregation AS ("
+      "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+      "), exploded AS ("
       "SELECT {} AS id, LOWER(TRIM(topic.value)) AS dimension "
       "FROM {} AS {} "
       "CROSS JOIN LATERAL jsonb_array_elements_text("
       "COALESCE({} -> 'topics', '[]'::jsonb)"
       ") AS topic(value){}"
+      "), filtered AS ("
+      "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+      "), normalized AS ("
+      "SELECT COALESCE(a.canonical, f.dimension) AS dimension, f.id "
+      "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
       ") "
       "SELECT dimension, COUNT(DISTINCT id)::int AS records "
-      "FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[])) "
+      "FROM normalized "
       "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
     ).format(
       build_column_reference("id", "n"),
@@ -535,7 +569,10 @@ def get_nlp_ranking_metrics(
       build_column_reference("nlp_pipeline", "n"),
       where_sql,
     )
-    rows: list[dict[str, Any]] = execute_query(query, parameters + [load_topic_stopwords(), limit])
+    rows: list[dict[str, Any]] = execute_query(
+      query,
+      [topic_aggregation_variants, topic_aggregation_canonicals] + parameters + [load_topic_stopwords(), limit],
+    )
   else:
     category_expression: sql.Composable = build_threat_category_expression("n")
     query = sql.SQL(
@@ -575,8 +612,11 @@ def get_nlp_source_matrix_metrics(
   sentiment_expression: sql.Composable = build_sentiment_score_expression("n")
 
   if dimension == NlpDimension.topic:
+    topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
     query: sql.Composable = sql.SQL(
-      "WITH exploded AS ("
+      "WITH topic_aggregation AS ("
+      "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+      "), exploded AS ("
       "SELECT {} AS id, {} AS source_name, LOWER(TRIM(topic.value)) AS dimension, "
       "{} AS sentiment_score FROM {} AS {} "
       "CROSS JOIN LATERAL jsonb_array_elements_text("
@@ -584,15 +624,18 @@ def get_nlp_source_matrix_metrics(
       ") AS topic(value){}"
       "), filtered AS ("
       "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+      "), normalized AS ("
+      "SELECT COALESCE(a.canonical, f.dimension) AS dimension, f.id, f.source_name, f.sentiment_score "
+      "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
       "), top_dimensions AS ("
-      "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM filtered "
+      "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM normalized "
       "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
       ") "
-      "SELECT f.dimension, f.source_name, COUNT(DISTINCT f.id)::int AS records, "
-      "COALESCE(AVG(f.sentiment_score), 0)::double precision AS average_sentiment "
-      "FROM filtered AS f INNER JOIN top_dimensions AS t ON f.dimension = t.dimension "
-      "GROUP BY f.dimension, f.source_name, t.records "
-      "ORDER BY t.records DESC, f.dimension ASC, f.source_name ASC"
+      "SELECT n.dimension, n.source_name, COUNT(DISTINCT n.id)::int AS records, "
+      "COALESCE(AVG(n.sentiment_score), 0)::double precision AS average_sentiment "
+      "FROM normalized AS n INNER JOIN top_dimensions AS t ON n.dimension = t.dimension "
+      "GROUP BY n.dimension, n.source_name, t.records "
+      "ORDER BY t.records DESC, n.dimension ASC, n.source_name ASC"
     ).format(
       build_column_reference("id", "n"),
       source_expression,
@@ -602,7 +645,10 @@ def get_nlp_source_matrix_metrics(
       build_column_reference("nlp_pipeline", "n"),
       where_sql,
     )
-    rows: list[dict[str, Any]] = execute_query(query, parameters + [load_topic_stopwords(), limit])
+    rows: list[dict[str, Any]] = execute_query(
+      query,
+      [topic_aggregation_variants, topic_aggregation_canonicals] + parameters + [load_topic_stopwords(), limit],
+    )
   else:
     category_expression: sql.Composable = build_threat_category_expression("n")
     query = sql.SQL(

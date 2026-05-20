@@ -1,0 +1,156 @@
+vox <- box | vox | voz | voces | box bueno
+pedro sánchez <- pedro | sánchez | pedro sánchez | gobierno pedro | gobierno pedro sánchez | presidente pedro sánchez | señor sánchez | sánchez bueno | pedro sánchez bueno
+maría jesús montero <- maría jesús montero | maría jesús | jesús montero | montero | socialista maría jesús | candidata socialista maría | candidata maría jesús | socialista maría | andalucía maría jesús | andalucía maría | señora montero
+hantavirus <- antivirus | anta virus | anta | planta virus | provirus | brote de antivirus
+donald trump <- trump | donald trump | donald | presidente donald trump | presidente donald | dice donald trump | dicho donald trump | dicho donald | trump quiere
+estados unidos <- estados unidos | estados | unidos | estadounidense | estadounidenses | norteamericano | washington | casa blanca
+partido socialista <- partido socialista | socialista | socialistas | psoe
+partido popular <- partido popular | popular | pp | partido popular digamos
+josé luis rodríguez zapatero <- zapatero | josé luis | rodríguez zapatero | josé luis rodríguez | luis rodríguez zapatero | luis rodríguez | rodríguez | presidente zapatero | expresidente zapatero | josé rodríguez | josé rodríguez zapatero | gobierno josé luis | zapateros
+juan ramón lucas <- juan ramón | juan ramón lucas | ramón lucas | lucas | nacional juan ramón | nacional juan | radio nacional juan | ramón lucas bueno | juan ramón lukas | españa juan ramón
+radio nacional de españa <- radio nacional | radio nacional juan | audio radio nacional | horas radio nacional | canarias radio nacional | radio nacional juan ramón | nacional de españa
+guardia civil <- guardia civil | guardia | civil | civiles | guardias civiles | guardia civiles | dos guardias civiles | dos guardias | instituto armado | guardias civiles fallecidos | civiles muertos
+plus ultra <- plus ultra | plus | ultra | aerolínea plus ultra | aerolínea plus | rescate de plus | compañía plus ultra
+mónica garcía <- mónica garcía | mónica | sanidad mónica | sanidad mónica garcía | ministra mónica garcía | ministra mónica | mónica garcía ministra | garcía ministra | ministra de sanidad
+juanma moreno <- moreno | juanma moreno | juanma | moreno bonilla | juan manuel moreno | manuel moreno | juan moreno | señor moreno | señor moreno bonilla | andalucía juanma | andalucía juanma moreno
+fernando clavijo <- clavijo | fernando clavijo | canario fernando clavijo | canario fernando | presidente canario | presidente canario fernando | canarias fernando clavijo | señor clavijo
+real madrid <- real madrid | club blanco | madridista | real madrid florentino | madrid florentino | madrid florentino pérez
+florentino pérez <- florentino | florentino pérez | real madrid florentino | madrid florentino | madrid florentino pérez
+fc barcelona <- barcelona | barça | fútbol club barcelona | club barcelona | azulgrana | camp nou | nou
+unión europea <- unión europea | europa | europea | europeo | europeos | europeas | comisión europea | parlamento europeo | bruselas
+isabel díaz ayuso <- ayuso | díaz ayuso | isabel díaz ayuso | isabel díaz | presidenta madrileña | sabe díaz ayuso
+santiago abascal <- santiago abascal | abascal
+santos cerdán <- santos cerdán | cerdán
+begoña gómez <- begoña gómez | begoña
+josé luis ábalos <- josé luis ábalos | luis ábalos | ábalos | josé luis avaló | luis avaló | víctor ábalos
+víctor de aldama <- aldama | víctor aldama
+alberto núñez feijóo <- alberto núñez feijóo | alberto núñez | núñez feijóo | núñez
+carlos mazón <- carlos mazón | mazón
+rosa maría mullo <- rosa maría | rosa maría mullo | maría mullo | mullo | españa rosa maría | españa rosa | horas rosa maría | rosa maría millón
+ángel víctor torres <- ángel víctor | ángel víctor torres | víctor torres | torres
+fernando lópez miras <- fernando lópez miras | lópez miras
+fernando grande-marlaska <- fernando grandemarlaska | grandemarlaska | marlaska | interior fernando | interior fernando grandemarlaska
+oriol junqueras <- oriol junqueras | oriol | junqueras
+jordi pujol <- jordi pujol | jordi | pujol
+claudia sheinbaum <- claudia sheinbaum | claudia | sheinbaum | presidenta mexicana
+nicolás maduro <- nicolás maduro | maduro
+marco rubio <- marco rubio | rubio
+vicente fernández guerrero <- vicente fernández guerrero | vicente fernández | fernández guerrero | sepa vicente fernández
+carlos alcaraz <- carlos alcaraz | alcaraz
+hansi flick <- hansi flick | hansi | flick
+keir starmer <- keir starmer | starmer | primer ministro británico
+vladímir putin <- vladímir putin | putin | presidente ruso
+rusia <- rusia | ruso | rusos | moscú | moscu | kremlin
+ucrania <- ucrania | kiev
+irán <- irán | iran | iraní | iraníes | teherán | república islámica | guerra de irán | guerra en irán
+china <- china | chino | chinos | pequín | beijing
+xi jinping <- xi | jinping
+taiwán <- taiwán | taiwan
+reino unido <- reino unido | reino | unido | británico | británica | británicos
+israel <- israel | israelí | israelíes
+palestina <- palestina | palestinos
+gaza <- gaza | franja | cisjordania
+oriente próximo <- oriente próximo | oriente medio | oriente | próximo
+naciones unidas <- naciones unidas | naciones | onu
+organización mundial de la salud <- organización mundial | oms
+covid <- covid | covid19 | coronavirus | pandemia | pandemias
+pcr <- pcr | prueba pcr | primera pcr | segunda pcr | pcr negativa
+salud pública <- salud publica | salud pública | sanidad pública
+narcotráfico <- narcotráfico | narco | narcos | narcotraficantes | narco lancha | narcolancha | narcolanchas | lanchas
+accidente laboral <- accidente laboral | accidentes laborales
+tráfico de influencias <- influencias | tráfico de influencias
+tribunal supremo <- tribunal supremo | supremo
+comisión de investigación <- comisión de investigación
+alto el fuego <- alto el fuego | fuego | tregua
+segunda guerra mundial <- segunda guerra mundial | segunda guerra | guerra mundial
+cambio climático <- cambio climático | cambio climatico | climático | clima
+comunidad de madrid <- comunidad de madrid | madrileña | madrileño | madrileños | madrid capital
+andalucía <- andalucía | andaluces | andaluza | andaluz | andaluzas | junta de andalucía | junta andalucía | parlamento de andalucía | parlamento andaluz
+murcia <- murcia | región de murcia | murciano | murcianos | murcia noticias | murcia buenos | murcia buenos días | universidad de murcia
+canarias <- canarias | islas canarias | canario | canaria | canarios | presidente canario | canarias servicios | canarias servicios informativos
+comunidad valenciana <- comunidad valenciana | valenciana | valenciano | valencianos | valencia
+cataluña <- cataluña | catalán | catalanes | catalana
+nueva york <- nueva york | new york | new york times | york | york times
+prosegur protege <- prosegur protege | prosegur | protegida | proteger recuerda secretas
+alquiler seguro <- alquiler seguro | alquiler seguro queremos | alquiler entra | alquileres | alquiler
+caja rural <- caja rural | edificio caja rural | edificio caja
+compra oro <- compra oro | oro físico | oro físico custodiado | compra oro real | posible compra oro
+jamón directo <- jamón directocom | jamón directocom jamones | jamón
+rtv play <- rtv play | rtv | play | radio televisión española | radio televisión | televisión española
+onda regional <- onda regional | onda regional noticias | honda regional
+salud mental <- salud mental | mental | psicológico | psicóloga
+lengua de signos <- lengua de signos | signos | personas sordas | sordas | sordos
+emiratos árabes <- emiratos árabes | emiratos | árabes
+arabia saudí <- arabia saudí | arabia | saudí
+corea del norte <- corea del norte | corea
+república democrática del congo <- república democrática | democrática del congo | congo
+manchester city <- manchester city | manchester | city
+champions league <- champions league | champions | league
+motogp <- motogp | motos | moto | motociclismo
+atlético de madrid <- atlético de madrid | atlético
+fútbol <- fútbol | futbol | futbolista | fútbol club
+parlamento andaluz <- parlamento andaluz | parlamento de andalucía | parlamento autonómico
+junta electoral <- junta electoral | jornada electoral
+elecciones andaluzas <- elecciones andaluzas | andalucía elecciones | elecciones andaluces | andaluzas
+elecciones autonómicas <- elecciones autonómicas | autonómicas | autonómica | autónoma | autónomas
+elecciones generales <- elecciones generales | generales
+mayoría absoluta <- mayoría absoluta | absoluta
+presidente del gobierno <- presidente del gobierno
+consejo de ministros <- consejo de ministros
+ministerio de sanidad <- ministerio de sanidad | sanidad | ministra de sanidad
+ministerio de defensa <- ministerio de defensa | defensa
+asamblea regional <- asamblea regional | asamblea
+comunidad autónoma <- comunidad autónoma | comunidades autónomas | autónoma | autónomas
+administración pública <- administración pública | administraciones públicas
+servicios públicos <- servicios públicos | servicio público
+educación pública <- educación pública | educación | docentes | profesores | profesorado
+sanidad exterior <- sanidad exterior | exterior
+hospital gómez ullà <- hospital gómez | gómez ullà | hospital militar
+universidad internacional menéndez pelayo <- universidad internacional menéndez | internacional menéndez pelayo | menéndez pelayo | pelayo
+universidad complutense <- universidad complutense | complutense
+puerto de granadilla <- puerto de granadilla | granadilla de abona | granadilla
+estrecho de ormuz <- estrecho de ormuz | ormuz | estrecho
+wall street <- wall street | wall | street
+downing street <- downing street | downing
+air force one <- air force one | air force | force one
+alfombra roja <- alfombra roja | alfombra | roja
+línea roja <- línea roja | roja
+violencia machista <- violencia machista | violencia | machismo
+redes sociales <- redes sociales | redes
+inteligencia artificial <- inteligencia artificial | artificial
+hidrocarburos <- hidrocarburos | gasóleo | gasóleos | gasolina | carburantes | combustibles
+covid cuarentena <- cuarentena | cuarentenas | aislamiento | aislados | aislado | confinamiento | confinados
+contagio <- contagio | contagios | contagiado | contagiados | contagiada | contagiarse
+positivo <- positivo | positivos | dio positivo | dado positivo
+negativo <- negativo | negativos | dan negativo | pcr negativa
+sin síntomas <- sin síntomas | siguen sin síntomas | síntomas | sintomáticos | asintomático
+fallecidos <- fallecidos | fallecido | fallecidas | fallecimientos | falleció | fallecimiento
+muertos <- muertos | muerto | muertes | mueren | murió | murieron
+detenidos <- detenido | detenidos | detenida | detención | detenciones
+imputación <- imputación | imputado | imputados | imputan | investigado | investigados | investigando
+trama <- trama | tramas
+corrupción <- corrupción | corrupta | corrupto | corruptos | corruptas
+prostitución <- prostitución | prostitutas | prostituta
+vivienda <- vivienda | viviendas | alquiler | alquileres
+impuestos <- impuestos | impuesto | irpf | iva
+presupuestos <- presupuestos | presupuesto | presupuestario
+inflación <- inflación | ipc
+gas <- gas | petróleo
+agua <- agua | aguas
+lluvias <- lluvias | lluvia | tormentas | tormenta | precipitaciones | precipitación
+temperaturas <- temperaturas | temperatura | grados | calor | frío
+viento <- viento | vientos
+nubes <- nubes | nubosidad
+temporales <- temporalidad | temporales
+ferrocarril <- tren | trenes | ferroviaria | ferroviario
+avión <- avión | aviones | vuelo | vuelos | tripulación | tripulantes
+barco <- barco | barcos | buque | buques | crucero | embarcación | embarcaciones
+aeropuerto <- aeropuerto | aeropuertos
+pasajeros <- pasajeros | pasajero | pasajeros españoles
+evacuación <- evacuación | evacuados | evacuadas | evacuado | evacuar
+repatriación <- repatriación | repatriados
+guardias civiles fallecidos <- guardias civiles fallecidos | dos agentes fallecidos | dos guardias civiles | dos guardias
+policía nacional <- policía nacional | policía | policías | policial | policiales
+prisión <- prisión | cárcel | prisiones
+juez calama <- juez calama | calama | josé luis calama | luis calama
+audiencia provincial <- audiencia provincial | provincial

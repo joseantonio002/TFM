@@ -6,6 +6,8 @@ API REST en FastAPI para consultar registros y metricas de inteligencia de medio
 
 - `app/main.py`: endpoints y queries
 - `app/topic_stopwords.txt`: stopwords de topics excluidas de las metricas NLP
+- `app/topic_aggregations.txt`: equivalencias de topics agregadas tras filtrar stopwords
+- `topics_count.txt`: listado de referencia de topics y ocurrencias
 - `app/config.py`: configuracion por variables de entorno
 - `app/database.py`: conexion a PostgreSQL
 - `Dockerfile`: imagen de la API
