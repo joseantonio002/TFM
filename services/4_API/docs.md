@@ -354,9 +354,10 @@ Devuelve el ranking de topics o categorias de amenaza extraidas desde `nlp_pipel
 
 - Filtros comunes
 - `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
-- `limit`: numero maximo de dimensiones devueltas. Rango `1-25`. Por defecto `10`
+- `limit`: numero maximo de dimensiones devueltas. Rango `1-100`. Por defecto `10`
+- `selected_topic`: filtro opcional repetible para devolver solo topics agregados concretos. Maximo `25` valores.
 
-Cuando `dimension=topic`, primero se excluyen los topics presentes en `app/topic_stopwords.txt` y despues se agregan variantes usando `app/topic_aggregations.txt`.
+Cuando `dimension=topic`, primero se excluyen los topics presentes en `app/topic_stopwords.txt` y despues se agregan variantes usando `app/topic_aggregations.txt`. Si se informa `selected_topic`, se aplica despues de esas agregaciones.
 
 ### Significado de los campos de salida
 
@@ -401,6 +402,7 @@ Devuelve una matriz larga de topics o categorias por fuente, con conteos de noti
 - Filtros comunes
 - `dimension`: dimension NLP. Valores permitidos: `topic`, `threat_category`
 - `limit`: numero maximo de dimensiones usadas. Rango `1-25`. Por defecto `10`
+- `selected_topic`: filtro opcional repetible para usar solo topics agregados concretos cuando `dimension=topic`. Maximo `25` valores.
 
 El campo `average_sentiment` se calcula como `positive - negative` usando `nlp_pipeline.sentiment`, por lo que su rango esperado es `-1` a `1`.
 
@@ -497,8 +499,9 @@ Devuelve los nodos y aristas de coocurrencia entre los topics visibles por el fi
 ### Parametros
 
 - Filtros comunes.
-- `limit`: numero maximo de topics visibles usados como nodos. Rango `1-25`. Por defecto `10`.
+- `limit`: numero maximo de topics visibles usados como nodos. Rango `1-100`. Por defecto `10`.
 - `min_cooccurrences`: minimo de noticias compartidas para devolver una arista. Rango `1-100`. Por defecto `2`.
+- `selected_topic`: filtro opcional repetible para usar solo topics agregados concretos como nodos. Maximo `25` valores.
 
 Los nodos se calculan como los top topics tras excluir stopwords y aplicar `app/topic_aggregations.txt`. Las aristas cuentan noticias distintas en las que aparecen juntos dos topics visibles.
 

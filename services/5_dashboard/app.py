@@ -125,13 +125,45 @@ def render_sidebar_filters(source_options: list[str]) -> dict[str, Any] | None:
     st.warning("Select at least one source to load the dashboard.")
     return None
 
-  topic_limit: int = st.sidebar.slider("Number of topics to show", min_value=1, max_value=25, value=10)
   from_date, to_date = date_range
-  return {
+  base_topic_params: dict[str, Any] = {
     "from": build_iso_datetime(from_date, end_of_day=False),
     "to": build_iso_datetime(to_date, end_of_day=True),
     "source_name": selected_sources,
-    "limit": topic_limit,
+  }
+  topic_candidate_limit: int = st.sidebar.slider(
+    "Topic candidate pool",
+    min_value=1,
+    max_value=100,
+    value=25,
+  )
+  _, topic_candidates_frame = load_dataframe(
+    "/metrics/nlp-ranking",
+    {**base_topic_params, "dimension": "topic", "limit": topic_candidate_limit},
+  )
+  if topic_candidates_frame.empty or "dimension" not in topic_candidates_frame.columns:
+    st.warning("No topic candidates are available for the selected filters.")
+    return None
+
+  topic_options: list[str] = topic_candidates_frame["dimension"].dropna().astype(str).tolist()
+  default_topics: list[str] = topic_options[: min(25, len(topic_options))]
+  selected_topics: list[str] = st.sidebar.multiselect(
+    "Topics to display",
+    options=topic_options,
+    default=default_topics,
+    max_selections=25,
+  )
+  if not selected_topics:
+    st.warning("Select at least one topic to load the dashboard.")
+    return None
+
+  return {
+    "from": base_topic_params["from"],
+    "to": base_topic_params["to"],
+    "source_name": selected_sources,
+    "limit": len(selected_topics),
+    "candidate_limit": topic_candidate_limit,
+    "selected_topic": selected_topics,
   }
 
 
@@ -538,6 +570,7 @@ def main() -> None:
     "to": filters["to"],
     "source_name": filters["source_name"],
     "limit": filters["limit"],
+    "selected_topic": filters["selected_topic"],
   }
   summary_params: dict[str, Any] = {
     "from": filters["from"],

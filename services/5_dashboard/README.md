@@ -15,8 +15,9 @@ Dashboard de una sola pagina en Streamlit para explorar topics, categorias de am
 
 - rango de fechas, por defecto los ultimos 7 dias
 - selector multiple de fuentes por `source_name`, por defecto todas las fuentes
-- numero de topics/categorias a mostrar, de `1` a `25`
-- buscador de topic para la evolucion temporal, limitado a los topics visibles segun el filtro anterior
+- pool de candidatos de topics, de `1` a `100`, usado para elegir entre los topics mas importantes
+- selector multiple de topics visibles, maximo `25` y minimo `1`, no necesariamente consecutivos
+- buscador de topic para la evolucion temporal, limitado a los topics visibles seleccionados
 
 ## Variable de entorno
 

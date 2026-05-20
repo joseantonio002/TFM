@@ -192,3 +192,40 @@ def test_topic_cooccurrence_uses_visible_topics_and_minimum_weight(
   assert payload["data"]["edges"] == [{"source": "gobierno", "target": "pedro sánchez", "weight": 7}]
   assert captured_parameters[0] == [["sánchez", "pedro"], ["pedro sánchez", "pedro sánchez"], ["noise"], 10]
   assert captured_parameters[1] == [["sánchez", "pedro"], ["pedro sánchez", "pedro sánchez"], ["noise"], 10, 3]
+
+
+def test_nlp_ranking_topic_accepts_selected_topics(
+  monkeypatch: pytest.MonkeyPatch,
+) -> None:
+  """Verify selected topics are passed after stopword filtering."""
+
+  captured_parameters: dict[str, list[Any]] = {}
+
+  def fake_execute_query(query: Any, parameters: list[Any]) -> list[dict[str, Any]]:
+    """Capture query parameters and return a selected-topic row."""
+
+    captured_parameters["parameters"] = parameters
+    return [{"dimension": "vox", "records": 10}]
+
+  monkeypatch.setattr(main, "load_topic_stopwords", lambda: ["noise"])
+  monkeypatch.setattr(main, "load_topic_aggregation_pairs", lambda: (["box"], ["vox"]))
+  monkeypatch.setattr(main, "execute_query", fake_execute_query)
+
+  payload: dict[str, Any] = main.get_nlp_ranking_metrics(
+    filters=main.CommonFilters(),
+    dimension=main.NlpDimension.topic,
+    limit=100,
+    selected_topic=[" VOX "],
+  )
+
+  assert payload["data"] == [{"dimension": "vox", "records": 10}]
+  assert captured_parameters["parameters"] == [["box"], ["vox"], ["noise"], ["vox"], 100]
+
+
+def test_selected_topics_rejects_more_than_display_cap() -> None:
+  """Verify selected topic filters cannot exceed the dashboard display cap."""
+
+  selected_topics: list[str] = [f"topic {index}" for index in range(26)]
+
+  with pytest.raises(Exception):
+    main.normalize_selected_topics(selected_topics)

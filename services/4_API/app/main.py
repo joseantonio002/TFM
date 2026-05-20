@@ -246,6 +246,21 @@ def resolve_record_fields(fields: str | None) -> list[str]:
     raise HTTPException(status_code=422, detail=str(exc)) from exc
 
 
+def normalize_selected_topics(selected_topics: list[str] | None) -> list[str] | None:
+  """Normalize selected topic filters and enforce the dashboard display cap."""
+
+  if selected_topics is None:
+    return None
+  normalized_topics: list[str] = []
+  for selected_topic in selected_topics:
+    normalized_topic: str = selected_topic.strip().lower()
+    if normalized_topic and normalized_topic not in normalized_topics:
+      normalized_topics.append(normalized_topic)
+  if len(normalized_topics) > 25:
+    raise HTTPException(status_code=422, detail="At most 25 selected topics are allowed")
+  return normalized_topics or None
+
+
 @lru_cache(maxsize=1)
 def load_topic_stopwords() -> list[str]:
   """Load normalized topic stopwords used to exclude noisy NLP topics."""
@@ -558,15 +573,19 @@ def get_entity_ranking_metrics(
 def get_nlp_ranking_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
   dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
-  limit: Annotated[int, Query(ge=1, le=25)] = 10,
+  limit: Annotated[int, Query(ge=1, le=100)] = 10,
+  selected_topic: Annotated[list[str] | None, Query()] = None,
 ) -> dict[str, Any]:
   """Return top NLP topics or threat categories by distinct news records."""
 
   resolved_filters: CommonFilters = filters or get_common_filters()
   where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  selected_topics: list[str] | None = normalize_selected_topics(selected_topic)
 
   if dimension == NlpDimension.topic:
     topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+    selected_topic_filter_sql: sql.Composable = sql.SQL(" WHERE dimension = ANY(%s::text[])") if selected_topics else sql.SQL("")
+    selected_topic_parameters: list[Any] = [selected_topics] if selected_topics else []
     query: sql.Composable = sql.SQL(
       "WITH topic_aggregation AS ("
       "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
@@ -583,7 +602,7 @@ def get_nlp_ranking_metrics(
       "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
       ") "
       "SELECT dimension, COUNT(DISTINCT id)::int AS records "
-      "FROM normalized "
+      "FROM normalized{} "
       "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
     ).format(
       build_column_reference("id", "n"),
@@ -591,10 +610,15 @@ def get_nlp_ranking_metrics(
       sql.Identifier("n"),
       build_column_reference("nlp_pipeline", "n"),
       where_sql,
+      selected_topic_filter_sql,
     )
     rows: list[dict[str, Any]] = execute_query(
       query,
-      [topic_aggregation_variants, topic_aggregation_canonicals] + parameters + [load_topic_stopwords(), limit],
+      [topic_aggregation_variants, topic_aggregation_canonicals]
+      + parameters
+      + [load_topic_stopwords()]
+      + selected_topic_parameters
+      + [limit],
     )
   else:
     category_expression: sql.Composable = build_threat_category_expression("n")
@@ -613,7 +637,7 @@ def get_nlp_ranking_metrics(
     "metric": "nlp-ranking",
     "filters": serialize_filters(
       resolved_filters,
-      {"dimension": dimension.value, "limit": limit},
+      {"dimension": dimension.value, "limit": limit, "selected_topic": selected_topics},
     ),
     "data": rows,
   }
@@ -624,11 +648,13 @@ def get_nlp_source_matrix_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
   dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
   limit: Annotated[int, Query(ge=1, le=25)] = 10,
+  selected_topic: Annotated[list[str] | None, Query()] = None,
 ) -> dict[str, Any]:
   """Return NLP topic/category counts and average sentiment by source."""
 
   resolved_filters: CommonFilters = filters or get_common_filters()
   where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  selected_topics: list[str] | None = normalize_selected_topics(selected_topic)
   source_expression: sql.Composable = sql.SQL(
     "COALESCE(NULLIF(TRIM({}), ''), 'unknown')"
   ).format(build_column_reference("source_name", "n"))
@@ -636,6 +662,8 @@ def get_nlp_source_matrix_metrics(
 
   if dimension == NlpDimension.topic:
     topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+    selected_topic_filter_sql: sql.Composable = sql.SQL(" WHERE dimension = ANY(%s::text[])") if selected_topics else sql.SQL("")
+    selected_topic_parameters: list[Any] = [selected_topics] if selected_topics else []
     query: sql.Composable = sql.SQL(
       "WITH topic_aggregation AS ("
       "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
@@ -652,7 +680,7 @@ def get_nlp_source_matrix_metrics(
       "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
       "), top_dimensions AS ("
       "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM normalized "
-      "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+      "{} GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
       ") "
       "SELECT n.dimension, n.source_name, COUNT(DISTINCT n.id)::int AS records, "
       "COALESCE(AVG(n.sentiment_score), 0)::double precision AS average_sentiment "
@@ -667,10 +695,15 @@ def get_nlp_source_matrix_metrics(
       sql.Identifier("n"),
       build_column_reference("nlp_pipeline", "n"),
       where_sql,
+      selected_topic_filter_sql,
     )
     rows: list[dict[str, Any]] = execute_query(
       query,
-      [topic_aggregation_variants, topic_aggregation_canonicals] + parameters + [load_topic_stopwords(), limit],
+      [topic_aggregation_variants, topic_aggregation_canonicals]
+      + parameters
+      + [load_topic_stopwords()]
+      + selected_topic_parameters
+      + [limit],
     )
   else:
     category_expression: sql.Composable = build_threat_category_expression("n")
@@ -702,7 +735,7 @@ def get_nlp_source_matrix_metrics(
     "metric": "nlp-source-matrix",
     "filters": serialize_filters(
       resolved_filters,
-      {"dimension": dimension.value, "limit": limit},
+      {"dimension": dimension.value, "limit": limit, "selected_topic": selected_topics},
     ),
     "data": rows,
   }
@@ -802,18 +835,24 @@ def get_topic_timeline_metrics(
 @app.get("/metrics/topic-cooccurrence")
 def get_topic_cooccurrence_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
-  limit: Annotated[int, Query(ge=1, le=25)] = 10,
+  limit: Annotated[int, Query(ge=1, le=100)] = 10,
   min_cooccurrences: Annotated[int, Query(ge=1, le=100)] = 2,
+  selected_topic: Annotated[list[str] | None, Query()] = None,
 ) -> dict[str, Any]:
   """Return a topic co-occurrence graph for the visible top topics."""
 
   resolved_filters: CommonFilters = filters or get_common_filters()
   where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  selected_topics: list[str] | None = normalize_selected_topics(selected_topic)
   topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+  selected_topic_filter_sql: sql.Composable = sql.SQL(" WHERE dimension = ANY(%s::text[])") if selected_topics else sql.SQL("")
+  selected_topic_parameters: list[Any] = [selected_topics] if selected_topics else []
   query_parameters: list[Any] = (
     [topic_aggregation_variants, topic_aggregation_canonicals]
     + parameters
-    + [load_topic_stopwords(), limit]
+    + [load_topic_stopwords()]
+    + selected_topic_parameters
+    + [limit]
   )
   node_query: sql.Composable = sql.SQL(
     "WITH topic_aggregation AS ("
@@ -831,7 +870,7 @@ def get_topic_cooccurrence_metrics(
     "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
     "), top_dimensions AS ("
     "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM normalized "
-    "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+    "{} GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
     ") "
     "SELECT dimension, records FROM top_dimensions ORDER BY records DESC, dimension ASC"
   ).format(
@@ -840,6 +879,7 @@ def get_topic_cooccurrence_metrics(
     sql.Identifier("n"),
     build_column_reference("nlp_pipeline", "n"),
     where_sql,
+    selected_topic_filter_sql,
   )
   edge_query: sql.Composable = sql.SQL(
     "WITH topic_aggregation AS ("
@@ -857,7 +897,7 @@ def get_topic_cooccurrence_metrics(
     "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
     "), top_dimensions AS ("
     "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM normalized "
-    "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+    "{} GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
     "), visible AS ("
     "SELECT n.id, n.dimension FROM normalized AS n "
     "INNER JOIN top_dimensions AS t ON n.dimension = t.dimension"
@@ -876,6 +916,7 @@ def get_topic_cooccurrence_metrics(
     sql.Identifier("n"),
     build_column_reference("nlp_pipeline", "n"),
     where_sql,
+    selected_topic_filter_sql,
   )
   nodes: list[dict[str, Any]] = execute_query(node_query, query_parameters)
   edges: list[dict[str, Any]] = execute_query(edge_query, query_parameters + [min_cooccurrences])
@@ -884,7 +925,7 @@ def get_topic_cooccurrence_metrics(
     "metric": "topic-cooccurrence",
     "filters": serialize_filters(
       resolved_filters,
-      {"limit": limit, "min_cooccurrences": min_cooccurrences},
+      {"limit": limit, "min_cooccurrences": min_cooccurrences, "selected_topic": selected_topics},
     ),
     "data": {"nodes": nodes, "edges": edges},
   }
