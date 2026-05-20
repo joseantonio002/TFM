@@ -299,5 +299,6 @@ def test_entity_cooccurrence_ignores_misc_and_uses_stopwords(
   assert "'PER'" in captured_queries[0]
   assert "'LOC'" in captured_queries[0]
   assert "'ORG'" in captured_queries[0]
-  assert captured_parameters[0] == [["porque"], 50]
+  assert "connected_nodes" in captured_queries[0]
+  assert captured_parameters[0] == [["porque"], 50, 1]
   assert captured_parameters[1] == [["porque"], 50, 1]

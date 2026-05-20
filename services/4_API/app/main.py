@@ -621,7 +621,23 @@ def get_entity_cooccurrence_metrics(
     where_sql,
   )
   node_query: sql.Composable = base_ctes + sql.SQL(
-    "SELECT entity, entity_type, mentions, records FROM top_nodes ORDER BY records DESC, mentions DESC, entity ASC"
+    ", visible AS ("
+    "SELECT n.id, n.node_key FROM normalized AS n INNER JOIN top_nodes AS t ON n.node_key = t.node_key"
+    "), visible_edges AS ("
+    "SELECT source_entity.node_key AS source_key, target_entity.node_key AS target_key, "
+    "COUNT(DISTINCT source_entity.id)::int AS weight "
+    "FROM visible AS source_entity "
+    "INNER JOIN visible AS target_entity "
+    "ON source_entity.id = target_entity.id AND source_entity.node_key < target_entity.node_key "
+    "GROUP BY source_entity.node_key, target_entity.node_key "
+    "HAVING COUNT(DISTINCT source_entity.id) >= %s"
+    "), connected_nodes AS ("
+    "SELECT source_key AS node_key FROM visible_edges "
+    "UNION SELECT target_key AS node_key FROM visible_edges"
+    ") "
+    "SELECT top_nodes.entity, top_nodes.entity_type, top_nodes.mentions, top_nodes.records "
+    "FROM top_nodes INNER JOIN connected_nodes ON top_nodes.node_key = connected_nodes.node_key "
+    "ORDER BY top_nodes.records DESC, top_nodes.mentions DESC, top_nodes.entity ASC"
   )
   edge_query: sql.Composable = base_ctes + sql.SQL(
     ", visible AS ("
@@ -640,7 +656,7 @@ def get_entity_cooccurrence_metrics(
     "ORDER BY weight DESC, source ASC, target ASC"
   )
   base_parameters: list[Any] = parameters + parameters + parameters + [load_topic_stopwords(), limit]
-  nodes: list[dict[str, Any]] = execute_query(node_query, base_parameters)
+  nodes: list[dict[str, Any]] = execute_query(node_query, base_parameters + [min_cooccurrences])
   edges: list[dict[str, Any]] = execute_query(edge_query, base_parameters + [min_cooccurrences])
 
   return {
