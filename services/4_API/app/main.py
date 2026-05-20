@@ -303,10 +303,18 @@ def build_threat_category_expression(table_alias: str | None = None) -> sql.Comp
   ).format(build_column_reference("nlp_pipeline", table_alias))
 
 
-def build_alert_score_expression(table_alias: str | None = None) -> sql.Composable:
-  """Build the SQL expression mapping threat categories to ordered alert scores."""
+def build_alert_level_expression(table_alias: str | None = None) -> sql.Composable:
+  """Build the SQL expression for normalized threat-classification alert level."""
 
-  threat_category_expression: sql.Composable = build_threat_category_expression(table_alias)
+  return sql.SQL(
+    "COALESCE(NULLIF(LOWER(TRIM({} -> 'threat_classification' ->> 'level')), ''), 'info')"
+  ).format(build_column_reference("nlp_pipeline", table_alias))
+
+
+def build_alert_score_expression(table_alias: str | None = None) -> sql.Composable:
+  """Build the SQL expression mapping threat levels to ordered alert scores."""
+
+  alert_level_expression: sql.Composable = build_alert_level_expression(table_alias)
   return sql.SQL(
     "CASE {} "
     "WHEN 'info' THEN 1 "
@@ -315,7 +323,7 @@ def build_alert_score_expression(table_alias: str | None = None) -> sql.Composab
     "WHEN 'high' THEN 4 "
     "WHEN 'critical' THEN 5 "
     "ELSE NULL END"
-  ).format(threat_category_expression)
+  ).format(alert_level_expression)
 
 
 def execute_query(query: sql.Composable, parameters: list[Any]) -> list[dict[str, Any]]:

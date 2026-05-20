@@ -148,3 +148,12 @@ def test_topic_timeline_query_uses_daily_alert_mode(
 
   assert "daily_alert_mode" in captured_query["query"]
   assert "alert_records DESC" in captured_query["query"]
+
+
+def test_alert_score_expression_uses_threat_level() -> None:
+  """Verify alert scores are derived from threat level, not threat category."""
+
+  expression_text: str = str(main.build_alert_score_expression("n"))
+
+  assert "level" in expression_text
+  assert "category" not in expression_text

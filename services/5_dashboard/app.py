@@ -336,7 +336,8 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
   )
 
   if selected_metric == "alert":
-    line_values: pd.Series = timeline_frame["alert_score"].where(timeline_frame["records"] > 0)
+    alert_scores: pd.Series = pd.to_numeric(timeline_frame["alert_score"], errors="coerce")
+    line_values: pd.Series = alert_scores.where(timeline_frame["records"] > 0)
     figure.add_trace(
       go.Scatter(
         x=timeline_frame["bucket"],
