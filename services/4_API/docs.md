@@ -445,7 +445,7 @@ GET /metrics/nlp-source-matrix?dimension=threat_category&limit=10
 
 ## `GET /metrics/topic-timeline`
 
-Devuelve la evolucion diaria de un unico topic agregado, con numero de noticias, sentimiento medio y nivel maximo de alerta.
+Devuelve la evolucion diaria de un unico topic agregado, con numero de noticias, sentimiento medio y nivel de alerta mas repetido.
 
 ### Parametros
 
@@ -460,7 +460,7 @@ El topic se compara despues de excluir stopwords y aplicar `app/topic_aggregatio
 - `records`: numero de noticias distintas del topic en ese dia.
 - `average_sentiment`: media de `positive - negative` para el topic en ese dia.
 - `alert_score`: nivel de alerta numerico. `info=1`, `low=2`, `medium=3`, `high=4`, `critical=5`.
-- `alert_level`: nivel de alerta textual correspondiente al maximo nivel observado ese dia.
+- `alert_level`: nivel de alerta textual mas repetido ese dia. En caso de empate se usa el nivel mas alto.
 
 ### Ejemplo
 

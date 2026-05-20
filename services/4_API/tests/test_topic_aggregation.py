@@ -120,3 +120,31 @@ def test_topic_timeline_uses_selected_aggregated_topic(
     from_datetime,
     to_datetime,
   ]
+
+
+def test_topic_timeline_query_uses_daily_alert_mode(
+  monkeypatch: pytest.MonkeyPatch,
+) -> None:
+  """Verify topic timeline computes alert level by daily frequency."""
+
+  captured_query: dict[str, Any] = {}
+
+  def fake_execute_query(query: Any, parameters: list[Any]) -> list[dict[str, Any]]:
+    """Capture rendered query object for SQL structure assertions."""
+
+    captured_query["query"] = str(query)
+    return []
+
+  from_datetime: datetime = datetime(2026, 5, 1, tzinfo=timezone.utc)
+  to_datetime: datetime = datetime(2026, 5, 2, tzinfo=timezone.utc)
+  monkeypatch.setattr(main, "load_topic_stopwords", lambda: [])
+  monkeypatch.setattr(main, "load_topic_aggregation_pairs", lambda: ([], []))
+  monkeypatch.setattr(main, "execute_query", fake_execute_query)
+
+  main.get_topic_timeline_metrics(
+    topic="pedro sánchez",
+    filters=main.CommonFilters(**{"from": from_datetime, "to": to_datetime}),
+  )
+
+  assert "daily_alert_mode" in captured_query["query"]
+  assert "alert_records DESC" in captured_query["query"]

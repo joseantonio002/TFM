@@ -248,12 +248,13 @@ def render_sentiment_heatmap(common_params: dict[str, Any], selected_sources: li
 
   sentiment_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "average_sentiment", selected_sources)
   records_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "records", selected_sources).reindex_like(sentiment_frame)
+  hover_records: list[list[list[int]]] = [[[int(value)] for value in row] for row in records_frame.to_numpy()]
   figure = go.Figure(
     data=go.Heatmap(
       z=sentiment_frame.to_numpy(),
       x=list(sentiment_frame.columns),
       y=list(sentiment_frame.index),
-      customdata=records_frame.to_numpy(),
+      customdata=hover_records,
       colorscale="RdYlGn",
       zmin=-1,
       zmax=1,
@@ -262,7 +263,7 @@ def render_sentiment_heatmap(common_params: dict[str, Any], selected_sources: li
         "Topic / category: %{y}<br>"
         "Source: %{x}<br>"
         "Sentiment: %{z:.3f}<br>"
-        "News: %{customdata}<extra></extra>"
+        "News: %{customdata[0]}<extra></extra>"
       ),
     )
   )
@@ -347,8 +348,7 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
         marker={"size": 8},
         hovertemplate=(
           "Date: %{x}<br>"
-          "Alert level: %{customdata[0]}<br>"
-          "News: %{customdata[1]}<extra></extra>"
+          "Alert level: %{customdata[0]}<extra></extra>"
         ),
       ),
       secondary_y=False,
@@ -374,8 +374,7 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
         marker={"size": 8},
         hovertemplate=(
           "Date: %{x}<br>"
-          "Sentiment: %{y:.3f}<br>"
-          "News: %{customdata[0]}<extra></extra>"
+          "Sentiment: %{y:.3f}<extra></extra>"
         ),
       ),
       secondary_y=False,
