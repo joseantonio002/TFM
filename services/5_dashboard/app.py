@@ -602,7 +602,7 @@ def render_entity_cooccurrence_graph(base_params: dict[str, Any]) -> None:
   try:
     payload: dict[str, Any] = fetch_api_data(
       "/metrics/entity-cooccurrence",
-      {**base_params, "limit": 50, "min_cooccurrences": min_cooccurrences},
+      {**base_params, "limit": 80, "min_cooccurrences": min_cooccurrences},
     )
   except requests.RequestException as exc:
     st.error(f"Error loading /metrics/entity-cooccurrence: {exc}")
