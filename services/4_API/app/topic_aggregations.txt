@@ -119,7 +119,7 @@ violencia machista <- violencia machista | violencia | machismo
 redes sociales <- redes sociales | redes
 inteligencia artificial <- inteligencia artificial | artificial
 hidrocarburos <- hidrocarburos | gasóleo | gasóleos | gasolina | carburantes | combustibles
-covid cuarentena <- cuarentena | cuarentenas | aislamiento | aislados | aislado | confinamiento | confinados
+cuarentena <- cuarentena | cuarentenas | aislamiento | aislados | aislado | confinamiento | confinados
 contagio <- contagio | contagios | contagiado | contagiados | contagiada | contagiarse
 positivo <- positivo | positivos | dio positivo | dado positivo
 negativo <- negativo | negativos | dan negativo | pcr negativa
