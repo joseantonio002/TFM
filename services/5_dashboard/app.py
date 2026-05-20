@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from datetime import date, datetime, time, timedelta, timezone
+import math
 import os
 from typing import Any
 
+import networkx as nx
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -394,6 +396,129 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
   st.plotly_chart(figure, use_container_width=True)
 
 
+def scale_value(value: int, min_value: int, max_value: int, min_size: float, max_size: float) -> float:
+  """Scale an integer value into a bounded visual size."""
+
+  if max_value <= min_value:
+    return (min_size + max_size) / 2
+  return min_size + ((value - min_value) / (max_value - min_value)) * (max_size - min_size)
+
+
+def render_topic_cooccurrence_graph(common_params: dict[str, Any]) -> None:
+  """Render a Neo4j-like topic co-occurrence graph."""
+
+  st.subheader("Topic co-occurrence graph")
+  min_cooccurrences: int = st.slider(
+    "Minimum shared news",
+    min_value=1,
+    max_value=20,
+    value=2,
+    key="topic_graph_min_cooccurrences",
+  )
+  try:
+    payload: dict[str, Any] = fetch_api_data(
+      "/metrics/topic-cooccurrence",
+      {**common_params, "min_cooccurrences": min_cooccurrences},
+    )
+  except requests.RequestException as exc:
+    st.error(f"Error loading /metrics/topic-cooccurrence: {exc}")
+    return
+
+  graph_data: dict[str, Any] = payload.get("data", {})
+  nodes: list[dict[str, Any]] = graph_data.get("nodes", [])
+  edges: list[dict[str, Any]] = graph_data.get("edges", [])
+  if not nodes:
+    st.info("No topic co-occurrence data available for the selected filters.")
+    return
+
+  graph = nx.Graph()
+  for node in nodes:
+    graph.add_node(node["dimension"], records=int(node["records"]))
+  for edge in edges:
+    graph.add_edge(edge["source"], edge["target"], weight=int(edge["weight"]))
+
+  if len(graph.nodes) == 1:
+    positions: dict[str, tuple[float, float]] = {next(iter(graph.nodes)): (0.0, 0.0)}
+  else:
+    positions = nx.spring_layout(graph, seed=42, k=1 / math.sqrt(max(len(graph.nodes), 1)))
+
+  figure = go.Figure()
+  max_edge_weight: int = max([int(edge["weight"]) for edge in edges], default=1)
+  for edge in edges:
+    source: str = edge["source"]
+    target: str = edge["target"]
+    weight: int = int(edge["weight"])
+    source_x, source_y = positions[source]
+    target_x, target_y = positions[target]
+    line_width: float = scale_value(weight, 1, max_edge_weight, 1.2, 8.0)
+    figure.add_trace(
+      go.Scatter(
+        x=[source_x, target_x],
+        y=[source_y, target_y],
+        mode="lines",
+        line={"width": line_width, "color": "rgba(95, 111, 138, 0.45)"},
+        hoverinfo="skip",
+        showlegend=False,
+      )
+    )
+    figure.add_trace(
+      go.Scatter(
+        x=[(source_x + target_x) / 2],
+        y=[(source_y + target_y) / 2],
+        mode="markers",
+        marker={"size": max(8, line_width * 2), "color": "rgba(0, 0, 0, 0)"},
+        text=[f"{source} + {target}<br>Shared news: {weight}"],
+        hovertemplate="%{text}<extra></extra>",
+        showlegend=False,
+      )
+    )
+
+  node_records: list[int] = [int(graph.nodes[node]["records"]) for node in graph.nodes]
+  min_records: int = min(node_records)
+  max_records: int = max(node_records)
+  node_x: list[float] = []
+  node_y: list[float] = []
+  node_sizes: list[float] = []
+  node_text: list[str] = []
+  node_colors: list[int] = []
+  for node in graph.nodes:
+    x_position, y_position = positions[node]
+    records: int = int(graph.nodes[node]["records"])
+    node_x.append(x_position)
+    node_y.append(y_position)
+    node_sizes.append(scale_value(records, min_records, max_records, 18, 48))
+    node_colors.append(records)
+    node_text.append(f"Topic: {node}<br>News: {records}<br>Connections: {graph.degree[node]}")
+
+  figure.add_trace(
+    go.Scatter(
+      x=node_x,
+      y=node_y,
+      mode="markers+text",
+      text=list(graph.nodes),
+      textposition="top center",
+      marker={
+        "size": node_sizes,
+        "color": node_colors,
+        "colorscale": "Viridis",
+        "line": {"width": 1.5, "color": "white"},
+        "colorbar": {"title": "News"},
+      },
+      customdata=node_text,
+      hovertemplate="%{customdata}<extra></extra>",
+      showlegend=False,
+    )
+  )
+  figure.update_layout(
+    height=650,
+    margin={"l": 10, "r": 10, "t": 20, "b": 10},
+    xaxis={"visible": False},
+    yaxis={"visible": False},
+    plot_bgcolor="white",
+  )
+  st.plotly_chart(figure, use_container_width=True)
+
+
 def main() -> None:
   """Run the Streamlit dashboard application."""
 
@@ -430,6 +555,8 @@ def main() -> None:
   render_sentiment_heatmap(common_params, filters["source_name"])
   st.divider()
   render_topic_timeline_chart(common_params)
+  st.divider()
+  render_topic_cooccurrence_graph(common_params)
 
 
 if __name__ == "__main__":

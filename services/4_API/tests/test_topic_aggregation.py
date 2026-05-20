@@ -157,3 +157,38 @@ def test_alert_score_expression_uses_threat_level() -> None:
 
   assert "level" in expression_text
   assert "category" not in expression_text
+
+
+def test_topic_cooccurrence_uses_visible_topics_and_minimum_weight(
+  monkeypatch: pytest.MonkeyPatch,
+) -> None:
+  """Verify co-occurrence graph returns nodes and edges from visible topics."""
+
+  captured_parameters: list[list[Any]] = []
+
+  def fake_execute_query(query: Any, parameters: list[Any]) -> list[dict[str, Any]]:
+    """Return node rows for the first query and edge rows for the second query."""
+
+    captured_parameters.append(parameters)
+    if len(captured_parameters) == 1:
+      return [{"dimension": "pedro sánchez", "records": 16}]
+    return [{"source": "gobierno", "target": "pedro sánchez", "weight": 7}]
+
+  monkeypatch.setattr(main, "load_topic_stopwords", lambda: ["noise"])
+  monkeypatch.setattr(
+    main,
+    "load_topic_aggregation_pairs",
+    lambda: (["sánchez", "pedro"], ["pedro sánchez", "pedro sánchez"]),
+  )
+  monkeypatch.setattr(main, "execute_query", fake_execute_query)
+
+  payload: dict[str, Any] = main.get_topic_cooccurrence_metrics(
+    filters=main.CommonFilters(),
+    limit=10,
+    min_cooccurrences=3,
+  )
+
+  assert payload["data"]["nodes"] == [{"dimension": "pedro sánchez", "records": 16}]
+  assert payload["data"]["edges"] == [{"source": "gobierno", "target": "pedro sánchez", "weight": 7}]
+  assert captured_parameters[0] == [["sánchez", "pedro"], ["pedro sánchez", "pedro sánchez"], ["noise"], 10]
+  assert captured_parameters[1] == [["sánchez", "pedro"], ["pedro sánchez", "pedro sánchez"], ["noise"], 10, 3]

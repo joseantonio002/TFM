@@ -41,6 +41,7 @@ API REST en FastAPI para consultar registros y metricas de inteligencia de medio
 - `GET /metrics/nlp-ranking`
 - `GET /metrics/nlp-source-matrix`
 - `GET /metrics/topic-timeline`
+- `GET /metrics/topic-cooccurrence`
 
 Los endpoints con filtro `source_name` aceptan multiples fuentes repitiendo el parametro, por ejemplo `?source_name=24%20horas&source_name=RNE`.
 

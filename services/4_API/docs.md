@@ -490,6 +490,51 @@ GET /metrics/topic-timeline?topic=pedro%20s%C3%A1nchez&from=2026-04-20T00:00:00Z
 }
 ```
 
+## `GET /metrics/topic-cooccurrence`
+
+Devuelve los nodos y aristas de coocurrencia entre los topics visibles por el filtro global de topics.
+
+### Parametros
+
+- Filtros comunes.
+- `limit`: numero maximo de topics visibles usados como nodos. Rango `1-25`. Por defecto `10`.
+- `min_cooccurrences`: minimo de noticias compartidas para devolver una arista. Rango `1-100`. Por defecto `2`.
+
+Los nodos se calculan como los top topics tras excluir stopwords y aplicar `app/topic_aggregations.txt`. Las aristas cuentan noticias distintas en las que aparecen juntos dos topics visibles.
+
+### Significado de los campos de salida
+
+- `nodes`: lista de topics visibles con `dimension` y `records`.
+- `edges`: lista de pares con `source`, `target` y `weight`.
+- `weight`: numero de noticias distintas donde aparecen juntos `source` y `target`.
+
+### Ejemplo
+
+```http
+GET /metrics/topic-cooccurrence?limit=10&min_cooccurrences=2
+```
+
+### Respuesta
+
+```json
+{
+  "metric": "topic-cooccurrence",
+  "filters": {
+    "limit": 10,
+    "min_cooccurrences": 2
+  },
+  "data": {
+    "nodes": [
+      {"dimension": "pedro sánchez", "records": 16},
+      {"dimension": "gobierno", "records": 12}
+    ],
+    "edges": [
+      {"source": "gobierno", "target": "pedro sánchez", "weight": 7}
+    ]
+  }
+}
+```
+
 ## Errores esperables
 
 - `422 Unprocessable Entity`: parametro invalido, por ejemplo un `group_by`, `dimension` o `fields` no soportado

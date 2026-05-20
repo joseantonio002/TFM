@@ -797,3 +797,94 @@ def get_topic_timeline_metrics(
     "filters": serialize_filters(resolved_filters, {"topic": normalized_topic}),
     "data": rows,
   }
+
+
+@app.get("/metrics/topic-cooccurrence")
+def get_topic_cooccurrence_metrics(
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+  limit: Annotated[int, Query(ge=1, le=25)] = 10,
+  min_cooccurrences: Annotated[int, Query(ge=1, le=100)] = 2,
+) -> dict[str, Any]:
+  """Return a topic co-occurrence graph for the visible top topics."""
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+  query_parameters: list[Any] = (
+    [topic_aggregation_variants, topic_aggregation_canonicals]
+    + parameters
+    + [load_topic_stopwords(), limit]
+  )
+  node_query: sql.Composable = sql.SQL(
+    "WITH topic_aggregation AS ("
+    "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+    "), exploded AS ("
+    "SELECT {} AS id, LOWER(TRIM(topic.value)) AS dimension "
+    "FROM {} AS {} "
+    "CROSS JOIN LATERAL jsonb_array_elements_text("
+    "COALESCE({} -> 'topics', '[]'::jsonb)"
+    ") AS topic(value){}"
+    "), filtered AS ("
+    "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+    "), normalized AS ("
+    "SELECT DISTINCT COALESCE(a.canonical, f.dimension) AS dimension, f.id "
+    "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
+    "), top_dimensions AS ("
+    "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM normalized "
+    "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+    ") "
+    "SELECT dimension, records FROM top_dimensions ORDER BY records DESC, dimension ASC"
+  ).format(
+    build_column_reference("id", "n"),
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier("n"),
+    build_column_reference("nlp_pipeline", "n"),
+    where_sql,
+  )
+  edge_query: sql.Composable = sql.SQL(
+    "WITH topic_aggregation AS ("
+    "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+    "), exploded AS ("
+    "SELECT {} AS id, LOWER(TRIM(topic.value)) AS dimension "
+    "FROM {} AS {} "
+    "CROSS JOIN LATERAL jsonb_array_elements_text("
+    "COALESCE({} -> 'topics', '[]'::jsonb)"
+    ") AS topic(value){}"
+    "), filtered AS ("
+    "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+    "), normalized AS ("
+    "SELECT DISTINCT COALESCE(a.canonical, f.dimension) AS dimension, f.id "
+    "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
+    "), top_dimensions AS ("
+    "SELECT dimension, COUNT(DISTINCT id)::int AS records FROM normalized "
+    "GROUP BY dimension ORDER BY records DESC, dimension ASC LIMIT %s"
+    "), visible AS ("
+    "SELECT n.id, n.dimension FROM normalized AS n "
+    "INNER JOIN top_dimensions AS t ON n.dimension = t.dimension"
+    ") "
+    "SELECT left_topic.dimension AS source, right_topic.dimension AS target, "
+    "COUNT(DISTINCT left_topic.id)::int AS weight "
+    "FROM visible AS left_topic "
+    "INNER JOIN visible AS right_topic "
+    "ON left_topic.id = right_topic.id AND left_topic.dimension < right_topic.dimension "
+    "GROUP BY left_topic.dimension, right_topic.dimension "
+    "HAVING COUNT(DISTINCT left_topic.id) >= %s "
+    "ORDER BY weight DESC, source ASC, target ASC"
+  ).format(
+    build_column_reference("id", "n"),
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier("n"),
+    build_column_reference("nlp_pipeline", "n"),
+    where_sql,
+  )
+  nodes: list[dict[str, Any]] = execute_query(node_query, query_parameters)
+  edges: list[dict[str, Any]] = execute_query(edge_query, query_parameters + [min_cooccurrences])
+
+  return {
+    "metric": "topic-cooccurrence",
+    "filters": serialize_filters(
+      resolved_filters,
+      {"limit": limit, "min_cooccurrences": min_cooccurrences},
+    ),
+    "data": {"nodes": nodes, "edges": edges},
+  }
