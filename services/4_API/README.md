@@ -38,6 +38,7 @@ API REST en FastAPI para consultar registros y metricas de inteligencia de medio
 - `GET /metrics/duration`
 - `GET /metrics/source-distribution`
 - `GET /metrics/entity-ranking`
+- `GET /metrics/entity-cooccurrence`
 - `GET /metrics/nlp-ranking`
 - `GET /metrics/nlp-source-matrix`
 - `GET /metrics/topic-timeline`

@@ -6,7 +6,8 @@ Dashboard de una sola pagina en Streamlit para explorar topics, categorias de am
 
 - total de noticias disponibles y noticias que cumplen los filtros
 - ranking horizontal de topics o categorias de amenaza
-- ranking horizontal de las 10 entidades NER mas mencionadas por tipo (`PER`, `LOC`, `ORG`, `MISC`)
+- ranking horizontal de las 10 entidades NER mas mencionadas por tipo (`PER`, `LOC`, `ORG`)
+- grafo de coocurrencia entre entidades `PER`, `LOC` y `ORG`, con grosor de arista proporcional a noticias compartidas
 - heatmap de topics/categorias por fuente con numero de noticias
 - heatmap de topics/categorias por fuente con sentimiento medio `positive - negative`
 - evolucion diaria del nivel de alerta o sentimiento para un topic seleccionado, con volumen diario de noticias de fondo

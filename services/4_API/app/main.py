@@ -570,6 +570,89 @@ def get_entity_ranking_metrics(
   }
 
 
+@app.get("/metrics/entity-cooccurrence")
+def get_entity_cooccurrence_metrics(
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+  limit: Annotated[int, Query(ge=1, le=100)] = 50,
+  min_cooccurrences: Annotated[int, Query(ge=1, le=100)] = 2,
+) -> dict[str, Any]:
+  """Return a PER/LOC/ORG entity co-occurrence graph."""
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  base_ctes: sql.Composable = sql.SQL(
+    "WITH raw_entities AS ("
+    "SELECT {} AS id, 'PER' AS entity_type, jsonb_array_elements_text(COALESCE({} -> 'entities' -> 'PER', '[]'::jsonb)) AS entity "
+    "FROM {} AS {}{} "
+    "UNION ALL "
+    "SELECT {} AS id, 'LOC' AS entity_type, jsonb_array_elements_text(COALESCE({} -> 'entities' -> 'LOC', '[]'::jsonb)) AS entity "
+    "FROM {} AS {}{} "
+    "UNION ALL "
+    "SELECT {} AS id, 'ORG' AS entity_type, jsonb_array_elements_text(COALESCE({} -> 'entities' -> 'ORG', '[]'::jsonb)) AS entity "
+    "FROM {} AS {}{}"
+    "), filtered AS ("
+    "SELECT id, entity_type, TRIM(entity) AS entity, LOWER(TRIM(entity)) AS normalized_entity "
+    "FROM raw_entities "
+    "WHERE TRIM(entity) <> '' AND NOT (LOWER(TRIM(entity)) = ANY(%s::text[]))"
+    "), normalized AS ("
+    "SELECT id, entity_type, normalized_entity, MIN(entity) AS entity, "
+    "entity_type || ':' || normalized_entity AS node_key "
+    "FROM filtered GROUP BY id, entity_type, normalized_entity"
+    "), top_nodes AS ("
+    "SELECT node_key, MIN(entity) AS entity, entity_type, COUNT(*)::int AS mentions, "
+    "COUNT(DISTINCT id)::int AS records FROM normalized "
+    "GROUP BY node_key, entity_type ORDER BY records DESC, mentions DESC, entity ASC LIMIT %s"
+    ") "
+  ).format(
+    build_column_reference("id", "n"),
+    build_column_reference("nlp_pipeline", "n"),
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier("n"),
+    where_sql,
+    build_column_reference("id", "n"),
+    build_column_reference("nlp_pipeline", "n"),
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier("n"),
+    where_sql,
+    build_column_reference("id", "n"),
+    build_column_reference("nlp_pipeline", "n"),
+    sql.Identifier(NEWS_TABLE_NAME),
+    sql.Identifier("n"),
+    where_sql,
+  )
+  node_query: sql.Composable = base_ctes + sql.SQL(
+    "SELECT entity, entity_type, mentions, records FROM top_nodes ORDER BY records DESC, mentions DESC, entity ASC"
+  )
+  edge_query: sql.Composable = base_ctes + sql.SQL(
+    ", visible AS ("
+    "SELECT n.id, n.node_key FROM normalized AS n INNER JOIN top_nodes AS t ON n.node_key = t.node_key"
+    ") "
+    "SELECT source_node.entity AS source, source_node.entity_type AS source_type, "
+    "target_node.entity AS target, target_node.entity_type AS target_type, "
+    "COUNT(DISTINCT source_entity.id)::int AS weight "
+    "FROM visible AS source_entity "
+    "INNER JOIN visible AS target_entity "
+    "ON source_entity.id = target_entity.id AND source_entity.node_key < target_entity.node_key "
+    "INNER JOIN top_nodes AS source_node ON source_entity.node_key = source_node.node_key "
+    "INNER JOIN top_nodes AS target_node ON target_entity.node_key = target_node.node_key "
+    "GROUP BY source_node.entity, source_node.entity_type, target_node.entity, target_node.entity_type "
+    "HAVING COUNT(DISTINCT source_entity.id) >= %s "
+    "ORDER BY weight DESC, source ASC, target ASC"
+  )
+  base_parameters: list[Any] = parameters + parameters + parameters + [load_topic_stopwords(), limit]
+  nodes: list[dict[str, Any]] = execute_query(node_query, base_parameters)
+  edges: list[dict[str, Any]] = execute_query(edge_query, base_parameters + [min_cooccurrences])
+
+  return {
+    "metric": "entity-cooccurrence",
+    "filters": serialize_filters(
+      resolved_filters,
+      {"limit": limit, "min_cooccurrences": min_cooccurrences, "entity_types": ["PER", "LOC", "ORG"]},
+    ),
+    "data": {"nodes": nodes, "edges": edges},
+  }
+
+
 @app.get("/metrics/nlp-ranking")
 def get_nlp_ranking_metrics(
   filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,

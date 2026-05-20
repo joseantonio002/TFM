@@ -22,7 +22,12 @@ DIMENSION_OPTIONS: dict[str, str] = {
   "Topics": "topic",
   "Threat categories": "threat_category",
 }
-ENTITY_OPTIONS: list[str] = ["PER", "LOC", "ORG", "MISC"]
+ENTITY_OPTIONS: list[str] = ["PER", "LOC", "ORG"]
+ENTITY_TYPE_COLORS: dict[str, str] = {
+  "PER": "#4C5FD5",
+  "LOC": "#1F9D6E",
+  "ORG": "#D87A22",
+}
 TIMELINE_METRIC_OPTIONS: dict[str, str] = {
   "Alert level": "alert",
   "Sentiment": "sentiment",
@@ -583,6 +588,139 @@ def render_topic_cooccurrence_graph(common_params: dict[str, Any]) -> None:
   st.plotly_chart(figure, use_container_width=True)
 
 
+def render_entity_cooccurrence_graph(base_params: dict[str, Any]) -> None:
+  """Render a Neo4j-like co-occurrence graph for PER/LOC/ORG entities."""
+
+  st.subheader("Entity co-occurrence graph")
+  min_cooccurrences: int = st.slider(
+    "Minimum shared news",
+    min_value=1,
+    max_value=20,
+    value=2,
+    key="entity_graph_min_cooccurrences",
+  )
+  try:
+    payload: dict[str, Any] = fetch_api_data(
+      "/metrics/entity-cooccurrence",
+      {**base_params, "limit": 50, "min_cooccurrences": min_cooccurrences},
+    )
+  except requests.RequestException as exc:
+    st.error(f"Error loading /metrics/entity-cooccurrence: {exc}")
+    return
+
+  graph_data: dict[str, Any] = payload.get("data", {})
+  nodes: list[dict[str, Any]] = graph_data.get("nodes", [])
+  edges: list[dict[str, Any]] = graph_data.get("edges", [])
+  if not nodes:
+    st.info("No entity co-occurrence data available for the selected filters.")
+    return
+
+  graph = nx.Graph()
+  for node in nodes:
+    node_key: str = f"{node['entity_type']}:{node['entity']}"
+    graph.add_node(
+      node_key,
+      label=node["entity"],
+      entity_type=node["entity_type"],
+      records=int(node["records"]),
+      mentions=int(node["mentions"]),
+    )
+  for edge in edges:
+    source_key = f"{edge['source_type']}:{edge['source']}"
+    target_key = f"{edge['target_type']}:{edge['target']}"
+    if source_key in graph and target_key in graph:
+      graph.add_edge(source_key, target_key, weight=int(edge["weight"]))
+
+  if len(graph.nodes) == 1:
+    positions: dict[str, tuple[float, float]] = {next(iter(graph.nodes)): (0.0, 0.0)}
+  else:
+    positions = nx.spring_layout(graph, seed=42, k=1 / math.sqrt(max(len(graph.nodes), 1)))
+
+  figure = go.Figure()
+  edge_weights: list[int] = [int(graph.edges[edge]["weight"]) for edge in graph.edges]
+  max_edge_weight: int = max(edge_weights, default=1)
+  for source_key, target_key, edge_data in graph.edges(data=True):
+    weight: int = int(edge_data["weight"])
+    source_x, source_y = positions[source_key]
+    target_x, target_y = positions[target_key]
+    line_width: float = scale_value(weight, 1, max_edge_weight, 1.2, 8.0)
+    source_label: str = str(graph.nodes[source_key]["label"])
+    target_label: str = str(graph.nodes[target_key]["label"])
+    figure.add_trace(
+      go.Scatter(
+        x=[source_x, target_x],
+        y=[source_y, target_y],
+        mode="lines",
+        line={"width": line_width, "color": "rgba(95, 111, 138, 0.45)"},
+        hoverinfo="skip",
+        showlegend=False,
+      )
+    )
+    figure.add_trace(
+      go.Scatter(
+        x=[(source_x + target_x) / 2],
+        y=[(source_y + target_y) / 2],
+        mode="markers",
+        marker={"size": max(8, line_width * 2), "color": "rgba(0, 0, 0, 0)"},
+        text=[f"{source_label} + {target_label}<br>Shared news: {weight}"],
+        hovertemplate="%{text}<extra></extra>",
+        showlegend=False,
+      )
+    )
+
+  node_records: list[int] = [int(graph.nodes[node]["records"]) for node in graph.nodes]
+  min_records: int = min(node_records)
+  max_records: int = max(node_records)
+  for entity_type in ENTITY_OPTIONS:
+    node_keys: list[str] = [node for node in graph.nodes if graph.nodes[node]["entity_type"] == entity_type]
+    if not node_keys:
+      continue
+    node_x: list[float] = []
+    node_y: list[float] = []
+    node_sizes: list[float] = []
+    node_labels: list[str] = []
+    node_text: list[str] = []
+    for node_key in node_keys:
+      x_position, y_position = positions[node_key]
+      records = int(graph.nodes[node_key]["records"])
+      mentions = int(graph.nodes[node_key]["mentions"])
+      label = str(graph.nodes[node_key]["label"])
+      node_x.append(x_position)
+      node_y.append(y_position)
+      node_sizes.append(scale_value(records, min_records, max_records, 18, 48))
+      node_labels.append(label)
+      node_text.append(
+        f"Entity: {label}<br>Type: {entity_type}<br>News: {records}<br>Mentions: {mentions}<br>Connections: {graph.degree[node_key]}"
+      )
+    figure.add_trace(
+      go.Scatter(
+        x=node_x,
+        y=node_y,
+        mode="markers+text",
+        text=node_labels,
+        textposition="top center",
+        name=entity_type,
+        marker={
+          "size": node_sizes,
+          "color": ENTITY_TYPE_COLORS[entity_type],
+          "line": {"width": 1.5, "color": "white"},
+        },
+        customdata=node_text,
+        hovertemplate="%{customdata}<extra></extra>",
+      )
+    )
+
+  figure.update_layout(
+    height=650,
+    margin={"l": 10, "r": 10, "t": 20, "b": 10},
+    xaxis={"visible": False},
+    yaxis={"visible": False},
+    plot_bgcolor="white",
+    legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
+  )
+  st.plotly_chart(figure, use_container_width=True)
+
+
 def main() -> None:
   """Run the Streamlit dashboard application."""
 
@@ -616,6 +754,8 @@ def main() -> None:
   render_ranking_chart(common_params)
   st.divider()
   render_entity_ranking_chart(summary_params)
+  st.divider()
+  render_entity_cooccurrence_graph(summary_params)
   st.divider()
   render_records_heatmap(common_params, filters["source_name"])
   st.divider()

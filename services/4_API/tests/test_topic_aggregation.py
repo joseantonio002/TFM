@@ -257,3 +257,47 @@ def test_entity_ranking_filters_entities_with_topic_stopwords(
   assert payload["data"] == [{"entity": "Antavirus", "mentions": 1, "records": 1}]
   assert captured_parameters["parameters"] == [["porque"], 10]
   assert "LOWER(TRIM(ranked.entity))" in captured_parameters["query"][0]
+
+
+def test_entity_cooccurrence_ignores_misc_and_uses_stopwords(
+  monkeypatch: pytest.MonkeyPatch,
+) -> None:
+  """Verify entity co-occurrence graph uses PER/LOC/ORG and stopwords."""
+
+  captured_queries: list[str] = []
+  captured_parameters: list[list[Any]] = []
+
+  def fake_execute_query(query: Any, parameters: list[Any]) -> list[dict[str, Any]]:
+    """Capture entity co-occurrence query parameters."""
+
+    captured_queries.append(str(query))
+    captured_parameters.append(parameters)
+    if len(captured_queries) == 1:
+      return [{"entity": "Pedro Sánchez", "entity_type": "PER", "mentions": 2, "records": 2}]
+    return [
+      {
+        "source": "Pedro Sánchez",
+        "source_type": "PER",
+        "target": "Andalucía",
+        "target_type": "LOC",
+        "weight": 1,
+      }
+    ]
+
+  monkeypatch.setattr(main, "load_topic_stopwords", lambda: ["porque"])
+  monkeypatch.setattr(main, "execute_query", fake_execute_query)
+
+  payload: dict[str, Any] = main.get_entity_cooccurrence_metrics(
+    filters=main.CommonFilters(),
+    limit=50,
+    min_cooccurrences=1,
+  )
+
+  assert payload["data"]["nodes"] == [{"entity": "Pedro Sánchez", "entity_type": "PER", "mentions": 2, "records": 2}]
+  assert payload["data"]["edges"][0]["target_type"] == "LOC"
+  assert "'MISC'" not in captured_queries[0]
+  assert "'PER'" in captured_queries[0]
+  assert "'LOC'" in captured_queries[0]
+  assert "'ORG'" in captured_queries[0]
+  assert captured_parameters[0] == [["porque"], 50]
+  assert captured_parameters[1] == [["porque"], 50, 1]
