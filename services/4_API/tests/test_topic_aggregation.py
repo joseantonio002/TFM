@@ -229,3 +229,31 @@ def test_selected_topics_rejects_more_than_display_cap() -> None:
 
   with pytest.raises(Exception):
     main.normalize_selected_topics(selected_topics)
+
+
+def test_entity_ranking_filters_entities_with_topic_stopwords(
+  monkeypatch: pytest.MonkeyPatch,
+) -> None:
+  """Verify entity ranking filters stopword entities case-insensitively."""
+
+  captured_parameters: dict[str, list[Any]] = {}
+
+  def fake_execute_query(query: Any, parameters: list[Any]) -> list[dict[str, Any]]:
+    """Capture entity-ranking query parameters."""
+
+    captured_parameters["parameters"] = parameters
+    captured_parameters["query"] = [str(query)]
+    return [{"entity": "Antavirus", "mentions": 1, "records": 1}]
+
+  monkeypatch.setattr(main, "load_topic_stopwords", lambda: ["porque"])
+  monkeypatch.setattr(main, "execute_query", fake_execute_query)
+
+  payload: dict[str, Any] = main.get_entity_ranking_metrics(
+    filters=main.CommonFilters(),
+    entity_type=main.EntityType.misc,
+    limit=10,
+  )
+
+  assert payload["data"] == [{"entity": "Antavirus", "mentions": 1, "records": 1}]
+  assert captured_parameters["parameters"] == [["porque"], 10]
+  assert "LOWER(TRIM(ranked.entity))" in captured_parameters["query"][0]

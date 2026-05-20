@@ -22,6 +22,7 @@ DIMENSION_OPTIONS: dict[str, str] = {
   "Topics": "topic",
   "Threat categories": "threat_category",
 }
+ENTITY_OPTIONS: list[str] = ["PER", "LOC", "ORG", "MISC"]
 TIMELINE_METRIC_OPTIONS: dict[str, str] = {
   "Alert level": "alert",
   "Sentiment": "sentiment",
@@ -216,6 +217,37 @@ def render_ranking_chart(common_params: dict[str, Any]) -> None:
     labels={"dimension": "Topic / category", "records": "News"},
   )
   figure.update_layout(height=max(420, 28 * len(chart_frame)))
+  st.plotly_chart(figure, use_container_width=True)
+
+
+def render_entity_ranking_chart(base_params: dict[str, Any]) -> None:
+  """Render the top named entities by entity type."""
+
+  st.subheader("Top named entities")
+  selected_entity_type: str = st.radio(
+    "Entity type",
+    options=ENTITY_OPTIONS,
+    horizontal=True,
+    key="entity_ranking_type",
+  )
+  _, entity_frame = load_dataframe(
+    "/metrics/entity-ranking",
+    {**base_params, "entity_type": selected_entity_type, "limit": 10},
+  )
+  if entity_frame.empty:
+    st.info("No entities available for the selected filters.")
+    return
+
+  chart_frame: pd.DataFrame = entity_frame.sort_values("mentions", ascending=True)
+  figure = px.bar(
+    chart_frame,
+    x="mentions",
+    y="entity",
+    orientation="h",
+    labels={"entity": "Entity", "mentions": "Mentions", "records": "News"},
+    hover_data={"records": True, "mentions": True, "entity": False},
+  )
+  figure.update_layout(height=max(420, 32 * len(chart_frame)))
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -582,6 +614,8 @@ def main() -> None:
   render_metric_cards(summary_frame)
   st.divider()
   render_ranking_chart(common_params)
+  st.divider()
+  render_entity_ranking_chart(summary_params)
   st.divider()
   render_records_heatmap(common_params, filters["source_name"])
   st.divider()

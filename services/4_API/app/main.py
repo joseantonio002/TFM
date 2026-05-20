@@ -549,6 +549,7 @@ def get_entity_ranking_metrics(
     "FROM ("
     "SELECT {} AS id, {} AS entity FROM {} AS {}{}"
     ") AS ranked "
+    "WHERE TRIM(ranked.entity) <> '' AND NOT (LOWER(TRIM(ranked.entity)) = ANY(%s::text[])) "
     "GROUP BY ranked.entity ORDER BY mentions DESC, records DESC, ranked.entity ASC LIMIT %s"
   ).format(
     build_column_reference("id", "n"),
@@ -557,7 +558,7 @@ def get_entity_ranking_metrics(
     sql.Identifier("n"),
     where_sql,
   )
-  rows: list[dict[str, Any]] = execute_query(query, parameters + [limit])
+  rows: list[dict[str, Any]] = execute_query(query, parameters + [load_topic_stopwords(), limit])
 
   return {
     "metric": "entity-ranking",
