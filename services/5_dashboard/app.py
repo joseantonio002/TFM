@@ -272,6 +272,7 @@ def render_sentiment_heatmap(common_params: dict[str, Any], selected_sources: li
     xaxis_title="Source",
     yaxis_title="Topic / category",
   )
+  figure.update_yaxes(autorange="reversed")
   st.plotly_chart(figure, use_container_width=True)
 
 
