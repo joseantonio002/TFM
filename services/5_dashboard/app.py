@@ -28,10 +28,6 @@ ENTITY_TYPE_COLORS: dict[str, str] = {
   "LOC": "#1F9D6E",
   "ORG": "#D87A22",
 }
-TIMELINE_METRIC_OPTIONS: dict[str, str] = {
-  "Alert level": "alert",
-  "Sentiment": "sentiment",
-}
 ALERT_LEVELS: list[str] = ["info", "low", "medium", "high", "critical"]
 
 
@@ -343,66 +339,70 @@ def render_records_heatmap(common_params: dict[str, Any], selected_sources: list
   st.plotly_chart(figure, use_container_width=True)
 
 
-def render_sentiment_heatmap(common_params: dict[str, Any], selected_sources: list[str]) -> None:
-  """Render the source-by-dimension average sentiment heatmap."""
+def render_sentiment_distribution_plot(common_params: dict[str, Any], selected_sources: list[str]) -> None:
+  """Render sentiment score distributions by source for one NLP dimension value."""
 
-  st.subheader("Average sentiment by source")
-  dimension: str = render_dimension_selector("sentiment_matrix_dimension")
-  _, matrix_frame = load_dataframe(
-    "/metrics/nlp-source-matrix",
+  st.subheader("Sentiment distribution by source")
+  dimension: str = render_dimension_selector("sentiment_distribution_dimension")
+  _, ranking_frame = load_dataframe(
+    "/metrics/nlp-ranking",
     {**common_params, "dimension": dimension},
   )
-
-  if matrix_frame.empty:
-    st.info("No data available for the selected filters.")
+  if ranking_frame.empty or "dimension" not in ranking_frame.columns:
+    st.info("No topic or category options available for the selected filters.")
     return
 
-  sentiment_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "average_sentiment", selected_sources)
-  records_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "records", selected_sources).reindex_like(sentiment_frame)
-  hover_records: list[list[list[int]]] = [[[int(value)] for value in row] for row in records_frame.to_numpy()]
-  figure = go.Figure(
-    data=go.Heatmap(
-      z=sentiment_frame.to_numpy(),
-      x=list(sentiment_frame.columns),
-      y=list(sentiment_frame.index),
-      customdata=hover_records,
-      colorscale="RdYlGn",
-      zmin=-1,
-      zmax=1,
-      colorbar={"title": "Sentiment"},
-      hovertemplate=(
-        "Topic / category: %{y}<br>"
-        "Source: %{x}<br>"
-        "Sentiment: %{z:.3f}<br>"
-        "News: %{customdata[0]}<extra></extra>"
-      ),
-    )
+  dimension_options: list[str] = ranking_frame["dimension"].dropna().astype(str).tolist()
+  if not dimension_options:
+    st.info("No topic or category options available for the selected filters.")
+    return
+  if st.session_state.get("sentiment_distribution_dimension_value") not in dimension_options:
+    st.session_state["sentiment_distribution_dimension_value"] = dimension_options[0]
+
+  selected_dimension: str = st.selectbox(
+    "Topic / category",
+    options=dimension_options,
+    key="sentiment_distribution_dimension_value",
   )
+  _, distribution_frame = load_dataframe(
+    "/metrics/sentiment-distribution",
+    {
+      **common_params,
+      "dimension": dimension,
+      "selected_dimension": selected_dimension,
+      "max_records": 5000,
+    },
+  )
+  if distribution_frame.empty:
+    st.info("No sentiment data available for the selected topic or category.")
+    return
+
+  distribution_frame["sentiment_score"] = pd.to_numeric(distribution_frame["sentiment_score"], errors="coerce")
+  distribution_frame = distribution_frame.dropna(subset=["sentiment_score"])
+  figure = px.box(
+    distribution_frame,
+    x="source_name",
+    y="sentiment_score",
+    points="outliers",
+    category_orders={"source_name": selected_sources},
+    labels={"source_name": "Source", "sentiment_score": "Sentiment"},
+  )
+  figure.update_traces(boxmean=True)
+  figure.add_hline(y=0, line_width=1, line_dash="dash", line_color="#4B5563")
   figure.update_layout(
-    height=max(420, 28 * len(sentiment_frame)),
+    height=520,
     xaxis_title="Source",
-    yaxis_title="Topic / category",
+    yaxis_title="Sentiment score",
+    showlegend=False,
   )
-  figure.update_yaxes(autorange="reversed")
+  figure.update_yaxes(range=[-1, 1])
   st.plotly_chart(figure, use_container_width=True)
 
 
-def render_timeline_metric_selector(key: str) -> str:
-  """Render the topic timeline metric selector."""
-
-  selected_label: str = st.radio(
-    "Metric",
-    options=list(TIMELINE_METRIC_OPTIONS.keys()),
-    horizontal=True,
-    key=key,
-  )
-  return TIMELINE_METRIC_OPTIONS[selected_label]
-
-
 def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
-  """Render daily alert or sentiment evolution for one selected topic."""
+  """Render daily alert evolution for one selected topic."""
 
-  st.subheader("Daily alert level or sentiment by topic")
+  st.subheader("Daily alert level by topic")
   _, ranking_frame = load_dataframe(
     "/metrics/nlp-ranking",
     {**common_params, "dimension": "topic"},
@@ -423,7 +423,6 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
     options=topic_options,
     key="topic_timeline_topic",
   )
-  selected_metric: str = render_timeline_metric_selector("topic_timeline_metric")
   timeline_params: dict[str, Any] = {
     "from": common_params.get("from"),
     "to": common_params.get("to"),
@@ -447,52 +446,32 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
     secondary_y=True,
   )
 
-  if selected_metric == "alert":
-    alert_scores: pd.Series = pd.to_numeric(timeline_frame["alert_score"], errors="coerce")
-    line_values: pd.Series = alert_scores.where(timeline_frame["records"] > 0)
-    figure.add_trace(
-      go.Scatter(
-        x=timeline_frame["bucket"],
-        y=line_values,
-        mode="lines+markers",
-        name="Alert level",
-        customdata=timeline_frame[["alert_level", "records"]].to_numpy(),
-        line={"color": "#4C5FD5", "width": 3},
-        marker={"size": 8},
-        hovertemplate=(
-          "Date: %{x}<br>"
-          "Alert level: %{customdata[0]}<extra></extra>"
-        ),
+  alert_scores: pd.Series = pd.to_numeric(timeline_frame["alert_score"], errors="coerce")
+  line_values: pd.Series = alert_scores.where(timeline_frame["records"] > 0)
+  figure.add_trace(
+    go.Scatter(
+      x=timeline_frame["bucket"],
+      y=line_values,
+      mode="lines+markers",
+      name="Alert level",
+      customdata=timeline_frame[["alert_level", "records"]].to_numpy(),
+      line={"color": "#4C5FD5", "width": 3},
+      marker={"size": 8},
+      hovertemplate=(
+        "Date: %{x}<br>"
+        "Alert level: %{customdata[0]}<extra></extra>"
       ),
-      secondary_y=False,
-    )
-    figure.update_yaxes(
-      title_text="Alert level",
-      tickmode="array",
-      tickvals=list(range(1, len(ALERT_LEVELS) + 1)),
-      ticktext=ALERT_LEVELS,
-      range=[0.7, 5.3],
-      secondary_y=False,
-    )
-  else:
-    line_values = timeline_frame["average_sentiment"].where(timeline_frame["records"] > 0)
-    figure.add_trace(
-      go.Scatter(
-        x=timeline_frame["bucket"],
-        y=line_values,
-        mode="lines+markers",
-        name="Sentiment",
-        customdata=timeline_frame[["records"]].to_numpy(),
-        line={"color": "#1F7A5C", "width": 3},
-        marker={"size": 8},
-        hovertemplate=(
-          "Date: %{x}<br>"
-          "Sentiment: %{y:.3f}<extra></extra>"
-        ),
-      ),
-      secondary_y=False,
-    )
-    figure.update_yaxes(title_text="Sentiment", range=[-1, 1], secondary_y=False)
+    ),
+    secondary_y=False,
+  )
+  figure.update_yaxes(
+    title_text="Alert level",
+    tickmode="array",
+    tickvals=list(range(1, len(ALERT_LEVELS) + 1)),
+    ticktext=ALERT_LEVELS,
+    range=[0.7, 5.3],
+    secondary_y=False,
+  )
 
   figure.update_yaxes(visible=False, showgrid=False, secondary_y=True)
   figure.update_layout(
@@ -801,7 +780,7 @@ def main() -> None:
   st.divider()
   render_records_heatmap(common_params, filters["source_name"])
   st.divider()
-  render_sentiment_heatmap(common_params, filters["source_name"])
+  render_sentiment_distribution_plot(common_params, filters["source_name"])
   st.divider()
   render_topic_timeline_chart(common_params)
   st.divider()

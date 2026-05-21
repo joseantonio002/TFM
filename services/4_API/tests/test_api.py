@@ -220,6 +220,30 @@ def test_nlp_source_matrix_endpoint(base_url: str, api_session: requests.Session
     assert isinstance(row["average_sentiment"], (int, float))
 
 
+def test_sentiment_distribution_endpoint(base_url: str, api_session: requests.Session) -> None:
+  """Verify that sentiment distribution returns individual source scores."""
+
+  response: requests.Response = api_session.get(
+    f"{base_url}/metrics/sentiment-distribution",
+    params={"dimension": "threat_category", "selected_dimension": "unknown", "max_records": 5},
+    timeout=10,
+  )
+
+  assert response.status_code == 200
+  payload: dict[str, Any] = response.json()
+  assert payload["metric"] == "sentiment-distribution"
+  assert payload["filters"]["dimension"] == "threat_category"
+  assert payload["filters"]["selected_dimension"] == "unknown"
+  assert payload["filters"]["max_records"] == 5
+  assert isinstance(payload["data"], list)
+  assert len(payload["data"]) <= 5
+  for row in payload["data"]:
+    assert set(row.keys()) == {"dimension", "source_name", "sentiment_score"}
+    assert isinstance(row["dimension"], str)
+    assert isinstance(row["source_name"], str)
+    assert isinstance(row["sentiment_score"], (int, float))
+
+
 def test_invalid_group_by_returns_validation_error(
   base_url: str,
   api_session: requests.Session,

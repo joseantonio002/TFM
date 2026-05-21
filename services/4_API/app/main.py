@@ -841,6 +841,92 @@ def get_nlp_source_matrix_metrics(
   }
 
 
+@app.get("/metrics/sentiment-distribution")
+def get_sentiment_distribution_metrics(
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+  dimension: Annotated[NlpDimension, Query()] = NlpDimension.topic,
+  selected_dimension: Annotated[str, Query(min_length=1)] = "",
+  max_records: Annotated[int, Query(ge=1, le=5000)] = 2000,
+) -> dict[str, Any]:
+  """Return individual sentiment scores by source for one NLP dimension value."""
+
+  normalized_dimension: str = selected_dimension.strip().lower()
+  if not normalized_dimension:
+    raise HTTPException(status_code=422, detail="selected_dimension must not be empty")
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  source_expression: sql.Composable = sql.SQL(
+    "COALESCE(NULLIF(TRIM({}), ''), 'unknown')"
+  ).format(build_column_reference("source_name", "n"))
+  sentiment_expression: sql.Composable = build_sentiment_score_expression("n")
+
+  if dimension == NlpDimension.topic:
+    topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+    query: sql.Composable = sql.SQL(
+      "WITH topic_aggregation AS ("
+      "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+      "), exploded AS ("
+      "SELECT {} AS id, {} AS source_name, LOWER(TRIM(topic.value)) AS dimension, "
+      "{} AS sentiment_score FROM {} AS {} "
+      "CROSS JOIN LATERAL jsonb_array_elements_text("
+      "COALESCE({} -> 'topics', '[]'::jsonb)"
+      ") AS topic(value){}"
+      "), filtered AS ("
+      "SELECT * FROM exploded WHERE dimension <> '' AND NOT (dimension = ANY(%s::text[]))"
+      "), normalized AS ("
+      "SELECT DISTINCT COALESCE(a.canonical, f.dimension) AS dimension, f.id, f.source_name, f.sentiment_score "
+      "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.dimension = a.variant"
+      ") "
+      "SELECT dimension, source_name, sentiment_score::double precision AS sentiment_score "
+      "FROM normalized WHERE dimension = %s "
+      "ORDER BY source_name ASC, sentiment_score ASC LIMIT %s"
+    ).format(
+      build_column_reference("id", "n"),
+      source_expression,
+      sentiment_expression,
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      build_column_reference("nlp_pipeline", "n"),
+      where_sql,
+    )
+    rows: list[dict[str, Any]] = execute_query(
+      query,
+      [topic_aggregation_variants, topic_aggregation_canonicals]
+      + parameters
+      + [load_topic_stopwords(), normalized_dimension, max_records],
+    )
+  else:
+    category_expression: sql.Composable = build_threat_category_expression("n")
+    query = sql.SQL(
+      "WITH categorized AS ("
+      "SELECT {} AS id, {} AS source_name, {} AS dimension, {} AS sentiment_score "
+      "FROM {} AS {}{}"
+      ") "
+      "SELECT dimension, source_name, sentiment_score::double precision AS sentiment_score "
+      "FROM categorized WHERE dimension = %s "
+      "ORDER BY source_name ASC, sentiment_score ASC LIMIT %s"
+    ).format(
+      build_column_reference("id", "n"),
+      source_expression,
+      category_expression,
+      sentiment_expression,
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      where_sql,
+    )
+    rows = execute_query(query, parameters + [normalized_dimension, max_records])
+
+  return {
+    "metric": "sentiment-distribution",
+    "filters": serialize_filters(
+      resolved_filters,
+      {"dimension": dimension.value, "selected_dimension": normalized_dimension, "max_records": max_records},
+    ),
+    "data": rows,
+  }
+
+
 @app.get("/metrics/topic-timeline")
 def get_topic_timeline_metrics(
   topic: Annotated[str, Query(min_length=1)],
