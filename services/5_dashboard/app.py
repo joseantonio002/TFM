@@ -199,14 +199,24 @@ def render_dimension_selector(key: str) -> str:
   return DIMENSION_OPTIONS[selected_label]
 
 
-def render_ranking_chart(common_params: dict[str, Any]) -> None:
+def render_ranking_chart(common_params: dict[str, Any], selected_sources: list[str]) -> None:
   """Render the topic/category ranking bar chart."""
 
   st.subheader("News by topic or threat category")
   dimension: str = render_dimension_selector("ranking_dimension")
+  source_scope_options: list[str] = ["All filtered sources"] + selected_sources
+  selected_source_scope: str = st.selectbox(
+    "Source",
+    options=source_scope_options,
+    key="ranking_source_scope",
+  )
+  ranking_params: dict[str, Any] = {**common_params, "dimension": dimension}
+  if selected_source_scope != "All filtered sources":
+    ranking_params["source_name"] = [selected_source_scope]
+
   _, ranking_frame = load_dataframe(
     "/metrics/nlp-ranking",
-    {**common_params, "dimension": dimension},
+    ranking_params,
   )
 
   if ranking_frame.empty:
@@ -278,10 +288,18 @@ def build_heatmap_frame(
   return heatmap_frame
 
 
-def render_records_heatmap(common_params: dict[str, Any], selected_sources: list[str]) -> None:
-  """Render the source-by-dimension news-count heatmap."""
+def build_percentage_heatmap_frame(records_frame: pd.DataFrame) -> pd.DataFrame:
+  """Normalize each source column into a 0-100 percentage distribution."""
 
-  st.subheader("News count by source")
+  column_totals: pd.Series = records_frame.sum(axis=0)
+  percentage_frame: pd.DataFrame = records_frame.div(column_totals.where(column_totals != 0), axis=1) * 100
+  return percentage_frame.fillna(0)
+
+
+def render_records_heatmap(common_params: dict[str, Any], selected_sources: list[str]) -> None:
+  """Render the source-by-dimension news share heatmap."""
+
+  st.subheader("News distribution by source")
   dimension: str = render_dimension_selector("count_matrix_dimension")
   _, matrix_frame = load_dataframe(
     "/metrics/nlp-source-matrix",
@@ -292,14 +310,36 @@ def render_records_heatmap(common_params: dict[str, Any], selected_sources: list
     st.info("No data available for the selected filters.")
     return
 
-  heatmap_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "records", selected_sources)
-  figure = px.imshow(
-    heatmap_frame,
-    aspect="auto",
-    color_continuous_scale="Blues",
-    labels={"x": "Source", "y": "Topic / category", "color": "News"},
+  records_frame: pd.DataFrame = build_heatmap_frame(matrix_frame, "records", selected_sources)
+  percentage_frame: pd.DataFrame = build_percentage_heatmap_frame(records_frame)
+  hover_records: list[list[list[int]]] = [[[int(value)] for value in row] for row in records_frame.to_numpy()]
+  figure = go.Figure(
+    data=go.Heatmap(
+      z=percentage_frame.to_numpy(),
+      x=list(percentage_frame.columns),
+      y=list(percentage_frame.index),
+      customdata=hover_records,
+      colorscale=[
+        [0.0, "#F7FBFF"],
+        [0.02, "#CFE1F2"],
+        [0.05, "#6BAED6"],
+        [0.10, "#2171B5"],
+        [0.25, "#084594"],
+        [1.0, "#08306B"],
+      ],
+      zmin=0,
+      zmax=100,
+      colorbar={"title": "% news"},
+      hovertemplate=(
+        "Topic / category: %{y}<br>"
+        "Source: %{x}<br>"
+        "Share: %{z:.1f}%<br>"
+        "News: %{customdata[0]}<extra></extra>"
+      ),
+    )
   )
-  figure.update_layout(height=max(420, 28 * len(heatmap_frame)))
+  figure.update_layout(height=max(420, 28 * len(percentage_frame)))
+  figure.update_yaxes(autorange="reversed")
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -566,6 +606,7 @@ def render_topic_cooccurrence_graph(common_params: dict[str, Any]) -> None:
       mode="markers+text",
       text=list(graph.nodes),
       textposition="top center",
+      textfont={"color": "#1F2937", "size": 14},
       marker={
         "size": node_sizes,
         "color": node_colors,
@@ -699,6 +740,7 @@ def render_entity_cooccurrence_graph(base_params: dict[str, Any]) -> None:
         mode="markers+text",
         text=node_labels,
         textposition="top center",
+        textfont={"color": "#1F2937", "size": 14},
         name=entity_type,
         marker={
           "size": node_sizes,
@@ -751,7 +793,7 @@ def main() -> None:
 
   render_metric_cards(summary_frame)
   st.divider()
-  render_ranking_chart(common_params)
+  render_ranking_chart(common_params, filters["source_name"])
   st.divider()
   render_entity_ranking_chart(summary_params)
   st.divider()
