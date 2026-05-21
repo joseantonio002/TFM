@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 from functools import lru_cache
+import json
 from pathlib import Path
 from typing import Any, Annotated
 
@@ -36,6 +37,7 @@ DEFAULT_RECORD_FIELDS: list[str] = [
 ALLOWED_RECORD_FIELDS: set[str] = set(DEFAULT_RECORD_FIELDS + ["created_at"])
 TOPIC_STOPWORDS_PATH: Path = Path(__file__).with_name("topic_stopwords.txt")
 TOPIC_AGGREGATIONS_PATH: Path = Path(__file__).with_name("topic_aggregations.txt")
+SEED_LIST_PATH: Path = Path(__file__).parents[2] / "1_ingestion" / "ingestion_jsons" / "seed_list.json"
 
 app: FastAPI = FastAPI(title=API_TITLE, version=API_VERSION)
 
@@ -341,6 +343,23 @@ def build_alert_score_expression(table_alias: str | None = None) -> sql.Composab
   ).format(alert_level_expression)
 
 
+@lru_cache(maxsize=1)
+def load_source_activity_map() -> dict[str, bool]:
+  """Load source active flags from the ingestion seed list."""
+
+  if not SEED_LIST_PATH.exists():
+    return {}
+  seed_list: dict[str, Any] = json.loads(SEED_LIST_PATH.read_text(encoding="utf-8"))
+  activity_map: dict[str, bool] = {}
+  for source_data in seed_list.values():
+    if not isinstance(source_data, dict):
+      continue
+    source_name: str = str(source_data.get("source_name", "")).strip()
+    if source_name:
+      activity_map[source_name] = bool(source_data.get("is_active", False))
+  return activity_map
+
+
 def execute_query(query: sql.Composable, parameters: list[Any]) -> list[dict[str, Any]]:
   """Execute a SQL query and return all rows as dictionaries."""
 
@@ -407,6 +426,8 @@ def get_sources() -> dict[str, Any]:
     "GROUP BY source_name ORDER BY source_name ASC"
   ).format(sql.Identifier(NEWS_TABLE_NAME))
   rows: list[dict[str, Any]] = execute_query(query, [])
+  source_activity: dict[str, bool] = load_source_activity_map()
+  rows = [row for row in rows if source_activity.get(str(row["source_name"]), True)]
 
   return {
     "metric": "sources",

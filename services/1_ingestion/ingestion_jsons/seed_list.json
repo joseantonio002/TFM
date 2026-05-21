@@ -25,7 +25,7 @@
     "country": "ES",
     "default_connector_id": "TV/RadioES",
     "description": "Free 24-hour news channel covering national and international current affairs",
-    "is_active": true
+    "is_active": false
   },
   "9LaLomaTV": {
     "source_name": "9 La Loma TV",
@@ -39,7 +39,7 @@
     "country": "ES",
     "default_connector_id": "TV/RadioES",
     "description": "Local television channel with news and programs focused on La Loma and surrounding areas",
-    "is_active": true
+    "is_active": false
   },
   "RNERadio5TodoNoticiasMurcia": {
     "source_name": "RNE Radio 5 Todo Noticias (Murcia)",
@@ -82,7 +82,7 @@
     "country": "ES",
     "default_connector_id": "TV/RadioES",
     "description": "Public general-interest radio station with news, culture, and magazine-style programming",
-    "is_active": true
+    "is_active": false
   },
   "esRadio": {
     "source_name": "esRadio",
@@ -111,19 +111,6 @@
     "country": "ES",
     "default_connector_id": "TV/RadioES",
     "description": "Regional public radio station with news, sports, and programs focused on Murcia",
-    "is_active": true
-  },
-  "borrar": {
-    "source_name": "Nevuana",
-    "source_type": "adssafaf",
-    "source_url": "https://example.com/live.m3u8",
-    "source_tags": [
-      "news"
-    ],
-    "lang": "es",
-    "country": "ES",
-    "default_connector_id": "TV/RadioES",
-    "description": "Describe la fuente de datos",
     "is_active": true
   }
 }
