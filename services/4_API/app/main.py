@@ -74,6 +74,13 @@ class NlpDimension(str, Enum):
   threat_category = "threat_category"
 
 
+class CategoryBreakdownDimension(str, Enum):
+  """Supported breakdown dimensions inside a threat category."""
+
+  topic = "topic"
+  entity = "entity"
+
+
 class CommonFilters(BaseModel):
   """Validated common filters shared across records and metrics endpoints."""
 
@@ -586,6 +593,113 @@ def get_entity_ranking_metrics(
     "filters": serialize_filters(
       resolved_filters,
       {"entity_type": entity_type.value, "limit": limit},
+    ),
+    "data": rows,
+  }
+
+
+@app.get("/metrics/category-breakdown")
+def get_category_breakdown_metrics(
+  filters: Annotated[CommonFilters, Depends(get_common_filters)] = None,
+  threat_category: Annotated[str, Query(min_length=1)] = "",
+  breakdown: Annotated[CategoryBreakdownDimension, Query()] = CategoryBreakdownDimension.topic,
+  limit: Annotated[int, Query(ge=1, le=100)] = 15,
+) -> dict[str, Any]:
+  """Return top topics or entities within one threat category."""
+
+  normalized_category: str = threat_category.strip().lower()
+  if not normalized_category:
+    raise HTTPException(status_code=422, detail="threat_category must not be empty")
+
+  resolved_filters: CommonFilters = filters or get_common_filters()
+  where_sql, parameters = build_common_filters_sql(resolved_filters, table_alias="n")
+  category_expression: sql.Composable = build_threat_category_expression("n")
+
+  if breakdown == CategoryBreakdownDimension.topic:
+    topic_aggregation_variants, topic_aggregation_canonicals = load_topic_aggregation_pairs()
+    query: sql.Composable = sql.SQL(
+      "WITH topic_aggregation AS ("
+      "SELECT * FROM unnest(%s::text[], %s::text[]) AS t(variant, canonical)"
+      "), exploded AS ("
+      "SELECT {} AS id, {} AS threat_category, LOWER(TRIM(topic.value)) AS raw_topic "
+      "FROM {} AS {} CROSS JOIN LATERAL jsonb_array_elements_text("
+      "COALESCE({} -> 'topics', '[]'::jsonb)"
+      ") AS topic(value){}"
+      "), filtered AS ("
+      "SELECT id, raw_topic FROM exploded "
+      "WHERE threat_category = %s AND raw_topic <> '' AND NOT (raw_topic = ANY(%s::text[]))"
+      "), normalized AS ("
+      "SELECT DISTINCT id, COALESCE(a.canonical, f.raw_topic) AS item "
+      "FROM filtered AS f LEFT JOIN topic_aggregation AS a ON f.raw_topic = a.variant"
+      ") "
+      "SELECT item, 'topic' AS item_type, COUNT(DISTINCT id)::int AS records, COUNT(*)::int AS mentions "
+      "FROM normalized GROUP BY item ORDER BY records DESC, item ASC LIMIT %s"
+    ).format(
+      build_column_reference("id", "n"),
+      category_expression,
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      build_column_reference("nlp_pipeline", "n"),
+      where_sql,
+    )
+    rows: list[dict[str, Any]] = execute_query(
+      query,
+      [topic_aggregation_variants, topic_aggregation_canonicals]
+      + parameters
+      + [normalized_category, load_topic_stopwords(), limit],
+    )
+  else:
+    query = sql.SQL(
+      "WITH raw_entities AS ("
+      "SELECT {} AS id, {} AS threat_category, 'PER' AS entity_type, "
+      "jsonb_array_elements_text(COALESCE({} -> 'entities' -> 'PER', '[]'::jsonb)) AS entity "
+      "FROM {} AS {}{} "
+      "UNION ALL "
+      "SELECT {} AS id, {} AS threat_category, 'LOC' AS entity_type, "
+      "jsonb_array_elements_text(COALESCE({} -> 'entities' -> 'LOC', '[]'::jsonb)) AS entity "
+      "FROM {} AS {}{} "
+      "UNION ALL "
+      "SELECT {} AS id, {} AS threat_category, 'ORG' AS entity_type, "
+      "jsonb_array_elements_text(COALESCE({} -> 'entities' -> 'ORG', '[]'::jsonb)) AS entity "
+      "FROM {} AS {}{}"
+      "), filtered AS ("
+      "SELECT id, entity_type, TRIM(entity) AS entity, LOWER(TRIM(entity)) AS normalized_entity "
+      "FROM raw_entities WHERE threat_category = %s AND TRIM(entity) <> '' "
+      "AND NOT (LOWER(TRIM(entity)) = ANY(%s::text[]))"
+      "), normalized AS ("
+      "SELECT id, entity_type, normalized_entity, MIN(entity) AS item "
+      "FROM filtered GROUP BY id, entity_type, normalized_entity"
+      ") "
+      "SELECT item, entity_type AS item_type, COUNT(DISTINCT id)::int AS records, COUNT(*)::int AS mentions "
+      "FROM normalized GROUP BY item, entity_type "
+      "ORDER BY mentions DESC, records DESC, item ASC LIMIT %s"
+    ).format(
+      build_column_reference("id", "n"),
+      category_expression,
+      build_column_reference("nlp_pipeline", "n"),
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      where_sql,
+      build_column_reference("id", "n"),
+      category_expression,
+      build_column_reference("nlp_pipeline", "n"),
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      where_sql,
+      build_column_reference("id", "n"),
+      category_expression,
+      build_column_reference("nlp_pipeline", "n"),
+      sql.Identifier(NEWS_TABLE_NAME),
+      sql.Identifier("n"),
+      where_sql,
+    )
+    rows = execute_query(query, parameters + parameters + parameters + [normalized_category, load_topic_stopwords(), limit])
+
+  return {
+    "metric": "category-breakdown",
+    "filters": serialize_filters(
+      resolved_filters,
+      {"threat_category": normalized_category, "breakdown": breakdown.value, "limit": limit},
     ),
     "data": rows,
   }

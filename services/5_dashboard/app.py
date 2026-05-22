@@ -18,6 +18,10 @@ import streamlit as st
 
 API_BASE_URL: str = os.getenv("NEWS_API_BASE_URL", "http://localhost:8000").rstrip("/")
 REQUEST_TIMEOUT_SECONDS: int = 20
+CATEGORY_BREAKDOWN_LIMIT: int = 15
+AXIS_TITLE_FONT_SIZE: int = 16
+AXIS_TICK_FONT_SIZE: int = 14
+NODE_LABEL_FONT_SIZE: int = 16
 DIMENSION_OPTIONS: dict[str, str] = {
   "Topics": "topic",
   "Threat categories": "threat_category",
@@ -29,6 +33,19 @@ ENTITY_TYPE_COLORS: dict[str, str] = {
   "ORG": "#D87A22",
 }
 ALERT_LEVELS: list[str] = ["info", "low", "medium", "high", "critical"]
+
+
+def apply_axis_font(figure: go.Figure) -> None:
+  """Increase axis title and tick label fonts for Plotly figures."""
+
+  figure.update_xaxes(
+    title_font={"size": AXIS_TITLE_FONT_SIZE},
+    tickfont={"size": AXIS_TICK_FONT_SIZE},
+  )
+  figure.update_yaxes(
+    title_font={"size": AXIS_TITLE_FONT_SIZE},
+    tickfont={"size": AXIS_TICK_FONT_SIZE},
+  )
 
 
 def build_iso_datetime(input_date: date | None, end_of_day: bool = False) -> str | None:
@@ -228,6 +245,7 @@ def render_ranking_chart(common_params: dict[str, Any], selected_sources: list[s
     labels={"dimension": "Topic / category", "records": "News"},
   )
   figure.update_layout(height=max(420, 28 * len(chart_frame)))
+  apply_axis_font(figure)
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -259,6 +277,68 @@ def render_entity_ranking_chart(base_params: dict[str, Any]) -> None:
     hover_data={"records": True, "mentions": True, "entity": False},
   )
   figure.update_layout(height=max(420, 32 * len(chart_frame)))
+  apply_axis_font(figure)
+  st.plotly_chart(figure, use_container_width=True)
+
+
+def render_category_breakdown_chart(base_params: dict[str, Any]) -> None:
+  """Render top topics or entities inside one threat category."""
+
+  st.subheader("Top topics or entities by threat category")
+  _, category_frame = load_dataframe(
+    "/metrics/nlp-ranking",
+    {**base_params, "dimension": "threat_category", "limit": 100},
+  )
+  if category_frame.empty or "dimension" not in category_frame.columns:
+    st.info("No threat categories available for the selected filters.")
+    return
+
+  category_options: list[str] = category_frame["dimension"].dropna().astype(str).tolist()
+  if not category_options:
+    st.info("No threat categories available for the selected filters.")
+    return
+  if st.session_state.get("category_breakdown_category") not in category_options:
+    st.session_state["category_breakdown_category"] = category_options[0]
+
+  selected_breakdown_label: str = st.radio(
+    "Breakdown",
+    options=["Topics", "Entities"],
+    horizontal=True,
+    key="category_breakdown_type",
+  )
+  selected_category: str = st.selectbox(
+    "Threat category",
+    options=category_options,
+    key="category_breakdown_category",
+  )
+  selected_breakdown: str = "topic" if selected_breakdown_label == "Topics" else "entity"
+  _, breakdown_frame = load_dataframe(
+    "/metrics/category-breakdown",
+    {
+      **base_params,
+      "threat_category": selected_category,
+      "breakdown": selected_breakdown,
+      "limit": CATEGORY_BREAKDOWN_LIMIT,
+    },
+  )
+  if breakdown_frame.empty:
+    st.info("No topics or entities available for the selected category.")
+    return
+
+  chart_frame: pd.DataFrame = breakdown_frame.sort_values("records", ascending=True)
+  chart_frame["label"] = chart_frame["item"].astype(str)
+  if selected_breakdown == "entity":
+    chart_frame["label"] = chart_frame["label"] + " (" + chart_frame["item_type"].astype(str) + ")"
+  figure = px.bar(
+    chart_frame,
+    x="records",
+    y="label",
+    orientation="h",
+    labels={"label": "Topic / entity", "records": "News", "mentions": "Mentions"},
+    hover_data={"mentions": True, "label": False},
+  )
+  figure.update_layout(height=max(420, 30 * len(chart_frame)))
+  apply_axis_font(figure)
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -336,6 +416,7 @@ def render_records_heatmap(common_params: dict[str, Any], selected_sources: list
   )
   figure.update_layout(height=max(420, 28 * len(percentage_frame)))
   figure.update_yaxes(autorange="reversed")
+  apply_axis_font(figure)
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -396,6 +477,7 @@ def render_sentiment_distribution_plot(common_params: dict[str, Any], selected_s
     showlegend=False,
   )
   figure.update_yaxes(range=[-1, 1])
+  apply_axis_font(figure)
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -481,6 +563,7 @@ def render_topic_timeline_chart(common_params: dict[str, Any]) -> None:
     xaxis_title="Date",
     legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
   )
+  apply_axis_font(figure)
   st.plotly_chart(figure, use_container_width=True)
 
 
@@ -585,7 +668,7 @@ def render_topic_cooccurrence_graph(common_params: dict[str, Any]) -> None:
       mode="markers+text",
       text=list(graph.nodes),
       textposition="top center",
-      textfont={"color": "#1F2937", "size": 14},
+      textfont={"color": "#1F2937", "size": NODE_LABEL_FONT_SIZE},
       marker={
         "size": node_sizes,
         "color": node_colors,
@@ -719,7 +802,7 @@ def render_entity_cooccurrence_graph(base_params: dict[str, Any]) -> None:
         mode="markers+text",
         text=node_labels,
         textposition="top center",
-        textfont={"color": "#1F2937", "size": 14},
+        textfont={"color": "#1F2937", "size": NODE_LABEL_FONT_SIZE},
         name=entity_type,
         marker={
           "size": node_sizes,
@@ -773,6 +856,8 @@ def main() -> None:
   render_metric_cards(summary_frame)
   st.divider()
   render_ranking_chart(common_params, filters["source_name"])
+  st.divider()
+  render_category_breakdown_chart(summary_params)
   st.divider()
   render_entity_ranking_chart(summary_params)
   st.divider()

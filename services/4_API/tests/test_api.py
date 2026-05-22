@@ -175,6 +175,31 @@ def test_entity_ranking_endpoint(base_url: str, api_session: requests.Session) -
     assert isinstance(row["records"], int)
 
 
+def test_category_breakdown_endpoint(base_url: str, api_session: requests.Session) -> None:
+  """Verify that category breakdown returns top topics or entities."""
+
+  response: requests.Response = api_session.get(
+    f"{base_url}/metrics/category-breakdown",
+    params={"threat_category": "unknown", "breakdown": "entity", "limit": 5},
+    timeout=10,
+  )
+
+  assert response.status_code == 200
+  payload: dict[str, Any] = response.json()
+  assert payload["metric"] == "category-breakdown"
+  assert payload["filters"]["threat_category"] == "unknown"
+  assert payload["filters"]["breakdown"] == "entity"
+  assert payload["filters"]["limit"] == 5
+  assert isinstance(payload["data"], list)
+  assert len(payload["data"]) <= 5
+  for row in payload["data"]:
+    assert set(row.keys()) == {"item", "item_type", "records", "mentions"}
+    assert isinstance(row["item"], str)
+    assert isinstance(row["item_type"], str)
+    assert isinstance(row["records"], int)
+    assert isinstance(row["mentions"], int)
+
+
 def test_nlp_ranking_endpoint(base_url: str, api_session: requests.Session) -> None:
   """Verify that NLP ranking returns topics or threat categories."""
 
