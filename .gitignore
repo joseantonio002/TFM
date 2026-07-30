@@ -33,3 +33,5 @@ common/
 services/pipeline_NLP/outputs_nlp_pipeline/
 
 *logs/
+
+.opencode
