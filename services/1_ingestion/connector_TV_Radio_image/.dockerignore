@@ -8,3 +8,4 @@ sources.json
 pipeline_*/
 outputs/
 doc.md
+whisper.cpp/

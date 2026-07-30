@@ -1,5 +1,7 @@
 FROM ubuntu:24.04
 
+ARG WHISPER_CPP_REF=v1.7.5
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV VIRTUAL_ENV=/opt/venv
 ENV PATH="/opt/venv/bin:${PATH}"
@@ -19,13 +21,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
   build-essential \
   cmake \
   ffmpeg \
+  git \
   openjdk-21-jdk \
-  software-properties-common && \
+  software-properties-common \
+  ca-certificates && \
   add-apt-repository ppa:deadsnakes/ppa -y && \
   apt-get update && \
   apt-get install -y --no-install-recommends python3.12 python3.12-venv && \
   rm -rf /var/lib/apt/lists/*
-
 
 RUN python3.12 -m venv "${VIRTUAL_ENV}"
 
@@ -35,6 +38,9 @@ RUN pip install --no-cache-dir --upgrade pip setuptools wheel && \
   pip install --no-cache-dir -r requirements.txt
 
 COPY . .
+
+RUN git clone --depth 1 --branch "${WHISPER_CPP_REF}" \
+  https://github.com/ggml-org/whisper.cpp.git whisper.cpp
 
 RUN mkdir -p /opt/intel/openvino_2024.6.0 && \
     tar -xf openvino_2024.6.0.tgz -C /opt/intel/openvino_2024.6.0 --strip-components=1 && \
