@@ -1,10 +1,24 @@
+<p align="center">
+  <picture>
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="./meta/open-media-intelligence-logo-dark.svg"
+    >
+    <img
+      src="./meta/open-media-intelligence-logo-light.svg"
+      alt="Open Media Intelligence Platform"
+      width="480"
+    >
+  </picture>
+</p>
+
 # Open Media Intelligence Platform
 
 A self-hosted OSINT platform for ingesting and transforming heterogeneous news sources into structured, searchable, and semantically enriched intelligence.
 
 Live TV and radio sources are supported out of the box. The platform is designed to run continuously, periodically collecting information from configured sources and making the processed results available through an interactive dashboard.
 
-[<video src="video.mp4" controls width="700"></video>
+[<video src="./meta/video.mp4" controls width="700"></video>
 ](https://private-user-images.githubusercontent.com/72304309/616974602-8d1b7f6f-9c4b-41c2-9d09-4937145d2dbd.mp4?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODMxMDM5NzksIm5iZiI6MTc4MzEwMzY3OSwicGF0aCI6Ii83MjMwNDMwOS82MTY5NzQ2MDItOGQxYjdmNmYtOWM0Yi00MWMyLTlkMDktNDkzNzE0NWQyZGJkLm1wND9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA3MDMlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNzAzVDE4MzQzOVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPThhNzY2MzE1NmMxZDgzMzdhMmNhNzg5NmYwYjkwY2YzY2ZhNWIxNDUyNjA5MTUxOWJkMzkyZDQ4ZDQ0OTc4MDEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT12aWRlbyUyRm1wNCJ9.Hr34ZAPvNWPMtV6VjJD8-QxVF2wJr6hklHRqj4pHm1c)
 
 ## Requirements
@@ -62,7 +76,7 @@ Open Media Intelligence Platform is designed to run continuously. The longer it 
 
 ## How the Platform Works
 
-![Platform architecture](./architecture.png)
+![Platform architecture](./meta/architecture.png)
 
 The platform separates ingestion, processing, storage, and visualization into independent Docker services.
 
