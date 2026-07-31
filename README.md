@@ -38,20 +38,34 @@ git clone <repository-url>
 cd <repository-directory>
 ```
 
-### 2. Build the TV and radio connector
+### 2. Build required images
 
-From the repository root, run:
+From the repository root, run this to build the connector image:
 
 ```bash
 cd connectors/TV_Radio_connector
 docker image build -t connector_tv_radio_image:latest .
 ```
 
-### 3. Start the platform
+Then this to build the processing step image:
 
 ```bash
-cd ../../services
-docker compose up -d
+cd ../services/2_pipeline_NLP/
+docker image build -t pipeline_nlp:latest .
+```
+And this to build the load step:
+
+```bash
+cd ../3_database/
+docker image build -t insert_into_db:latest .
+```
+
+### 3. Start the platform
+
+Using .env.example
+```bash
+cd ../services
+docker compose --env-file .env.example up -d
 ```
 
 This starts all platform services and enables scheduled data collection for the configured DAGs.
