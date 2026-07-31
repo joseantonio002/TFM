@@ -7,5 +7,6 @@ execution_starting_date.txt
 sources.json
 pipeline_*/
 outputs/
-doc.md
+docs/
 whisper.cpp/
+test_segment_embeddings/
