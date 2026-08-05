@@ -32,8 +32,8 @@ Before starting the platform, make sure the following tools are installed:
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd <repository-directory>
+git clone git@github.com:joseantonio002/Open-Media-Intelligence-Platform.git
+cd Open-Media-Intelligence-Platform
 ```
 
 ### 2. Build required images
