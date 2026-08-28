@@ -14,7 +14,7 @@
 
 # Open Media Intelligence Platform
 
-A self-hosted OSINT platform for ingesting and transforming heterogeneous news sources into structured, searchable, and semantically enriched intelligence.
+A self-hosted OSINT data platform for ingesting and transforming heterogeneous news sources into structured, searchable, and semantically enriched intelligence.
 
 Live TV and radio sources are supported out of the box. The platform is designed to run continuously, periodically collecting information from configured sources and making the processed results available through an interactive dashboard.
 
