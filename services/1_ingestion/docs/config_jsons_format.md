@@ -1,3 +1,155 @@
+# Program JSON Files
+
+The program will use the following JSON files:
+
+* `seed_list.json` → list of data sources.
+* `connectors.json` → list of connectors and their associated image.
+* `dags.json` → each entry represents an Airflow DAG.
+
+---
+
+## `dags.json`
+
+Each entry represents an Airflow DAG.
+
+Within each DAG:
+
+* Parameters such as `schedule` and other configuration values are obtained from their corresponding entry in this file.
+
+### Source of truth
+
+The sources of truth must always be respected:
+
+* Sources must be defined in `seed_list.json`.
+* Connectors must be defined in `connectors.json`.
+* DAGs must only reference that information.
+
+---
+
+# `seed_list.json` Schema
+
+The main key corresponds to the seed ID.
+
+```json
+{
+  "tv_24h_es": {
+    "source_name": "24 Horas",
+    "source_type": "tv",
+    "source_url": "https://www.rtve.es/play/videos/telediario-24-horas/",
+    "lang": "es",
+    "country": "ES",
+    "is_active": true,
+    "default_connector_id": "tv_radio_es",
+    "description": "RTVE news program",
+    "source_tags": [
+      "news",
+      "television",
+      "spain"
+    ]
+  }
+}
+```
+
+---
+
+# `connectors.json` Schema
+
+```json
+{
+  "connector_id": {
+    "description": "Explains how the connector works, which parameters it accepts, and any relevant details. It must not be a short description.",
+    "connector_name": "TV/RadioES",
+    "docker_image": "TV_Radio_image",
+    "accepted_sources": [
+      "24horas",
+      "actualidad"
+    ],
+    "accepted_source_types": [
+      "tv",
+      "radio"
+    ],
+    "default_sources": [seed_id1, seed_id2],
+    "accepted_params": {
+      "example": "Example parameter that performs X. Possible values: [value1, value2]",
+      "example2": "Example parameter that performs Y. Integer type"
+    },
+    "is_active": true
+  }
+}
+```
+
+## Optional fields
+
+* `accepted_sources`
+* `accepted_source_types`
+* `accepted_params`
+
+## Required fields
+
+* `default_sources`
+
+### `default_sources` behavior
+
+It must contain one or more seeds that the connector will read by default.
+
+If sources are later specified in `dags.json`, they **override** `default_sources`.
+
+---
+
+# `dags.json` Schema
+
+```json
+{
+  "dag_id": {
+    "connector_id": "connector ID",
+    "task_id": "Airflow task ID",
+    "schedule": "task schedule in Airflow format",
+    "start_date": "point from which Airflow starts determining when to create the first DAG Run; use the same string that would be specified directly in the DAG",
+    "seed_ids": [seed_id1, seed_id2],
+    "params": {
+      "parameter1": "value",
+      "parameter2": "value"
+    }
+  }
+}
+```
+
+> Note: `dags.json` does not have an `is_active` field because this is managed through the Airflow UI.
+
+## Field descriptions
+
+* `connector_id` → used to obtain the corresponding connector image.
+* `task_id` → task identifier in Airflow.
+* `schedule` → execution schedule in Airflow format.
+* `seed_ids` *(optional)* → list of seeds that will be passed as parameters. The `seed_id` is stored, and the corresponding URL is later retrieved from `seed_list.json -> source_url`.
+* `params` *(optional)* → parameters sent when creating the container.
+
+---
+
+## `seed_ids` behavior
+
+If `seed_ids` is defined:
+
+* it overrides the default sources defined in `connectors.json`
+* the sources will be validated using:
+
+  * `accepted_sources`
+  * `accepted_source_types`
+
+---
+
+# Important Rule
+
+**One or more sources must always be passed as parameters.**
+
+If no source is specified in the DAG, the sources defined in `default_sources` within `connectors.json` will be used automatically.
+
+---
+
+
+
+
+
 # Ficheros JSON del programa
 
 El programa utilizará los siguientes ficheros JSON:
